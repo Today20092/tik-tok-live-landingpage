@@ -14,7 +14,7 @@ The site features a beautiful dynamic design with an authentic Islamic geometric
 
 ## 🔗 Live URL
 
-*(If you have deployed this project, you can access the live version here: [Insert Live URL Here] - e.g., https://your-project.vercel.app)*
+The project is live at: [https://today20092.github.io/tik-tok-live-landingpage/](https://today20092.github.io/tik-tok-live-landingpage/)
 
 ## 🛠️ How to Access and Run Locally
 
