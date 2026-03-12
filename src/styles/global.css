@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -5,77 +7,51 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+/* Islamic Geometric Pattern SVG */
+.geometric-pattern {
+  background-image: url('data:image/svg+xml;utf8,<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="geometric" patternUnits="userSpaceOnUse" width="80" height="80"><g fill="none" stroke="%232C3E50" stroke-width="0.5" opacity="0.06"><polygon points="40,10 60,25 60,55 40,70 20,55 20,25"/><polygon points="10,40 25,20 55,20 70,40 55,60 25,60"/><circle cx="40" cy="40" r="15"/><path d="M 40 10 L 60 25 M 60 55 L 40 70 M 20 55 L 20 25"/></g></pattern></defs><rect width="100%" height="100%" fill="none"/><rect width="100%" height="100%" fill="url(%23geometric)"/></svg>');
+  background-attachment: fixed;
 }
 
-.dark {
-    --background: oklch(0.1 0 0);
-    --foreground: oklch(0.98 0 0);
-    --card: oklch(0.16 0 0);
-    --card-foreground: oklch(0.98 0 0);
-    --popover: oklch(0.16 0 0);
-    --popover-foreground: oklch(0.98 0 0);
-    --primary: oklch(0.78 0.15 85);
-    --primary-foreground: oklch(0.1 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.78 0.15 85);
-    --accent-foreground: oklch(0.1 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.78 0.15 85);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --sidebar: oklch(0.16 0 0);
-    --sidebar-foreground: oklch(0.98 0 0);
-    --sidebar-primary: oklch(0.78 0.15 85);
-    --sidebar-primary-foreground: oklch(0.1 0 0);
-    --sidebar-accent: oklch(0.78 0.15 85);
-    --sidebar-accent-foreground: oklch(0.1 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.78 0.15 85);
+:root {
+    /* Modern Heritage - Light Theme */
+    --background: oklch(0.96 0.01 80);        /* Off-white #F4F3EF */
+    --foreground: oklch(0.28 0.04 250);       /* Deep slate blue #2C3E50 */
+    --card: oklch(0.98 0.005 80);             /* Slightly lighter than background */
+    --card-foreground: oklch(0.28 0.04 250);  /* Deep slate */
+    --popover: oklch(0.98 0.005 80);
+    --popover-foreground: oklch(0.28 0.04 250);
+    --primary: oklch(0.54 0.08 165);          /* Sage green #6B8E7D */
+    --primary-foreground: oklch(0.96 0 0);    /* Off-white text on green */
+    --secondary: oklch(0.28 0.04 250);        /* Deep slate */
+    --secondary-foreground: oklch(0.96 0 0);
+    --muted: oklch(0.72 0.02 250);            /* Muted slate */
+    --muted-foreground: oklch(0.48 0.03 250); /* Medium slate for secondary text */
+    --accent: oklch(0.64 0.13 65);            /* Bronze/gold #C5A059 */
+    --accent-foreground: oklch(0.96 0 0);     /* Off-white on accent */
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.28 0.04 250 / 12%);     /* Subtle slate borders */
+    --input: oklch(0.28 0.04 250 / 8%);
+    --ring: oklch(0.54 0.08 165);             /* Sage green focus ring */
+    --chart-1: oklch(0.54 0.08 165);          /* Sage green */
+    --chart-2: oklch(0.64 0.13 65);           /* Bronze/gold */
+    --chart-3: oklch(0.58 0.1 200);           /* Teal */
+    --chart-4: oklch(0.62 0.12 30);           /* Terracotta */
+    --chart-5: oklch(0.56 0.09 130);          /* Muted green */
+    --radius: 0.625rem;
+    --sidebar: oklch(0.98 0.005 80);
+    --sidebar-foreground: oklch(0.28 0.04 250);
+    --sidebar-primary: oklch(0.54 0.08 165);
+    --sidebar-primary-foreground: oklch(0.96 0 0);
+    --sidebar-accent: oklch(0.64 0.13 65);
+    --sidebar-accent-foreground: oklch(0.96 0 0);
+    --sidebar-border: oklch(0.28 0.04 250 / 12%);
+    --sidebar-ring: oklch(0.54 0.08 165);
 }
 
 @theme inline {
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -122,8 +98,31 @@
     }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 20% 50%, oklch(0.54 0.08 165 / 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, oklch(0.64 0.13 65 / 0.03) 0%, transparent 50%);
     }
   html {
     @apply font-sans;
     }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    letter-spacing: -0.02em;
+    }
+}
+
+@layer components {
+  .card-glow {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, oklch(0.98 0.005 80), oklch(0.96 0.02 120 / 0.4));
+    border-color: oklch(0.28 0.04 250 / 12%);
+  }
+
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, oklch(0.54 0.08 165 / 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
 }

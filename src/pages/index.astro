@@ -35,19 +35,19 @@ const faqItems = faqMarkdown
   });
 ---
 
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="color-scheme" content="dark" />
-		<meta name="theme-color" content="#1a1a1a" />
-		<title>@AyoubAbedrabbo — Quran Reading Sessions</title>
-		<meta name="description" content="Join daily Quran reading sessions in English. Resources, answers, and links for those curious about Islam." />
+		<meta name="color-scheme" content="light" />
+		<meta name="theme-color" content="#F4F3EF" />
+		<title>Islamic Education — Resources for Seekers</title>
+		<meta name="description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
 	</head>
-	<body class="bg-background text-foreground min-h-screen">
+	<body class="bg-background text-foreground min-h-screen geometric-pattern">
 		<div class="max-w-2xl mx-auto px-4 py-16 md:py-20">
 			<!-- Header / Hero -->
 			<section class="mb-16 md:mb-20 text-center">
@@ -59,20 +59,20 @@ const faqItems = faqMarkdown
 						</div>
 					</div>
 					<h1 class="text-4xl md:text-5xl font-serif font-bold text-foreground mb-2 tracking-tight">
-						@AyoubAbedrabbo
+						Islamic Education
 					</h1>
 					<p class="text-foreground/70 text-sm md:text-base leading-relaxed">
-						Reading the Quran in English · TikTok Live
+						Understanding Tawhid, the Five Pillars, and Islamic Practice
 					</p>
 				</div>
 
 				<a
-					href="https://www.tiktok.com/@ayoubabedrabbo"
+					href="https://quran.com"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="inline-block px-5 py-2 text-xs font-medium rounded-full border border-accent/60 text-accent hover:border-accent hover:bg-accent/5 transition-all duration-300"
 				>
-					Follow on TikTok
+					Start with the Quran
 				</a>
 			</section>
 
@@ -83,7 +83,7 @@ const faqItems = faqMarkdown
 
 			<!-- Links Section -->
 			<section class="mb-16">
-				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">Resources & Links</h2>
+				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">Primary Sources & Resources</h2>
 				<div class="space-y-4">
 					{linksData.map((link: any) => (
 						<LinkCard
@@ -99,14 +99,14 @@ const faqItems = faqMarkdown
 
 			<!-- FAQ Section -->
 			<section class="mb-16">
-				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">Common Questions</h2>
+				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">The Why: Understanding Islamic Concepts</h2>
 				<FAQ client:load items={faqItems} />
 			</section>
 
 			<!-- Footer -->
 			<footer class="pt-12 border-t border-border/20 text-center text-sm text-foreground/50">
 				<p class="mb-3 text-foreground/70 font-serif tracking-wide">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-				<p class="text-xs">© 2024 @AyoubAbedrabbo · TikTok Live</p>
+				<p class="text-xs">© 2026 Islamic Education Resource · For Seekers and Learners</p>
 			</footer>
 		</div>
 	</body>
