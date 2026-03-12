@@ -9,10 +9,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://today20092.github.io',
-  base:
-    process.env.NODE_ENV === 'production'
-      ? '/tik-tok-live-landingpage/'
-      : undefined,
+  base: '/tik-tok-live-landingpage/',
   vite: {
     plugins: [tailwindcss()],
   },
