@@ -14,12 +14,16 @@ The page is designed for easy maintenance — users edit plain markdown and JSON
 
 ### ✨ Design Principles (Refactoring UI)
 
+> **Always apply Refactoring UI design principles when making any visual or UI change.** Every design decision should be evaluated against these principles before implementation.
+
 - **Refined Minimalism**: Generous whitespace, sophisticated typography (serif headlines + refined sans-serif body)
 - **Spiritual Resonance**: Contemplative, welcoming aesthetic (never corporate or heavy)
 - **Content-First**: Page layout and styling serve the message, not the other way around
 - **Hierarchy through contrast**: Use font size, weight, and color opacity to establish visual hierarchy — not just size alone
 - **Limit your palette**: Use opacity variants (`text-foreground/65`, `/85`) instead of adding new colors for secondary text
 - **Accessibility (WCAG AAA)**: Both light and dark themes meet AAA contrast ratios
+- **Show, don't just hint**: Default-open first items in accordions/expandables so users understand what they'll get
+- **Reduce visual noise**: Fewer borders/decorations — let whitespace and typography do the work
 
 ### 🛠️ Technical Philosophy
 

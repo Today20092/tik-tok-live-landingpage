@@ -18,7 +18,7 @@ export default function DrawingSection({
   items,
 }: DrawingSectionProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(true);
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'Enter' || e.key === ' ') {

@@ -16,7 +16,7 @@ export default function FAQ({
   items,
 }: FAQProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(true);
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -33,7 +33,7 @@ export default function FAQ({
         className="group focus-visible:ring-accent/50 mb-6 -ml-2 flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-left focus-visible:ring-2 focus-visible:outline-none"
         aria-expanded={isSectionOpen}
       >
-        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-3xl">
+        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-4xl">
           {title}
         </h2>
         <div className="bg-accent/5 group-hover:bg-accent/10 group-hover:border-accent/20 rounded-full border border-transparent p-2 transition-all duration-300">
@@ -74,12 +74,17 @@ export default function FAQ({
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   aria-expanded={expandedIdx === idx}
                   aria-controls={contentId}
-                  className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-y border-r border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm focus-visible:ring-2 focus-visible:outline-none"
+                  className="card-glow border-l-accent hover:border-accent/60 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm focus-visible:ring-2 focus-visible:outline-none"
                 >
                   <div className="relative z-10 flex w-full items-center justify-between gap-3">
-                    <h3 className="text-foreground/95 group-hover:text-foreground flex-1 font-semibold transition-colors duration-300">
-                      {faq.question}
-                    </h3>
+                    <div className="flex flex-1 items-baseline gap-3">
+                      <span className="text-foreground/30 font-mono text-xs shrink-0">
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="text-foreground/95 group-hover:text-foreground font-semibold transition-colors duration-300">
+                        {faq.question}
+                      </h3>
+                    </div>
                     <ChevronDown
                       size={20}
                       aria-hidden="true"
@@ -99,7 +104,7 @@ export default function FAQ({
                   >
                     <div className="overflow-hidden">
                       <div
-                        className="text-foreground/70 prose dark:prose-invert relative z-10 max-w-none text-sm leading-relaxed"
+                        className="text-foreground/70 prose dark:prose-invert relative z-10 max-w-none text-base leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: faq.answer }}
                       />
                     </div>

@@ -6,7 +6,7 @@ interface BioBlurbProps {
 }
 
 export default function BioBlurb({ html }: BioBlurbProps) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const lines = html
     .split('\n')
     .filter((line) => line.trim() && line.trim() !== '<p></p>');
