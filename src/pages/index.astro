@@ -1,17 +1,95 @@
 ---
-
+import '../styles/global.css';
+import BioBlurb from '@/components/BioBlurb';
+import LinkCard from '@/components/LinkCard';
+import FAQ from '@/components/FAQ';
 ---
 
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>@AyoubAbedrabbo — Quran Reading Sessions</title>
+		<meta name="description" content="Join daily Quran reading sessions in English. Resources, answers, and links for those curious about Islam." />
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="bg-background text-foreground min-h-screen">
+		<div class="max-w-2xl mx-auto px-4 py-12">
+			<!-- Header / Hero -->
+			<section class="mb-12 text-center">
+				<div class="mb-6">
+					<div class="inline-block mb-4">
+						<div class="w-24 h-24 mx-auto rounded-full border-4 border-accent overflow-hidden bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center">
+							<span class="text-5xl">☪️</span>
+						</div>
+					</div>
+					<h1 class="text-4xl md:text-5xl font-bold text-accent mb-2">
+						@AyoubAbedrabbo
+					</h1>
+					<p class="text-foreground/80 text-lg">
+						Reading the Quran in English · TikTok Live
+					</p>
+				</div>
+
+				<a
+					href="https://www.tiktok.com/@ayoubabedrabbo"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-block px-6 py-2 text-sm font-medium rounded-lg border border-accent text-accent hover:bg-accent/10 transition-colors"
+				>
+					Follow on TikTok
+				</a>
+			</section>
+
+			<!-- Bio Section -->
+			<section class="mb-10">
+				<BioBlurb client:load />
+			</section>
+
+			<!-- Links Section -->
+			<section class="mb-12">
+				<h2 class="text-2xl font-bold text-foreground mb-5">Resources & Links</h2>
+				<div class="space-y-3">
+					<LinkCard
+						icon="📖"
+						title="Order a Free Quran"
+						description="Request a free copy of the Quran delivered to your door"
+						href="#"
+					/>
+					<LinkCard
+						icon="🤖"
+						title="Ask AI About Islam"
+						description="Get instant answers to your questions about Islamic teachings"
+						href="#"
+					/>
+					<LinkCard
+						icon="🕌"
+						title="Learn About Islam"
+						description="Introductory resources and guides for newcomers"
+						href="#"
+					/>
+					<LinkCard
+						icon="📺"
+						title="Watch on TikTok"
+						description="Join the live Quran reading sessions daily"
+						href="https://www.tiktok.com/@ayoubabedrabbo"
+					/>
+				</div>
+			</section>
+
+			<!-- FAQ Section -->
+			<section class="mb-12">
+				<h2 class="text-2xl font-bold text-foreground mb-5">Common Questions</h2>
+				<FAQ client:load />
+			</section>
+
+			<!-- Footer -->
+			<footer class="pt-8 border-t border-border/30 text-center text-sm text-foreground/60">
+				<p class="mb-2">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+				<p class="text-xs">© 2024 @AyoubAbedrabbo · TikTok Live</p>
+			</footer>
+		</div>
 	</body>
 </html>
