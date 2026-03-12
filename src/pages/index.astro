@@ -34,6 +34,11 @@ const _diamondPts = Array.from({ length: 4 }, (_, i) => {
 const linksEntries = await getCollection('links');
 const linksData = linksEntries.map((entry) => entry.data);
 
+// Split links into sections
+const charityLinks = linksData.filter(l => l.variant === 'charity');
+const resourceLinks = linksData.filter(l => l.variant !== 'charity' && !l.youtube);
+const videoLinks = linksData.filter(l => !!l.youtube);
+
 // Parse bio with custom YouTube embed handling
 const bioEntry = await getEntry('site', 'bio');
 const bioHtml = bioEntry ? await marked.parse(bioEntry.body ?? '', {
@@ -253,9 +258,11 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
             Get your copy of the Quran, read it online, and explore resources to go deeper.
           </p>
         </div>
-        <div class="flex flex-col gap-4">
+
+        <!-- Charity Card (pinned at top, no section label) -->
+        <div class="flex flex-col gap-4 mb-12">
           {
-            linksData.map((link, i) => (
+            charityLinks.map((link) => (
               <LinkCard
                 client:load
                 icon={link.icon}
@@ -263,10 +270,54 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
                 description={link.description}
                 href={link.url}
                 youtube={link.youtube}
-                variant={link.variant ?? (i === 1 || i === 2 ? 'featured' : 'default')}
+                variant={link.variant ?? 'default'}
               />
             ))
           }
+        </div>
+
+        <!-- Resources Section -->
+        <div class="mb-12">
+          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
+            Resources
+          </h3>
+          <div class="flex flex-col gap-4">
+            {
+              resourceLinks.map((link) => (
+                <LinkCard
+                  client:load
+                  icon={link.icon}
+                  title={link.title}
+                  description={link.description}
+                  href={link.url}
+                  youtube={link.youtube}
+                  variant={link.variant ?? 'default'}
+                />
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Watch & Learn Section -->
+        <div>
+          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
+            Watch & Learn
+          </h3>
+          <div class="flex flex-col gap-4">
+            {
+              videoLinks.map((link) => (
+                <LinkCard
+                  client:load
+                  icon={link.icon}
+                  title={link.title}
+                  description={link.description}
+                  href={link.url}
+                  youtube={link.youtube}
+                  variant={link.variant ?? 'default'}
+                />
+              ))
+            }
+          </div>
         </div>
       </section>
 
