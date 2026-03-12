@@ -44,7 +44,7 @@ export default function BioBlurb({ html }: BioBlurbProps) {
           </button>
 
           {expanded && (
-            <div className="mt-6 mx-auto max-w-xl text-left">
+            <div className="mt-6 text-left">
               <div className="px-6 py-5 rounded-lg border border-border/30 bg-card/50">
                 <div
                   className="text-sm text-foreground/70 leading-relaxed prose dark:prose-invert max-w-none"
