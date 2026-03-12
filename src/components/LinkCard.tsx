@@ -21,7 +21,7 @@ export default function LinkCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="card-glow border-border/40 hover:border-accent/50 hover:shadow-accent/10 focus-visible:ring-accent/50 group relative block overflow-hidden rounded-lg border p-6 shadow-sm transition-all duration-300 hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
+      className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card relative block overflow-hidden rounded-lg border-y border-r border-l-4 p-6 pl-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
     >
       <div className="relative z-10 mb-2 flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">

@@ -5,73 +5,59 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Modern Heritage - Light Theme (WCAG AAA Compliant) */
-  --background: oklch(0.96 0.01 80); /* Off-white #F4F3EF */
-  --foreground: oklch(
-    0.23 0.04 250
-  ); /* Darker slate #1A2634 (improved contrast) */
-  --card: oklch(0.98 0.005 80); /* Slightly lighter than background */
-  --card-foreground: oklch(0.23 0.04 250); /* Darker slate */
-  --popover: oklch(0.98 0.005 80);
-  --popover-foreground: oklch(0.23 0.04 250);
-  --primary: oklch(0.48 0.08 165); /* Darker sage green (better contrast) */
-  --primary-foreground: oklch(0.96 0 0); /* Off-white text on green */
-  --secondary: oklch(0.23 0.04 250); /* Darker slate */
-  --secondary-foreground: oklch(0.96 0 0);
-  --muted: oklch(0.65 0.02 250); /* Darker muted slate */
-  --muted-foreground: oklch(
-    0.38 0.03 250
-  ); /* Darker secondary text (7:1 ratio) */
-  --accent: oklch(0.58 0.13 65); /* Darker bronze/gold */
-  --accent-foreground: oklch(0.96 0 0); /* Off-white on accent */
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.23 0.04 250 / 15%); /* Darker slate borders */
-  --input: oklch(0.23 0.04 250 / 10%);
-  --ring: oklch(0.48 0.08 165); /* Darker sage green focus ring */
-  --chart-1: oklch(0.48 0.08 165);
-  --chart-2: oklch(0.58 0.13 65);
-  --chart-3: oklch(0.52 0.1 200);
-  --chart-4: oklch(0.56 0.12 30);
-  --chart-5: oklch(0.5 0.09 130);
-  --pattern-stroke: oklch(
-    0.23 0.04 250 / 6%
-  ); /* Dark slate at 6% for light bg */
+  /* Sacred Earth - Light Theme (Re-balanced for visibility) */
+  --background: oklch(0.96 0.015 85); /* Aged paper / Cream base */
+  --foreground: oklch(0.25 0.03 250); /* Soft Scholarly Slate */
+  --card: oklch(0.98 0.01 85);       /* Slightly lighter parchment */
+  --card-foreground: oklch(0.25 0.03 250);
+  --popover: oklch(0.98 0.01 85);
+  --popover-foreground: oklch(0.25 0.03 250);
+  --primary: oklch(0.55 0.12 45);     /* Burnt Clay - Moved to primary usage */
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.25 0.03 250);
+  --secondary-foreground: oklch(0.98 0.01 85);
+  --muted: oklch(0.88 0.02 85);      /* Muted Parchment */
+  --muted-foreground: oklch(0.45 0.03 250);
+  --accent: oklch(0.48 0.1 145);      /* Sage Olive - Brightened and moved to accent/icon usage */
+  --accent-foreground: oklch(0.98 0.01 85);
+  --destructive: oklch(0.55 0.15 25);
+  --border: oklch(0.25 0.03 250 / 12%);
+  --input: oklch(0.25 0.03 250 / 8%);
+  --ring: oklch(0.48 0.1 145);
+  --chart-1: oklch(0.48 0.1 145);
+  --chart-2: oklch(0.55 0.12 45);
+  --chart-3: oklch(0.35 0.05 250);
+  --chart-4: oklch(0.65 0.1 80);
+  --chart-5: oklch(0.4 0.08 160);
+  --pattern-stroke: oklch(0.25 0.03 250 / 4%);
   --radius: 0.625rem;
-  --sidebar: oklch(0.98 0.005 80);
-  --sidebar-foreground: oklch(0.23 0.04 250);
-  --sidebar-primary: oklch(0.48 0.08 165);
-  --sidebar-primary-foreground: oklch(0.96 0 0);
-  --sidebar-accent: oklch(0.58 0.13 65);
-  --sidebar-accent-foreground: oklch(0.96 0 0);
-  --sidebar-border: oklch(0.23 0.04 250 / 15%);
-  --sidebar-ring: oklch(0.48 0.08 165);
 }
 
 .dark {
-  /* Modern Heritage - Dark Theme (WCAG AAA Compliant) */
-  --background: oklch(0.12 0 0); /* Very dark near-black #1F1F1F */
-  --foreground: oklch(0.95 0 0); /* Near-white #F2F2F2 */
-  --card: oklch(0.18 0 0); /* Slightly lighter dark #2D2D2D */
-  --card-foreground: oklch(0.95 0 0); /* Near-white */
-  --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.65 0.12 165); /* Bright sage green #7FB3A0 */
-  --primary-foreground: oklch(0.12 0 0); /* Dark text on green */
-  --secondary: oklch(0.85 0.02 250); /* Light slate */
-  --secondary-foreground: oklch(0.12 0 0);
-  --muted: oklch(0.35 0.01 250); /* Dark muted */
-  --muted-foreground: oklch(0.75 0.01 250); /* Light muted text (7:1 ratio) */
-  --accent: oklch(0.72 0.15 65); /* Bright bronze/gold #D4B896 */
-  --accent-foreground: oklch(0.12 0 0); /* Dark text on accent */
+  /* Sacred Earth - Dark Theme (Harmonized Deep Earth) */
+  --background: oklch(0.14 0.02 85);  /* Deep Earthy Charcoal-Brown */
+  --foreground: oklch(0.92 0.02 85);  /* Soft Parchment Text */
+  --card: oklch(0.18 0.02 85);        /* Slightly lifted earth */
+  --card-foreground: oklch(0.92 0.02 85);
+  --popover: oklch(0.18 0.02 85);
+  --popover-foreground: oklch(0.92 0.02 85);
+  --primary: oklch(0.65 0.15 45);     /* Golden Clay - Moved to primary usage */
+  --primary-foreground: oklch(0.14 0.02 85);
+  --secondary: oklch(0.25 0.03 250);
+  --secondary-foreground: oklch(0.92 0.02 85);
+  --muted: oklch(0.2 0.02 85);
+  --muted-foreground: oklch(0.7 0.02 85);
+  --accent: oklch(0.68 0.12 145);     /* Bright Sage - Moved to accent/icon usage */
+  --accent-foreground: oklch(0.14 0.02 85);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.95 0 0 / 12%); /* Subtle white borders */
-  --input: oklch(0.95 0 0 / 10%);
-  --ring: oklch(0.65 0.12 165); /* Bright sage green focus ring */
-  --chart-1: oklch(0.65 0.12 165);
-  --chart-2: oklch(0.72 0.15 65);
-  --chart-3: oklch(0.68 0.12 200);
-  --chart-4: oklch(0.7 0.14 30);
-  --chart-5: oklch(0.66 0.11 130);
+  --border: oklch(0.92 0.02 85 / 10%);
+  --input: oklch(0.92 0.02 85 / 10%);
+  --ring: oklch(0.68 0.12 145);
+  --chart-1: oklch(0.68 0.12 145);
+  --chart-2: oklch(0.65 0.15 45);
+  --chart-3: oklch(0.45 0.05 250);
+  --chart-4: oklch(0.75 0.12 80);
+  --chart-5: oklch(0.55 0.1 160);
   --sidebar: oklch(0.18 0 0);
   --sidebar-foreground: oklch(0.95 0 0);
   --sidebar-primary: oklch(0.65 0.12 165);
@@ -166,45 +152,29 @@
 
 @layer components {
   .card-glow {
-    @apply relative overflow-hidden transition-colors duration-300;
-    /* Light theme card */
-    background: linear-gradient(
-      135deg,
-      oklch(0.98 0.005 80),
-      oklch(0.96 0.02 120 / 0.3)
-    );
-    border-color: oklch(0.23 0.04 250 / 15%);
+    @apply relative overflow-hidden transition-all duration-300;
   }
 
   .card-glow::before {
     content: '';
     position: absolute;
     inset: 0;
-    /* Light theme glow */
+    /* Subtle inner glow */
     background: radial-gradient(
-      circle at 30% 50%,
-      oklch(0.48 0.08 165 / 0.06) 0%,
-      transparent 70%
+      circle at 0% 0%,
+      oklch(1 0 0 / 15%) 0%,
+      transparent 50%
     );
     pointer-events: none;
   }
 
-  /* Dark theme cards */
+  /* Dark theme card atmosphere */
   .dark .card-glow {
-    background: linear-gradient(
-      135deg,
-      oklch(0.18 0 0),
-      oklch(0.22 0.02 165 / 0.5)
-    );
-    border-color: oklch(0.95 0 0 / 12%);
+    @apply bg-card/40 hover:bg-card;
   }
 
-  .dark .card-glow::before {
-    background: radial-gradient(
-      circle at 30% 50%,
-      oklch(0.65 0.12 165 / 0.12) 0%,
-      transparent 70%
-    );
+  .card-glow:hover {
+    @apply shadow-lg shadow-accent/5;
   }
 
   /* Custom prose styles for parsed markdown content */

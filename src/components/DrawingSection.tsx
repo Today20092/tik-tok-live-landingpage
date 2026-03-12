@@ -17,7 +17,7 @@ export default function DrawingSection({
   title = 'Visual Learning Hub',
   items,
 }: DrawingSectionProps) {
-  const [isSectionOpen, setIsSectionOpen] = useState(false);
+  const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
@@ -69,7 +69,7 @@ export default function DrawingSection({
               return (
                 <div
                   key={`drawing-${idx}`}
-                  className="card-glow border-border/40 hover:border-accent/40 group relative flex w-full flex-col overflow-hidden rounded-lg border p-5 text-left transition-all duration-300"
+                  className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-y border-r border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm"
                 >
                   <button
                     id={headingId}

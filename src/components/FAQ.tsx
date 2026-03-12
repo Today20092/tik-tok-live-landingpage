@@ -15,7 +15,7 @@ export default function FAQ({
   title = 'The Why: Understanding Islamic Concepts',
   items,
 }: FAQProps) {
-  const [isSectionOpen, setIsSectionOpen] = useState(false);
+  const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
@@ -74,7 +74,7 @@ export default function FAQ({
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   aria-expanded={expandedIdx === idx}
                   aria-controls={contentId}
-                  className="card-glow border-border/40 hover:border-accent/40 focus-visible:ring-accent/50 group relative flex w-full flex-col overflow-hidden rounded-lg border p-5 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none"
+                  className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-y border-r border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm focus-visible:ring-2 focus-visible:outline-none"
                 >
                   <div className="relative z-10 flex w-full items-center justify-between gap-3">
                     <h3 className="text-foreground/95 group-hover:text-foreground flex-1 font-semibold transition-colors duration-300">
@@ -83,7 +83,7 @@ export default function FAQ({
                     <ChevronDown
                       size={20}
                       aria-hidden="true"
-                      className={`text-accent/50 group-hover:text-accent flex-shrink-0 transition-transform duration-300 ${
+                      className={`text-accent/50 group-hover:text-accent shrink-0 transition-transform duration-300 ${
                         expandedIdx === idx ? 'rotate-180' : ''
                       }`}
                     />
