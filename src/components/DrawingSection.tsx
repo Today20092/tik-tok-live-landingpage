@@ -13,7 +13,10 @@ interface DrawingSectionProps {
   items: DrawingItem[];
 }
 
-export default function DrawingSection({ title = "Visual Learning Hub", items }: DrawingSectionProps) {
+export default function DrawingSection({
+  title = 'Visual Learning Hub',
+  items,
+}: DrawingSectionProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(false);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
@@ -27,15 +30,15 @@ export default function DrawingSection({ title = "Visual Learning Hub", items }:
   return (
     <div className="w-full">
       {/* Section Level Dropdown Toggle */}
-      <button 
+      <button
         onClick={() => setIsSectionOpen(!isSectionOpen)}
-        className="w-full flex items-center justify-between text-left mb-6 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-lg p-2 -ml-2"
+        className="group focus-visible:ring-accent/50 mb-6 -ml-2 flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-left focus-visible:ring-2 focus-visible:outline-none"
         aria-expanded={isSectionOpen}
       >
-        <h2 className="text-3xl md:text-3xl font-serif font-bold text-foreground tracking-tight group-hover:text-accent transition-colors duration-300">
+        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-3xl">
           {title}
         </h2>
-        <div className="p-2 rounded-full bg-accent/5 group-hover:bg-accent/10 border border-transparent group-hover:border-accent/20 transition-all duration-300">
+        <div className="bg-accent/5 group-hover:bg-accent/10 group-hover:border-accent/20 rounded-full border border-transparent p-2 transition-all duration-300">
           <ChevronDown
             size={24}
             className={`text-accent/70 group-hover:text-accent transition-transform duration-500 ${
@@ -46,13 +49,19 @@ export default function DrawingSection({ title = "Visual Learning Hub", items }:
       </button>
 
       {/* Drawing Items */}
-      <div 
+      <div
         className={`grid transition-all duration-500 ease-in-out ${
-          isSectionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+          isSectionOpen
+            ? 'grid-rows-[1fr] opacity-100'
+            : 'grid-rows-[0fr] opacity-0'
         }`}
       >
         <div className="overflow-hidden">
-          <div className="space-y-4 pt-2 pb-4" role="region" aria-label="Excalidraw drawings">
+          <div
+            className="space-y-4 pt-2 pb-4"
+            role="region"
+            aria-label="Excalidraw drawings"
+          >
             {items.map((drawing, idx) => {
               const headingId = `drawing-heading-${idx}`;
               const contentId = `drawing-content-${idx}`;
@@ -60,21 +69,23 @@ export default function DrawingSection({ title = "Visual Learning Hub", items }:
               return (
                 <div
                   key={`drawing-${idx}`}
-                  className="w-full text-left p-5 card-glow rounded-lg border border-border/40 hover:border-accent/40 transition-all duration-300 group relative overflow-hidden flex flex-col"
+                  className="card-glow border-border/40 hover:border-accent/40 group relative flex w-full flex-col overflow-hidden rounded-lg border p-5 text-left transition-all duration-300"
                 >
                   <button
                     id={headingId}
-                    onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
+                    onClick={() =>
+                      setExpandedIdx(expandedIdx === idx ? null : idx)
+                    }
                     onKeyDown={(e) => handleKeyDown(e, idx)}
                     aria-expanded={expandedIdx === idx}
                     aria-controls={contentId}
-                    className="flex items-center justify-between gap-3 relative z-10 w-full focus-visible:outline-none"
+                    className="relative z-10 flex w-full items-center justify-between gap-3 focus-visible:outline-none"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-accent/5 text-accent/60 group-hover:text-accent transition-colors">
+                      <div className="bg-accent/5 text-accent/60 group-hover:text-accent rounded-lg p-2 transition-colors">
                         <ImageIcon size={18} />
                       </div>
-                      <h3 className="font-semibold text-foreground/95 flex-1 group-hover:text-foreground transition-colors duration-300">
+                      <h3 className="text-foreground/95 group-hover:text-foreground flex-1 font-semibold transition-colors duration-300">
                         {drawing.title}
                       </h3>
                     </div>
@@ -87,21 +98,23 @@ export default function DrawingSection({ title = "Visual Learning Hub", items }:
                     />
                   </button>
 
-                  <div 
+                  <div
                     id={contentId}
-                    className={`grid transition-all duration-300 ease-in-out w-full ${
-                      expandedIdx === idx ? 'grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-border/30' : 'grid-rows-[0fr] opacity-0 mt-0 pt-0 border-transparent'
+                    className={`grid w-full transition-all duration-300 ease-in-out ${
+                      expandedIdx === idx
+                        ? 'border-border/30 mt-4 grid-rows-[1fr] border-t pt-4 opacity-100'
+                        : 'mt-0 grid-rows-[0fr] border-transparent pt-0 opacity-0'
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="text-sm text-foreground/70 mb-6 leading-relaxed">
+                      <p className="text-foreground/70 mb-6 text-sm leading-relaxed">
                         {drawing.description}
                       </p>
-                      <div className="rounded-xl border border-border/40 bg-white/5 overflow-hidden p-2">
-                        <img 
-                          src={drawing.svgPath} 
+                      <div className="border-border/40 overflow-hidden rounded-xl border bg-white/5 p-2">
+                        <img
+                          src={drawing.svgPath}
                           alt={drawing.title}
-                          className="w-full h-auto block invert-[0.9] hue-rotate-180 dark:invert-0 dark:hue-rotate-0 transition-all"
+                          className="block h-auto w-full hue-rotate-180 invert-[0.9] transition-all dark:hue-rotate-0 dark:invert-0"
                           loading="lazy"
                         />
                       </div>

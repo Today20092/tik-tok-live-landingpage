@@ -1,9 +1,9 @@
 ## What is Islam?
 
-Islam is a monotheistic religion and way of life based on submission to the will of God (Allah). The word "Islam" means submission, peace, and purity. Muslims believe in one God, follow the guidance of prophets throughout history, and seek to live according to divine principles revealed in the Quran. 
+Islam is a monotheistic religion and way of life based on submission to the will of God (Allah). The word "Islam" means submission, peace, and purity. Muslims believe in one God, follow the guidance of prophets throughout history, and seek to live according to divine principles revealed in the Quran.
 
-**Reference:** 
-"This day I have perfected for you your religion and completed My favor upon you and have approved for you Islam as religion." 
+**Reference:**
+"This day I have perfected for you your religion and completed My favor upon you and have approved for you Islam as religion."
 — [Quran 5:3](https://quran.com/5/3)
 
 ## What is Tawhid and why is it central to Islam?
@@ -11,12 +11,13 @@ Islam is a monotheistic religion and way of life based on submission to the will
 Tawhid (توحيد) means "oneness" or "monotheism." It is the foundational concept of Islam—the belief that there is only one God (Allah) and nothing is worthy of worship except Him. From Tawhid flows all Islamic belief and practice. This principle frees believers from worshipping false gods, idols, or any created thing, and redirects all devotion toward the one true God.
 
 **Reference:**
-"Say, 'He is Allah, [who is] One, Allah, the Eternal Refuge. He neither begets nor is born, Nor is there to Him any equivalent.'" 
+"Say, 'He is Allah, [who is] One, Allah, the Eternal Refuge. He neither begets nor is born, Nor is there to Him any equivalent.'"
 — [Surah Al-Ikhlas, Quran 112:1-4](https://quran.com/112)
 
 ## What are the Five Pillars of Islam and why do they matter?
 
 The Five Pillars are the foundational practices of Islam:
+
 1. **Shahada** — Testimony of faith.
 2. **Salah** — Prayer five times daily.
 3. **Zakat** — Obligatory charitable giving (typically 2.5% of accumulated wealth).
@@ -61,7 +62,7 @@ Muhammad ibn Abdullah (c. 570-632 CE) is the final prophet in Islam. Muslims bel
 
 ## What does the Quran teach?
 
-The Quran is Islam's primary sacred text, believed by Muslims to be the verbatim word of God. It covers theology, ethics, justice, stories of previous prophets (like Jesus, Moses, and Abraham), and spiritual guidance for everyday life. 
+The Quran is Islam's primary sacred text, believed by Muslims to be the verbatim word of God. It covers theology, ethics, justice, stories of previous prophets (like Jesus, Moses, and Abraham), and spiritual guidance for everyday life.
 
 **Reference:**
 "This is the Book about which there is no doubt, a guidance for those conscious of Allah."

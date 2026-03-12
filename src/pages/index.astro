@@ -10,11 +10,17 @@ import { marked } from 'marked';
 
 // Islamic geometric background — 12-pointed star (dodecagram) + Flower of Life circle grid
 // Hex close-pack: tile 120×104, circle radius 60, star outer R=35, inner r=14
-const _tileW = 120, _tileH = 104;
+const _tileW = 120,
+  _tileH = 104;
 const _hexCenters: [number, number][] = [
-  [0, 0], [60, 0], [120, 0],
-  [30, 52], [90, 52],
-  [0, 104], [60, 104], [120, 104],
+  [0, 0],
+  [60, 0],
+  [120, 0],
+  [30, 52],
+  [90, 52],
+  [0, 104],
+  [60, 104],
+  [120, 104],
 ];
 // 12-pointed star polygon at origin: alternate outer (R=35) and inner (r=14) vertices
 const _starPts = Array.from({ length: 12 }, (_, i) => {
@@ -28,155 +34,225 @@ const _starPts = Array.from({ length: 12 }, (_, i) => {
 
 // Fetch links
 const linksEntries = await getCollection('links');
-const linksData = linksEntries.map((entry: any) => entry.data);
+const linksData = linksEntries.map((entry) => entry.data);
 
 // Parse bio with custom YouTube embed handling
 const bioEntry = await getEntry('site', 'bio');
-const bioHtml = await marked.parse(bioEntry.body, {
+const bioHtml = bioEntry ? await marked.parse(bioEntry.body ?? '', {
   breaks: true,
-});
+}) : '';
 
 // Parse FAQ
 const faqEntry = await getEntry('site', 'faq');
-const faqItems = await Promise.all(
-  faqEntry.body
+const faqItems = faqEntry ? await Promise.all(
+  (faqEntry.body ?? '')
     .split(/^## /m)
-    .filter((s: string) => !!s)
-    .map(async (section: string) => {
+    .filter((s) => !!s)
+    .map(async (section) => {
       const lines = section.split('\n');
       const question = lines[0].trim();
       const answerMarkdown = lines.slice(1).join('\n').trim();
       const answer = await marked.parse(answerMarkdown);
       return { question, answer };
     })
-);
+) : [];
 
 // Fetch drawings
 const drawingsEntries = await getCollection('drawings');
-const drawingsData = drawingsEntries.map((entry: any) => entry.data);
+const drawingsData = drawingsEntries.map((entry) => entry.data);
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-		<link rel="icon" href="favicon.ico" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="color-scheme" content="light dark" />
-		<meta name="theme-color" content="#F4F3EF" media="(prefers-color-scheme: light)" />
-		<meta name="theme-color" content="#1F1F1F" media="(prefers-color-scheme: dark)" />
-		<title>Islamic Education — Resources for Seekers</title>
-		<meta name="description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
-		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="Islamic Education — Resources for Seekers" />
-		<meta property="og:description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="Islamic Education — Resources for Seekers" />
-		<meta name="twitter:description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
-		<script is:inline>
-			// Prevent flash of wrong theme by applying theme before render
-			const theme = localStorage.getItem('theme');
-			if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-				document.documentElement.classList.add('dark');
-				document.documentElement.style.colorScheme = 'dark';
-			}
-		</script>
-	</head>
-	<body class="bg-background text-foreground min-h-screen">
-		<!-- 12-pointed star (dodecagram) Islamic geometric background -->
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1"
-		>
-			<defs>
-				<pattern id="dodecagram" x="0" y="0" width="120" height="104" patternUnits="userSpaceOnUse">
-					{_hexCenters.map(([cx, cy]) => (
-						<polygon
-							points={_starPts}
-							transform={`translate(${cx},${cy})`}
-							fill="none"
-							stroke="var(--pattern-stroke)"
-							stroke-width="1"
-							stroke-linejoin="round"
-						/>
-					))}
-					{_hexCenters.map(([cx, cy]) => (
-						<circle cx={cx} cy={cy} r="26" fill="none" stroke="var(--pattern-stroke)" stroke-width="0.5" />
-					))}
-				</pattern>
-			</defs>
-			<rect width="100%" height="100%" fill="url(#dodecagram)" />
-		</svg>
-		<ThemeToggle client:load />
-		<div class="relative max-w-2xl mx-auto px-4 py-16 md:py-20" style="z-index:1">
-			<!-- Header / Hero -->
-			<section class="mb-16 md:mb-20 text-center">
-				<div class="mb-6">
-					<div class="inline-block mb-4 relative">
-						<div class="absolute inset-0 rounded-full bg-linear-to-br from-accent/30 to-accent/10 blur-2xl scale-150 opacity-60"></div>
-						<div class="relative w-16 h-16 mx-auto rounded-full border-2 border-accent/40 overflow-hidden bg-linear-to-br from-accent/15 to-accent/5 flex items-center justify-center backdrop-blur-sm">
-							<span class="text-3xl">☪️</span>
-						</div>
-					</div>
-					<h1 class="text-4xl md:text-5xl font-serif font-bold text-foreground mb-2 tracking-tight">
-						Islamic Education
-					</h1>
-					<p class="text-foreground/70 text-sm md:text-base leading-relaxed">
-						Understanding Tawhid, the Five Pillars, and Islamic Practice
-					</p>
-				</div>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#F4F3EF"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1F1F1F"
+      media="(prefers-color-scheme: dark)"
+    />
+    <title>Islamic Education — Resources for Seekers</title>
+    <meta
+      name="description"
+      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
+    />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Islamic Education — Resources for Seekers"
+    />
+    <meta
+      property="og:description"
+      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
+    />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Islamic Education — Resources for Seekers"
+    />
+    <meta
+      name="twitter:description"
+      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
+    />
+    <script is:inline>
+      // Prevent flash of wrong theme by applying theme before render
+      const theme = localStorage.getItem('theme');
+      if (
+        theme === 'dark' ||
+        (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.colorScheme = 'dark';
+      }
+    </script>
+  </head>
+  <body class="bg-background text-foreground min-h-screen">
+    <!-- 12-pointed star (dodecagram) Islamic geometric background -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1"
+    >
+      <defs>
+        <pattern
+          id="dodecagram"
+          x="0"
+          y="0"
+          width={_tileW}
+          height={_tileH}
+          patternUnits="userSpaceOnUse"
+        >
+          {
+            _hexCenters.map(([cx, cy]) => (
+              <polygon
+                points={_starPts}
+                transform={`translate(${cx},${cy})`}
+                fill="none"
+                stroke="var(--pattern-stroke)"
+                stroke-width="1"
+                stroke-linejoin="round"
+              />
+            ))
+          }
+          {
+            _hexCenters.map(([cx, cy]) => (
+              <circle
+                cx={cx}
+                cy={cy}
+                r="26"
+                fill="none"
+                stroke="var(--pattern-stroke)"
+                stroke-width="0.5"
+              />
+            ))
+          }
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dodecagram)"></rect>
+    </svg>
+    <ThemeToggle client:load />
+    <div
+      class="relative mx-auto max-w-2xl px-4 py-16 md:py-20"
+      style="z-index:1"
+    >
+      <!-- Header / Hero -->
+      <section class="mb-16 text-center md:mb-20">
+        <div class="mb-6">
+          <div class="relative mb-4 inline-block">
+            <div
+              class="from-accent/30 to-accent/10 absolute inset-0 scale-150 rounded-full bg-linear-to-br opacity-60 blur-2xl"
+            >
+            </div>
+            <div
+              class="border-accent/40 from-accent/15 to-accent/5 relative mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 bg-linear-to-br backdrop-blur-sm"
+            >
+              <span class="text-3xl">☪️</span>
+            </div>
+          </div>
+          <h1
+            class="text-foreground mb-2 font-serif text-4xl font-bold tracking-tight md:text-5xl"
+          >
+            Islamic Education
+          </h1>
+          <p class="text-foreground/70 text-sm leading-relaxed md:text-base">
+            Understanding Tawhid, the Five Pillars, and Islamic Practice
+          </p>
+        </div>
 
-				<a
-					href="https://quran.com"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-block px-5 py-2 text-xs font-medium rounded-full border border-accent/60 text-accent hover:border-accent hover:bg-accent/5 transition-all duration-300"
-				>
-					Start with the Quran
-				</a>
-			</section>
+        <a
+          href="https://quran.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border-accent/60 text-accent hover:border-accent hover:bg-accent/5 inline-block rounded-full border px-5 py-2 text-xs font-medium transition-all duration-300"
+        >
+          Start with the Quran
+        </a>
+      </section>
 
-			<!-- Bio Section -->
-			<section class="mb-20">
-				<BioBlurb client:load html={bioHtml} />
-			</section>
+      <!-- Bio Section -->
+      <section class="mb-20">
+        <BioBlurb client:load html={bioHtml} />
+      </section>
 
-			<!-- Links Section -->
-			<section class="mb-16">
-				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">Primary Sources & Resources</h2>
-				<div class="flex flex-col gap-4">
-					{linksData.map((link: any) => (
-						<LinkCard
-							client:load
-							icon={link.icon}
-							title={link.title}
-							description={link.description}
-							href={link.url}
-							youtube={link.youtube}
-						/>
-					))}
-				</div>
-			</section>
+      <!-- Links Section -->
+      <section class="mb-16">
+        <h2
+          class="text-foreground mb-7 font-serif text-3xl font-bold tracking-tight md:text-3xl"
+        >
+          Primary Sources & Resources
+        </h2>
+        <div class="flex flex-col gap-4">
+          {
+            linksData.map((link) => (
+              <LinkCard
+                client:load
+                icon={link.icon}
+                title={link.title}
+                description={link.description}
+                href={link.url}
+                youtube={link.youtube}
+              />
+            ))
+          }
+        </div>
+      </section>
 
-			<!-- FAQ Section -->
-			<section class="mb-16">
-				<FAQ client:load title="The Why: Understanding Islamic Concepts" items={faqItems} />
-			</section>
+      <!-- FAQ Section -->
+      <section class="mb-16">
+        <FAQ
+          client:load
+          title="The Why: Understanding Islamic Concepts"
+          items={faqItems}
+        />
+      </section>
 
-			<!-- Drawings Section -->
-			<section class="mb-16">
-				<DrawingSection client:load items={drawingsData} />
-			</section>
+      <!-- Drawings Section -->
+      <section class="mb-16">
+        <DrawingSection client:load items={drawingsData} />
+      </section>
 
-			<!-- Footer -->
-			<footer class="pt-12 border-t border-border/20 text-center text-sm text-foreground/50">
-				<p class="mb-3 text-foreground/70 font-serif tracking-wide">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-				<p class="text-xs">© 2026 Islamic Education Resource · For Seekers and Learners</p>
-			</footer>
-		</div>
-	</body>
+      <!-- Footer -->
+      <footer
+        class="border-border/20 text-foreground/50 border-t pt-12 text-center text-sm"
+      >
+        <p class="text-foreground/70 mb-3 font-serif tracking-wide">
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </p>
+        <p class="text-xs">
+          © 2026 Islamic Education Resource · For Seekers and Learners
+        </p>
+      </footer>
+    </div>
+  </body>
 </html>

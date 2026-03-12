@@ -1,6 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
+const applyTheme = (dark: boolean) => {
+  const html = document.documentElement;
+  if (dark) {
+    html.classList.add('dark');
+    html.style.colorScheme = 'dark';
+  } else {
+    html.classList.remove('dark');
+    html.style.colorScheme = 'light';
+  }
+};
+
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -32,17 +43,6 @@ export default function ThemeToggle() {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const applyTheme = (dark: boolean) => {
-    const html = document.documentElement;
-    if (dark) {
-      html.classList.add('dark');
-      html.style.colorScheme = 'dark';
-    } else {
-      html.classList.remove('dark');
-      html.style.colorScheme = 'light';
-    }
-  };
-
   const toggleTheme = () => {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
@@ -56,7 +56,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="fixed top-6 right-6 p-2 rounded-full border border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:outline-none z-50"
+      className="border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 focus-visible:ring-accent/50 fixed top-6 right-6 z-50 rounded-full border p-2 transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none"
     >
       {isDark ? (
         <Sun size={20} className="text-accent" />

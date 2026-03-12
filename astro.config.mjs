@@ -4,14 +4,18 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://today20092.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/tik-tok-live-landingpage/' : undefined,
+  base:
+    process.env.NODE_ENV === 'production'
+      ? '/tik-tok-live-landingpage/'
+      : undefined,
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
 
-  integrations: [react()]
+  integrations: [react(), sitemap()],
 });

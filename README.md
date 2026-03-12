@@ -5,6 +5,7 @@ Welcome to the **Islamic Education** landing page project! This is a modern, res
 ## 🚀 What it is
 
 This project is a static site built using a modern web development stack:
+
 - **[Astro](https://astro.build/)** (v6) - The blazing-fast web framework for content-driven websites.
 - **[React](https://react.dev/)** (v18) - For interactive UI components.
 - **[Tailwind CSS](https://tailwindcss.com/)** (v4) - For utility-first styling.
@@ -28,6 +29,7 @@ To get this project up and running on your local machine, follow these steps:
 ### Installation
 
 1. Clone the repository or navigate to the project directory:
+
    ```bash
    cd tik-tok-live-landingpage
    ```
@@ -54,6 +56,7 @@ To create an optimized production build:
 ```bash
 npm run build
 ```
+
 The built files will be generated in the `dist` directory, ready to be deployed to any static hosting provider (like Vercel, Netlify, Cloudflare Pages, or GitHub Pages).
 
 To preview the production build locally:

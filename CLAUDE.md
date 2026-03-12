@@ -13,6 +13,7 @@ The page is designed for easy maintenance — users edit plain markdown and JSON
 ## Core Philosophy
 
 ### ✨ Design Principles (Refactoring UI)
+
 - **Refined Minimalism**: Generous whitespace, sophisticated typography (serif headlines + refined sans-serif body)
 - **Spiritual Resonance**: Contemplative, welcoming aesthetic (never corporate or heavy)
 - **Content-First**: Page layout and styling serve the message, not the other way around
@@ -21,6 +22,7 @@ The page is designed for easy maintenance — users edit plain markdown and JSON
 - **Accessibility (WCAG AAA)**: Both light and dark themes meet AAA contrast ratios
 
 ### 🛠️ Technical Philosophy
+
 - **Static First**: Astro for fast, build-time rendering (no runtime cost)
 - **Content Separation**: All user-facing text lives in `src/content/` folder (markdown/JSON) — **zero hardcoding in components**
 - **Simplicity Over Cleverness**: No unnecessary abstractions, animations, or features
@@ -56,7 +58,9 @@ src/content/                     ← USER-EDITABLE CONTENT (no code here!)
 ## User-Editable Content Format
 
 ### **src/content/links/links.json**
+
 Each entry requires `id`, `icon`, `title`, `description`, `url`. The `youtube` field is optional.
+
 ```json
 [
   {
@@ -69,9 +73,11 @@ Each entry requires `id`, `icon`, `title`, `description`, `url`. The `youtube` f
   }
 ]
 ```
+
 > If `youtube` is set, the card shows an expandable inline player instead of an external link.
 
 ### **src/content/site/bio.md**
+
 Plain markdown. The first paragraph shows as a preview; the rest expands on click.
 
 ```markdown
@@ -81,6 +87,7 @@ This is the expanded content that shows when clicked.
 ```
 
 ### **src/content/site/faq.md**
+
 `##` headings = questions, paragraph content = answers.
 
 ```markdown
@@ -98,19 +105,23 @@ Muhammad was...
 ## Development Workflow
 
 ### Adding a New Link
+
 1. Edit `src/content/links/links.json`
 2. Add object with `id`, `icon`, `title`, `description`, `url`
 3. `npm run dev` → appears instantly
 
 ### Updating Bio Text
+
 1. Edit `src/content/site/bio.md`
 2. Add/remove paragraphs — saves rebuild automatically
 
 ### Adding FAQ Questions
+
 1. Edit `src/content/site/faq.md`
 2. Add `##` heading + answer text — auto-expands in accordion
 
 ### Embedding YouTube Videos
+
 **In links.json**: Add `"youtube": "VIDEO_ID"` to a link entry → inline expandable player
 
 ---
@@ -118,6 +129,7 @@ Muhammad was...
 ## Design System
 
 ### Colors — Light Theme (WCAG AAA)
+
 - **Background**: `oklch(0.96 0.01 80)` (off-white `#F4F3EF`)
 - **Card**: `oklch(0.98 0.005 80)` (slightly lighter)
 - **Accent**: `oklch(0.48 0.08 165)` (darker sage green for AAA contrast on light)
@@ -125,6 +137,7 @@ Muhammad was...
 - **Muted**: `text-foreground/65` opacity variant
 
 ### Colors — Dark Theme (WCAG AAA)
+
 - **Background**: `oklch(0.12 0 0)` (near-black)
 - **Card**: `oklch(0.16 0.005 165)` (subtle green-tinted lift)
 - **Accent**: `oklch(0.72 0.15 65)` (warm green)
@@ -134,11 +147,13 @@ Muhammad was...
 > Refactoring UI principle: use opacity variants for hierarchy, not new colors.
 
 ### Typography
+
 - **Headlines** (`h1-h6`): `Playfair Display` serif — elegant, contemplative
 - **Body Text**: `Inter` sans-serif — refined, readable
 - **Tracking**: Headlines use `-0.02em` letter-spacing for tightness
 
 ### Components
+
 - **Cards**: Subtle gradient background, radial glow overlay
 - **Borders**: `oklch(1 0 0 / 8%)` semi-transparent white for sophistication
 - **Shadows**: Soft, accent-colored shadows on hover (`shadow-accent/10`)
@@ -160,6 +175,7 @@ Muhammad was...
 ## Code Standards
 
 ### ✅ DO
+
 - **Read content files at build time** in `index.astro` using `getEntry` / `getCollection` from `astro:content`
 - **Pass parsed data as props** to components (keep components reusable, dumb)
 - **Use Tailwind utilities** for styling (avoid custom CSS unless absolutely necessary)
@@ -169,6 +185,7 @@ Muhammad was...
 - **Use opacity for secondary text** — `text-foreground/65` not a new color (Refactoring UI)
 
 ### ❌ DON'T
+
 - **Hardcode content** in component files (it belongs in `src/content`)
 - **Add unnecessary features** (no animations beyond polish)
 - **Over-engineer components** (a button that toggles expanded state is enough)
@@ -181,18 +198,21 @@ Muhammad was...
 ## Build & Deployment
 
 ### Local Development
+
 ```bash
 npm install
 npm run dev          # localhost:4321 with hot reload
 ```
 
 ### Production Build
+
 ```bash
 npm run build        # Generates static /dist folder
 npm run preview      # Test production build locally
 ```
 
 ### Deploy to GitHub Pages
+
 1. Push to GitHub
 2. GitHub Actions runs `npm run build`
 3. Contents of `/dist` served as static site
@@ -213,6 +233,7 @@ npm run preview      # Test production build locally
 ## Notes for Claude
 
 ### When Making Changes
+
 1. **Always read the file first** before editing — understand existing patterns
 2. **Keep components props-driven** — no hardcoded content
 3. **Test the build** — `npm run build` must succeed
@@ -220,12 +241,14 @@ npm run preview      # Test production build locally
 5. **Respect the design system** — don't introduce new colors or fonts without reason
 
 ### When Adding Features
+
 - Ask: "Can this be content-driven?" If yes, use `src/content/` folder
 - Prefer Tailwind utilities over custom CSS
 - Keep it simple — one use case, not five hypothetical ones
 - No premature optimization or abstractions
 
 ### Debugging
+
 - `npm run dev` for live reload while developing
 - Check browser console for React/client-side errors
 - Check terminal for Astro build errors
