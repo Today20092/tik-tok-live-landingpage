@@ -11,7 +11,14 @@
       "Bash(npm run:*)",
       "Bash(pkill -f \"npm run dev\" || true && sleep 1)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(ls -1 /c/Users/User/Documents/tik-tok-live-landingpage/*.md)",
+      "WebFetch(domain:localhost)",
+      "Bash(cd \"/c/Users/User/Documents/tik-tok-live-landingpage\" && npm ls --depth=0 2>&1)",
+      "Bash(cd \"/c/Users/User/Documents/tik-tok-live-landingpage\" && node -e \"const data = JSON.parse\\(require\\('fs'\\).readFileSync\\('src/content/links/links.json', 'utf8'\\)\\); console.log\\('Valid JSON with', data.length, 'links'\\); data.forEach\\(\\(l, i\\) => console.log\\(\\(i+1\\) + '.', l.id, '—', l.title\\)\\);\")",
+      "Bash(node -e \"\nconst light = '<svg width=\\\\\"80\\\\\" height=\\\\\"80\\\\\" xmlns=\\\\\"http://www.w3.org/2000/svg\\\\\"><defs><pattern id=\\\\\"geometric\\\\\" patternUnits=\\\\\"userSpaceOnUse\\\\\" width=\\\\\"80\\\\\" height=\\\\\"80\\\\\"><g fill=\\\\\"none\\\\\" stroke=\\\\\"%231a2634\\\\\" stroke-width=\\\\\"0.5\\\\\" opacity=\\\\\"0.05\\\\\"><polygon points=\\\\\"40,10 60,25 60,55 40,70 20,55 20,25\\\\\"/><polygon points=\\\\\"10,40 25,20 55,20 70,40 55,60 25,60\\\\\"/><circle cx=\\\\\"40\\\\\" cy=\\\\\"40\\\\\" r=\\\\\"15\\\\\"/><path d=\\\\\"M 40 10 L 60 25 M 60 55 L 40 70 M 20 55 L 20 25\\\\\"/></g></pattern></defs><rect width=\\\\\"100%\\\\\" height=\\\\\"100%\\\\\" fill=\\\\\"none\\\\\"/><rect width=\\\\\"100%\\\\\" height=\\\\\"100%\\\\\" fill=\\\\\"url\\(%23geometric\\)\\\\\"/></svg>';\nconst dark = '<svg width=\\\\\"80\\\\\" height=\\\\\"80\\\\\" xmlns=\\\\\"http://www.w3.org/2000/svg\\\\\"><defs><pattern id=\\\\\"geometric-dark\\\\\" patternUnits=\\\\\"userSpaceOnUse\\\\\" width=\\\\\"80\\\\\" height=\\\\\"80\\\\\"><g fill=\\\\\"none\\\\\" stroke=\\\\\"%236B8E7D\\\\\" stroke-width=\\\\\"0.5\\\\\" opacity=\\\\\"0.08\\\\\"><polygon points=\\\\\"40,10 60,25 60,55 40,70 20,55 20,25\\\\\"/><polygon points=\\\\\"10,40 25,20 55,20 70,40 55,60 25,60\\\\\"/><circle cx=\\\\\"40\\\\\" cy=\\\\\"40\\\\\" r=\\\\\"15\\\\\"/><path d=\\\\\"M 40 10 L 60 25 M 60 55 L 40 70 M 20 55 L 20 25\\\\\"/></g></pattern></defs><rect width=\\\\\"100%\\\\\" height=\\\\\"100%\\\\\" fill=\\\\\"none\\\\\"/><rect width=\\\\\"100%\\\\\" height=\\\\\"100%\\\\\" fill=\\\\\"url\\(%23geometric-dark\\)\\\\\"/></svg>';\nconsole.log\\('light base64:'\\);\nconsole.log\\(Buffer.from\\(light\\).toString\\('base64'\\)\\);\nconsole.log\\('dark base64:'\\);\nconsole.log\\(Buffer.from\\(dark\\).toString\\('base64'\\)\\);\n\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where npm)"
     ]
   }
 }

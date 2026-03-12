@@ -1,0 +1,28 @@
+[
+  {
+    "icon": "📖",
+    "title": "The Quran — Primary Source",
+    "description": "Read the Quran in English with audio recitation, translation, and scholarly explanations",
+    "url": "https://quran.com"
+  },
+  {
+    "icon": "🕋",
+    "title": "Authentic Hadith Collections",
+    "description": "Explore the traditions and teachings of Prophet Muhammad (ﷺ) with Sunnah.com",
+    "url": "https://sunnah.com"
+  },
+  {
+    "icon": "🎬",
+    "title": "The Life of Prophet Muhammad — AI Visualized",
+    "description": "An animated visual journey through the biography of Prophet Muhammad (ﷺ) with enriching commentary",
+    "url": "https://youtube.com/playlist?list=PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg&si=oFs9lenNTmA0qQJW",
+    "youtube": "videoseries?list=PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg"
+  },
+  {
+    "icon": "📖",
+    "title": "Stories of the Prophets — Mufti Menk",
+    "description": "Learn the inspiring stories of all the prophets from Adam to Muhammad (ﷺ). Be reassured by the divine guidance throughout history",
+    "url": "https://youtube.com/playlist?list=PL9821CA747E7E0674&si=z2kUMzRKa6_-eJr4",
+    "youtube": "videoseries?list=PL9821CA747E7E0674"
+  }
+]

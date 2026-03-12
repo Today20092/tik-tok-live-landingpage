@@ -50,7 +50,7 @@ export default function FAQ({ items }: FAQProps) {
             {expandedIdx === idx && (
               <div
                 id={contentId}
-                className="mt-4 pt-4 border-t border-border/30 text-sm text-foreground/70 leading-relaxed prose prose-invert max-w-none relative z-10"
+                className="mt-4 pt-4 border-t border-border/30 text-sm text-foreground/70 leading-relaxed prose dark:prose-invert max-w-none relative z-10"
                 dangerouslySetInnerHTML={{ __html: faq.answer }}
               />
             )}

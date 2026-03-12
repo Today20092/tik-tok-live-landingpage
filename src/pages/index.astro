@@ -4,36 +4,51 @@ import BioBlurb from '@/components/BioBlurb';
 import LinkCard from '@/components/LinkCard';
 import FAQ from '@/components/FAQ';
 import ThemeToggle from '@/components/ThemeToggle';
-import fs from 'fs';
-import path from 'path';
+import { getEntry, getCollection } from 'astro:content';
 import { marked } from 'marked';
 
-// Read and parse content files
-const linksPath = path.join(process.cwd(), 'content/links.json');
-const bioPath = path.join(process.cwd(), 'content/bio.md');
-const faqPath = path.join(process.cwd(), 'content/faq.md');
+// Islamic geometric background — 12-pointed star (dodecagram) + Flower of Life circle grid
+// Hex close-pack: tile 120×104, circle radius 60, star outer R=35, inner r=14
+const _tileW = 120, _tileH = 104;
+const _hexCenters: [number, number][] = [
+  [0, 0], [60, 0], [120, 0],
+  [30, 52], [90, 52],
+  [0, 104], [60, 104], [120, 104],
+];
+// 12-pointed star polygon at origin: alternate outer (R=35) and inner (r=14) vertices
+const _starPts = Array.from({ length: 12 }, (_, i) => {
+  const oa = (i / 12) * 2 * Math.PI - Math.PI / 2;
+  const ia = oa + Math.PI / 12;
+  return [
+    `${(35 * Math.cos(oa)).toFixed(2)},${(35 * Math.sin(oa)).toFixed(2)}`,
+    `${(14 * Math.cos(ia)).toFixed(2)},${(14 * Math.sin(ia)).toFixed(2)}`,
+  ].join(' ');
+}).join(' ');
 
-// Parse links
-const linksData = JSON.parse(fs.readFileSync(linksPath, 'utf-8'));
+// Fetch links
+const linksEntries = await getCollection('links');
+const linksData = linksEntries.map((entry: any) => entry.data);
 
 // Parse bio with custom YouTube embed handling
-const bioMarkdown = fs.readFileSync(bioPath, 'utf-8');
-const bioHtml = marked(bioMarkdown, {
+const bioEntry = await getEntry('site', 'bio');
+const bioHtml = await marked.parse(bioEntry.body, {
   breaks: true,
 });
 
 // Parse FAQ
-const faqMarkdown = fs.readFileSync(faqPath, 'utf-8');
-const faqItems = faqMarkdown
-  .split(/^## /m)
-  .filter(Boolean)
-  .map((section) => {
-    const lines = section.split('\n');
-    const question = lines[0].trim();
-    const answerMarkdown = lines.slice(1).join('\n').trim();
-    const answer = marked(answerMarkdown);
-    return { question, answer };
-  });
+const faqEntry = await getEntry('site', 'faq');
+const faqItems = await Promise.all(
+  faqEntry.body
+    .split(/^## /m)
+    .filter((s: string) => !!s)
+    .map(async (section: string) => {
+      const lines = section.split('\n');
+      const question = lines[0].trim();
+      const answerMarkdown = lines.slice(1).join('\n').trim();
+      const answer = await marked.parse(answerMarkdown);
+      return { question, answer };
+    })
+);
 ---
 
 <html lang="en">
@@ -48,6 +63,14 @@ const faqItems = faqMarkdown
 		<meta name="theme-color" content="#1F1F1F" media="(prefers-color-scheme: dark)" />
 		<title>Islamic Education — Resources for Seekers</title>
 		<meta name="description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Islamic Education — Resources for Seekers" />
+		<meta property="og:description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Islamic Education — Resources for Seekers" />
+		<meta name="twitter:description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
 		<script is:inline>
 			// Prevent flash of wrong theme by applying theme before render
 			const theme = localStorage.getItem('theme');
@@ -57,15 +80,15 @@ const faqItems = faqMarkdown
 			}
 		</script>
 	</head>
-	<body class="bg-background text-foreground min-h-screen geometric-pattern">
+	<body class="bg-background text-foreground min-h-screen">
 		<ThemeToggle client:load />
-		<div class="max-w-2xl mx-auto px-4 py-16 md:py-20">
+		<div class="relative max-w-2xl mx-auto px-4 py-16 md:py-20" style="z-index:1">
 			<!-- Header / Hero -->
 			<section class="mb-16 md:mb-20 text-center">
 				<div class="mb-6">
 					<div class="inline-block mb-4 relative">
-						<div class="absolute inset-0 rounded-full bg-gradient-to-br from-accent/30 to-accent/10 blur-2xl scale-150 opacity-60"></div>
-						<div class="relative w-16 h-16 mx-auto rounded-full border-2 border-accent/40 overflow-hidden bg-gradient-to-br from-accent/15 to-accent/5 flex items-center justify-center backdrop-blur-sm">
+						<div class="absolute inset-0 rounded-full bg-linear-to-br from-accent/30 to-accent/10 blur-2xl scale-150 opacity-60"></div>
+						<div class="relative w-16 h-16 mx-auto rounded-full border-2 border-accent/40 overflow-hidden bg-linear-to-br from-accent/15 to-accent/5 flex items-center justify-center backdrop-blur-sm">
 							<span class="text-3xl">☪️</span>
 						</div>
 					</div>
@@ -88,16 +111,17 @@ const faqItems = faqMarkdown
 			</section>
 
 			<!-- Bio Section -->
-			<section class="mb-16">
+			<section class="mb-20">
 				<BioBlurb client:load html={bioHtml} />
 			</section>
 
 			<!-- Links Section -->
 			<section class="mb-16">
 				<h2 class="text-3xl md:text-3xl font-serif font-bold text-foreground mb-7 tracking-tight">Primary Sources & Resources</h2>
-				<div class="space-y-4">
+				<div class="flex flex-col gap-4">
 					{linksData.map((link: any) => (
 						<LinkCard
+							client:load
 							icon={link.icon}
 							title={link.title}
 							description={link.description}
