@@ -18,6 +18,11 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
+
+    const html = document.documentElement;
+    // Suppress transitions on initial theme load
+    html.classList.add('no-transition');
+
     // Check localStorage or system preference
     const stored = localStorage.getItem('theme');
     if (stored) {
@@ -29,6 +34,13 @@ export default function ThemeToggle() {
       setIsDark(prefersDark);
       applyTheme(prefersDark);
     }
+
+    // Remove no-transition class after initial paint
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        html.classList.remove('no-transition');
+      });
+    });
 
     // Listen for system preference changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
