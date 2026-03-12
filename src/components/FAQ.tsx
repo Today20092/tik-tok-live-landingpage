@@ -2,66 +2,61 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
-  id: string;
   question: string;
   answer: string;
 }
 
-const faqs: FAQItem[] = [
-  {
-    id: 'what-is-quran',
-    question: 'What is the Quran?',
-    answer:
-      'The Quran is the holy scripture of Islam, believed by Muslims to be the word of God revealed to the Prophet Muhammad over 23 years. It contains 114 chapters (Surahs) and is organized by length rather than chronologically. The Quran covers topics including spirituality, ethics, law, and guidance for living a meaningful life.',
-  },
-  {
-    id: 'prophet-muhammad',
-    question: 'Who was the Prophet Muhammad (ﷺ)?',
-    answer:
-      'Muhammad is revered by Muslims as the final prophet sent by God. Born in Mecca in 570 CE, he received the Quran through divine revelation over his lifetime. He is known for his honesty, compassion, and efforts to spread monotheism. The Islamic calendar dates from his migration to Medina in 622 CE.',
-  },
-  {
-    id: 'learn-islam',
-    question: 'How do I learn more about Islam?',
-    answer:
-      'There are many ways to begin: read introductory books about Islam, listen to talks from Islamic scholars, explore online resources, visit a local mosque to learn about the community, or join discussion groups. Starting with the Quran itself, even just a few chapters in English translation, gives great insight into Islamic teachings.',
-  },
-  {
-    id: 'find-mosque',
-    question: 'Where can I find a local mosque?',
-    answer:
-      'You can search online for mosques near you, or use websites like MuslimProor Google Maps. Most mosques welcome visitors and offer tours. Visiting a mosque is a great way to meet the community, learn about Islamic practices, and often provides free literature and resources for newcomers.',
-  },
-];
+interface FAQProps {
+  items: FAQItem[];
+}
 
-export default function FAQ() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+export default function FAQ({ items }: FAQProps) {
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setExpandedIdx(expandedIdx === idx ? null : idx);
+    }
+  };
 
   return (
-    <div className="space-y-3">
-      {faqs.map((faq) => (
-        <button
-          key={faq.id}
-          onClick={() => setExpandedId(expandedId === faq.id ? null : faq.id)}
-          className="w-full text-left p-4 bg-card rounded-lg border border-border hover:border-accent/50 transition-colors"
-        >
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="font-semibold text-foreground flex-1">{faq.question}</h3>
-            <ChevronDown
-              size={20}
-              className={`text-accent/60 flex-shrink-0 transition-transform ${
-                expandedId === faq.id ? 'rotate-180' : ''
-              }`}
-            />
-          </div>
+    <div className="space-y-4" role="region" aria-label="Frequently asked questions">
+      {items.map((faq, idx) => {
+        const headingId = `faq-heading-${idx}`;
+        const contentId = `faq-content-${idx}`;
 
-          {expandedId === faq.id && (
-            <div className="mt-3 pt-3 border-t border-border/50">
-              <p className="text-sm text-foreground/80 leading-relaxed">{faq.answer}</p>
+        return (
+          <button
+            key={`faq-${idx}`}
+            id={headingId}
+            onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
+            onKeyDown={(e) => handleKeyDown(e, idx)}
+            aria-expanded={expandedIdx === idx}
+            aria-controls={contentId}
+            className="w-full text-left p-5 card-glow rounded-lg border border-border/40 hover:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:outline-none transition-all duration-300 group relative overflow-hidden"
+          >
+            <div className="flex items-center justify-between gap-3 relative z-10">
+              <h3 className="font-semibold text-foreground/95 flex-1 group-hover:text-foreground transition-colors duration-300">{faq.question}</h3>
+              <ChevronDown
+                size={20}
+                aria-hidden="true"
+                className={`text-accent/50 group-hover:text-accent flex-shrink-0 transition-all duration-300 ${
+                  expandedIdx === idx ? 'rotate-180' : ''
+                }`}
+              />
             </div>
-          )}
-        </button>
-      ))}
+
+            {expandedIdx === idx && (
+              <div
+                id={contentId}
+                className="mt-4 pt-4 border-t border-border/30 text-sm text-foreground/70 leading-relaxed prose prose-invert max-w-none relative z-10"
+                dangerouslySetInnerHTML={{ __html: faq.answer }}
+              />
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }

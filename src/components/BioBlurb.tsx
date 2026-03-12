@@ -1,35 +1,50 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-export default function BioBlurb() {
+interface BioBlurbProps {
+  html: string;
+}
+
+export default function BioBlurb({ html }: BioBlurbProps) {
   const [expanded, setExpanded] = useState(false);
+  const lines = html.split('\n').filter(line => line.trim() && line.trim() !== '<p></p>');
+  const preview = lines[0];
+  const rest = lines.slice(1).join('\n');
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setExpanded(!expanded);
+    }
+  };
 
   return (
     <button
       onClick={() => setExpanded(!expanded)}
-      className="w-full text-left px-6 py-4 bg-card rounded-lg border border-border hover:border-accent transition-colors"
+      onKeyDown={handleKeyDown}
+      aria-label={expanded ? 'Collapse biography section' : 'Expand biography section'}
+      aria-expanded={expanded}
+      className="w-full text-left px-6 py-5 card-glow rounded-lg border border-border/40 hover:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:outline-none transition-all duration-300 group"
     >
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-foreground/90 leading-relaxed flex-1">
-          Welcome to the Quran Reading Sessions. Join me on TikTok Live for daily readings of the Quran in English. Whether you're curious about Islam or seeking spiritual growth, this is a welcoming space for everyone.
-        </p>
+      <div className="flex items-center justify-between gap-3 relative z-10">
+        <div
+          className="text-sm text-foreground/85 leading-relaxed flex-1 prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: preview }}
+        />
         <ChevronDown
           size={20}
-          className={`text-accent flex-shrink-0 transition-transform ${
+          aria-hidden="true"
+          className={`text-accent/70 group-hover:text-accent flex-shrink-0 transition-all duration-300 ${
             expanded ? 'rotate-180' : ''
           }`}
         />
       </div>
 
-      {expanded && (
-        <div className="mt-4 pt-4 border-t border-border space-y-2 text-sm text-foreground/80">
-          <p>
-            These live sessions are designed to introduce the Quran's teachings in an accessible way. You'll find resources, answers to common questions, and links to deeper learning materials below.
-          </p>
-          <p>
-            Feel free to ask questions in the chat or follow up here. No prior knowledge of Islam is needed—everyone is welcome.
-          </p>
-        </div>
+      {expanded && rest && (
+        <div
+          className="mt-4 pt-4 border-t border-border/30 text-sm text-foreground/70 prose prose-invert max-w-none relative z-10"
+          dangerouslySetInnerHTML={{ __html: rest }}
+        />
       )}
     </button>
   );
