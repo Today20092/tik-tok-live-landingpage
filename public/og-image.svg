@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a1f1a"/>
+      <stop offset="100%" stop-color="#111411"/>
+    </linearGradient>
+
+    <!-- Accent glow behind icon -->
+    <radialGradient id="glow" cx="50%" cy="42%" r="28%">
+      <stop offset="0%" stop-color="#6aab74" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#6aab74" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Subtle corner vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="60%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#0a0d0a" stop-opacity="0.6"/>
+    </radialGradient>
+
+    <!-- Geometric pattern tile (12-pointed star) -->
+    <pattern id="stars" x="0" y="0" width="120" height="104" patternUnits="userSpaceOnUse">
+      <!-- Stars at hex centers -->
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(0,0)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(60,0)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(120,0)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(30,52)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(90,52)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(0,104)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(60,104)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+      <polygon points="35.00,0.00 13.53,5.88 29.44,23.72 8.75,13.78 13.53,5.88 0.00,0.00 -13.53,5.88 -8.75,13.78 -29.44,23.72 -13.53,5.88 -35.00,0.00 -13.53,-5.88 -29.44,-23.72 -8.75,-13.78 -13.53,-5.88 0.00,0.00 13.53,-5.88 8.75,-13.78 29.44,-23.72 13.53,-5.88" transform="translate(120,104)" fill="none" stroke="#3a5c3e" stroke-width="0.7" stroke-linejoin="round"/>
+    </pattern>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Islamic geometric pattern (subtle) -->
+  <rect width="1200" height="630" fill="url(#stars)" opacity="0.5"/>
+
+  <!-- Vignette -->
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+
+  <!-- Accent glow -->
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="4" height="630" fill="#6aab74" opacity="0.7"/>
+
+  <!-- Crescent & star icon (centered, large) -->
+  <g transform="translate(600, 210) scale(5.5)" opacity="0.95">
+    <!-- Crescent -->
+    <path d="M12 2C10.5 2 9.1 2.3 7.8 2.8C9.7 4.2 10.9 6.4 10.9 9C10.9 11.6 9.7 13.8 7.8 15.2C9.1 15.7 10.5 16 12 16C15.9 16 19 12.9 19 9C19 5.1 15.9 2 12 2Z"
+      fill="#6aab74" transform="translate(-12,-9)"/>
+    <!-- Small star -->
+    <path d="M18.5 2L18.8 3L19.8 3.3L18.8 3.6L18.5 4.6L18.2 3.6L17.2 3.3L18.2 3L18.5 2Z"
+      fill="#6aab74" transform="translate(-12,-9)"/>
+    <!-- Large star -->
+    <path d="M15 4L15.4 5.4L16.8 5.8L15.4 6.2L15 7.6L14.6 6.2L13.2 5.8L14.6 5.4L15 4Z"
+      fill="#6aab74" transform="translate(-12,-9)"/>
+  </g>
+
+  <!-- Main title -->
+  <text
+    x="600"
+    y="360"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="72"
+    font-weight="700"
+    letter-spacing="-1.5"
+    fill="#ede8df"
+  >Islamic Education</text>
+
+  <!-- Subtitle -->
+  <text
+    x="600"
+    y="415"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="24"
+    font-weight="400"
+    letter-spacing="0.3"
+    fill="#ede8df"
+    opacity="0.6"
+  >Understanding Tawhid, the Five Pillars, and Islamic Practice</text>
+
+  <!-- Divider line -->
+  <line x1="520" y1="448" x2="680" y2="448" stroke="#6aab74" stroke-width="1" opacity="0.4"/>
+
+  <!-- TikTok handle -->
+  <text
+    x="600"
+    y="480"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="20"
+    font-weight="500"
+    letter-spacing="1"
+    fill="#6aab74"
+    opacity="0.85"
+  >@ayoubabedrabbo · Free Resources · No Signup Required</text>
+
+  <!-- Bottom bismillah -->
+  <text
+    x="600"
+    y="578"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="18"
+    fill="#ede8df"
+    opacity="0.25"
+    letter-spacing="2"
+  >بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</text>
+</svg>
