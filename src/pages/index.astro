@@ -3,6 +3,7 @@ import '../styles/global.css';
 import BioBlurb from '@/components/BioBlurb';
 import LinkCard from '@/components/LinkCard';
 import FAQ from '@/components/FAQ';
+import ThemeToggle from '@/components/ThemeToggle';
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
@@ -42,12 +43,22 @@ const faqItems = faqMarkdown
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="color-scheme" content="light" />
-		<meta name="theme-color" content="#F4F3EF" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#F4F3EF" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#1F1F1F" media="(prefers-color-scheme: dark)" />
 		<title>Islamic Education — Resources for Seekers</title>
 		<meta name="description" content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners." />
+		<script is:inline>
+			// Prevent flash of wrong theme by applying theme before render
+			const theme = localStorage.getItem('theme');
+			if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+				document.documentElement.style.colorScheme = 'dark';
+			}
+		</script>
 	</head>
 	<body class="bg-background text-foreground min-h-screen geometric-pattern">
+		<ThemeToggle client:load />
 		<div class="max-w-2xl mx-auto px-4 py-16 md:py-20">
 			<!-- Header / Hero -->
 			<section class="mb-16 md:mb-20 text-center">
