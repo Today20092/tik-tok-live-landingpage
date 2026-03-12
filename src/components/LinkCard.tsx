@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import DynamicIcon from './DynamicIcon';
 
 interface LinkCardProps {
   icon: string;
@@ -26,7 +27,12 @@ export default function LinkCard({
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center gap-3">
             <span className="text-2xl" aria-hidden="true">
-              {icon}
+              <DynamicIcon
+                name={icon}
+                size={24}
+                className="text-accent"
+              />
+              {!icon.match(/^[a-zA-Z]/) && icon}
             </span>
             <h3 className="text-foreground group-hover:text-accent text-lg font-semibold transition-colors duration-300">
               {title}
