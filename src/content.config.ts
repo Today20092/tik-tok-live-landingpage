@@ -23,7 +23,25 @@ const linksCollection = defineCollection({
   })
 });
 
+const drawingsCollection = defineCollection({
+  loader: async () => {
+    const fs = await import('node:fs/promises');
+    const path = await import('node:path');
+    const filePath = path.resolve('src/content/drawings/drawings.json');
+    const text = await fs.readFile(filePath, 'utf-8');
+    const data = JSON.parse(text);
+    return data;
+  },
+  schema: z.object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      svgPath: z.string(),
+  })
+});
+
 export const collections = {
   'site': siteCollection,
   'links': linksCollection,
+  'drawings': drawingsCollection,
 };

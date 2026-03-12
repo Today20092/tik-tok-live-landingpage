@@ -3,6 +3,7 @@ import '../styles/global.css';
 import BioBlurb from '@/components/BioBlurb';
 import LinkCard from '@/components/LinkCard';
 import FAQ from '@/components/FAQ';
+import DrawingSection from '@/components/DrawingSection';
 import ThemeToggle from '@/components/ThemeToggle';
 import { getEntry, getCollection } from 'astro:content';
 import { marked } from 'marked';
@@ -49,6 +50,10 @@ const faqItems = await Promise.all(
       return { question, answer };
     })
 );
+
+// Fetch drawings
+const drawingsEntries = await getCollection('drawings');
+const drawingsData = drawingsEntries.map((entry: any) => entry.data);
 ---
 
 <html lang="en">
@@ -160,6 +165,11 @@ const faqItems = await Promise.all(
 			<!-- FAQ Section -->
 			<section class="mb-16">
 				<FAQ client:load title="The Why: Understanding Islamic Concepts" items={faqItems} />
+			</section>
+
+			<!-- Drawings Section -->
+			<section class="mb-16">
+				<DrawingSection client:load items={drawingsData} />
 			</section>
 
 			<!-- Footer -->
