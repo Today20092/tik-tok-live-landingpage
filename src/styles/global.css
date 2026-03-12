@@ -135,8 +135,6 @@ html {
     @apply bg-background text-foreground;
   }
 
-  .dark body {
-  }
   html {
     @apply font-sans;
   }

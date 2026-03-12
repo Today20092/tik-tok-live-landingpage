@@ -17,7 +17,7 @@ export default function FAQ({
 }: FAQProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
-  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -66,30 +66,32 @@ export default function FAQ({
               const contentId = `faq-content-${idx}`;
 
               return (
-                <button
+                <div
                   key={`faq-${idx}`}
-                  id={headingId}
                   ref={(el) => {
                     itemRefs.current[idx] = el;
                   }}
-                  onClick={() => {
-                    const isOpening = expandedIdx !== idx;
-                    setExpandedIdx(expandedIdx === idx ? null : idx);
-                    if (isOpening) {
-                      setTimeout(() => {
-                        itemRefs.current[idx]?.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'nearest',
-                        });
-                      }, 50);
-                    }
-                  }}
-                  onKeyDown={(e) => handleKeyDown(e, idx)}
-                  aria-expanded={expandedIdx === idx}
-                  aria-controls={contentId}
-                  className="card-glow border-l-accent hover:border-accent/60 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm focus-visible:ring-2 focus-visible:outline-none"
+                  className="card-glow border-l-accent hover:border-accent/60 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-l-4 transition-all duration-300 hover:shadow-sm"
                 >
-                  <div className="relative z-10 flex w-full items-center justify-between gap-3">
+                  <button
+                    id={headingId}
+                    onClick={() => {
+                      const isOpening = expandedIdx !== idx;
+                      setExpandedIdx(expandedIdx === idx ? null : idx);
+                      if (isOpening) {
+                        setTimeout(() => {
+                          itemRefs.current[idx]?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                          });
+                        }, 50);
+                      }
+                    }}
+                    onKeyDown={(e) => handleKeyDown(e, idx)}
+                    aria-expanded={expandedIdx === idx}
+                    aria-controls={contentId}
+                    className="relative z-10 flex w-full items-center justify-between gap-3 p-5 pl-6 text-left focus-visible:ring-2 focus-visible:outline-none"
+                  >
                     <div className="flex flex-1 items-baseline gap-3">
                       <span className="text-foreground/30 font-mono text-xs shrink-0">
                         {String(idx + 1).padStart(2, '0')}
@@ -105,24 +107,24 @@ export default function FAQ({
                         expandedIdx === idx ? 'rotate-180' : ''
                       }`}
                     />
-                  </div>
+                  </button>
 
                   <div
                     id={contentId}
                     className={`grid w-full transition-all duration-300 ease-in-out ${
                       expandedIdx === idx
-                        ? 'border-border/30 mt-4 grid-rows-[1fr] border-t pt-4 opacity-100'
-                        : 'mt-0 grid-rows-[0fr] border-transparent pt-0 opacity-0'
+                        ? 'border-border/30 grid-rows-[1fr] border-t opacity-100'
+                        : 'grid-rows-[0fr] border-transparent opacity-0'
                     }`}
                   >
                     <div className="overflow-hidden">
                       <div
-                        className="text-foreground/70 prose dark:prose-invert relative z-10 max-w-none text-base leading-relaxed"
+                        className="text-foreground/70 prose dark:prose-invert relative z-10 max-w-none p-5 pl-6 pt-4 text-base leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: faq.answer }}
                       />
                     </div>
                   </div>
-                </button>
+                </div>
               );
             })}
           </div>

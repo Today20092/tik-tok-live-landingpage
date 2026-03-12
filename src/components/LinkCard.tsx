@@ -162,7 +162,6 @@ export default function LinkCard({
         rel="noopener noreferrer"
         className="card-glow border-accent/50 bg-accent/5 hover:bg-accent/10 relative block overflow-hidden rounded-lg border-2 p-6 pl-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-accent/10 focus-visible:ring-2 focus-visible:outline-none"
       >
-
         {/* Featured badge */}
         <div className="mb-2 flex justify-end">
           <div className="flex items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
@@ -203,7 +202,7 @@ export default function LinkCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card relative block overflow-hidden rounded-lg border-y border-r border-l-4 p-6 pl-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
+      className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card group relative block overflow-hidden rounded-lg border-y border-r border-l-4 p-6 pl-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
     >
       <div className="relative z-10 mb-2 flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">

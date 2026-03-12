@@ -39,6 +39,9 @@ const charityLinks = linksData.filter(l => l.variant === 'charity');
 const resourceLinks = linksData.filter(l => l.variant !== 'charity' && !l.youtube);
 const videoLinks = linksData.filter(l => !!l.youtube);
 
+// Primary CTA: first featured link, fallback to first resource link
+const ctaLink = resourceLinks.find(l => l.variant === 'featured') ?? resourceLinks[0];
+
 // Parse bio with custom YouTube embed handling
 const bioEntry = await getEntry('site', 'bio');
 const bioHtml = bioEntry ? await marked.parse(bioEntry.body ?? '', {
@@ -169,9 +172,9 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
     <!-- Sticky mobile CTA -->
     <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-background/90 backdrop-blur border-t border-border/20">
       <a
-        href="https://www.onemessagefoundation.com/free-quran/p/quran-english"
-        target="_blank"
-        rel="noopener noreferrer"
+        href={ctaLink?.url ?? '#resources'}
+        target={ctaLink ? '_blank' : undefined}
+        rel={ctaLink ? 'noopener noreferrer' : undefined}
         class="bg-accent text-background hover:bg-accent/90 block w-full rounded-full py-3 text-center text-sm font-medium transition-all duration-300"
       >
         Get the Free Quran →
@@ -241,7 +244,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
       <!-- Bio Section -->
       <section class="mb-12">
-        <BioBlurb client:load html={bioHtml} />
+        <BioBlurb client:visible html={bioHtml} />
       </section>
 
       <hr class="border-border/20 mb-12" />
@@ -326,7 +329,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
       <!-- FAQ Section -->
       <section class="mb-20">
         <FAQ
-          client:load
+          client:visible
           title="The Why: Understanding Islamic Concepts"
           items={faqItems}
         />
@@ -336,7 +339,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
       <!-- Drawings Section -->
       <section class="mb-20">
-        <DrawingSection client:load items={drawingsData} />
+        <DrawingSection client:visible items={drawingsData} />
       </section>
 
       <!-- Footer -->
