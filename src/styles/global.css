@@ -33,7 +33,7 @@ html {
   --chart-3: oklch(0.35 0.05 250);
   --chart-4: oklch(0.65 0.1 80);
   --chart-5: oklch(0.4 0.08 160);
-  --pattern-stroke: oklch(0.25 0.03 250 / 4%);
+  --pattern-stroke: oklch(0.25 0.03 250 / 6%);
   --radius: 0.625rem;
 }
 
@@ -72,7 +72,7 @@ html {
   --sidebar-ring: oklch(0.65 0.12 165);
   --pattern-stroke: color-mix(
     in oklch,
-    oklch(0.65 0.12 165) 12%,
+    oklch(0.65 0.12 165) 13%,
     oklch(0.12 0 0)
   ); /* Pre-mixed opaque color to stop scroll brightness shifts */
 }

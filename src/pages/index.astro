@@ -9,28 +9,25 @@ import BackToTop from '@/components/BackToTop';
 import { getEntry, getCollection } from 'astro:content';
 import { marked } from 'marked';
 
-// Islamic geometric background — 12-pointed star (dodecagram) + Flower of Life circle grid
-// Hex close-pack: tile 120×104, circle radius 60, star outer R=35, inner r=14
-const _tileW = 120,
-  _tileH = 104;
-const _hexCenters: [number, number][] = [
-  [0, 0],
-  [60, 0],
-  [120, 0],
-  [30, 52],
-  [90, 52],
-  [0, 104],
-  [60, 104],
-  [120, 104],
+// Islamic geometric background — 8-pointed star (Rub el Hizb) grid
+// Square tile: 80×80, star outer R=28, inner r=11.6 (ratio ~0.414 for 45° geometry)
+const _tileSize = 80;
+const _tileCenters: [number, number][] = [
+  [0, 0], [80, 0], [0, 80], [80, 80], [40, 40]
 ];
-// 12-pointed star polygon at origin: alternate outer (R=35) and inner (r=14) vertices
-const _starPts = Array.from({ length: 12 }, (_, i) => {
-  const oa = (i / 12) * 2 * Math.PI - Math.PI / 2;
-  const ia = oa + Math.PI / 12;
+// 8-pointed star: alternate outer (R=28) and inner (r=11.6) vertices at 45° steps
+const _starPts = Array.from({ length: 8 }, (_, i) => {
+  const oa = (i / 8) * 2 * Math.PI - Math.PI / 8;
+  const ia = oa + Math.PI / 8;
   return [
-    `${(35 * Math.cos(oa)).toFixed(2)},${(35 * Math.sin(oa)).toFixed(2)}`,
-    `${(14 * Math.cos(ia)).toFixed(2)},${(14 * Math.sin(ia)).toFixed(2)}`,
+    `${(28 * Math.cos(oa)).toFixed(2)},${(28 * Math.sin(oa)).toFixed(2)}`,
+    `${(11.6 * Math.cos(ia)).toFixed(2)},${(11.6 * Math.sin(ia)).toFixed(2)}`,
   ].join(' ');
+}).join(' ');
+// Rotated square (45° diamond) at center, connecting stars — vertices at distance 11.6
+const _diamondPts = Array.from({ length: 4 }, (_, i) => {
+  const a = (i / 4) * 2 * Math.PI + Math.PI / 4;
+  return `${(11.6 * Math.cos(a)).toFixed(2)},${(11.6 * Math.sin(a)).toFixed(2)}`;
 }).join(' ');
 
 // Fetch links
@@ -123,7 +120,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
     </script>
   </head>
   <body class="bg-background text-foreground min-h-screen">
-    <!-- 12-pointed star (dodecagram) Islamic geometric background -->
+    <!-- 8-pointed star (Rub el Hizb) Islamic geometric background -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -131,40 +128,36 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
     >
       <defs>
         <pattern
-          id="dodecagram"
+          id="rub-el-hizb"
           x="0"
           y="0"
-          width={_tileW}
-          height={_tileH}
+          width={_tileSize}
+          height={_tileSize}
           patternUnits="userSpaceOnUse"
         >
           {
-            _hexCenters.map(([cx, cy]) => (
+            _tileCenters.map(([cx, cy]) => (
               <polygon
                 points={_starPts}
                 transform={`translate(${cx},${cy})`}
                 fill="none"
                 stroke="var(--pattern-stroke)"
-                stroke-width="1"
+                stroke-width="1.2"
                 stroke-linejoin="round"
               />
             ))
           }
-          {
-            _hexCenters.map(([cx, cy]) => (
-              <circle
-                cx={cx}
-                cy={cy}
-                r="26"
-                fill="none"
-                stroke="var(--pattern-stroke)"
-                stroke-width="0.5"
-              />
-            ))
-          }
+          <polygon
+            points={_diamondPts}
+            transform="translate(40,40)"
+            fill="none"
+            stroke="var(--pattern-stroke)"
+            stroke-width="1.2"
+            stroke-linejoin="round"
+          />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#dodecagram)"></rect>
+      <rect width="100%" height="100%" fill="url(#rub-el-hizb)"></rect>
     </svg>
     <ThemeToggle client:load />
     <BackToTop client:load />
