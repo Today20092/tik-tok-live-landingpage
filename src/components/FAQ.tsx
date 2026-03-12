@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
@@ -17,6 +17,7 @@ export default function FAQ({
 }: FAQProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -68,9 +69,21 @@ export default function FAQ({
                 <button
                   key={`faq-${idx}`}
                   id={headingId}
-                  onClick={() =>
-                    setExpandedIdx(expandedIdx === idx ? null : idx)
-                  }
+                  ref={(el) => {
+                    itemRefs.current[idx] = el;
+                  }}
+                  onClick={() => {
+                    const isOpening = expandedIdx !== idx;
+                    setExpandedIdx(expandedIdx === idx ? null : idx);
+                    if (isOpening) {
+                      setTimeout(() => {
+                        itemRefs.current[idx]?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'nearest',
+                        });
+                      }, 50);
+                    }
+                  }}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   aria-expanded={expandedIdx === idx}
                   aria-controls={contentId}
