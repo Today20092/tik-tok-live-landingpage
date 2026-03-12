@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx shadcn-ui@latest init)",
+      "Bash(npx shadcn@latest init)",
+      "Bash(yes | npx shadcn@latest init)"
+    ]
+  }
+}
