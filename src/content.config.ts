@@ -23,6 +23,7 @@ const linksCollection = defineCollection({
     description: z.string(),
     url: z.string().url(),
     youtube: z.string().optional(),
+    variant: z.enum(['default', 'featured', 'charity']).optional(),
   }),
 });
 

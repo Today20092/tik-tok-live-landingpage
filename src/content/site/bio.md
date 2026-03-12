@@ -1,15 +1,13 @@
-Welcome to Islamic Education — A Resource for Seekers
+Hey, I'm Ayoub — I read the English Quran live on TikTok, and this page is for anyone who wants to follow along, get the book, or simply learn more.
 
-This page is designed for anyone curious about Islam: whether you're exploring the faith for the first time, recently embraced Islam, or seeking to deepen your understanding of Islamic teachings and practices.
+Most nights I go live and read aloud from *The Clear Quran* — a clean English translation. Anyone can join, ask questions, and sit with the words at their own pace. No prior knowledge needed.
 
-**The foundation of Islam rests on a few core concepts:**
+**A little context on what we're reading:**
 
-**Tawhid** (Islamic Monotheism) — the belief in the oneness and uniqueness of God, that there is nothing worthy of worship except Allah. This is the central principle from which all Islamic belief and practice flows.
+**The Quran** is the primary source of Islamic guidance, believed by Muslims to be the word of God revealed to the Prophet Muhammad (ﷺ) over 23 years. It addresses spirituality, ethics, and practical guidance for living meaningfully. *The Clear Quran* by Dr. Mustafa Khattab is widely considered one of the most readable English translations available.
 
-**The Five Pillars** — the foundational practices that structure Muslim life: the Shahada (testimony of faith), Salah (prayer), Zakat (charitable giving), Sawm (fasting during Ramadan), and Hajj (pilgrimage).
+**Tawhid** (Islamic Monotheism) — the belief in the oneness of God — is the central concept from which all Islamic belief and practice flows.
 
-**The Quran** — the primary source of Islamic guidance, believed by Muslims to be the word of God revealed to the Prophet Muhammad (ﷺ) over 23 years. It addresses spirituality, ethics, law, and practical guidance for living meaningfully.
+**The Five Pillars** structure Muslim life: the Shahada (testimony of faith), Salah (prayer), Zakat (charitable giving), Sawm (fasting during Ramadan), and Hajj (pilgrimage).
 
-Below you'll find resources that explain the "why" behind Islamic concepts, links to primary sources, and pathways for deeper learning. Whether you're asking fundamental questions or seeking scholarly explanations, every step on this journey is welcome.
-
-No prior knowledge is needed. This is a space for genuine inquiry and reflection.
+Below you'll find links to get the book, read the Quran online, and explore further. Every step on this journey is welcome.
