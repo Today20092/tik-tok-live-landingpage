@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Image as ImageIcon } from 'lucide-react';
+import { ChevronDown, Image as ImageIcon, X, Maximize2 } from 'lucide-react';
 
 interface DrawingItem {
   id: string;
@@ -19,6 +19,7 @@ export default function DrawingSection({
 }: DrawingSectionProps) {
   const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+  const [fullscreenIdx, setFullscreenIdx] = useState<number | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -27,15 +28,47 @@ export default function DrawingSection({
     }
   };
 
+  const openFullscreen = (idx: number) => {
+    setFullscreenIdx(idx);
+    window.dispatchEvent(new CustomEvent('fullscreen-drawing', { detail: { active: true } }));
+  };
+
+  const closeFullscreen = () => {
+    setFullscreenIdx(null);
+    window.dispatchEvent(new CustomEvent('fullscreen-drawing', { detail: { active: false } }));
+  };
+
   return (
     <div className="w-full">
+      {/* Fullscreen Modal */}
+      {fullscreenIdx !== null && (
+        <div
+          className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          onClick={closeFullscreen}
+        >
+          <button
+            onClick={closeFullscreen}
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+            aria-label="Close fullscreen"
+          >
+            <X size={24} />
+          </button>
+          <img
+            src={items[fullscreenIdx].svgPath}
+            alt={items[fullscreenIdx].title}
+            className="max-h-[90vh] max-w-[95vw] rounded-xl object-contain hue-rotate-180 invert-[0.9] dark:hue-rotate-0 dark:invert-0"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       {/* Section Level Dropdown Toggle */}
       <button
         onClick={() => setIsSectionOpen(!isSectionOpen)}
         className="group focus-visible:ring-accent/50 mb-6 -ml-2 flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-left focus-visible:ring-2 focus-visible:outline-none"
         aria-expanded={isSectionOpen}
       >
-        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-3xl">
+        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-4xl">
           {title}
         </h2>
         <div className="bg-accent/5 group-hover:bg-accent/10 group-hover:border-accent/20 rounded-full border border-transparent p-2 transition-all duration-300">
@@ -110,12 +143,20 @@ export default function DrawingSection({
                       <p className="text-foreground/70 mb-6 text-sm leading-relaxed">
                         {drawing.description}
                       </p>
-                      <div className="border-border/40 overflow-hidden rounded-xl border bg-white/5 p-2">
+                      <div className="border-border/40 relative overflow-hidden rounded-xl border bg-white/5 p-2">
+                        <button
+                          onClick={() => openFullscreen(idx)}
+                          className="absolute top-4 right-4 z-10 rounded-full bg-black/30 p-1.5 text-white/70 hover:bg-black/50 hover:text-white transition-all"
+                          aria-label="View fullscreen"
+                        >
+                          <Maximize2 size={16} />
+                        </button>
                         <img
                           src={drawing.svgPath}
                           alt={drawing.title}
-                          className="block h-auto w-full hue-rotate-180 invert-[0.9] transition-all dark:hue-rotate-0 dark:invert-0"
+                          className="block h-auto w-full cursor-zoom-in hue-rotate-180 invert-[0.9] transition-all dark:hue-rotate-0 dark:invert-0"
                           loading="lazy"
+                          onClick={() => openFullscreen(idx)}
                         />
                       </div>
                     </div>

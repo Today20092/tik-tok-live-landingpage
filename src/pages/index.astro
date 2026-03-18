@@ -214,7 +214,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
         <!-- Trust bar -->
         <div class="text-foreground/55 mb-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs">
-          <span>📱 TikTok Live · <a href="https://www.tiktok.com/@ayoubabedrabbo" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">@ayoubabedrabbo</a></span>
+          <span class="inline-flex items-center gap-1"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> TikTok Live · <a href="https://www.tiktok.com/@ayoubabedrabbo" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">@ayoubabedrabbo</a></span>
           <span class="text-foreground/30">·</span>
           <span>Free resources</span>
           <span class="text-foreground/30">·</span>
@@ -243,11 +243,11 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
       </section>
 
       <!-- Bio Section -->
-      <section class="mb-12">
+      <section class="mb-16">
         <BioBlurb client:visible html={bioHtml} />
       </section>
 
-      <hr class="border-border/20 mb-12" />
+      <hr class="border-border/20 mb-16" />
 
       <!-- Links Section -->
       <section id="resources" class="mb-20">
@@ -262,8 +262,12 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
           </p>
         </div>
 
-        <!-- Charity Card (pinned at top, no section label) -->
-        <div class="flex flex-col gap-4 mb-12">
+        <!-- Charity Section -->
+        <div class="mb-12">
+          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
+            Give
+          </h3>
+        <div class="flex flex-col gap-4">
           {
             charityLinks.map((link) => (
               <LinkCard
@@ -277,6 +281,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
               />
             ))
           }
+        </div>
         </div>
 
         <!-- Resources Section -->
@@ -347,7 +352,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
         class="border-border/20 text-foreground/50 border-t pt-12 text-center text-sm"
       >
         <!-- Social Links -->
-        <div class="mb-5 flex items-center justify-center gap-5">
+        <div class="mb-4 flex items-center justify-center gap-5">
           <a
             href="https://www.tiktok.com/@ayoubabedrabbo"
             target="_blank"
@@ -360,7 +365,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
             </svg>
           </a>
         </div>
-        <p class="text-foreground/70 mb-3 font-serif tracking-wide">
+        <p class="text-foreground/70 mb-6 font-serif tracking-wide">
           بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </p>
         <p class="text-xs">

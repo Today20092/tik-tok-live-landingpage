@@ -15,6 +15,7 @@ const applyTheme = (dark: boolean) => {
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -52,7 +53,16 @@ export default function ThemeToggle() {
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+
+    const handleFullscreen = (e: Event) => {
+      setFullscreen((e as CustomEvent<{ active: boolean }>).detail.active);
+    };
+    window.addEventListener('fullscreen-drawing', handleFullscreen);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      window.removeEventListener('fullscreen-drawing', handleFullscreen);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -68,7 +78,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 focus-visible:ring-accent/50 fixed top-6 right-6 z-50 rounded-full border p-2 transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none"
+      className={`border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 focus-visible:ring-accent/50 fixed top-6 right-6 z-[9999] rounded-full border p-2 transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none ${fullscreen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
     >
       {isDark ? (
         <Sun size={20} className="text-accent" />

@@ -21,10 +21,23 @@
     "variant": "featured"
   },
   {
+    "icon": "PackageOpen",
+    "title": "Order The Quran Project Translation - FREE",
+    "description": "Easy-to-understand English translation made specifically for non-Muslims and beginners. Includes chapter introductions and appendices. Ships worldwide, free of charge.",
+    "url": "https://www.quranproject.org/The-Quran-Project-1-p",
+    "variant": "featured"
+  },
+  {
     "icon": "Book",
     "title": "The Clear Quran English + Arabic Text (Furqaan Bookstore)",
     "description": "This is the book i am reading on live tiktok, it does NOT come with the spiral like mine. I went and got that done at a local store.",
     "url": "https://furqaanbookstore.com/products/the-clear-quran-with-arabic-text-paperback"
+  },
+  {
+    "icon": "PencilLine",
+    "title": "TikTok Live Excalidraw Scene",
+    "description": "View the live drawing board used during TikTok Live sessions",
+    "url": "https://tiny.alphabravomedia.co/97Y16"
   },
   {
     "icon": "Scroll",
