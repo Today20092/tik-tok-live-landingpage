@@ -373,7 +373,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
       <!-- Footer -->
       <footer
-        class="border-border/20 text-foreground/50 border-t pt-12 text-center text-sm"
+        class="border-border/20 text-foreground/50 border-t pt-12 pb-28 text-center text-sm"
       >
         <!-- Social Links -->
         <div class="mb-4 flex items-center justify-center gap-5">
@@ -400,12 +400,21 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
     <script is:inline src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
     <script is:inline>
-      kofiWidgetOverlay.draw('ayoubab1', {
-        'type': 'floating-chat',
-        'floating-chat.donateButton.text': 'Support me',
-        'floating-chat.donateButton.background-color': '#6a9e7f',
-        'floating-chat.donateButton.text-color': '#fff'
-      });
+      function showKofi() {
+        kofiWidgetOverlay.draw('ayoubab1', {
+          'type': 'floating-chat',
+          'floating-chat.donateButton.text': 'Support me',
+          'floating-chat.donateButton.background-color': '#6a9e7f',
+          'floating-chat.donateButton.text-color': '#fff'
+        });
+      }
+      function onKofiScroll() {
+        if (window.scrollY > 300) {
+          window.removeEventListener('scroll', onKofiScroll);
+          showKofi();
+        }
+      }
+      window.addEventListener('scroll', onKofiScroll, { passive: true });
     </script>
   </body>
 </html>
