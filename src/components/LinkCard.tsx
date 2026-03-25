@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Star, Heart } from 'lucide-react';
+import { ArrowRight, Star, Heart, Tv2 } from 'lucide-react';
 import DynamicIcon from './DynamicIcon';
 
 interface LinkCardProps {
@@ -9,7 +9,7 @@ interface LinkCardProps {
   href: string;
   youtube?: string;
   featured?: boolean;
-  variant?: 'default' | 'featured' | 'charity';
+  variant?: 'default' | 'featured' | 'charity' | 'stream-pick';
 }
 
 function YouTubeEmbed({ youtube, title }: { youtube: string; title: string }) {
@@ -110,6 +110,49 @@ export default function LinkCard({
   variant,
 }: LinkCardProps) {
   const resolvedVariant = variant ?? (featured ? 'featured' : 'default');
+
+  if (resolvedVariant === 'stream-pick') {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="card-glow border-amber-500/50 bg-amber-500/5 hover:bg-amber-500/10 relative block overflow-hidden rounded-lg border-2 p-6 pl-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-amber-500/10 focus-visible:ring-2 focus-visible:outline-none"
+      >
+        {/* Stream pick badge */}
+        <div className="mb-2 flex justify-end">
+          <div className="flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-400">
+            <Tv2 size={9} aria-hidden="true" />
+            Reading on Stream
+          </div>
+        </div>
+
+        <div className="relative z-10 mb-2 flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="mb-2 flex items-center gap-3">
+              <span className="text-2xl" aria-hidden="true">
+                <DynamicIcon name={icon} size={26} className="text-amber-600 dark:text-amber-400" />
+                {!icon.match(/^[a-zA-Z]/) && icon}
+              </span>
+              <h3 className="text-foreground text-xl font-semibold transition-colors duration-300">
+                {title}
+              </h3>
+            </div>
+            <p className="text-foreground/70 text-sm leading-relaxed">
+              {description}
+            </p>
+          </div>
+          <ArrowRight
+            size={20}
+            aria-hidden="true"
+            className="text-amber-600 dark:text-amber-400 mt-1 shrink-0 transition-all duration-300"
+          />
+        </div>
+
+        {youtube && <YouTubeEmbed youtube={youtube} title={title} />}
+      </a>
+    );
+  }
 
   if (resolvedVariant === 'charity') {
     return (

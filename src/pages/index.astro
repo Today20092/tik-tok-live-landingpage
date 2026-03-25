@@ -36,7 +36,8 @@ const linksData = linksEntries.map((entry) => entry.data);
 
 // Split links into sections
 const charityLinks = linksData.filter(l => l.variant === 'charity');
-const resourceLinks = linksData.filter(l => l.variant !== 'charity' && !l.youtube);
+const streamPickLinks = linksData.filter(l => l.variant === 'stream-pick');
+const resourceLinks = linksData.filter(l => l.variant !== 'charity' && l.variant !== 'stream-pick' && !l.youtube);
 const videoLinks = linksData.filter(l => !!l.youtube);
 
 // Primary CTA: first featured link, fallback to first resource link
@@ -213,7 +214,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
             <span class="text-accent block text-3xl md:text-5xl">Live with Ayoub</span>
           </h1>
           <p class="text-foreground/70 text-base leading-relaxed md:text-lg">
-            Join live Quran readings on TikTok, Twitch &amp; YouTube — open to everyone
+            Follow along with the Quran live — the book, resources, and more
           </p>
         </div>
 
@@ -282,10 +283,10 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
           <h2
             class="text-foreground mb-2 font-serif text-3xl font-bold tracking-tight md:text-4xl"
           >
-            Get the Book & Learn More
+            Follow Along
           </h2>
           <p class="text-foreground/55 text-sm leading-relaxed">
-            Get your copy of the Quran, read it online, and explore resources to go deeper.
+            Get the book, read the Quran online, and explore resources to go deeper.
           </p>
         </div>
 
@@ -311,10 +312,34 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
         </div>
         </div>
 
+        <!-- Stream Pick Section -->
+        {streamPickLinks.length > 0 && (
+          <div class="mb-12">
+            <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
+              The Book
+            </h3>
+            <div class="flex flex-col gap-4">
+              {
+                streamPickLinks.map((link) => (
+                  <LinkCard
+                    client:load
+                    icon={link.icon}
+                    title={link.title}
+                    description={link.description}
+                    href={link.url}
+                    youtube={link.youtube}
+                    variant={link.variant ?? 'default'}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        )}
+
         <!-- Resources Section -->
         <div class="mb-12">
           <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
-            Resources
+            Free Online Resources
           </h3>
           <div class="flex flex-col gap-4">
             {
