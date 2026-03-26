@@ -220,7 +220,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
 
         <!-- Trust bar -->
         <div class="text-foreground/55 mb-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs">
-          <span>Live every night · 12am ET (Tampa, FL)</span>
+          <span>Live every night · 12am ET</span>
           <span class="text-foreground/30">·</span>
           <span>TikTok, Twitch &amp; YouTube</span>
           <span class="text-foreground/30">·</span>
@@ -449,5 +449,13 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
       }
       window.addEventListener('scroll', onKofiScroll, { passive: true });
     </script>
+    <style is:inline>
+      #kofi-widget-overlay,
+      #kofi-widget-overlay > div,
+      #kofi-widget-overlay iframe {
+        background: transparent !important;
+        background-color: transparent !important;
+      }
+    </style>
   </body>
 </html>
