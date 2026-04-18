@@ -176,6 +176,12 @@ html {
     letter-spacing: -0.03em;
     line-height: 0.98;
     font-weight: 600;
+    text-wrap: balance;
+  }
+
+  main section[id],
+  [data-anchor-target='true'] {
+    scroll-margin-top: 5.5rem;
   }
 
   ::selection {
@@ -184,12 +190,33 @@ html {
 }
 
 @layer components {
+  .skip-link {
+    @apply absolute left-5 top-4 z-[10000] rounded-full border border-border/80 bg-background px-4 py-2 text-sm font-medium text-foreground;
+    transform: translateY(-180%);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
   .page-shell {
-    @apply relative mx-auto w-full max-w-3xl px-5 py-8 md:px-8 md:py-12;
+    @apply relative mx-auto w-full max-w-4xl px-5 py-8 md:px-8 md:py-12;
   }
 
   .eyebrow {
     @apply text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground;
+  }
+
+  .section-stack {
+    @apply mt-12 md:mt-14;
+  }
+
+  .section-intro {
+    @apply mb-5;
+  }
+
+  .section-kicker {
+    @apply mb-2 text-sm leading-7 text-muted-foreground md:text-[0.98rem];
   }
 
   .glass-chrome {
@@ -197,58 +224,97 @@ html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   }
 
-  .row-link {
-    @apply relative flex w-full cursor-pointer items-start gap-4 border-b border-border/70 py-5 text-left;
+  .hero-chip {
+    @apply rounded-full border border-border/70 bg-background/80 px-3 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-md;
   }
 
-  .row-link:last-child {
-    border-bottom: 0;
+  .hero-inline-link {
+    @apply font-medium text-foreground underline decoration-border underline-offset-4 hover:text-primary focus-visible:ring-2 focus-visible:outline-none;
   }
 
-  .row-link:hover,
-  .row-link:focus-visible {
-    @apply bg-card/70;
+  .hero-cta-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background shadow-[0_14px_30px_rgba(22,20,14,0.16)];
   }
 
-  .row-link:active {
+  .hero-cta-primary:hover,
+  .hero-cta-primary:focus-visible {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .hero-cta-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-border/80 bg-background/82 px-5 py-3 text-sm font-semibold text-foreground backdrop-blur-md;
+  }
+
+  .hero-cta-secondary:hover,
+  .hero-cta-secondary:focus-visible {
+    @apply bg-card text-foreground;
+  }
+
+  .hero-link {
+    @apply font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground/50;
+  }
+
+  /* ── Plain row pattern (live-links + all link sections) ─ */
+
+  .live-row {
+    @apply relative flex w-full items-center gap-4 border-b border-border/50 py-4;
+    text-decoration: none;
+  }
+
+  .live-row:last-child {
+    border-bottom: none;
+  }
+
+  .live-row:active {
     transform: translateY(1px);
   }
 
-  .row-icon {
-    @apply mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card/80 text-foreground/65 backdrop-blur-md;
+  .live-row-icon {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center text-foreground/40;
   }
 
-  .row-meta {
-    @apply mb-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground;
+  .live-row:hover .live-row-icon,
+  .live-row:focus-visible .live-row-icon {
+    @apply text-foreground/70;
   }
 
-  .row-title {
-    @apply text-xl text-foreground md:text-[1.4rem];
+  .live-row-body {
+    @apply flex min-w-0 flex-1 flex-col gap-0.5;
   }
 
-  .row-description {
-    @apply mt-2 max-w-[52ch] text-sm leading-7 text-muted-foreground md:text-[0.98rem];
+  .live-row-meta {
+    @apply text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground;
   }
 
-  .row-arrow {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/70 text-muted-foreground;
+  .live-row-name {
+    @apply font-serif text-[1.15rem] text-foreground;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
-  .row-link:hover .row-arrow,
-  .row-link:focus-visible .row-arrow {
-    @apply bg-foreground text-background;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  .live-row-name-primary {
+    @apply text-[1.3rem];
   }
 
-  .row-link:hover .row-title,
-  .row-link:focus-visible .row-title {
+  .live-row-desc {
+    @apply mt-0.5 text-[0.78rem] leading-[1.5] text-muted-foreground;
+  }
+
+  .live-row:hover .live-row-name,
+  .live-row:focus-visible .live-row-name {
     @apply text-primary;
   }
 
-  .row-link:hover .row-description,
-  .row-link:focus-visible .row-description {
-    @apply text-foreground/82;
+  .live-row-arrow {
+    @apply shrink-0 text-foreground/30;
   }
+
+  .live-row:hover .live-row-arrow,
+  .live-row:focus-visible .live-row-arrow {
+    @apply text-foreground/70;
+  }
+
+  /* ── end live-links plain rows ────────────────────────── */
 
   .plain-divider {
     @apply border-b border-border/70;
