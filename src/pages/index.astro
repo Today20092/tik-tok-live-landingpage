@@ -9,13 +9,14 @@ import BackToTop from '@/components/BackToTop';
 import { getEntry, getCollection } from 'astro:content';
 import { marked } from 'marked';
 
-// Islamic geometric background — 8-pointed star (Rub el Hizb) grid
-// Square tile: 80×80, star outer R=28, inner r=11.6 (ratio ~0.414 for 45° geometry)
 const _tileSize = 80;
 const _tileCenters: [number, number][] = [
-  [0, 0], [80, 0], [0, 80], [80, 80], [40, 40]
+  [0, 0],
+  [80, 0],
+  [0, 80],
+  [80, 80],
+  [40, 40],
 ];
-// 8-pointed star: alternate outer (R=28) and inner (r=11.6) vertices at 45° steps
 const _starPts = Array.from({ length: 8 }, (_, i) => {
   const oa = (i / 8) * 2 * Math.PI - Math.PI / 8;
   const ia = oa + Math.PI / 8;
@@ -24,47 +25,45 @@ const _starPts = Array.from({ length: 8 }, (_, i) => {
     `${(11.6 * Math.cos(ia)).toFixed(2)},${(11.6 * Math.sin(ia)).toFixed(2)}`,
   ].join(' ');
 }).join(' ');
-// Rotated square (45° diamond) at center, connecting stars — vertices at distance 11.6
 const _diamondPts = Array.from({ length: 4 }, (_, i) => {
   const a = (i / 4) * 2 * Math.PI + Math.PI / 4;
   return `${(11.6 * Math.cos(a)).toFixed(2)},${(11.6 * Math.sin(a)).toFixed(2)}`;
 }).join(' ');
 
-// Fetch links
 const linksEntries = await getCollection('links');
 const linksData = linksEntries.map((entry) => entry.data);
 
-// Split links into sections
-const charityLinks = linksData.filter(l => l.variant === 'charity');
-const streamPickLinks = linksData.filter(l => l.variant === 'stream-pick');
-const resourceLinks = linksData.filter(l => l.variant !== 'charity' && l.variant !== 'stream-pick' && !l.youtube);
-const videoLinks = linksData.filter(l => !!l.youtube);
+const charityLinks = linksData.filter((l) => l.variant === 'charity');
+const streamPickLinks = linksData.filter((l) => l.variant === 'stream-pick');
+const resourceLinks = linksData.filter(
+  (l) => l.variant !== 'charity' && l.variant !== 'stream-pick' && !l.youtube
+);
+const videoLinks = linksData.filter((l) => !!l.youtube);
+const ctaLink = resourceLinks.find((l) => l.variant === 'featured') ?? resourceLinks[0];
 
-// Primary CTA: first featured link, fallback to first resource link
-const ctaLink = resourceLinks.find(l => l.variant === 'featured') ?? resourceLinks[0];
-
-// Parse bio with custom YouTube embed handling
 const bioEntry = await getEntry('site', 'bio');
-const bioHtml = bioEntry ? await marked.parse(bioEntry.body ?? '', {
-  breaks: true,
-}) : '';
-
-// Parse FAQ
-const faqEntry = await getEntry('site', 'faq');
-const faqItems = faqEntry ? await Promise.all(
-  (faqEntry.body ?? '')
-    .split(/^## /m)
-    .filter((s) => !!s)
-    .map(async (section) => {
-      const lines = section.split('\n');
-      const question = lines[0].trim();
-      const answerMarkdown = lines.slice(1).join('\n').trim();
-      const answer = await marked.parse(answerMarkdown);
-      return { question, answer };
+const bioHtml = bioEntry
+  ? await marked.parse(bioEntry.body ?? '', {
+      breaks: true,
     })
-) : [];
+  : '';
 
-// Fetch drawings
+const faqEntry = await getEntry('site', 'faq');
+const faqItems = faqEntry
+  ? await Promise.all(
+      (faqEntry.body ?? '')
+        .split(/^## /m)
+        .filter((s) => !!s)
+        .map(async (section) => {
+          const lines = section.split('\n');
+          const question = lines[0].trim();
+          const answerMarkdown = lines.slice(1).join('\n').trim();
+          const answer = await marked.parse(answerMarkdown);
+          return { question, answer };
+        })
+    )
+  : [];
+
 const drawingsEntries = await getCollection('drawings');
 const drawingsData = drawingsEntries.map((entry) => entry.data);
 ---
@@ -79,12 +78,12 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
     <meta name="color-scheme" content="light dark" />
     <meta
       name="theme-color"
-      content="#F4F3EF"
+      content="#f6f5f2"
       media="(prefers-color-scheme: light)"
     />
     <meta
       name="theme-color"
-      content="#1F1F1F"
+      content="#272624"
       media="(prefers-color-scheme: dark)"
     />
     <title>The Clear Quran — Live with Ayoub</title>
@@ -92,32 +91,20 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
       name="description"
       content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
     />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="The Clear Quran — Live with Ayoub"
-    />
+    <meta property="og:title" content="The Clear Quran — Live with Ayoub" />
     <meta
       property="og:description"
-      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
+      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources."
     />
     <meta property="og:image" content="/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="The Clear Quran — Live with Ayoub"
-    />
+    <meta name="twitter:title" content="The Clear Quran — Live with Ayoub" />
     <meta
       name="twitter:description"
-      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources. For seekers, new Muslims, and curious learners."
+      content="Educational resources for Islamic learning. Explore Tawhid, the Five Pillars, Quran, Hadith, and primary sources."
     />
     <meta name="twitter:image" content="/og-image.png" />
     <script is:inline>
-      // Prevent flash of wrong theme by applying theme before render
       const theme = localStorage.getItem('theme');
       if (
         theme === 'dark' ||
@@ -129,14 +116,16 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+    />
   </head>
-  <body class="bg-background text-foreground min-h-screen">
-    <!-- 8-pointed star (Rub el Hizb) Islamic geometric background -->
+  <body>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1"
+      style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.45"
     >
       <defs>
         <pattern
@@ -154,7 +143,7 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
                 transform={`translate(${cx},${cy})`}
                 fill="none"
                 stroke="var(--pattern-stroke)"
-                stroke-width="1.2"
+                stroke-width="1"
                 stroke-linejoin="round"
               />
             ))
@@ -164,298 +153,220 @@ const drawingsData = drawingsEntries.map((entry) => entry.data);
             transform="translate(40,40)"
             fill="none"
             stroke="var(--pattern-stroke)"
-            stroke-width="1.2"
+            stroke-width="1"
             stroke-linejoin="round"
           />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#rub-el-hizb)"></rect>
     </svg>
+
     <ThemeToggle client:load />
     <BackToTop client:load />
 
-    <!-- Sticky mobile CTA (disabled — uncomment to re-enable)
-    <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 p-3 bg-background/90 backdrop-blur border-t border-border/20">
-      <a
-        href={ctaLink?.url ?? '#resources'}
-        target={ctaLink ? '_blank' : undefined}
-        rel={ctaLink ? 'noopener noreferrer' : undefined}
-        class="bg-accent text-background hover:bg-accent/90 block w-full rounded-full py-3 text-center text-sm font-medium transition-all duration-300"
-      >
-        Get the Free Quran →
-      </a>
-    </div>
-    -->
-
-    <div
-      class="relative mx-auto max-w-2xl px-4 py-16 pb-24 md:py-20 md:pb-20"
-      style="z-index:1"
-    >
-      <!-- Header / Hero -->
-      <section class="hero-fadein mb-16 text-center md:mb-20">
-        <div class="mb-6">
-          <div class="mb-8 inline-block">
-            <!-- Clean, High-Fidelity Crescent & Star -->
-            <svg 
-              viewBox="0 0 24 24" 
-              class="text-accent relative h-16 w-16 md:h-20 md:w-20"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M12 2C10.5 2 9.1 2.3 7.8 2.8C9.7 4.2 10.9 6.4 10.9 9C10.9 11.6 9.7 13.8 7.8 15.2C9.1 15.7 10.5 16 12 16C15.9 16 19 12.9 19 9C19 5.1 15.9 2 12 2Z" />
-              <path d="M18.5 2L18.8 3L19.8 3.3L18.8 3.6L18.5 4.6L18.2 3.6L17.2 3.3L18.2 3L18.5 2Z" />
-              <path d="M15 4L15.4 5.4L16.8 5.8L15.4 6.2L15 7.6L14.6 6.2L13.2 5.8L14.6 5.4L15 4Z" />
-            </svg>
-          </div>
-          <h1
-            class="text-foreground mb-2 font-serif text-4xl font-bold tracking-tight md:text-6xl"
-          >
-            The Clear Quran
-            <span class="text-accent block text-3xl md:text-5xl">Live with Ayoub</span>
-          </h1>
-          <p class="text-foreground/70 text-base leading-relaxed md:text-lg">
-            Follow along with the Quran live — the book, resources, and more
-          </p>
-        </div>
-
-        <!-- Trust bar -->
-        <div class="text-foreground/55 mb-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs">
+    <main class="page-shell">
+      <section class="reveal-up pt-8 md:pt-12">
+        <p class="eyebrow mb-4">Live Quran reading and study resources</p>
+        <h1 class="max-w-[11ch] text-5xl text-foreground md:text-6xl">
+          The Clear Quran
+          <span class="block text-foreground/82">Live with Ayoub</span>
+        </h1>
+        <p class="mt-5 max-w-[60ch] text-base leading-8 text-muted-foreground md:text-lg">
+          A simple place to keep the live stream, the Quran, and supporting study material
+          in one calm page.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
           <span>Live every night · 12am ET</span>
-          <span class="text-foreground/30">·</span>
-          <span>TikTok, Twitch &amp; YouTube</span>
-          <span class="text-foreground/30">·</span>
-          <span>Free resources</span>
-          <span class="text-foreground/30">·</span>
-          <span>No signup required</span>
+          <span class="hidden sm:inline">·</span>
+          <span>TikTok, Twitch, YouTube</span>
         </div>
-
-        <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="mt-5 flex flex-wrap gap-5 text-sm">
+          <a
+            href={ctaLink?.url ?? '#resources'}
+            target={ctaLink ? '_blank' : undefined}
+            rel={ctaLink ? 'noopener noreferrer' : undefined}
+            class="font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground/50"
+          >
+            Open the main Quran resource
+          </a>
           <a
             href="#resources"
-            class="bg-accent text-background hover:bg-accent/90 inline-block rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300"
+            class="font-medium text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground"
           >
-            Explore Resources ↓
+            Browse all resources
           </a>
+        </div>
+      </section>
+
+      <section class="mt-10 reveal-up reveal-delay-1">
+        <BioBlurb client:load html={bioHtml} />
+      </section>
+
+      <section class="mt-12 reveal-up reveal-delay-1">
+        <div class="mb-4">
+          <p class="eyebrow mb-2">Live links</p>
+          <h2 class="text-3xl text-foreground md:text-4xl">Watch live or catch the replay</h2>
+        </div>
+        <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
           <a
             href="https://www.tiktok.com/@ayoubabedrabbo"
             target="_blank"
             rel="noopener noreferrer"
-            class="border-foreground/20 text-foreground/60 hover:border-foreground/40 hover:text-foreground/80 inline-flex items-center gap-1.5 rounded-full border px-5 py-2 text-xs font-medium transition-all duration-300"
+            class="row-link focus-visible:ring-2 focus-visible:outline-none"
           >
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-            </svg>
-            TikTok
+            <div class="row-icon">
+              <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 1 1 2.03-4.96V9.75a6.34 6.34 0 1 0 4.3 6.01V8.69a8.16 8.16 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="row-meta">Watch live</p>
+              <h3 class="row-title">TikTok</h3>
+              <p class="row-description">Main live stream and nightly reading.</p>
+            </div>
+            <div class="row-arrow self-center" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </div>
           </a>
           <a
             href="https://www.twitch.tv/ayoubabedrabbo"
             target="_blank"
             rel="noopener noreferrer"
-            class="border-foreground/20 text-foreground/60 hover:border-foreground/40 hover:text-foreground/80 inline-flex items-center gap-1.5 rounded-full border px-5 py-2 text-xs font-medium transition-all duration-300"
+            class="row-link focus-visible:ring-2 focus-visible:outline-none"
           >
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
-            </svg>
-            Twitch
+            <div class="row-icon">
+              <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+                <path d="M11.57 4.71h1.72v5.14h-1.72zm4.72 0H18v5.14h-1.71zM6 0 1.71 4.29v15.42h5.14V24l4.29-4.29h3.43L22.29 12V0Zm14.57 11.14-3.43 3.43h-3.43l-3 3v-3H6.86V1.71h13.71Z" />
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="row-meta">Alternate stream</p>
+              <h3 class="row-title">Twitch</h3>
+              <p class="row-description">Secondary live stream if you prefer Twitch.</p>
+            </div>
+            <div class="row-arrow self-center" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </div>
           </a>
           <a
             href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
             target="_blank"
             rel="noopener noreferrer"
-            class="border-foreground/20 text-foreground/60 hover:border-foreground/40 hover:text-foreground/80 inline-flex items-center gap-1.5 rounded-full border px-5 py-2 text-xs font-medium transition-all duration-300"
+            class="row-link focus-visible:ring-2 focus-visible:outline-none"
           >
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-            YouTube
-          </a>
-        </div>
-      </section>
-
-      <!-- Bio Section -->
-      <section class="mb-16">
-        <BioBlurb client:visible html={bioHtml} />
-      </section>
-
-      <hr class="border-border/20 mb-16" />
-
-      <!-- Links Section -->
-      <section id="resources" class="mb-20">
-        <div class="mb-8">
-          <h2
-            class="text-foreground mb-2 font-serif text-3xl font-bold tracking-tight md:text-4xl"
-          >
-            Follow Along
-          </h2>
-          <p class="text-foreground/55 text-sm leading-relaxed">
-            Get the book, read the Quran online, and explore resources to go deeper.
-          </p>
-        </div>
-
-        <!-- Charity Section -->
-        <div class="mb-12">
-          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
-            Give
-          </h3>
-        <div class="flex flex-col gap-4">
-          {
-            charityLinks.map((link) => (
-              <LinkCard
-                client:load
-                icon={link.icon}
-                title={link.title}
-                description={link.description}
-                href={link.url}
-                youtube={link.youtube}
-                variant={link.variant ?? 'default'}
-              />
-            ))
-          }
-        </div>
-        </div>
-
-        <!-- Stream Pick Section -->
-        {streamPickLinks.length > 0 && (
-          <div class="mb-12">
-            <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
-              The Book
-            </h3>
-            <div class="flex flex-col gap-4">
-              {
-                streamPickLinks.map((link) => (
-                  <LinkCard
-                    client:load
-                    icon={link.icon}
-                    title={link.title}
-                    description={link.description}
-                    href={link.url}
-                    youtube={link.youtube}
-                    variant={link.variant ?? 'default'}
-                  />
-                ))
-              }
+            <div class="row-icon">
+              <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+                <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19 31.24 31.24 0 0 0 0 12a31.24 31.24 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14A31.24 31.24 0 0 0 24 12a31.24 31.24 0 0 0-.5-5.81M9.55 15.57V8.43L15.82 12Z" />
+              </svg>
             </div>
-            <p class="mt-4 text-xs text-foreground/50 leading-relaxed">
-              💡 <strong class="text-foreground/65">Want the spiral binding?</strong> You can get it done at local print shops — UPS Store, Staples, Office Depot, or similar. They'll cut the spine and spiral it for you. Just call around places near you and ask.
-            </p>
-          </div>
-        )}
-
-        <!-- Resources Section -->
-        <div class="mb-12">
-          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
-            Free Online Resources
-          </h3>
-          <div class="flex flex-col gap-4">
-            {
-              resourceLinks.map((link) => (
-                <LinkCard
-                  client:load
-                  icon={link.icon}
-                  title={link.title}
-                  description={link.description}
-                  href={link.url}
-                  youtube={link.youtube}
-                  variant={link.variant ?? 'default'}
-                />
-              ))
-            }
-          </div>
-        </div>
-
-        <!-- Watch & Learn Section -->
-        <div>
-          <h3 class="text-foreground/65 font-serif text-lg font-semibold tracking-tight mb-4">
-            Watch & Learn
-          </h3>
-          <div class="flex flex-col gap-4">
-            {
-              videoLinks.map((link) => (
-                <LinkCard
-                  client:load
-                  icon={link.icon}
-                  title={link.title}
-                  description={link.description}
-                  href={link.url}
-                  youtube={link.youtube}
-                  variant={link.variant ?? 'default'}
-                />
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      <hr class="border-border/20 mb-20" />
-
-      <!-- FAQ Section -->
-      <section class="mb-20">
-        <FAQ
-          client:visible
-          title="The Why: Understanding Islamic Concepts"
-          items={faqItems}
-        />
-      </section>
-
-      <hr class="border-border/20 mb-20" />
-
-      <!-- Drawings Section -->
-      <section class="mb-20">
-        <DrawingSection client:visible items={drawingsData} />
-      </section>
-
-      <!-- Footer -->
-      <footer
-        class="border-border/20 text-foreground/50 border-t pt-12 pb-28 text-center text-sm"
-      >
-        <!-- Social Links -->
-        <div class="mb-4 flex items-center justify-center gap-5">
-          <a
-            href="https://www.tiktok.com/@ayoubabedrabbo"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-foreground/50 hover:text-accent transition-colors duration-300"
-            aria-label="TikTok"
-          >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-            </svg>
+            <div class="min-w-0 flex-1">
+              <p class="row-meta">Replay</p>
+              <h3 class="row-title">YouTube</h3>
+              <p class="row-description">Catch previous sessions and follow along later.</p>
+            </div>
+            <div class="row-arrow self-center" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </div>
           </a>
         </div>
-        <p class="text-foreground/70 mb-6 font-serif tracking-wide">
-          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </p>
-        <p class="text-xs">
-          © 2026 Islamic Education Resource · For Seekers and Learners
-        </p>
-      </footer>
-    </div>
+      </section>
 
-    <script is:inline src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-    <script is:inline>
-      function showKofi() {
-        kofiWidgetOverlay.draw('ayoubab1', {
-          'type': 'floating-chat',
-          'floating-chat.donateButton.text': 'Support me',
-          'floating-chat.donateButton.background-color': '#6a9e7f',
-          'floating-chat.donateButton.text-color': '#fff'
-        });
-      }
-      function onKofiScroll() {
-        if (window.scrollY > 300) {
-          window.removeEventListener('scroll', onKofiScroll);
-          showKofi();
-        }
-      }
-      window.addEventListener('scroll', onKofiScroll, { passive: true });
-    </script>
-    <style is:inline>
-      #kofi-widget-overlay,
-      #kofi-widget-overlay > div,
-      #kofi-widget-overlay iframe {
-        background: transparent !important;
-        background-color: transparent !important;
-      }
-    </style>
+      <section id="resources" class="mt-12 reveal-up reveal-delay-2">
+        <div class="mb-4">
+          <p class="eyebrow mb-2">Resources</p>
+          <h2 class="text-3xl text-foreground md:text-4xl">Main study links</h2>
+        </div>
+        <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
+          {resourceLinks.map((link) => <LinkCard client:load {...link} />)}
+        </div>
+      </section>
+
+      {streamPickLinks.length > 0 && (
+        <section class="mt-12 reveal-up reveal-delay-2">
+          <div class="mb-4">
+            <p class="eyebrow mb-2">From the stream</p>
+            <h2 class="text-3xl text-foreground md:text-4xl">Mentioned during live sessions</h2>
+          </div>
+          <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
+            {streamPickLinks.map((link) => <LinkCard client:load {...link} />)}
+          </div>
+        </section>
+      )}
+
+      {videoLinks.length > 0 && (
+        <section class="mt-12 reveal-up reveal-delay-3">
+          <div class="mb-4">
+            <p class="eyebrow mb-2">Videos</p>
+            <h2 class="text-3xl text-foreground md:text-4xl">Watch selected explanations</h2>
+          </div>
+          <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
+            {videoLinks.map((link) => <LinkCard client:load {...link} />)}
+          </div>
+        </section>
+      )}
+
+      {faqItems.length > 0 && (
+        <section class="mt-12">
+          <FAQ client:load items={faqItems} />
+        </section>
+      )}
+
+      {drawingsData.length > 0 && (
+        <section class="mt-12">
+          <DrawingSection client:load items={drawingsData} />
+        </section>
+      )}
+
+      {/* Giving section intentionally hidden for now.
+          Preserved in data via charityLinks so it can be restored later without re-entry. */}
+      {charityLinks.length > 0 && false && (
+        <section class="mt-12">
+          <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
+            {charityLinks.map((link) => <LinkCard client:load {...link} />)}
+          </div>
+        </section>
+      )}
+
+      <footer class="mt-14 pb-8 text-sm leading-7 text-muted-foreground">
+        This page is meant to stay simple: live links first, resources underneath, and extra
+        explanations when you want to go deeper.
+      </footer>
+    </main>
   </body>
 </html>

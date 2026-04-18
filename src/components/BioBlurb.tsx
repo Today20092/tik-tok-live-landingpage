@@ -14,58 +14,41 @@ export default function BioBlurb({ html }: BioBlurbProps) {
   const rest = lines.slice(1).join('\n');
 
   return (
-    <div className="text-center">
-      {/* Decorative divider */}
-      <div className="mb-8 flex items-center justify-center gap-4">
-        <div className="bg-accent/30 h-px w-12"></div>
-        <span className="text-accent/60 text-lg">✦</span>
-        <div className="bg-accent/30 h-px w-12"></div>
-      </div>
-
-      {/* Welcome heading - always visible */}
+    <div className="reveal-up reveal-delay-1">
       <div
-        className="text-foreground/80 prose dark:prose-invert mx-auto max-w-xl text-base leading-relaxed md:text-lg"
+        className="prose max-w-none text-[1rem] leading-7 md:text-[1.05rem]"
         dangerouslySetInnerHTML={{ __html: preview }}
       />
 
-      {/* Expandable details */}
       {rest && (
-        <div className="mt-6">
+        <div className="mt-4">
           <button
             onClick={() => setExpanded(!expanded)}
             aria-expanded={expanded}
-            aria-label={
-              expanded ? 'Show less' : 'Read more about Islamic Education'
-            }
-            className="text-accent/70 hover:text-accent group inline-flex items-center gap-1.5 text-xs font-medium transition-colors duration-300"
+            aria-label={expanded ? 'Show less' : 'Read more'}
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:outline-none"
           >
             <span>{expanded ? 'Show less' : 'Read more'}</span>
             <ChevronDown
-              size={14}
-              aria-hidden="true"
+              size={16}
               className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
             />
           </button>
 
-          {expanded && (
-            <div className="mt-6 text-left">
-              <div className="border-border/30 bg-card/50 rounded-lg border px-6 py-5">
-                <div
-                  className="text-foreground/70 prose dark:prose-invert max-w-none text-sm leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: rest }}
-                />
-              </div>
+          <div
+            className={`grid transition-all duration-400 ease-out ${
+              expanded ? 'mt-5 grid-rows-[1fr] opacity-100' : 'mt-0 grid-rows-[0fr] opacity-0'
+            }`}
+          >
+            <div className="overflow-hidden">
+              <div
+                className="prose max-w-none text-[0.98rem] leading-7"
+                dangerouslySetInnerHTML={{ __html: rest }}
+              />
             </div>
-          )}
+          </div>
         </div>
       )}
-
-      {/* Bottom decorative divider */}
-      <div className="mt-8 flex items-center justify-center gap-4">
-        <div className="bg-accent/30 h-px w-12"></div>
-        <span className="text-accent/60 text-lg">✦</span>
-        <div className="bg-accent/30 h-px w-12"></div>
-      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Image as ImageIcon, X, Maximize2 } from 'lucide-react';
+import { ChevronDown, Image as ImageIcon, Maximize2, X } from 'lucide-react';
 
 interface DrawingItem {
   id: string;
@@ -14,10 +14,9 @@ interface DrawingSectionProps {
 }
 
 export default function DrawingSection({
-  title = 'Visual Learning Hub',
+  title = 'Study visuals',
   items,
 }: DrawingSectionProps) {
-  const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
   const [fullscreenIdx, setFullscreenIdx] = useState<number | null>(null);
 
@@ -39,133 +38,101 @@ export default function DrawingSection({
   };
 
   return (
-    <div className="w-full">
-      {/* Fullscreen Modal */}
+    <div className="reveal-up">
       {fullscreenIdx !== null && (
         <div
-          className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/88 p-4 backdrop-blur-md"
           onClick={closeFullscreen}
         >
           <button
             onClick={closeFullscreen}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+            className="glass-chrome absolute top-5 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full text-white/80 hover:text-white focus-visible:ring-2 focus-visible:outline-none"
             aria-label="Close fullscreen"
           >
-            <X size={24} />
+            <X size={18} />
           </button>
           <img
             src={items[fullscreenIdx].svgPath}
             alt={items[fullscreenIdx].title}
-            className="max-h-[90vh] max-w-[95vw] rounded-xl object-contain hue-rotate-180 invert-[0.9] dark:hue-rotate-0 dark:invert-0"
+            className="max-h-[90vh] max-w-[95vw] rounded-[1rem] border border-white/10 bg-white/5 object-contain hue-rotate-180 invert-[0.9] dark:hue-rotate-0 dark:invert-0"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
       )}
 
-      {/* Section Level Dropdown Toggle */}
-      <button
-        onClick={() => setIsSectionOpen(!isSectionOpen)}
-        className="group focus-visible:ring-accent/50 mb-6 -ml-2 flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-left focus-visible:ring-2 focus-visible:outline-none"
-        aria-expanded={isSectionOpen}
-      >
-        <h2 className="text-foreground group-hover:text-accent font-serif text-3xl font-bold tracking-tight transition-colors duration-300 md:text-4xl">
-          {title}
-        </h2>
-        <div className="bg-accent/5 group-hover:bg-accent/10 group-hover:border-accent/20 rounded-full border border-transparent p-2 transition-all duration-300">
-          <ChevronDown
-            size={24}
-            className={`text-accent/70 group-hover:text-accent transition-transform duration-500 ${
-              isSectionOpen ? 'rotate-180' : ''
-            }`}
-          />
-        </div>
-      </button>
+      <div className="mb-4">
+        <p className="eyebrow mb-2">Visual notes</p>
+        <h2 className="text-3xl text-foreground md:text-4xl">{title}</h2>
+      </div>
 
-      {/* Drawing Items */}
-      <div
-        className={`grid transition-all duration-500 ease-in-out ${
-          isSectionOpen
-            ? 'grid-rows-[1fr] opacity-100'
-            : 'grid-rows-[0fr] opacity-0'
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div
-            className="space-y-4 pt-2 pb-4"
-            role="region"
-            aria-label="Excalidraw drawings"
-          >
-            {items.map((drawing, idx) => {
-              const headingId = `drawing-heading-${idx}`;
-              const contentId = `drawing-content-${idx}`;
+      <div className="plain-divider">
+        {items.map((drawing, idx) => {
+          const headingId = `drawing-heading-${idx}`;
+          const contentId = `drawing-content-${idx}`;
 
-              return (
-                <div
-                  key={`drawing-${idx}`}
-                  className="card-glow border-border/40 border-l-accent hover:border-accent/40 bg-card/60 hover:bg-card group relative flex w-full flex-col overflow-hidden rounded-lg border-y border-r border-l-4 p-5 pl-6 text-left transition-all duration-300 hover:shadow-sm"
-                >
-                  <button
-                    id={headingId}
-                    onClick={() =>
-                      setExpandedIdx(expandedIdx === idx ? null : idx)
-                    }
-                    onKeyDown={(e) => handleKeyDown(e, idx)}
-                    aria-expanded={expandedIdx === idx}
-                    aria-controls={contentId}
-                    className="relative z-10 flex w-full items-center justify-between gap-3 focus-visible:outline-none"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="bg-accent/5 text-accent/60 group-hover:text-accent rounded-lg p-2 transition-colors">
-                        <ImageIcon size={18} />
-                      </div>
-                      <h3 className="text-foreground/95 group-hover:text-foreground flex-1 font-semibold transition-colors duration-300">
-                        {drawing.title}
-                      </h3>
-                    </div>
-                    <ChevronDown
-                      size={20}
-                      aria-hidden="true"
-                      className={`text-accent/50 group-hover:text-accent shrink-0 transition-transform duration-300 ${
-                        expandedIdx === idx ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
+          return (
+            <div key={`drawing-${idx}`} className="plain-divider last:border-b-0">
+              <button
+                id={headingId}
+                onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
+                onKeyDown={(e) => handleKeyDown(e, idx)}
+                aria-expanded={expandedIdx === idx}
+                aria-controls={contentId}
+                className="flex w-full items-start gap-4 py-5 text-left focus-visible:ring-2 focus-visible:outline-none"
+              >
+                <div className="row-icon">
+                  <ImageIcon size={18} strokeWidth={1.9} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="row-meta">Drawing</p>
+                  <h3 className="text-xl leading-tight text-foreground md:text-[1.35rem]">
+                    {drawing.title}
+                  </h3>
+                </div>
+                <ChevronDown
+                  size={18}
+                  className={`mt-1 shrink-0 text-muted-foreground transition-transform ${
+                    expandedIdx === idx ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
 
-                  <div
-                    id={contentId}
-                    className={`grid w-full transition-all duration-300 ease-in-out ${
-                      expandedIdx === idx
-                        ? 'border-border/30 mt-4 grid-rows-[1fr] border-t pt-4 opacity-100'
-                        : 'mt-0 grid-rows-[0fr] border-transparent pt-0 opacity-0'
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="text-foreground/70 mb-6 text-sm leading-relaxed">
-                        {drawing.description}
-                      </p>
-                      <div className="border-border/40 relative overflow-hidden rounded-xl border bg-white/5 p-2">
-                        <button
-                          onClick={() => openFullscreen(idx)}
-                          className="absolute top-4 right-4 z-10 rounded-full bg-black/30 p-1.5 text-white/70 hover:bg-black/50 hover:text-white transition-all"
-                          aria-label="View fullscreen"
-                        >
-                          <Maximize2 size={16} />
-                        </button>
-                        <img
-                          src={drawing.svgPath}
-                          alt={drawing.title}
-                          className="block h-auto w-full cursor-zoom-in hue-rotate-180 invert-[0.9] transition-all dark:hue-rotate-0 dark:invert-0"
-                          loading="lazy"
-                          onClick={() => openFullscreen(idx)}
-                        />
-                      </div>
+              <div
+                id={contentId}
+                className={`grid transition-all duration-300 ease-out ${
+                  expandedIdx === idx ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="space-y-5 pb-5 pl-14">
+                    <p className="max-w-[62ch] text-[0.98rem] leading-7 text-muted-foreground">
+                      {drawing.description}
+                    </p>
+                    <div className="relative overflow-hidden rounded-[1rem] border border-border/70 bg-card/40">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openFullscreen(idx);
+                        }}
+                        className="glass-chrome absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-foreground/75 hover:text-foreground focus-visible:ring-2 focus-visible:outline-none"
+                        aria-label="View fullscreen"
+                      >
+                        <Maximize2 size={15} />
+                      </button>
+                      <img
+                        src={drawing.svgPath}
+                        alt={drawing.title}
+                        className="block h-auto w-full cursor-zoom-in hue-rotate-180 invert-[0.9] dark:hue-rotate-0 dark:invert-0"
+                        loading="lazy"
+                        onClick={() => openFullscreen(idx)}
+                      />
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

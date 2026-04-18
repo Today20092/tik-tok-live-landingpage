@@ -1,24 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronUp } from 'lucide-react';
 
 export default function BackToTop() {
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const toggle = () => setVisible(window.scrollY > 300);
-    window.addEventListener('scroll', toggle, { passive: true });
-    return () => window.removeEventListener('scroll', toggle);
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!visible) return null;
+  if (!isVisible) return null;
 
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-24 right-6 z-40 md:bottom-6 rounded-full bg-accent p-2.5 text-background shadow-lg transition-all duration-300 hover:bg-accent/90"
+      className="glass-chrome fixed right-4 bottom-4 z-50 flex h-10 w-10 items-center justify-center rounded-full text-foreground/72 hover:text-foreground focus-visible:ring-2 focus-visible:outline-none md:right-6 md:bottom-6"
       aria-label="Back to top"
     >
-      <ChevronUp className="h-5 w-5" />
+      <ChevronUp className="h-4 w-4" />
     </button>
   );
 }
