@@ -1,6 +1,18 @@
 import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const linkIcons = [
+  'Book',
+  'BookOpen',
+  'HeartHandshake',
+  'Mail',
+  'PackageOpen',
+  'PencilLine',
+  'Play',
+  'Scroll',
+  'Youtube',
+] as const;
+
 const siteCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/site' }),
   schema: z.object({}).optional(),
@@ -18,7 +30,7 @@ const linksCollection = defineCollection({
   },
   schema: z.object({
     id: z.string(),
-    icon: z.string(),
+    icon: z.enum(linkIcons),
     title: z.string(),
     description: z.string(),
     url: z.string().url(),

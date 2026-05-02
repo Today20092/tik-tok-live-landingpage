@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import LinkCard from '@/components/LinkCard';
+import LinkCard from '@/components/LinkCard.astro';
 import ThemeToggle from '@/components/ThemeToggle';
 import { getCollection } from 'astro:content';
 
@@ -22,7 +22,7 @@ const siteUrl = 'https://today20092.github.io/tik-tok-live-landingpage/';
 const socialImageUrl = `${siteUrl}og-image.png`;
 const basePath = import.meta.env.BASE_URL;
 const pageDescription =
-  'A focused guide for The Clear Quran live sessions with Ayoub, including ways to read online, request an English copy, find the stream edition, watch playlists, and continue learning after the live.';
+  "Read The Clear Quran online, request free English Quran copies where eligible, find Ayoub's stream edition, and continue learning with trusted resources.";
 
 const sections = [
   {
@@ -268,7 +268,6 @@ const structuredData = {
                 <div class="grid gap-3">
                   {section.links.map((link, index) => (
                     <LinkCard
-                      client:load
                       icon={link.icon}
                       title={link.title}
                       description={link.description}
