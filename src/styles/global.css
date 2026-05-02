@@ -87,6 +87,20 @@
   --color-background: var(--background);
 }
 
+@layer utilities {
+  .animate-hero-enter {
+    animation: hero-enter 1450ms ease-out 120ms both;
+  }
+
+  .animate-hero-mark-enter {
+    animation: hero-mark-enter 1550ms ease-out 260ms both;
+  }
+
+  .animate-link-card-enter {
+    animation: link-card-enter 1250ms ease-out both;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -193,6 +207,59 @@ a {
   letter-spacing: 0;
 }
 
+.hero-mark {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes hero-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  45% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-mark-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.965) rotate(-0.75deg);
+  }
+
+  48% {
+    opacity: 0.52;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes link-card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.997);
+  }
+
+  42% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -205,5 +272,12 @@ a {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [class*='animate-hero-enter'],
+  [class*='animate-hero-mark-enter'],
+  [class*='animate-link-card-enter'] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
