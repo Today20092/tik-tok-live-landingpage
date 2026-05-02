@@ -59,7 +59,14 @@ export default function LinkCard({
     >
       {thumbnail ? (
         <span className="link-card__thumb" aria-hidden="true">
-          <img src={thumbnail} alt="" width="480" height="360" loading="lazy" />
+          <img
+            src={thumbnail}
+            alt={`${title} thumbnail`}
+            width="480"
+            height="360"
+            loading="eager"
+            decoding="async"
+          />
           <span className="link-card__play">
             <Play size={20} className="fill-current" />
           </span>

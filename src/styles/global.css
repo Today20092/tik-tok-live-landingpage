@@ -676,19 +676,59 @@ h1 {
   margin-top: -4px;
 }
 
+.site-info {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--foreground), transparent 88%);
+  padding: 24px 0 0;
+}
+
+.site-info__item {
+  display: grid;
+  gap: 5px;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.42;
+}
+
+.site-info__item:target {
+  scroll-margin-top: 24px;
+}
+
+.site-info__label {
+  color: var(--primary);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.site-info a {
+  color: var(--foreground);
+  font-weight: 800;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 48%);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.site-info a:hover {
+  color: var(--accent);
+}
+
 .site-footer {
   display: grid;
-  gap: 6px;
-  padding: 34px 0 10px;
+  gap: 5px;
+  padding: 22px 0 8px;
   color: var(--ink-soft);
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .arabic-line {
   color: var(--foreground);
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-style: italic;
   font-weight: 600;
 }

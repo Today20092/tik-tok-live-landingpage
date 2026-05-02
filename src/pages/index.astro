@@ -18,34 +18,62 @@ const resourceLinks = linksData.filter(
 );
 const videoLinks = linksData.filter((link) => Boolean(link.youtube));
 
+const siteUrl = 'https://today20092.github.io/tik-tok-live-landingpage/';
+const socialImageUrl = `${siteUrl}og-image.png`;
+const pageDescription =
+  'A focused guide for The Clear Quran live sessions with Ayoub, including ways to read online, request an English copy, find the stream edition, watch playlists, and continue learning after the live.';
+
 const sections = [
   {
+    id: 'start',
     eyebrow: 'Start here',
     title: 'Quran access',
-    description: 'Read online or request a copy in English.',
+    description: 'Read online or request an English copy.',
     links: startLinks,
   },
   {
+    id: 'stream',
     eyebrow: 'On stream',
     title: 'The book Ayoub reads',
-    description: 'The Clear Quran edition used during live sessions.',
+    description: 'The Clear edition used during live sessions.',
     links: streamPickLinks,
     note:
       'For spiral binding, call a local print shop and ask if they can cut the spine and bind a paperback copy.',
   },
   {
+    id: 'resources',
     eyebrow: 'Learn more',
     title: 'Resources',
     description: 'Helpful places to continue studying after the live.',
     links: resourceLinks,
   },
   {
+    id: 'watch',
     eyebrow: 'Watch',
     title: 'Video playlists',
     description: 'Longer series for learning at your own pace.',
     links: videoLinks,
   },
 ].filter((section) => section.links.length > 0);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'The Clear Quran | Live with Ayoub',
+  url: siteUrl,
+  description: pageDescription,
+  datePublished: '2026-05-02',
+  dateModified: '2026-05-02',
+  author: {
+    '@type': 'Person',
+    name: 'Ayoub Abedrabbo',
+  },
+  sameAs: [
+    'https://www.tiktok.com/@ayoubabedrabbo',
+    'https://www.twitch.tv/ayoubabedrabbo',
+    'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ',
+  ],
+};
 ---
 
 <html lang="en">
@@ -57,26 +85,25 @@ const sections = [
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
     <title>The Clear Quran | Live with Ayoub</title>
-    <meta
-      name="description"
-      content="A simple link tree for The Clear Quran live sessions with Ayoub. Read, order, watch, and explore Quran resources."
-    />
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={siteUrl} />
+    <link rel="sitemap" type="application/xml" href={`${siteUrl}sitemap.xml`} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="The Clear Quran | Live with Ayoub" />
-    <meta
-      property="og:description"
-      content="Read, order, watch, and explore Quran resources from the live sessions."
-    />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The Clear Quran | Live with Ayoub" />
-    <meta
-      name="twitter:description"
-      content="Read, order, watch, and explore Quran resources from the live sessions."
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
     />
-    <meta name="twitter:image" content="/og-image.png" />
     <script is:inline>
       const theme = localStorage.getItem('theme');
       if (
@@ -135,8 +162,8 @@ const sections = [
             <h1 id="page-title">The Clear Quran</h1>
             <p class="subtitle">Live with Ayoub</p>
             <p class="intro">
-              Read the Quran, get the book from stream, and keep learning after
-              the live.
+              Read the translation, get the book from stream, and keep learning
+              after the live.
             </p>
           </div>
 
@@ -186,10 +213,10 @@ const sections = [
         <section id="links" class="links-stack" aria-label="Links">
           {
             sections.map((section) => (
-              <section class="link-section" aria-labelledby={`${section.eyebrow}-heading`}>
+              <section class="link-section" aria-labelledby={`${section.id}-heading`}>
                 <div class="section-heading">
                   <p>{section.eyebrow}</p>
-                  <h2 id={`${section.eyebrow}-heading`}>{section.title}</h2>
+                  <h2 id={`${section.id}-heading`}>{section.title}</h2>
                   <span>{section.description}</span>
                 </div>
 
@@ -219,9 +246,37 @@ const sections = [
           }
         </section>
 
+        <section class="site-info" aria-label="Site information">
+          <div id="about-page" class="site-info__item">
+            <p class="site-info__label">About this page</p>
+            <p>
+              A quick reference for reading, ordering, and learning resources
+              shared during live sessions with Ayoub.
+            </p>
+          </div>
+
+          <div id="contact-page" class="site-info__item">
+            <p class="site-info__label">Contact Ayoub</p>
+            <p>
+              Use Ayoub's public profiles on
+              <a href="https://www.tiktok.com/@ayoubabedrabbo">TikTok</a>,
+              <a href="https://www.twitch.tv/ayoubabedrabbo">Twitch</a>, or
+              <a href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ">YouTube</a>.
+            </p>
+          </div>
+
+          <div id="privacy-policy" class="site-info__item">
+            <p class="site-info__label">Privacy Policy</p>
+            <p>
+              This static page does not collect forms, accounts, or sign-ins.
+              Outbound services apply their own policies.
+            </p>
+          </div>
+        </section>
+
         <footer class="site-footer">
           <p class="arabic-line">Bismillah ir-Rahman ir-Rahim</p>
-          <p>For seekers, new Muslims, and anyone learning the Quran.</p>
+          <p>For seekers, new Muslims, and anyone learning the message.</p>
         </footer>
       </div>
     </main>
