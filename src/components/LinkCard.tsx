@@ -8,15 +8,33 @@ interface LinkCardProps {
   href: string;
   youtube?: string;
   featured?: boolean;
-  variant?: 'default' | 'featured' | 'charity' | 'stream-pick';
+  variant?: 'default' | 'featured' | 'primary' | 'charity' | 'stream-pick';
 }
 
 const labels = {
+  primary: { text: 'Start here', Icon: Sparkles },
   featured: { text: 'Start', Icon: Sparkles },
   charity: { text: 'Urgent', Icon: Heart },
   'stream-pick': { text: 'Stream pick', Icon: Tv2 },
   default: null,
 };
+
+const playlistThumbnailIds: Record<string, string> = {
+  'PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg': 'sQMC7fkjmOA',
+  'PL9821CA747E7E0674': 'IQjzErJlpJ0',
+};
+
+function getYouTubeThumbnail(youtube?: string) {
+  if (!youtube) return null;
+
+  if (youtube.startsWith('videoseries')) {
+    const playlistId = new URLSearchParams(youtube.split('?')[1]).get('list');
+    const videoId = playlistId ? playlistThumbnailIds[playlistId] : null;
+    return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null;
+  }
+
+  return `https://i.ytimg.com/vi/${youtube}/hqdefault.jpg`;
+}
 
 export default function LinkCard({
   icon,
@@ -30,24 +48,28 @@ export default function LinkCard({
   const resolvedVariant = variant ?? (featured ? 'featured' : 'default');
   const badge = labels[resolvedVariant];
   const BadgeIcon = badge?.Icon;
+  const thumbnail = getYouTubeThumbnail(youtube);
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`link-card link-card--${resolvedVariant}`}
+      className={`link-card link-card--${resolvedVariant} ${youtube ? 'link-card--video' : ''}`}
     >
-      <span className="link-card__icon" aria-hidden="true">
-        {youtube ? (
-          <Play size={22} className="fill-current" />
-        ) : (
-          <>
-            <DynamicIcon name={icon} size={22} />
-            {!icon.match(/^[a-zA-Z]/) && icon}
-          </>
-        )}
-      </span>
+      {thumbnail ? (
+        <span className="link-card__thumb" aria-hidden="true">
+          <img src={thumbnail} alt="" width="480" height="360" loading="lazy" />
+          <span className="link-card__play">
+            <Play size={20} className="fill-current" />
+          </span>
+        </span>
+      ) : (
+        <span className="link-card__icon" aria-hidden="true">
+          <DynamicIcon name={icon} size={22} />
+          {!icon.match(/^[a-zA-Z]/) && icon}
+        </span>
+      )}
 
       <span className="link-card__body">
         <span className="link-card__topline">
