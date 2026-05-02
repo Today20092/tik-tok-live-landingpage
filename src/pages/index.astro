@@ -1,187 +1,82 @@
 ---
 import '../styles/global.css';
-import BioBlurb from '@/components/BioBlurb';
 import LinkCard from '@/components/LinkCard';
-import FAQ from '@/components/FAQ';
-import DrawingSection from '@/components/DrawingSection';
 import ThemeToggle from '@/components/ThemeToggle';
-import BackToTop from '@/components/BackToTop';
-import { getEntry, getCollection } from 'astro:content';
-import { marked } from 'marked';
-
-const publishedDate = '2026-04-18T00:00:00.000Z';
-const modifiedDate = '2026-04-18T00:00:00.000Z';
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
-const aboutPath = `${import.meta.env.BASE_URL}about/`;
-const contactPath = `${import.meta.env.BASE_URL}contact/`;
-const privacyPath = `${import.meta.env.BASE_URL}privacy/`;
-const siteHomeUrl = new URL(import.meta.env.BASE_URL, Astro.site ?? Astro.url).toString();
-const aboutUrl = new URL(aboutPath, Astro.site ?? Astro.url).toString();
-const contactUrl = new URL(contactPath, Astro.site ?? Astro.url).toString();
-const organizationName = 'The Clear Quran Live with Ayoub';
-const authorName = 'Ayoub Abedrabbo';
-
-const _tileSize = 80;
-const _tileCenters: [number, number][] = [
-  [0, 0],
-  [80, 0],
-  [0, 80],
-  [80, 80],
-  [40, 40],
-];
-const _starPts = Array.from({ length: 8 }, (_, i) => {
-  const oa = (i / 8) * 2 * Math.PI - Math.PI / 8;
-  const ia = oa + Math.PI / 8;
-  return [
-    `${(28 * Math.cos(oa)).toFixed(2)},${(28 * Math.sin(oa)).toFixed(2)}`,
-    `${(11.6 * Math.cos(ia)).toFixed(2)},${(11.6 * Math.sin(ia)).toFixed(2)}`,
-  ].join(' ');
-}).join(' ');
-const _diamondPts = Array.from({ length: 4 }, (_, i) => {
-  const a = (i / 4) * 2 * Math.PI + Math.PI / 4;
-  return `${(11.6 * Math.cos(a)).toFixed(2)},${(11.6 * Math.sin(a)).toFixed(2)}`;
-}).join(' ');
+import { getCollection } from 'astro:content';
 
 const linksEntries = await getCollection('links');
 const linksData = linksEntries.map((entry) => entry.data);
 
-const resourcePriority: Record<string, number> = {
-  'The Quran — Read Online': 0,
-  'Order The Clear Quran in English - FREE': 1,
-  'Order The Quran Project Translation': 2,
-  'Live Drawing Board — Session Diagrams': 3,
-  'Authentic Hadith Collections': 4,
-};
+const streamPickLinks = linksData.filter((link) => link.variant === 'stream-pick');
+const startLinks = linksData.filter((link) => link.variant === 'featured');
+const resourceLinks = linksData.filter(
+  (link) =>
+    link.variant !== 'charity' &&
+    link.variant !== 'stream-pick' &&
+    link.variant !== 'featured' &&
+    !link.youtube,
+);
+const videoLinks = linksData.filter((link) => Boolean(link.youtube));
 
-const charityLinks = linksData.filter((l) => l.variant === 'charity');
-const streamPickLinks = linksData.filter((l) => l.variant === 'stream-pick');
-const resourceLinks = linksData
-  .filter((l) => l.variant !== 'charity' && l.variant !== 'stream-pick' && !l.youtube)
-  .sort((a, b) => (resourcePriority[a.title] ?? 999) - (resourcePriority[b.title] ?? 999));
-const videoLinks = linksData.filter((l) => !!l.youtube);
-const ctaLink = resourceLinks[0];
-const showCharitySection = false;
-
-const bioEntry = await getEntry('site', 'bio');
-const bioHtml = bioEntry
-  ? await marked.parse(bioEntry.body ?? '', {
-      breaks: true,
-    })
-  : '';
-
-const faqEntry = await getEntry('site', 'faq');
-const faqItems = faqEntry
-  ? await Promise.all(
-      (faqEntry.body ?? '')
-        .split(/^## /m)
-        .filter((s) => !!s)
-        .map(async (section) => {
-          const lines = section.split('\n');
-          const question = lines[0].trim();
-          const answerMarkdown = lines.slice(1).join('\n').trim();
-          const answer = await marked.parse(answerMarkdown);
-          return { question, answer };
-        })
-    )
-  : [];
-
-const drawingsEntries = await getCollection('drawings');
-const drawingsData = drawingsEntries.map((entry) => entry.data);
-const structuredData = [
+const sections = [
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: organizationName,
-    url: siteHomeUrl,
-    inLanguage: 'en',
+    eyebrow: 'Start here',
+    title: 'Quran access',
+    description: 'Read online or request a copy in English.',
+    links: startLinks,
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: authorName,
-    url: aboutUrl,
-    sameAs: [
-      'https://www.tiktok.com/@ayoubabedrabbo',
-      'https://www.twitch.tv/ayoubabedrabbo',
-      'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ',
-    ],
+    eyebrow: 'On stream',
+    title: 'The book Ayoub reads',
+    description: 'The Clear Quran edition used during live sessions.',
+    links: streamPickLinks,
+    note:
+      'For spiral binding, call a local print shop and ask if they can cut the spine and bind a paperback copy.',
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'Resources from The Clear Quran Live with Ayoub',
-    description:
-      'Start here after the TikTok live. Find the Quran, beginner-friendly study links, replay destinations, and answers to common questions about Islam.',
-    url: canonicalUrl,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: organizationName,
-      url: siteHomeUrl,
-    },
-    about: {
-      '@type': 'Thing',
-      name: 'Islam education resources and livestream follow-up materials',
-    },
-    author: {
-      '@type': 'Person',
-      name: authorName,
-      url: aboutUrl,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: organizationName,
-      url: siteHomeUrl,
-    },
-    datePublished: publishedDate,
-    dateModified: modifiedDate,
+    eyebrow: 'Learn more',
+    title: 'Resources',
+    description: 'Helpful places to continue studying after the live.',
+    links: resourceLinks,
   },
-];
+  {
+    eyebrow: 'Watch',
+    title: 'Video playlists',
+    description: 'Longer series for learning at your own pace.',
+    links: videoLinks,
+  },
+].filter((section) => section.links.length > 0);
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
-    <meta
-      name="theme-color"
-      content="#f6f5f2"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#272624"
-      media="(prefers-color-scheme: dark)"
-    />
-    <title>Resources from The Clear Quran Live with Ayoub</title>
+    <title>The Clear Quran | Live with Ayoub</title>
     <meta
       name="description"
-      content="Start here after the TikTok live. Find the Quran, beginner-friendly study links, replay destinations, and answers to common questions about Islam."
-    />
-    <link rel="canonical" href={canonicalUrl} />
-    <meta name="author" content={authorName} />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta property="og:title" content="Resources from The Clear Quran Live with Ayoub" />
-    <meta
-      property="og:description"
-      content="Find the Quran, live links, study resources, and follow-up material from Ayoub's live sessions."
+      content="A simple link tree for The Clear Quran live sessions with Ayoub. Read, order, watch, and explore Quran resources."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content="The Clear Quran | Live with Ayoub" />
+    <meta
+      property="og:description"
+      content="Read, order, watch, and explore Quran resources from the live sessions."
+    />
     <meta property="og:image" content="/og-image.png" />
-    <meta property="article:published_time" content={publishedDate} />
-    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Resources from The Clear Quran Live with Ayoub" />
+    <meta name="twitter:title" content="The Clear Quran | Live with Ayoub" />
     <meta
       name="twitter:description"
-      content="Find the Quran, live links, study resources, and follow-up material from Ayoub's live sessions."
+      content="Read, order, watch, and explore Quran resources from the live sessions."
     />
     <meta name="twitter:image" content="/og-image.png" />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <script is:inline>
       const theme = localStorage.getItem('theme');
       if (
@@ -196,264 +91,139 @@ const structuredData = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
     />
   </head>
   <body>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.45"
-    >
-      <defs>
-        <pattern
-          id="rub-el-hizb"
-          x="0"
-          y="0"
-          width={_tileSize}
-          height={_tileSize}
-          patternUnits="userSpaceOnUse"
-        >
-          {
-            _tileCenters.map(([cx, cy]) => (
-              <polygon
-                points={_starPts}
-                transform={`translate(${cx},${cy})`}
-                fill="none"
-                stroke="var(--pattern-stroke)"
-                stroke-width="1"
-                stroke-linejoin="round"
+    <a class="skip-link" href="#links">Skip to links</a>
+    <ThemeToggle client:load />
+
+    <main class="linktree-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <div class="page-wrap">
+        <section class="profile-hero" aria-labelledby="page-title">
+          <div class="art-panel" aria-hidden="true">
+            <svg
+              class="hero-mark"
+              viewBox="0 0 160 160"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle class="hero-mark__halo" cx="80" cy="80" r="60" />
+              <path class="hero-mark__diamond" d="M80 15 145 80 80 145 15 80Z" />
+              <path
+                class="hero-mark__inner"
+                d="M80 31 129 80 80 129 31 80Z"
               />
+              <circle class="hero-mark__dot hero-mark__dot--top" cx="80" cy="25" r="3.5" />
+              <circle class="hero-mark__dot hero-mark__dot--right" cx="135" cy="80" r="3.5" />
+              <circle class="hero-mark__dot hero-mark__dot--bottom" cx="80" cy="135" r="3.5" />
+              <circle class="hero-mark__dot hero-mark__dot--left" cx="25" cy="80" r="3.5" />
+              <text
+                class="hero-mark__calligraphy"
+                x="80"
+                y="92"
+                direction="rtl"
+                text-anchor="middle"
+              >
+                القرآن
+              </text>
+            </svg>
+          </div>
+
+          <div class="profile-copy">
+            <p class="kicker">Live Quran readings and resources</p>
+            <h1 id="page-title">The Clear Quran</h1>
+            <p class="subtitle">Live with Ayoub</p>
+            <p class="intro">
+              Read the Quran, get the book from stream, and keep learning after
+              the live.
+            </p>
+          </div>
+
+          <nav class="social-row" aria-label="Social links">
+            <a
+              href="https://www.tiktok.com/@ayoubabedrabbo"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              data-label="TikTok"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.78V9.39a6.33 6.33 0 1 0 5.54 6.27V8.69a8.16 8.16 0 0 0 4.78 1.53V6.76a4.95 4.95 0 0 1-1.01-.07Z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.twitch.tv/ayoubabedrabbo"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitch"
+              data-label="Twitch"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M11.57 4.71h1.72v5.15h-1.72Zm4.72 0H18v5.15h-1.71ZM6 0 1.71 4.29v15.43h5.15V24l4.28-4.28h3.43L22.29 12V0Zm14.57 11.14-3.43 3.43h-3.43l-3 3v-3H6.86V1.71h13.71Z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              data-label="YouTube"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81ZM9.55 15.57V8.43L15.82 12Z"
+                />
+              </svg>
+            </a>
+          </nav>
+        </section>
+
+        <section id="links" class="links-stack" aria-label="Links">
+          {
+            sections.map((section) => (
+              <section class="link-section" aria-labelledby={`${section.eyebrow}-heading`}>
+                <div class="section-heading">
+                  <p>{section.eyebrow}</p>
+                  <h2 id={`${section.eyebrow}-heading`}>{section.title}</h2>
+                  <span>{section.description}</span>
+                </div>
+
+                <div class="link-list">
+                  {section.links.map((link, index) => (
+                    <LinkCard
+                      client:load
+                      icon={link.icon}
+                      title={link.title}
+                      description={link.description}
+                      href={link.url}
+                      youtube={link.youtube}
+                      variant={
+                        section.eyebrow === 'Start here' && index === 0
+                          ? 'primary'
+                          : link.variant === 'featured'
+                            ? 'default'
+                            : (link.variant ?? 'default')
+                      }
+                    />
+                  ))}
+                </div>
+
+                {section.note && <p class="section-note">{section.note}</p>}
+              </section>
             ))
           }
-          <polygon
-            points={_diamondPts}
-            transform="translate(40,40)"
-            fill="none"
-            stroke="var(--pattern-stroke)"
-            stroke-width="1"
-            stroke-linejoin="round"
-          />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#rub-el-hizb)"></rect>
-    </svg>
-
-    <ThemeToggle client:load />
-    <BackToTop client:load />
-    <a href="#main-content" class="skip-link focus-visible:ring-2 focus-visible:outline-none">
-      Skip to content
-    </a>
-
-    <main id="main-content" class="page-shell">
-      <section class="reveal-up pt-8 md:pt-12" data-anchor-target="true">
-        <p class="eyebrow mb-4">For people coming from the TikTok live</p>
-        <h1 class="max-w-[12ch] text-[3.35rem] text-foreground md:text-[4.6rem]">
-          Start here for the Quran, live links, and follow-up resources.
-        </h1>
-        <p class="mt-5 max-w-[62ch] text-base leading-8 text-muted-foreground md:text-lg">
-          Everything from the live in one place: where to watch, where to keep reading, and
-          where to go deeper when you want more context.
-        </p>
-        <p class="mt-4 text-sm font-medium text-foreground/78">The Clear Quran Live with Ayoub</p>
-        <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-          <span>By {authorName}</span>
-          <span aria-hidden="true">•</span>
-          <time datetime={publishedDate}>Published April 18, 2026</time>
-        </div>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <span class="hero-chip">Live nightly</span>
-          <span class="hero-chip">Quran resources</span>
-          <span class="hero-chip">Replays and study links</span>
-        </div>
-
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a
-            href="#resources"
-            class="hero-cta-primary focus-visible:ring-2 focus-visible:outline-none"
-          >
-            Browse resources
-          </a>
-          <a
-            href="#live-links"
-            class="hero-cta-secondary focus-visible:ring-2 focus-visible:outline-none"
-          >
-            Watch live
-          </a>
-          <a
-            href={ctaLink?.url ?? '#resources'}
-            target={ctaLink ? '_blank' : undefined}
-            rel={ctaLink ? 'noopener noreferrer' : undefined}
-            class="hero-link focus-visible:ring-2 focus-visible:outline-none"
-          >
-            Open the Quran resource directly
-          </a>
-        </div>
-      </section>
-
-      <section id="live-links" class="section-stack reveal-up reveal-delay-1">
-        <div class="section-intro">
-          <p class="eyebrow mb-2">Live links</p>
-          <h2 class="text-3xl text-foreground md:text-4xl">Watch, follow, or catch the replay</h2>
-          <p class="section-kicker max-w-[58ch]">
-            If you found the page from TikTok, start here for the main live stream and the other
-            places to follow along.
-          </p>
-        </div>
-        <div>
-          <a
-            href="https://www.tiktok.com/@ayoubabedrabbo"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="live-row focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <div class="live-row-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 1 1 2.03-4.96V9.75a6.34 6.34 0 1 0 4.3 6.01V8.69a8.16 8.16 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
-              </svg>
-            </div>
-            <div class="live-row-body">
-              <p class="live-row-meta">Main live stream</p>
-              <h3 class="live-row-name live-row-name-primary">TikTok</h3>
-              <p class="live-row-desc">Nightly Quran reading and live Q&amp;A.</p>
-            </div>
-            <div class="live-row-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-              </svg>
-            </div>
-          </a>
-          <a
-            href="https://www.twitch.tv/ayoubabedrabbo"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="live-row focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <div class="live-row-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M11.57 4.71h1.72v5.14h-1.72zm4.72 0H18v5.14h-1.71zM6 0 1.71 4.29v15.42h5.14V24l4.29-4.29h3.43L22.29 12V0Zm14.57 11.14-3.43 3.43h-3.43l-3 3v-3H6.86V1.71h13.71Z" />
-              </svg>
-            </div>
-            <div class="live-row-body">
-              <p class="live-row-meta">Alternate stream</p>
-              <h3 class="live-row-name">Twitch</h3>
-              <p class="live-row-desc">Watch here if you prefer Twitch.</p>
-            </div>
-            <div class="live-row-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-              </svg>
-            </div>
-          </a>
-          <a
-            href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="live-row focus-visible:ring-2 focus-visible:outline-none"
-          >
-            <div class="live-row-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19 31.24 31.24 0 0 0 0 12a31.24 31.24 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14A31.24 31.24 0 0 0 24 12a31.24 31.24 0 0 0-.5-5.81M9.55 15.57V8.43L15.82 12Z" />
-              </svg>
-            </div>
-            <div class="live-row-body">
-              <p class="live-row-meta">Replay</p>
-              <h3 class="live-row-name">YouTube</h3>
-              <p class="live-row-desc">Past sessions when you miss the live.</p>
-            </div>
-            <div class="live-row-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-              </svg>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <section id="resources" class="section-stack reveal-up reveal-delay-2">
-        <div class="section-intro">
-          <p class="eyebrow mb-2">Resources</p>
-          <h2 class="text-3xl text-foreground md:text-4xl">Main study links</h2>
-          <p class="section-kicker max-w-[60ch]">
-            Start here if you want the Quran, an English copy, or beginner-friendly material to
-            keep going after the live.
-          </p>
-        </div>
-        <div>
-          {resourceLinks.map((link) => <LinkCard {...link} />)}
-        </div>
-      </section>
-
-      {streamPickLinks.length > 0 && (
-        <section id="stream-notes" class="section-stack reveal-up reveal-delay-2">
-          <div class="section-intro">
-            <p class="eyebrow mb-2">From the stream</p>
-            <h2 class="text-3xl text-foreground md:text-4xl">Mentioned during live sessions</h2>
-            <p class="section-kicker max-w-[58ch]">
-              Books, references, and extra material that come up while Ayoub is teaching live.
-            </p>
-          </div>
-          <div>
-            {streamPickLinks.map((link) => <LinkCard {...link} />)}
-          </div>
         </section>
-      )}
 
-      {videoLinks.length > 0 && (
-        <section id="videos" class="section-stack reveal-up reveal-delay-3">
-          <div class="section-intro">
-            <p class="eyebrow mb-2">Videos</p>
-            <h2 class="text-3xl text-foreground md:text-4xl">Watch selected explanations</h2>
-            <p class="section-kicker max-w-[58ch]">
-              Replay-friendly videos for people who want more context after the session.
-            </p>
-          </div>
-          <div>
-            {videoLinks.map((link) => <LinkCard {...link} />)}
-          </div>
-        </section>
-      )}
-
-      {bioHtml && (
-        <section id="about" class="section-stack" data-anchor-target="true">
-          <BioBlurb client:load html={bioHtml} />
-        </section>
-      )}
-
-      {faqItems.length > 0 && (
-        <section id="faq" class="section-stack" data-anchor-target="true">
-          <FAQ client:load items={faqItems} />
-        </section>
-      )}
-
-      {drawingsData.length > 0 && (
-        <section id="visual-notes" class="section-stack" data-anchor-target="true">
-          <DrawingSection client:load items={drawingsData} />
-        </section>
-      )}
-
-      {/* Giving section intentionally hidden for now.
-          Preserved in data via charityLinks so it can be restored later without re-entry. */}
-      {charityLinks.length > 0 && showCharitySection && (
-        <section class="mt-12">
-          <div class="glass-chrome rounded-[1.4rem] px-5 md:px-6">
-            {charityLinks.map((link) => <LinkCard {...link} />)}
-          </div>
-        </section>
-      )}
-
-      <footer class="mt-14 space-y-4 pb-8 text-sm leading-7 text-muted-foreground">
-        <nav aria-label="Site information" class="flex flex-wrap gap-x-5 gap-y-2">
-          <a href={aboutPath} class="hero-inline-link">About Ayoub</a>
-          <a href={contactPath} class="hero-inline-link">Contact</a>
-          <a href={privacyPath} class="hero-inline-link">Privacy Policy</a>
-        </nav>
-        <p>
-          Questions about a resource or a live session can be sent through the
-          {' '}<a href={contactUrl} class="hero-inline-link">contact page</a>.
-        </p>
-      </footer>
+        <footer class="site-footer">
+          <p class="arabic-line">Bismillah ir-Rahman ir-Rahim</p>
+          <p>For seekers, new Muslims, and anyone learning the Quran.</p>
+        </footer>
+      </div>
     </main>
   </body>
 </html>

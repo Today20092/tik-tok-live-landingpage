@@ -26,6 +26,7 @@
     "zod": "^3.0.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/sitemap": "^3.7.2",
     "@eslint/js": "^9.10.0",
     "@types/react": "^18.2.0",
