@@ -1,17 +1,33 @@
-import * as Icons from 'lucide-react';
-import type { LucideProps } from 'lucide-react';
+import {
+  Book,
+  BookOpen,
+  HeartHandshake,
+  Mail,
+  PackageOpen,
+  PencilLine,
+  Scroll,
+  type LucideIcon,
+  type LucideProps,
+} from 'lucide-react';
 
 interface DynamicIconProps extends LucideProps {
   name: string;
 }
 
+const icons: Record<string, LucideIcon> = {
+  Book,
+  BookOpen,
+  HeartHandshake,
+  Mail,
+  PackageOpen,
+  PencilLine,
+  Scroll,
+};
+
 export default function DynamicIcon({ name, ...props }: DynamicIconProps) {
-  // @ts-ignore - Dynamic access to Lucide icons
-  const IconComponent = Icons[name];
+  const IconComponent = icons[name];
 
   if (!IconComponent) {
-    // If the icon name doesn't exist, we return a fallback or nothing
-    // This allows emojis to be passed through the same prop and handled by the parent
     return null;
   }
 
