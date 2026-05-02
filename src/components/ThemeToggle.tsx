@@ -78,7 +78,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className={`border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 focus-visible:ring-accent/50 fixed top-6 right-6 z-[9999] rounded-full border p-2 transition-[opacity,color,background-color,border-color] duration-300 focus-visible:ring-2 focus-visible:outline-none ${fullscreen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+      className={`border-foreground/20 hover:border-foreground/40 hover:bg-foreground/5 focus-visible:ring-accent/50 fixed top-6 right-6 z-[9999] rounded-full border p-2 transition-[opacity,color,background-color,border-color] duration-300 hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:outline-none ${fullscreen ? 'pointer-events-none opacity-0' : 'opacity-45'}`}
     >
       {isDark ? (
         <Sun size={20} className="text-accent" />
