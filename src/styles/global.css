@@ -621,11 +621,12 @@ h1 {
 }
 
 .link-card__topline {
-  display: flex;
-  min-width: 0;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  min-height: 24px;
+  grid-template-columns: minmax(0, 1fr) 108px;
+  align-items: start;
   gap: 8px;
+  min-width: 0;
 }
 
 .link-card__title {
@@ -643,7 +644,7 @@ h1 {
 
 .link-card__badge {
   display: inline-flex;
-  flex-shrink: 0;
+  justify-self: end;
   align-items: center;
   gap: 4px;
   border-radius: 999px;
@@ -829,8 +830,13 @@ h1 {
   }
 
   .link-card__topline {
-    display: grid;
-    justify-content: start;
+    min-height: 23px;
+    grid-template-columns: minmax(0, 1fr) 94px;
+  }
+
+  .link-card__badge {
+    padding: 4px 7px;
+    font-size: 0.66rem;
   }
 }
 
