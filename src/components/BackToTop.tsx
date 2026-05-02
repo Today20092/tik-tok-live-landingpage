@@ -18,7 +18,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="glass-chrome fixed right-4 bottom-4 z-50 flex h-10 w-10 items-center justify-center rounded-full text-foreground/72 hover:text-foreground focus-visible:ring-2 focus-visible:outline-none md:right-6 md:bottom-6"
+      className="fixed right-4 bottom-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/70 text-foreground/70 shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_90%)] backdrop-blur-md transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:outline-none md:right-6 md:bottom-6"
       aria-label="Back to top"
     >
       <ChevronUp className="h-4 w-4" />

@@ -38,7 +38,7 @@ export default function DrawingSection({
   };
 
   return (
-    <div className="reveal-up">
+    <div>
       {fullscreenIdx !== null && (
         <div
           className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/88 p-4 backdrop-blur-md"
@@ -46,7 +46,7 @@ export default function DrawingSection({
         >
           <button
             onClick={closeFullscreen}
-            className="glass-chrome absolute top-5 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full text-white/80 hover:text-white focus-visible:ring-2 focus-visible:outline-none"
+            className="absolute top-5 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 shadow-lg backdrop-blur-md transition-colors hover:text-white focus-visible:ring-2 focus-visible:outline-none"
             aria-label="Close fullscreen"
           >
             <X size={18} />
@@ -61,17 +61,19 @@ export default function DrawingSection({
       )}
 
       <div className="mb-4">
-        <p className="eyebrow mb-2">Visual notes</p>
+        <p className="mb-2 text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-primary uppercase">
+          Visual notes
+        </p>
         <h2 className="text-3xl text-foreground md:text-4xl">{title}</h2>
       </div>
 
-      <div className="plain-divider">
+      <div className="border-y border-border/70">
         {items.map((drawing, idx) => {
           const headingId = `drawing-heading-${idx}`;
           const contentId = `drawing-content-${idx}`;
 
           return (
-            <div key={`drawing-${idx}`} className="plain-divider last:border-b-0">
+            <div key={`drawing-${idx}`} className="border-b border-border/70 last:border-b-0">
               <button
                 id={headingId}
                 onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
@@ -80,11 +82,13 @@ export default function DrawingSection({
                 aria-controls={contentId}
                 className="flex w-full items-start gap-4 py-5 text-left focus-visible:ring-2 focus-visible:outline-none"
               >
-                <div className="row-icon">
+                <div className="grid size-10 shrink-0 place-items-center rounded-[0.625rem] border border-border bg-card/60 text-accent">
                   <ImageIcon size={18} strokeWidth={1.9} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="row-meta">Drawing</p>
+                  <p className="text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-muted-foreground uppercase">
+                    Drawing
+                  </p>
                   <h3 className="text-xl leading-tight text-foreground md:text-[1.35rem]">
                     {drawing.title}
                   </h3>
@@ -114,7 +118,7 @@ export default function DrawingSection({
                           e.stopPropagation();
                           openFullscreen(idx);
                         }}
-                        className="glass-chrome absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-foreground/75 hover:text-foreground focus-visible:ring-2 focus-visible:outline-none"
+                        className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card/70 text-foreground/75 shadow-lg backdrop-blur-md transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:outline-none"
                         aria-label="View fullscreen"
                       >
                         <Maximize2 size={15} />

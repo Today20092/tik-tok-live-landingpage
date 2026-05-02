@@ -14,7 +14,7 @@ export default function BioBlurb({ html }: BioBlurbProps) {
   const rest = lines.slice(1).join('\n');
 
   return (
-    <div className="reveal-up reveal-delay-1">
+    <div>
       <div
         className="prose max-w-none text-[1rem] leading-7 md:text-[1.05rem]"
         dangerouslySetInnerHTML={{ __html: preview }}

@@ -26,13 +26,15 @@ export default function FAQ({
   };
 
   return (
-    <div className="reveal-up">
+    <div>
       <div className="mb-4">
-        <p className="eyebrow mb-2">FAQ</p>
+        <p className="mb-2 text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-primary uppercase">
+          FAQ
+        </p>
         <h2 className="text-3xl text-foreground md:text-4xl">{title}</h2>
       </div>
 
-      <div className="plain-divider">
+      <div className="border-y border-border/70">
         {items.map((faq, idx) => {
           const headingId = `faq-heading-${idx}`;
           const contentId = `faq-content-${idx}`;
@@ -43,7 +45,7 @@ export default function FAQ({
               ref={(el) => {
                 itemRefs.current[idx] = el;
               }}
-              className="plain-divider last:border-b-0"
+              className="border-b border-border/70 last:border-b-0"
             >
               <button
                 id={headingId}
