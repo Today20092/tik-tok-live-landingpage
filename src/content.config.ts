@@ -4,6 +4,7 @@ import { glob } from 'astro/loaders';
 const linkIcons = [
   'Book',
   'BookOpen',
+  'Compass',
   'HeartHandshake',
   'Mail',
   'PackageOpen',
