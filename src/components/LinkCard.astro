@@ -191,15 +191,26 @@ const arrowClass = twMerge(
         aria-hidden="true"
       >
         {isKofi ? (
-          <img
-            src={`${import.meta.env.BASE_URL}kofi-symbol.svg`}
-            alt=""
-            width="241"
-            height="194"
-            loading="lazy"
-            decoding="async"
-            class="h-7 w-auto"
-          />
+          <>
+            <img
+              src={`${import.meta.env.BASE_URL}kofi-speech-bubble.gif`}
+              alt=""
+              width="350"
+              height="350"
+              loading="lazy"
+              decoding="async"
+              class="size-8 motion-reduce:hidden"
+            />
+            <img
+              src={`${import.meta.env.BASE_URL}kofi-symbol.svg`}
+              alt=""
+              width="241"
+              height="194"
+              loading="lazy"
+              decoding="async"
+              class="hidden h-7 w-auto motion-reduce:block"
+            />
+          </>
         ) : (
           <>
             {IconComponent && <IconComponent size={22} />}
