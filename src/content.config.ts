@@ -7,6 +7,7 @@ const linkIcons = [
   'Compass',
   'HandCoins',
   'HeartHandshake',
+  'Kofi',
   'Mail',
   'PackageOpen',
   'PencilLine',
