@@ -24,7 +24,7 @@ const siteUrl = new URL(import.meta.env.SITE ?? 'https://islam.ayoubabed.xyz/').
 const socialImageUrl = new URL('og-image.png', siteUrl).toString();
 const basePath = import.meta.env.BASE_URL;
 const pageDescription =
-  "Read The Clear Quran online, request free English Quran copies where eligible, find Ayoub's stream edition, and watch helpful learning resources.";
+  "Read The Clear Quran online, request free English Quran copies where eligible, find Ayoub's stream edition, and watch recorded sessions and learning resources.";
 
 const sections = [
   {
@@ -196,14 +196,25 @@ const structuredData = {
             aria-label="Social links"
           >
             <a
-              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--accent),transparent_35%)] hover:bg-[var(--paper)] focus-visible:border-accent focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[color-mix(in_srgb,var(--accent),transparent_56%)] min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
+              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#fe2c55]/55 hover:bg-[var(--paper)] focus-visible:border-[#fe2c55] focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#25f4ee]/45 min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
               href="https://www.tiktok.com/@ayoubabedrabbo"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
             >
-              <svg class="size-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="size-6" viewBox="0 0 24 24" aria-hidden="true">
                 <path
+                  class="fill-[#25f4ee]"
+                  transform="translate(-0.7 0.45)"
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.78V9.39a6.33 6.33 0 1 0 5.54 6.27V8.69a8.16 8.16 0 0 0 4.78 1.53V6.76a4.95 4.95 0 0 1-1.01-.07Z"
+                />
+                <path
+                  class="fill-[#fe2c55]"
+                  transform="translate(0.7 -0.45)"
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.78V9.39a6.33 6.33 0 1 0 5.54 6.27V8.69a8.16 8.16 0 0 0 4.78 1.53V6.76a4.95 4.95 0 0 1-1.01-.07Z"
+                />
+                <path
+                  class="fill-foreground"
                   d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.78V9.39a6.33 6.33 0 1 0 5.54 6.27V8.69a8.16 8.16 0 0 0 4.78 1.53V6.76a4.95 4.95 0 0 1-1.01-.07Z"
                 />
               </svg>
@@ -212,13 +223,13 @@ const structuredData = {
               </span>
             </a>
             <a
-              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--accent),transparent_35%)] hover:bg-[var(--paper)] focus-visible:border-accent focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[color-mix(in_srgb,var(--accent),transparent_56%)] min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
+              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#9146ff]/55 hover:bg-[var(--paper)] focus-visible:border-[#9146ff] focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#9146ff]/35 min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
               href="https://www.twitch.tv/ayoubabedrabbo"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitch"
             >
-              <svg class="size-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="size-6 fill-[#9146ff]" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M11.57 4.71h1.72v5.15h-1.72Zm4.72 0H18v5.15h-1.71ZM6 0 1.71 4.29v15.43h5.15V24l4.28-4.28h3.43L22.29 12V0Zm14.57 11.14-3.43 3.43h-3.43l-3 3v-3H6.86V1.71h13.71Z"
                 />
@@ -228,13 +239,13 @@ const structuredData = {
               </span>
             </a>
             <a
-              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--accent),transparent_35%)] hover:bg-[var(--paper)] focus-visible:border-accent focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[color-mix(in_srgb,var(--accent),transparent_56%)] min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
+              class="group relative grid size-12 place-items-center rounded-full border border-border bg-[color-mix(in_srgb,var(--paper),transparent_28%)] text-foreground no-underline shadow-[0_10px_30px_color-mix(in_srgb,var(--color-stone-900),transparent_92%)] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#ff0033]/55 hover:bg-[var(--paper)] focus-visible:border-[#ff0033] focus-visible:bg-[var(--paper)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#ff0033]/35 min-[521px]:size-14 dark:bg-[color-mix(in_srgb,var(--paper),transparent_34%)]"
               href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
             >
-              <svg class="size-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="size-6 fill-[#ff0033]" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81ZM9.55 15.57V8.43L15.82 12Z"
                 />
@@ -244,6 +255,18 @@ const structuredData = {
               </span>
             </a>
           </nav>
+
+          <p class="mx-auto max-w-[28rem] text-balance text-[0.9rem] leading-snug text-[var(--ink-soft)]">
+            TikTok live sessions are recorded after they finish and
+            <a
+              class="font-extrabold text-foreground underline decoration-[color-mix(in_srgb,var(--accent),transparent_48%)] decoration-2 underline-offset-3 hover:text-accent"
+              href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              uploaded to YouTube</a
+            >.
+          </p>
         </section>
 
         <section id="links" class="mt-5 grid gap-0" aria-label="Links">
@@ -300,6 +323,44 @@ const structuredData = {
           }
         </section>
 
+        {
+          supportLinks.length > 0 && (
+            <section
+              class="relative mt-6 grid gap-5 border-t border-[color-mix(in_srgb,var(--foreground),transparent_88%)] py-8 before:absolute before:top-0 before:left-0 before:h-px before:w-24 before:bg-[linear-gradient(90deg,var(--accent),transparent)] before:opacity-85 min-[521px]:gap-6 min-[521px]:py-10 dark:border-[color-mix(in_srgb,var(--foreground),transparent_86%)]"
+              aria-labelledby="support-heading"
+            >
+              <div class="grid gap-1.5 px-0.5 pb-0.5">
+                <p class="text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-primary uppercase">
+                  Support
+                </p>
+                <h2
+                  id="support-heading"
+                  class="text-balance font-serif text-[clamp(1.9rem,6vw,2.25rem)] leading-[0.95] font-bold"
+                >
+                  Support Ayoub
+                </h2>
+                <span class="mt-px max-w-xl text-[0.93rem] leading-snug text-[var(--ink-soft)]">
+                  Optional ways to support the live sessions directly.
+                </span>
+              </div>
+
+              <div class="grid gap-3">
+                {supportLinks.map((link, index) => (
+                  <LinkCard
+                    icon={link.icon}
+                    title={link.title}
+                    description={link.description}
+                    href={link.url}
+                    youtube={link.youtube}
+                    enterDelay={`${320 + index * 125}ms`}
+                    variant={link.variant ?? 'default'}
+                  />
+                ))}
+              </div>
+            </section>
+          )
+        }
+
         <section
           class="grid gap-3 border-t border-[color-mix(in_srgb,var(--foreground),transparent_88%)] pt-6"
           aria-label="Site information"
@@ -354,44 +415,6 @@ const structuredData = {
             </p>
           </div>
         </section>
-
-        {
-          supportLinks.length > 0 && (
-            <section
-              class="relative mt-6 grid gap-5 border-t border-[color-mix(in_srgb,var(--foreground),transparent_88%)] py-8 before:absolute before:top-0 before:left-0 before:h-px before:w-24 before:bg-[linear-gradient(90deg,var(--accent),transparent)] before:opacity-85 min-[521px]:gap-6 min-[521px]:py-10 dark:border-[color-mix(in_srgb,var(--foreground),transparent_86%)]"
-              aria-labelledby="support-heading"
-            >
-              <div class="grid gap-1.5 px-0.5 pb-0.5">
-                <p class="text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-primary uppercase">
-                  Support
-                </p>
-                <h2
-                  id="support-heading"
-                  class="text-balance font-serif text-[clamp(1.9rem,6vw,2.25rem)] leading-[0.95] font-bold"
-                >
-                  Support Ayoub
-                </h2>
-                <span class="mt-px max-w-xl text-[0.93rem] leading-snug text-[var(--ink-soft)]">
-                  Optional ways to support the live sessions directly.
-                </span>
-              </div>
-
-              <div class="grid gap-3">
-                {supportLinks.map((link, index) => (
-                  <LinkCard
-                    icon={link.icon}
-                    title={link.title}
-                    description={link.description}
-                    href={link.url}
-                    youtube={link.youtube}
-                    enterDelay={`${320 + index * 125}ms`}
-                    variant={link.variant ?? 'default'}
-                  />
-                ))}
-              </div>
-            </section>
-          )
-        }
 
         <footer class="grid gap-1 py-6 pb-2 text-center text-[0.82rem] text-[var(--ink-soft)]">
           <p class="font-serif text-base font-semibold text-foreground italic">
