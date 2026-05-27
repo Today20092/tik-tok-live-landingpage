@@ -14,8 +14,10 @@ const resourceLinks = linksData.filter(
     link.variant !== 'charity' &&
     link.variant !== 'stream-pick' &&
     link.variant !== 'featured' &&
+    link.variant !== 'support' &&
     !link.youtube,
 );
+const supportLinks = linksData.filter((link) => link.variant === 'support');
 const videoLinks = linksData.filter((link) => Boolean(link.youtube));
 
 const siteUrl = new URL(import.meta.env.SITE ?? 'https://islam.ayoubabed.xyz/').toString();
@@ -64,7 +66,7 @@ const structuredData = {
   url: siteUrl,
   description: pageDescription,
   datePublished: '2026-05-02',
-  dateModified: '2026-05-17',
+  dateModified: '2026-05-27',
   author: {
     '@type': 'Person',
     name: 'Ayoub Abedrabbo',
@@ -73,6 +75,7 @@ const structuredData = {
     'https://www.tiktok.com/@ayoubabedrabbo',
     'https://www.twitch.tv/ayoubabedrabbo',
     'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ',
+    'https://ko-fi.com/ayoubab1',
   ],
 };
 ---
@@ -351,6 +354,44 @@ const structuredData = {
             </p>
           </div>
         </section>
+
+        {
+          supportLinks.length > 0 && (
+            <section
+              class="relative mt-6 grid gap-5 border-t border-[color-mix(in_srgb,var(--foreground),transparent_88%)] py-8 before:absolute before:top-0 before:left-0 before:h-px before:w-24 before:bg-[linear-gradient(90deg,var(--accent),transparent)] before:opacity-85 min-[521px]:gap-6 min-[521px]:py-10 dark:border-[color-mix(in_srgb,var(--foreground),transparent_86%)]"
+              aria-labelledby="support-heading"
+            >
+              <div class="grid gap-1.5 px-0.5 pb-0.5">
+                <p class="text-[0.68rem] leading-none font-extrabold tracking-[0.16em] text-primary uppercase">
+                  Support
+                </p>
+                <h2
+                  id="support-heading"
+                  class="text-balance font-serif text-[clamp(1.9rem,6vw,2.25rem)] leading-[0.95] font-bold"
+                >
+                  Support Ayoub
+                </h2>
+                <span class="mt-px max-w-xl text-[0.93rem] leading-snug text-[var(--ink-soft)]">
+                  Optional ways to support the live sessions directly.
+                </span>
+              </div>
+
+              <div class="grid gap-3">
+                {supportLinks.map((link, index) => (
+                  <LinkCard
+                    icon={link.icon}
+                    title={link.title}
+                    description={link.description}
+                    href={link.url}
+                    youtube={link.youtube}
+                    enterDelay={`${320 + index * 125}ms`}
+                    variant={link.variant ?? 'default'}
+                  />
+                ))}
+              </div>
+            </section>
+          )
+        }
 
         <footer class="grid gap-1 py-6 pb-2 text-center text-[0.82rem] text-[var(--ink-soft)]">
           <p class="font-serif text-base font-semibold text-foreground italic">

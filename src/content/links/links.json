@@ -7,6 +7,13 @@
     "variant": "charity"
   },
   {
+    "icon": "HandCoins",
+    "title": "Support Ayoub on Ko-fi",
+    "description": "Optional direct support for Ayoub and the live Quran reading sessions.",
+    "url": "https://ko-fi.com/ayoubab1",
+    "variant": "support"
+  },
+  {
     "icon": "BookOpen",
     "title": "The Quran — Read Online",
     "description": "Read the Quran in English with audio recitation, translation, and scholarly explanations",

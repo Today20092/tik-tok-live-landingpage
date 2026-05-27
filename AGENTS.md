@@ -11,16 +11,15 @@ Its purpose is to give viewers a simple, trustworthy link hub for:
 - Continuing with learning resources and video playlists
 - Reaching Ayoub through public social profiles
 
-The site is deployed as a GitHub Pages project site at:
+The site is deployed on GitHub Pages and uses the custom domain:
 
-`https://today20092.github.io/tik-tok-live-landingpage/`
+`https://islam.ayoubabed.xyz`
 
 Astro is configured with:
 
-- `site: 'https://today20092.github.io'`
-- `base: '/tik-tok-live-landingpage/'`
+- `site: 'https://islam.ayoubabed.xyz'`
 
-Because of that base path, public assets referenced in code should use `import.meta.env.BASE_URL` or absolute production URLs when appropriate. Avoid root-relative asset paths like `/favicon.svg` inside Astro pages because they break under the GitHub Pages base path.
+Public assets referenced in code should use `import.meta.env.BASE_URL` or absolute production URLs when appropriate. Avoid root-relative asset paths like `/favicon.svg` inside Astro pages unless they are intentionally served from the site root.
 
 ## Tech Stack
 
@@ -47,7 +46,8 @@ Common commands:
 - `src/components/ThemeToggle.tsx` controls light/dark mode.
 - `src/styles/global.css` should stay small and global: theme tokens, body/background rules, decorative background effects, SVG-specific styling, and reduced-motion behavior.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.
-- `astro.config.mjs` defines the GitHub Pages `site` and `base`.
+- `astro.config.mjs` defines the GitHub Pages site URL and integration setup.
+- `public/CNAME` keeps the GitHub Pages custom domain attached to the repository.
 
 ## Content Guidance
 
@@ -74,7 +74,6 @@ The site has been audited with `squirrel`/squirrelscan. Keep these in mind:
 
 - Preserve canonical and social metadata in `src/pages/index.astro`.
 - Preserve JSON-LD structured data unless replacing it with a more accurate equivalent.
-- Keep `robots.txt` and `sitemap.xml` available under the GitHub Pages base path.
+- Keep `robots.txt` and `sitemap.xml` available at the site root.
 - GitHub Pages does not support arbitrary response headers, so CSP and X-Frame-Options warnings may remain hosting-level limitations.
 - The site intentionally stays a single-page landing page. About, contact, and privacy information are compact sections rather than separate pages unless the owner asks otherwise.
-
