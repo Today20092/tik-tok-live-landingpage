@@ -15,7 +15,7 @@ The site features a beautiful dynamic design with an authentic Islamic geometric
 
 ## 🔗 Live URL
 
-The project is live at: [https://today20092.github.io/tik-tok-live-landingpage/](https://today20092.github.io/tik-tok-live-landingpage/)
+The project is live at: [https://islam.ayoubabed.xyz](https://islam.ayoubabed.xyz)
 
 ## 🛠️ How to Access and Run Locally
 

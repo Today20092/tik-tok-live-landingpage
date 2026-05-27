@@ -8,8 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://today20092.github.io',
-  base: '/tik-tok-live-landingpage/',
+  site: 'https://islam.ayoubabed.xyz',
   vite: {
     plugins: [tailwindcss()],
   },

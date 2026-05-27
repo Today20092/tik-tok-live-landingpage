@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://today20092.github.io/tik-tok-live-landingpage/sitemap.xml
-Sitemap: https://today20092.github.io/tik-tok-live-landingpage/sitemap-index.xml
+Sitemap: https://islam.ayoubabed.xyz/sitemap.xml
