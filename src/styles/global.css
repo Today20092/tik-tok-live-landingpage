@@ -99,6 +99,14 @@
   .animate-link-card-enter {
     animation: link-card-enter 1250ms ease-out both;
   }
+
+  .animate-support-bob {
+    animation: support-bob 1900ms ease-in-out infinite;
+  }
+
+  .animate-support-card-bob {
+    animation: link-card-enter 1250ms ease-out both, support-card-bob 2600ms ease-in-out 1300ms infinite;
+  }
 }
 
 html {
@@ -299,6 +307,28 @@ a {
   }
 }
 
+@keyframes support-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes support-card-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -4px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -315,8 +345,11 @@ a {
 
   [class*='animate-hero-enter'],
   [class*='animate-hero-mark-enter'],
-  [class*='animate-link-card-enter'] {
+  [class*='animate-link-card-enter'],
+  [class*='animate-support-bob'],
+  [class*='animate-support-card-bob'] {
     opacity: 1 !important;
     transform: none !important;
+    translate: none !important;
   }
 }

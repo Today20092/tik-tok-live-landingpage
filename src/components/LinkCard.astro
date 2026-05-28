@@ -79,7 +79,8 @@ const variantClasses = {
   featured: '[--card-accent:var(--accent)]',
   charity: '[--card-accent:var(--coral)]',
   'stream-pick': '[--card-accent:var(--gold)]',
-  support: '[--card-accent:#29abe0]',
+  support:
+    'border-[#29abe0]/35 bg-white/45 shadow-[0_14px_34px_rgb(41_171_224_/_0.08)] [--card-accent:#29abe0] dark:bg-white/[0.035] dark:shadow-[0_16px_38px_rgb(41_171_224_/_0.11)]',
   default: '[--card-accent:var(--blue)]',
 } satisfies Record<NonNullable<Props['variant']> | 'primary', string>;
 
@@ -112,6 +113,7 @@ function getDisplayTitle(value: string) {
 }
 
 const resolvedVariant = variant ?? (featured ? 'featured' : 'default');
+const isSupport = resolvedVariant === 'support';
 const badge = labels[resolvedVariant];
 const BadgeIcon = badge?.Icon;
 const thumbnail = getYouTubeThumbnail(youtube);
@@ -129,7 +131,13 @@ const cardClass = twMerge(
   'group relative grid min-h-24 grid-cols-[2.625rem_minmax(0,1fr)_1.5rem] items-center gap-2.5 overflow-hidden rounded-xl border border-border bg-white/40 p-3 text-inherit no-underline opacity-0 animate-link-card-enter transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--card-accent),transparent_34%)] hover:bg-[color-mix(in_srgb,var(--paper),var(--color-white)_20%)] hover:shadow-[0_18px_44px_color-mix(in_srgb,var(--color-stone-900),transparent_86%)] focus-visible:border-[var(--card-accent)] focus-visible:shadow-[0_18px_44px_color-mix(in_srgb,var(--color-stone-900),transparent_84%)] focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[color-mix(in_srgb,var(--card-accent),transparent_58%)] motion-reduce:opacity-100 motion-reduce:animate-none dark:bg-white/[0.04] dark:hover:bg-white/[0.075] min-[521px]:grid-cols-[2.875rem_minmax(0,1fr)_2.125rem] min-[521px]:gap-3 min-[521px]:p-3.5',
   isVideo &&
     'min-h-0 grid-cols-[minmax(0,1fr)_1.5rem] min-[521px]:min-h-32 min-[521px]:grid-cols-[minmax(8rem,10rem)_minmax(0,1fr)_2.125rem]',
+  isSupport && 'animate-support-card-bob',
   variantClasses[resolvedVariant],
+);
+
+const washClass = twMerge(
+  'pointer-events-none absolute inset-0 bg-[linear-gradient(100deg,var(--card-accent),transparent_82%)] opacity-10',
+  isSupport && 'hidden',
 );
 
 const contentClass = twMerge(
@@ -152,12 +160,8 @@ const arrowClass = twMerge(
   class={cardClass}
   style={`animation-delay: ${enterDelay};`}
 >
-  <span
-    class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,var(--card-accent),transparent_64%)] opacity-10"
-    aria-hidden="true"
-  >
+  <span class={washClass} aria-hidden="true">
   </span>
-
   {
     thumbnail ? (
       <span
