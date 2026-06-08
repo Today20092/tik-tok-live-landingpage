@@ -17,6 +17,8 @@ The site features a beautiful dynamic design with an authentic Islamic geometric
 
 The project is live at: [https://islam.ayoubabed.xyz](https://islam.ayoubabed.xyz)
 
+The site is deployed from GitHub to Cloudflare Pages static hosting.
+
 ## 🛠️ How to Access and Run Locally
 
 To get this project up and running on your local machine, follow these steps:
@@ -57,7 +59,15 @@ To create an optimized production build:
 npm run build
 ```
 
-The built files will be generated in the `dist` directory, ready to be deployed to any static hosting provider (like Vercel, Netlify, Cloudflare Pages, or GitHub Pages).
+The built files will be generated in the `dist` directory.
+
+Cloudflare Pages build configuration:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Deploy command: leave empty
+
+Do not use `npx wrangler versions upload` for this static site. That deploy path uses a Worker deployment flow and can introduce unnecessary bindings such as Astro's `SESSION` KV namespace.
 
 To preview the production build locally:
 

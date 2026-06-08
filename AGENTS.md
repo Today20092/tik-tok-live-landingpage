@@ -11,7 +11,7 @@ Its purpose is to give viewers a simple, trustworthy link hub for:
 - Continuing with learning resources and video playlists
 - Reaching Ayoub through public social profiles
 
-The site is deployed on GitHub Pages and uses the custom domain:
+The site is deployed from GitHub to Cloudflare Pages static hosting and uses the custom domain:
 
 `https://islam.ayoubabed.xyz`
 
@@ -46,8 +46,7 @@ Common commands:
 - `src/components/ThemeToggle.tsx` controls light/dark mode.
 - `src/styles/global.css` should stay small and global: theme tokens, body/background rules, decorative background effects, SVG-specific styling, and reduced-motion behavior.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.
-- `astro.config.mjs` defines the GitHub Pages site URL and integration setup.
-- `public/CNAME` keeps the GitHub Pages custom domain attached to the repository.
+- `astro.config.mjs` defines the production site URL and integration setup.
 
 ## Content Guidance
 
@@ -75,5 +74,6 @@ The site has been audited with `squirrel`/squirrelscan. Keep these in mind:
 - Preserve canonical and social metadata in `src/pages/index.astro`.
 - Preserve JSON-LD structured data unless replacing it with a more accurate equivalent.
 - Keep `robots.txt` and `sitemap.xml` available at the site root.
-- GitHub Pages does not support arbitrary response headers, so CSP and X-Frame-Options warnings may remain hosting-level limitations.
+- Cloudflare Pages static hosting should use `npm run build` with `dist` as the build output directory. Do not add a Worker deploy command such as `npx wrangler versions upload` for this static site.
+- CSP and X-Frame-Options warnings may remain hosting-level limitations unless configured in Cloudflare.
 - The site intentionally stays a single-page landing page. About, contact, and privacy information are compact sections rather than separate pages unless the owner asks otherwise.
