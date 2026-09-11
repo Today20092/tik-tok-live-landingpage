@@ -1,12 +1,14 @@
 ---
 import HubPage from '@/layouts/HubPage.astro';
-import { IconArrowLeft, IconArrowRight, IconBrandYoutube } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowRight, IconBrandYoutube, IconListNumbers, IconNotes, IconFileText, IconBooks, IconInfoCircle } from '@tabler/icons-react';
 // Keep the example available in development only until real episodes are ready.
 export function getStaticPaths() {
   return import.meta.env.DEV ? [{ params: { path: undefined } }] : [];
 }
 const base = import.meta.env.BASE_URL;
 const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm font-medium underline-offset-4 hover:underline';
+const sectionLink = 'inline-flex min-h-11 items-center gap-3 text-sm underline decoration-border underline-offset-4 hover:decoration-current [&_svg]:size-4 [&_svg]:shrink-0';
+const headingLink = 'inline-flex items-center gap-2 rounded-sm hover:underline underline-offset-4';
 ---
 
 <HubPage title="Podcast preview | Live with Ayoub" path="podcast-preview/" noindex>
@@ -54,15 +56,19 @@ const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm 
         </figure>
         <a href="https://youtu.be/HVmHxSztp_A" class={`${focusLink} mt-2`}><IconBrandYoutube size={20} /> Open the demo video on YouTube</a>
 
-        <nav aria-label="Episode sections" class="mt-6 flex flex-wrap gap-x-6 border-y border-border py-2">
-          <a href="#outline" class={focusLink}>Outline</a>
-          <a href="#notes" class={focusLink}>My notes</a>
-          <a href="#transcript" class={focusLink}>Transcript</a>
-          <a href="#resources" class={focusLink}>Resources</a>
+        <nav aria-labelledby="contents-title" class="mt-6 rounded-2xl border border-border bg-secondary/50 p-5">
+          <h2 id="contents-title" class="mb-2 text-base font-semibold">On this page</h2>
+          <ul>
+            <li><a href="#outline" class={sectionLink}><IconListNumbers aria-hidden="true" />Episode outline</a></li>
+            <li><a href="#notes" class={sectionLink}><IconNotes aria-hidden="true" />My notes</a></li>
+            <li><a href="#transcript" class={sectionLink}><IconFileText aria-hidden="true" />Transcript</a></li>
+            <li><a href="#resources" class={sectionLink}><IconBooks aria-hidden="true" />Reading alongside the episode</a></li>
+            <li><a href="#ai-disclaimer" class={sectionLink}><IconInfoCircle aria-hidden="true" />AI disclaimer</a></li>
+          </ul>
         </nav>
 
         <section id="outline" class="scroll-mt-6 pt-9">
-          <h2 class="text-xl font-semibold">Episode outline</h2>
+          <h2 class="text-xl font-semibold"><a href="#outline" class={headingLink}>Episode outline <span aria-hidden="true" class="text-muted-foreground">#</span></a></h2>
           <p class="mt-2 text-sm text-muted-foreground">Sample topics for a future conversation.</p>
           <ol class="mt-5 list-decimal space-y-3 pl-5 text-base leading-relaxed marker:text-muted-foreground">
             <li>Why I want to start this podcast</li>
@@ -74,7 +80,7 @@ const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm 
         </section>
 
         <section id="notes" class="scroll-mt-6 pt-10">
-          <h2 class="text-xl font-semibold">My notes</h2>
+          <h2 class="text-xl font-semibold"><a href="#notes" class={headingLink}>My notes <span aria-hidden="true" class="text-muted-foreground">#</span></a></h2>
           <div class="mt-4 space-y-4 text-base leading-8">
             <p>Example host note: I want this podcast to give us more time for the questions that come up during the live. Some topics need a longer conversation and a place to collect the reading afterwards.</p>
             <p>For this first conversation, I'd like to ask: what makes it easier for us to keep learning, even when life is busy?</p>
@@ -82,7 +88,8 @@ const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm 
         </section>
 
         <section id="transcript" class="scroll-mt-6 pt-10">
-          <h2 class="text-xl font-semibold">Transcript</h2>
+          <h2 class="text-xl font-semibold"><a href="#transcript" class={headingLink}>Transcript <span aria-hidden="true" class="text-muted-foreground">#</span></a></h2>
+          <a href="#ai-disclaimer" class={focusLink}>How AI was used in this content</a>
           <details class="mt-4 rounded-2xl border border-border px-5">
             <summary class="flex min-h-14 cursor-pointer items-center py-3 text-sm font-semibold">Read a sample transcript excerpt</summary>
             <div class="space-y-4 border-t border-border py-5 text-base leading-8">
@@ -94,12 +101,38 @@ const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm 
         </section>
 
         <section id="resources" class="scroll-mt-6 pt-10">
-          <h2 class="text-xl font-semibold">Reading alongside the episode</h2>
+          <h2 class="text-xl font-semibold"><a href="#resources" class={headingLink}>Reading alongside the episode <span aria-hidden="true" class="text-muted-foreground">#</span></a></h2>
           <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Example resources. Each published episode can include its own references here.</p>
           <div class="mt-3 flex flex-col items-start">
             <a href="https://quran.com/" class={focusLink}>Read the Quran on Quran.com <IconArrowRight size={16} /></a>
             <a href="https://go.alphabravomedia.co/riyad-as-salign-pdf" class={focusLink}>Riyad as-Salihin PDF <IconArrowRight size={16} /></a>
           </div>
+        </section>
+        <section id="ai-disclaimer" aria-labelledby="ai-disclaimer-title" class="mt-10 scroll-mt-6 border-t border-border pt-6">
+          <h2 id="ai-disclaimer-title" class="text-xl font-semibold"><a href="#ai-disclaimer" class={headingLink}>AI disclaimer <span aria-hidden="true" class="text-muted-foreground">#</span></a></h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+            I want you to know where AI has helped create or edit the content that accompanies each episode. I'll document what was changed, which tools I used, and what I personally reviewed. The views I express in the podcast are my own.
+          </p>
+          <p class="mt-4 text-sm font-medium">Example disclosure format, to be completed for each episode.</p>
+          <dl class="mt-4 space-y-4 text-sm leading-relaxed">
+            <div>
+              <dt class="font-semibold">Transcript</dt>
+              <dd class="mt-1 text-muted-foreground">Record whether Whisper was used for transcription, which tool cleaned up grammar or punctuation, and whether the text was checked against the recording. Note any edits beyond those corrections.</dd>
+            </div>
+            <div>
+              <dt class="font-semibold">Thumbnail</dt>
+              <dd class="mt-1 text-muted-foreground">State whether AI generated or edited any part of the thumbnail, name the tool, and describe the changes.</dd>
+            </div>
+            <div>
+              <dt class="font-semibold">Description, outline, and notes</dt>
+              <dd class="mt-1 text-muted-foreground">List any AI drafting, summarizing, or rewriting, alongside the tool used and what I reviewed myself.</dd>
+            </div>
+            <div>
+              <dt class="font-semibold">Other episode content</dt>
+              <dd class="mt-1 text-muted-foreground">Document any other AI use, including research assistance, generated images, audio, or video. If no AI was used for an item, say so explicitly.</dd>
+            </div>
+          </dl>
+          <p class="mt-4 text-xs leading-relaxed text-muted-foreground">These are template prompts, not disclosures about the demonstration video above.</p>
         </section>
         <footer class="mt-10 border-t border-border pt-5">
           <a href={base} class={focusLink}><IconArrowLeft size={18} /> Back to Ayoub's links</a>

@@ -57,13 +57,20 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
   </a>
   <div class="mx-auto max-w-xl px-5 pb-8 pt-8 sm:px-8 sm:pt-12">
     <header class="text-center">
-      <span class="mx-auto grid size-16 place-items-center rounded-full bg-[#e1eadc] text-[#254f39]">
-        <BookOpen size={30} strokeWidth={1.5} aria-hidden="true" />
-      </span>
-      <h1 class="mt-4 text-2xl font-semibold tracking-tight">
-        Live with Ayoub
-      </h1>
-      <p class="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-[#52695b]">
+      <div class="relative isolate flex h-52 items-center overflow-hidden rounded-3xl bg-[#e1eadc] text-left sm:h-60">
+        <img
+          src={`${base}ayoub-portrait.jpg`}
+          alt="Ayoub smiling"
+          width="1280"
+          height="1600"
+          fetchpriority="high"
+          class="absolute inset-y-0 right-0 -z-10 h-full w-[68%] object-cover object-[center_30%] [mask-image:linear-gradient(to_right,transparent,black_38%)]"
+        />
+        <h1 class="max-w-[48%] px-5 text-3xl font-semibold leading-tight tracking-tight sm:px-7 sm:text-4xl">
+          Live with Ayoub
+        </h1>
+      </div>
+      <p class="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-[#52695b]">
         Read the Quran, find a copy, and explore the links from our live
         sessions.
       </p>

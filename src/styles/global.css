@@ -1,5 +1,12 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/source-sans-3/wght-italic.css';
+@import '@fontsource-variable/source-serif-4/standard.css';
+@import '@fontsource-variable/source-serif-4/standard-italic.css';
 @import './typeset.css';
+
+/* Include utilities from development-only preview routes in every CSS build. */
+@source '../pages/podcast-preview';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -75,7 +82,7 @@
 
 .typeset-article {
   --typeset-font-body: var(--font-sans);
-  --typeset-font-heading: var(--font-sans);
+  --typeset-font-heading: var(--font-heading);
   --typeset-font-mono: var(--font-mono);
   --typeset-size: 1rem;
   --typeset-leading: 1.8;
@@ -84,8 +91,27 @@
 
 @theme {
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+    'Source Sans 3 Variable', ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, serif;
+}
+
+@theme inline {
+  --font-heading: var(--font-serif);
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
 }
 
 html {
