@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import HubPage from '@/layouts/HubPage.astro';
 import { buttonVariants } from '@/components/ui/button';
-import { IconArrowLeft, IconArrowUpRight } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowUpRight, IconSearch } from '@tabler/icons-react';
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -16,6 +16,7 @@ const base = import.meta.env.BASE_URL;
 >
   <main class="min-h-dvh bg-background px-5 py-8 font-sans text-foreground sm:py-12">
     <div class="mx-auto max-w-2xl">
+      <nav aria-label="Site" class="flex flex-wrap items-center gap-2">
       <a
         href={base}
         class={buttonVariants({
@@ -29,10 +30,12 @@ const base = import.meta.env.BASE_URL;
       </a>
       <a
         href={`${base}search/`}
-        class="ml-4 inline-flex min-h-11 items-center text-sm font-medium underline-offset-4 hover:underline"
+        class={buttonVariants({ variant: 'ghost', size: 'lg', className: 'min-h-11' })}
       >
+        <IconSearch data-icon="inline-start" aria-hidden="true" />
         Search the site
       </a>
+      </nav>
       <header class="py-8">
         <h1 class="text-3xl font-semibold leading-tight tracking-tight">
           Articles & understanding

@@ -1,5 +1,7 @@
 ---
 import HubPage from '@/layouts/HubPage.astro';
+import { buttonVariants } from '@/components/ui/button';
+import { IconArrowLeft, IconBook } from '@tabler/icons-react';
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -11,17 +13,19 @@ const base = import.meta.env.BASE_URL;
 >
   <main class="min-h-dvh bg-background px-5 py-8 font-sans text-foreground sm:py-12">
     <div class="mx-auto max-w-2xl">
-      <nav aria-label="Site" class="flex gap-6 text-sm font-medium">
+      <nav aria-label="Site" class="flex flex-wrap items-center gap-2">
         <a
           href={base}
-          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+          class={buttonVariants({ variant: 'ghost', size: 'lg', className: 'min-h-11' })}
         >
+          <IconArrowLeft data-icon="inline-start" aria-hidden="true" />
           Back to links
         </a>
         <a
           href={`${base}articles/`}
-          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+          class={buttonVariants({ variant: 'ghost', size: 'lg', className: 'min-h-11' })}
         >
+          <IconBook data-icon="inline-start" aria-hidden="true" />
           All articles
         </a>
       </nav>
