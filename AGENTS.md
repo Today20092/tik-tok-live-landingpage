@@ -21,32 +21,24 @@ Astro is configured with:
 
 Public assets referenced in code should use `import.meta.env.BASE_URL` or absolute production URLs when appropriate. Avoid root-relative asset paths like `/favicon.svg` inside Astro pages unless they are intentionally served from the site root.
 
-## Tech Stack
+## Runtime and verification
 
-- Astro 6 static site
-- React components for interactive pieces
-- Tailwind CSS v4 for styling
-- Lucide React icons
-- Astro content collections for JSON/Markdown-backed content
-
-Common commands:
-
-- `npm run dev`
-- `npm run check`
-- `npm run lint`
-- `npm run build`
-- `npm run preview`
+- Astro 7 static site, React 19 islands, Tailwind CSS v4, Lucide React, and Astro Content Layer collections.
+- Use the pinned pnpm version. Run `pnpm dev`, `pnpm check`, `pnpm lint`, `pnpm build`, and `pnpm preview`; do not create an npm lockfile.
+- Before changing Astro configuration, integrations, content APIs, or framework behavior, consult the current official Astro documentation. Astro's docs MCP is the preferred source when available; generated changes still need review and a passing build.
+- For content schemas, import `z` from `astro/zod` and collection utilities from `astro:content`/`astro/loaders`. This keeps schemas aligned with Astro's bundled Zod version.
+- Keep pages server-rendered by default. Use React only for an interactive island and choose the narrowest appropriate `client:*` directive.
 
 ## Key Files
 
 - `src/pages/index.astro` is the main landing page and owns page metadata, structured data, section layout, hero content, social links, footer, and site-info copy.
 - `src/content/links/links.json` is the main list of cards/links shown on the page.
-- `src/content.config.ts` defines Astro content collections and validates link content.
+- `src/content.config.ts` defines Content Layer collections and validates link content.
 - `src/components/LinkCard.tsx` renders each link card, including badges, icons, YouTube thumbnails, and card variants.
 - `src/components/ThemeToggle.tsx` controls light/dark mode.
 - `src/styles/global.css` should stay small and global: theme tokens, body/background rules, decorative background effects, SVG-specific styling, and reduced-motion behavior.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.
-- `astro.config.mjs` defines the production site URL and integration setup.
+- `astro.config.mjs` defines the production site URL, Vite plugins, and integrations.
 
 ## Content Guidance
 
@@ -74,6 +66,6 @@ The site has been audited with `squirrel`/squirrelscan. Keep these in mind:
 - Preserve canonical and social metadata in `src/pages/index.astro`.
 - Preserve JSON-LD structured data unless replacing it with a more accurate equivalent.
 - Keep `robots.txt` and `sitemap.xml` available at the site root.
-- Cloudflare Pages static hosting should use `npm run build` with `dist` as the build output directory. Do not add a Worker deploy command such as `npx wrangler versions upload` for this static site.
+- Cloudflare Pages static hosting should use `pnpm build` with `dist` as the build output directory. Do not add a Worker deploy command such as `npx wrangler versions upload` for this static site.
 - CSP and X-Frame-Options warnings may remain hosting-level limitations unless configured in Cloudflare.
 - The site intentionally stays a single-page landing page. About, contact, and privacy information are compact sections rather than separate pages unless the owner asks otherwise.
