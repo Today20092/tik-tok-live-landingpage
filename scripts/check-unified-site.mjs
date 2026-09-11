@@ -66,32 +66,23 @@ const listing = await readFile(
   new URL('../dist/articles/index.html', import.meta.url),
   'utf8'
 );
-for (const variant of ['editorial', 'archive', 'featured']) {
-  const panel = listing.match(
-    new RegExp(
-      `<section[^>]*aria-label="${variant} article layout"[^>]*>([\\s\\S]*?)</section>`
-    )
-  )?.[1];
-  assert.ok(panel, `${variant}: layout exists`);
-  assert.equal(
-    [...panel.matchAll(/<time\b/g)].length,
-    2,
-    `${variant}: each published article has a date`
+const entries = [...listing.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
+assert.ok(entries.length > 0, 'Published articles are listed');
+for (const [, entry] of entries) {
+  assert.ok(
+    /<time\b[^>]*datetime="\d{4}-\d{2}-\d{2}"/.test(entry),
+    'Every article has its publication date'
   );
   assert.ok(
-    panel.includes('datetime="2026-09-11"'),
-    `${variant}: publication date retained`
+    /<p\b[^>]*>\s*\S/.test(entry),
+    'Every article has a short description'
   );
-  assert.ok(
-    panel.includes('/articles/welcome/') &&
-      panel.includes('/articles/why-i-started/'),
-    `${variant}: both articles remain reachable`
-  );
-  assert.ok(
-    !/bg-card|shadow-|ring-1/.test(panel),
-    `${variant}: no article boxes`
-  );
+  assert.ok(!/bg-card|shadow-|ring-1/.test(entry), 'No article boxes');
 }
+assert.ok(
+  !listing.includes('article-layout'),
+  'Comparison controls are removed'
+);
 console.log(
   'Unified navigation, identity, footer, and article journey checks passed.'
 );

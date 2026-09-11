@@ -5,23 +5,6 @@ import ArticleList from '@/components/ArticleList.astro';
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const variants = [
-  {
-    id: 'editorial',
-    label: 'Editorial',
-    description: 'Full previews, open spacing, and fine dividers.',
-  },
-  {
-    id: 'archive',
-    label: 'Date-led',
-    description: 'A compact reading index with dates beside each title.',
-  },
-  {
-    id: 'featured',
-    label: 'Lead story',
-    description: 'The latest article leads, with quieter entries below.',
-  },
-] as const;
 ---
 
 <HubPage
@@ -30,69 +13,21 @@ const variants = [
   path="articles/"
 >
   <main class="mx-auto max-w-3xl px-5 pb-4 pt-8 sm:px-8 sm:pt-10">
-    <div>
-      <header class="pb-7">
-        <h1 class="text-3xl font-semibold leading-tight tracking-tight">
-          Articles & understanding
-        </h1>
-        <p class="mt-3 text-muted-foreground">
-          Reading notes and explanations from the live.
-        </p>
-      </header>
-      {articles.length ? (
-        <div class="group">
-          <fieldset
-            data-pagefind-ignore
-            class="mb-8 border-b border-border pb-4"
-          >
-            <legend class="mb-2 text-xs text-muted-foreground">
-              Compare article layouts
-            </legend>
-            <div class="flex flex-wrap gap-x-5 gap-y-1">
-              {variants.map(({ id, label }, index) => (
-                <label class="relative inline-flex min-h-11 cursor-pointer items-center text-sm font-medium text-muted-foreground has-[:checked]:text-primary has-[:checked]:underline has-[:checked]:decoration-2 has-[:checked]:underline-offset-8 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-ring">
-                  <input
-                    id={`article-${id}`}
-                    type="radio"
-                    name="article-layout"
-                    value={id}
-                    checked={index === 0}
-                    class="sr-only"
-                  />
-                  {label}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          {variants.map(({ id, description }) => (
-            <section
-              aria-label={`${id} article layout`}
-              class:list={[
-                'hidden',
-                id === 'editorial' &&
-                  'group-has-[#article-editorial:checked]:block',
-                id === 'archive' &&
-                  'group-has-[#article-archive:checked]:block',
-                id === 'featured' &&
-                  'group-has-[#article-featured:checked]:block',
-              ]}
-            >
-              <p
-                class="mb-7 text-sm text-muted-foreground"
-                data-pagefind-ignore
-              >
-                {description}
-              </p>
-              <ArticleList articles={articles} variant={id} />
-            </section>
-          ))}
-        </div>
-      ) : (
-        <p class="border-t border-border py-6 text-muted-foreground">
-          No articles published yet. You can find reading links and recordings
-          on the main page.
-        </p>
-      )}
-    </div>
+    <header class="pb-7">
+      <h1 class="text-3xl font-semibold leading-tight tracking-tight">
+        Articles & understanding
+      </h1>
+      <p class="mt-3 text-muted-foreground">
+        Reading notes and explanations from the live.
+      </p>
+    </header>
+    {articles.length ? (
+      <ArticleList articles={articles} />
+    ) : (
+      <p class="border-t border-border py-6 text-muted-foreground">
+        No articles published yet. You can find reading links and recordings on
+        the main page.
+      </p>
+    )}
   </main>
 </HubPage>
