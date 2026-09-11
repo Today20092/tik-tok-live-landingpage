@@ -1,0 +1,110 @@
+---
+import HubPage from '@/layouts/HubPage.astro';
+import { IconArrowLeft, IconArrowRight, IconBrandYoutube } from '@tabler/icons-react';
+// Keep the example available in development only until real episodes are ready.
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { path: undefined } }] : [];
+}
+const base = import.meta.env.BASE_URL;
+const focusLink = 'inline-flex min-h-11 items-center gap-2 rounded-full text-sm font-medium underline-offset-4 hover:underline';
+---
+
+<HubPage title="Podcast preview | Live with Ayoub" path="podcast-preview/" noindex>
+  <main class="min-h-dvh bg-background px-5 py-8 font-sans text-foreground sm:py-12">
+    <div class="mx-auto max-w-3xl">
+      <a href={base} class={focusLink}><IconArrowLeft size={18} /> Back to links</a>
+      <div class="mt-5 rounded-xl border border-border bg-secondary px-4 py-3 text-sm leading-relaxed">
+        Design preview. The episode title, outline, and transcript below are examples. The video is an existing upload, not a released podcast episode.
+      </div>
+
+      <section aria-labelledby="homepage-example" class="mt-10">
+        <h2 id="homepage-example" class="text-sm font-semibold">On your homepage</h2>
+        <p class="mt-2 text-sm text-muted-foreground">A compact section below your main reading links would introduce the latest episode.</p>
+        <a href="#episode" class="mt-4 flex items-center gap-5 rounded-3xl bg-secondary p-5 transition-colors hover:bg-accent">
+          <IconBrandYoutube size={36} strokeWidth={1.5} className="shrink-0 text-primary" aria-hidden="true" />
+          <span class="min-w-0 flex-1">
+            <span class="text-xs text-muted-foreground">The podcast with Ayoub</span>
+            <span class="mt-1 block text-lg font-semibold">Making time to understand Islam</span>
+            <span class="mt-2 block text-sm text-muted-foreground">Watch the episode, read the notes, or follow the transcript.</span>
+          </span>
+          <IconArrowRight size={20} className="shrink-0" aria-hidden="true" />
+        </a>
+      </section>
+
+      <article id="episode" class="mt-14 scroll-mt-6 border-t border-border pt-10">
+        <header>
+          <p class="text-sm text-muted-foreground">Example episode page</p>
+          <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">Making time to understand Islam</h1>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">A conversation about reading the Quran, asking questions, and putting what we learn into practice.</p>
+          <p class="mt-4 text-sm text-muted-foreground">With Ayoub · Sample episode</p>
+        </header>
+
+        <figure class="mt-7">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/HVmHxSztp_A"
+            title="Example player: How Ayoub Uses AI During TikTok Live"
+            width="1280"
+            height="720"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            class="aspect-video h-auto w-full rounded-2xl border-0 bg-secondary"
+          ></iframe>
+          <figcaption class="mt-3 text-xs leading-relaxed text-muted-foreground">Player demonstration using your existing video, “How Ayoub Uses AI During TikTok Live.” The sample notes below do not describe this video.</figcaption>
+        </figure>
+        <a href="https://youtu.be/HVmHxSztp_A" class={`${focusLink} mt-2`}><IconBrandYoutube size={20} /> Open the demo video on YouTube</a>
+
+        <nav aria-label="Episode sections" class="mt-6 flex flex-wrap gap-x-6 border-y border-border py-2">
+          <a href="#outline" class={focusLink}>Outline</a>
+          <a href="#notes" class={focusLink}>My notes</a>
+          <a href="#transcript" class={focusLink}>Transcript</a>
+          <a href="#resources" class={focusLink}>Resources</a>
+        </nav>
+
+        <section id="outline" class="scroll-mt-6 pt-9">
+          <h2 class="text-xl font-semibold">Episode outline</h2>
+          <p class="mt-2 text-sm text-muted-foreground">Sample topics for a future conversation.</p>
+          <ol class="mt-5 list-decimal space-y-3 pl-5 text-base leading-relaxed marker:text-muted-foreground">
+            <li>Why I want to start this podcast</li>
+            <li>Making room for Quran reading in everyday life</li>
+            <li>Questions that come up during the live</li>
+            <li>Learning about hadith with context</li>
+            <li>One thing to reflect on after listening</li>
+          </ol>
+        </section>
+
+        <section id="notes" class="scroll-mt-6 pt-10">
+          <h2 class="text-xl font-semibold">My notes</h2>
+          <div class="mt-4 space-y-4 text-base leading-8">
+            <p>Example host note: I want this podcast to give us more time for the questions that come up during the live. Some topics need a longer conversation and a place to collect the reading afterwards.</p>
+            <p>For this first conversation, I'd like to ask: what makes it easier for us to keep learning, even when life is busy?</p>
+          </div>
+        </section>
+
+        <section id="transcript" class="scroll-mt-6 pt-10">
+          <h2 class="text-xl font-semibold">Transcript</h2>
+          <details class="mt-4 rounded-2xl border border-border px-5">
+            <summary class="flex min-h-14 cursor-pointer items-center py-3 text-sm font-semibold">Read a sample transcript excerpt</summary>
+            <div class="space-y-4 border-t border-border py-5 text-base leading-8">
+              <p class="text-sm text-muted-foreground">Illustrative text only. This is not a transcript of the video above.</p>
+              <p><strong>Ayoub:</strong> Assalamu alaikum, and welcome. I wanted to make a space where we can take our time with the questions we discuss during the live.</p>
+              <p><strong>Ayoub:</strong> Today, let's start with something simple. How do we make time to read, ask questions, and think about what we're learning?</p>
+            </div>
+          </details>
+        </section>
+
+        <section id="resources" class="scroll-mt-6 pt-10">
+          <h2 class="text-xl font-semibold">Reading alongside the episode</h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Example resources. Each published episode can include its own references here.</p>
+          <div class="mt-3 flex flex-col items-start">
+            <a href="https://quran.com/" class={focusLink}>Read the Quran on Quran.com <IconArrowRight size={16} /></a>
+            <a href="https://go.alphabravomedia.co/riyad-as-salign-pdf" class={focusLink}>Riyad as-Salihin PDF <IconArrowRight size={16} /></a>
+          </div>
+        </section>
+        <footer class="mt-10 border-t border-border pt-5">
+          <a href={base} class={focusLink}><IconArrowLeft size={18} /> Back to Ayoub's links</a>
+        </footer>
+      </article>
+    </div>
+  </main>
+</HubPage>
