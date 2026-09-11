@@ -1,0 +1,102 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { IconArrowRight } from '@tabler/icons-react';
+interface Props {
+  articles: CollectionEntry<'articles'>[];
+  variant: 'editorial' | 'archive' | 'featured';
+}
+const { articles, variant } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<ol
+  class:list={[
+    'list-none',
+    variant === 'archive' ? 'divide-y divide-border' : 'space-y-8',
+  ]}
+>
+  {articles.map((article, index) => (
+    <li
+      class:list={[
+        variant === 'archive'
+          ? 'py-5 first:pt-0'
+          : 'border-b border-border pb-8 last:border-0',
+      ]}
+    >
+      <article
+        class:list={[
+          variant === 'archive' &&
+            'grid gap-2 sm:grid-cols-[8rem_1fr] sm:gap-6',
+        ]}
+      >
+        <div
+          class:list={[
+            'flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground',
+            variant === 'archive' ? 'sm:block sm:pt-1' : 'mb-3',
+          ]}
+        >
+          <time datetime={article.data.date.toISOString().slice(0, 10)}>
+            {formatDate(article.data.date)}
+          </time>
+          {variant !== 'archive' && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{article.data.category}</span>
+            </>
+          )}
+        </div>
+        <div>
+          {variant === 'featured' && index === 0 && (
+            <p class="mb-3 text-xs font-medium text-primary">Latest article</p>
+          )}
+          <h2
+            class:list={[
+              'font-semibold leading-snug tracking-tight text-foreground',
+              variant === 'featured' && index === 0
+                ? 'max-w-xl text-3xl sm:text-4xl'
+                : 'text-xl sm:text-2xl',
+            ]}
+          >
+            <a
+              href={`${base}articles/${article.id}/`}
+              class="rounded-sm decoration-primary/40 underline-offset-4 hover:text-primary hover:underline"
+            >
+              {article.data.title}
+            </a>
+          </h2>
+          {variant !== 'archive' && (
+            <p
+              class:list={[
+                'mt-3 max-w-xl leading-relaxed text-muted-foreground',
+                variant === 'featured' && index === 0 ? 'text-base' : 'text-sm',
+              ]}
+            >
+              {article.data.description}
+            </p>
+          )}
+          {variant === 'archive' && (
+            <p class="mt-2 text-xs text-muted-foreground">
+              {article.data.category}
+            </p>
+          )}
+          {variant === 'featured' && index === 0 && (
+            <a
+              href={`${base}articles/${article.id}/`}
+              aria-label={`Read ${article.data.title}`}
+              class="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary hover:underline underline-offset-4"
+            >
+              Read article <IconArrowRight size={16} aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </article>
+    </li>
+  ))}
+</ol>

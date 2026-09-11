@@ -62,6 +62,36 @@ assert.ok(
   article.includes('Resources mentioned'),
   'Article offers a path to its resources'
 );
+const listing = await readFile(
+  new URL('../dist/articles/index.html', import.meta.url),
+  'utf8'
+);
+for (const variant of ['editorial', 'archive', 'featured']) {
+  const panel = listing.match(
+    new RegExp(
+      `<section[^>]*aria-label="${variant} article layout"[^>]*>([\\s\\S]*?)</section>`
+    )
+  )?.[1];
+  assert.ok(panel, `${variant}: layout exists`);
+  assert.equal(
+    [...panel.matchAll(/<time\b/g)].length,
+    2,
+    `${variant}: each published article has a date`
+  );
+  assert.ok(
+    panel.includes('datetime="2026-09-11"'),
+    `${variant}: publication date retained`
+  );
+  assert.ok(
+    panel.includes('/articles/welcome/') &&
+      panel.includes('/articles/why-i-started/'),
+    `${variant}: both articles remain reachable`
+  );
+  assert.ok(
+    !/bg-card|shadow-|ring-1/.test(panel),
+    `${variant}: no article boxes`
+  );
+}
 console.log(
   'Unified navigation, identity, footer, and article journey checks passed.'
 );
