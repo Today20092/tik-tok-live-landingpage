@@ -1,355 +1,126 @@
 @import 'tailwindcss';
+@import './typeset.css';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: var(--color-stone-100);
-  --foreground: var(--color-stone-900);
-  --card: var(--color-stone-50);
-  --card-foreground: var(--color-stone-900);
-  --popover: var(--color-stone-50);
-  --popover-foreground: var(--color-stone-900);
-  --primary: var(--color-amber-700);
-  --primary-foreground: var(--color-stone-50);
-  --secondary: var(--color-emerald-800);
-  --secondary-foreground: var(--color-stone-50);
-  --muted: var(--color-stone-200);
-  --muted-foreground: var(--color-stone-600);
-  --accent: var(--color-emerald-800);
-  --accent-foreground: var(--color-stone-50);
-  --destructive: var(--color-red-700);
-  --border: color-mix(in srgb, var(--color-stone-900), transparent 86%);
-  --input: color-mix(in srgb, var(--color-stone-900), transparent 90%);
-  --ring: var(--color-emerald-800);
-  --chart-1: var(--color-emerald-800);
-  --chart-2: var(--color-amber-700);
-  --chart-3: var(--color-stone-900);
-  --chart-4: var(--color-amber-200);
-  --chart-5: var(--color-purple-700);
-  --radius: 0.625rem;
-  --paper: var(--color-stone-50);
-  --paper-soft: var(--color-stone-200);
-  --ink-soft: color-mix(in srgb, var(--color-stone-900), transparent 34%);
-  --gold: var(--color-amber-700);
-  --coral: var(--color-orange-300);
-  --blue: var(--color-emerald-800);
-  --shadow: 0 24px 80px color-mix(in srgb, var(--color-stone-800), transparent 85%);
+  color-scheme: light;
+  --background: #f7f9f5;
+  --foreground: #243a30;
+  --card: #ffffff;
+  --card-foreground: #243a30;
+  --popover: #ffffff;
+  --popover-foreground: #243a30;
+  --primary: #254f39;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf0e5;
+  --secondary-foreground: #243a30;
+  --muted: #eaf0e5;
+  --muted-foreground: #52695b;
+  --accent: #e1eadc;
+  --accent-foreground: #243a30;
+  --destructive: #b42318;
+  --border: #d4ded0;
+  --input: #b8c8b4;
+  --ring: #47734c;
+  --radius: 1rem;
 }
 
 .dark {
-  --background: var(--color-stone-950);
-  --foreground: var(--color-stone-50);
-  --card: var(--color-stone-900);
-  --card-foreground: var(--color-stone-50);
-  --popover: var(--color-stone-900);
-  --popover-foreground: var(--color-stone-50);
-  --primary: var(--color-amber-300);
-  --primary-foreground: var(--color-stone-950);
-  --secondary: var(--color-emerald-300);
-  --secondary-foreground: var(--color-stone-950);
-  --muted: var(--color-stone-900);
-  --muted-foreground: var(--color-stone-300);
-  --accent: var(--color-emerald-300);
-  --accent-foreground: var(--color-stone-950);
-  --destructive: var(--color-red-400);
-  --border: color-mix(in srgb, var(--color-stone-50), transparent 86%);
-  --input: color-mix(in srgb, var(--color-stone-50), transparent 90%);
-  --ring: var(--color-emerald-300);
-  --paper: var(--color-stone-900);
-  --paper-soft: var(--color-stone-950);
-  --ink-soft: color-mix(in srgb, var(--color-stone-50), transparent 30%);
-  --gold: var(--color-amber-300);
-  --coral: var(--color-orange-300);
-  --blue: var(--color-emerald-300);
-  --shadow: 0 26px 90px color-mix(in srgb, var(--color-black), transparent 68%);
+  color-scheme: dark;
+  --background: #14271f;
+  --foreground: #f1f5ed;
+  --card: #20392d;
+  --card-foreground: #f1f5ed;
+  --popover: #20392d;
+  --popover-foreground: #f1f5ed;
+  --primary: #c6dfbc;
+  --primary-foreground: #14271f;
+  --secondary: #2a4234;
+  --secondary-foreground: #f1f5ed;
+  --muted: #20392d;
+  --muted-foreground: #b7c9b5;
+  --accent: #2a4234;
+  --accent-foreground: #f1f5ed;
+  --border: #425b48;
+  --input: #58735b;
+  --ring: #c6dfbc;
+  --destructive: #ffaca6;
 }
 
 @theme inline {
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-sans: 'Nunito Sans', sans-serif;
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@layer utilities {
-  .animate-hero-enter {
-    animation: hero-enter 1450ms ease-out 120ms both;
-  }
+.typeset-article {
+  --typeset-font-body: var(--font-sans);
+  --typeset-font-heading: var(--font-sans);
+  --typeset-font-mono: var(--font-mono);
+  --typeset-size: 1rem;
+  --typeset-leading: 1.8;
+  --typeset-flow: 1.4em;
+}
 
-  .animate-hero-mark-enter {
-    animation: hero-mark-enter 1550ms ease-out 260ms both;
-  }
-
-  .animate-link-card-enter {
-    animation: link-card-enter 1250ms ease-out both;
-  }
-
-  .animate-support-bob {
-    animation: support-bob 1900ms ease-in-out infinite;
-  }
-
-  .animate-support-card-bob {
-    animation: link-card-enter 1250ms ease-out both, support-card-bob 2600ms ease-in-out 1300ms infinite;
-  }
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
 }
-
 body {
-  min-height: 100vh;
   margin: 0;
-  background:
-    radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--color-amber-200), transparent 76%), transparent 24rem),
-    radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--color-emerald-800), transparent 88%), transparent 25rem),
-    linear-gradient(135deg, var(--background), var(--paper-soft) 58%, var(--background));
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  letter-spacing: 0;
 }
-
 button,
 a {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
-
-.dark body {
-  background:
-    radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--color-amber-300), transparent 90%), transparent 25rem),
-    radial-gradient(circle at 82% 0%, color-mix(in srgb, var(--color-emerald-300), transparent 91%), transparent 27rem),
-    linear-gradient(135deg, var(--color-stone-950), var(--background) 48%, var(--color-stone-900));
+button {
+  cursor: pointer;
 }
-
-.ambient-grid {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image:
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 0 42px,
-      color-mix(in srgb, var(--color-amber-300), transparent 84%) 43px 44px,
-      transparent 45px
-    ),
-    radial-gradient(
-      circle at 0 50%,
-      transparent 0 42px,
-      color-mix(in srgb, var(--color-emerald-700), transparent 89%) 43px 44px,
-      transparent 45px
-    ),
-    radial-gradient(
-      circle at 100% 50%,
-      transparent 0 42px,
-      color-mix(in srgb, var(--color-emerald-700), transparent 89%) 43px 44px,
-      transparent 45px
-    ),
-    radial-gradient(
-      circle at 50% 0,
-      transparent 0 42px,
-      color-mix(in srgb, var(--color-amber-500), transparent 89%) 43px 44px,
-      transparent 45px
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      transparent 0 42px,
-      color-mix(in srgb, var(--color-amber-500), transparent 89%) 43px 44px,
-      transparent 45px
-    );
-  background-position:
-    0 0,
-    0 0,
-    0 0,
-    0 0,
-    0 0;
-  background-size:
-    96px 96px,
-    96px 96px,
-    96px 96px,
-    96px 96px,
-    96px 96px;
-  mask-image: linear-gradient(to bottom, var(--color-black) 0 58%, transparent 92%);
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #059669;
+  outline-offset: 4px;
 }
-
-.ambient-grid::after {
-  position: absolute;
-  inset: 0;
-  content: '';
-  background-image:
-    linear-gradient(45deg, transparent 48%, color-mix(in srgb, var(--color-amber-200), transparent 90%) 49% 51%, transparent 52%),
-    linear-gradient(-45deg, transparent 48%, color-mix(in srgb, var(--color-amber-200), transparent 92%) 49% 51%, transparent 52%),
-    conic-gradient(
-      from 45deg at 50% 50%,
-      transparent 0 10.5%,
-      color-mix(in srgb, var(--color-emerald-800), transparent 91%) 11% 12%,
-      transparent 12.5% 23%,
-      color-mix(in srgb, var(--color-emerald-800), transparent 91%) 23.5% 24.5%,
-      transparent 25% 100%
-    );
-  background-size:
-    96px 96px,
-    96px 96px,
-    48px 48px;
-  background-position:
-    0 0,
-    0 0,
-    24px 24px;
-  opacity: 0.42;
-}
-
-.hero-mark {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.hero-mark__halo {
-  fill: color-mix(in srgb, var(--accent), transparent 94%);
-  stroke: color-mix(in srgb, var(--gold), transparent 45%);
-  stroke-width: 1.5;
-}
-
-.hero-mark__diamond {
-  fill: color-mix(in srgb, var(--gold), transparent 86%);
-  stroke: color-mix(in srgb, var(--accent), transparent 38%);
-  stroke-width: 2.2;
-}
-
-.hero-mark__inner {
-  fill: transparent;
-  stroke: color-mix(in srgb, var(--foreground), transparent 74%);
-  stroke-width: 1;
-}
-
-.hero-mark__dot {
-  fill: var(--gold);
-  stroke: color-mix(in srgb, var(--paper), transparent 12%);
-  stroke-width: 1.2;
-}
-
-.hero-mark__calligraphy {
-  fill: var(--foreground);
-  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: 43px;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-.hero-mark {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-@keyframes hero-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  45% {
-    opacity: 0.45;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes hero-mark-enter {
-  0% {
-    opacity: 0;
-    transform: scale(0.965) rotate(-0.75deg);
-  }
-
-  48% {
-    opacity: 0.52;
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-@keyframes link-card-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(8px) scale(0.997);
-  }
-
-  42% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes support-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-@keyframes support-card-bob {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-
-  50% {
-    translate: 0 -4px;
-  }
+summary::-webkit-details-marker {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
-  }
-
-  [class*='animate-hero-enter'],
-  [class*='animate-hero-mark-enter'],
-  [class*='animate-link-card-enter'],
-  [class*='animate-support-bob'],
-  [class*='animate-support-card-bob'] {
-    opacity: 1 !important;
-    transform: none !important;
-    translate: none !important;
+    scroll-behavior: auto !important;
   }
 }

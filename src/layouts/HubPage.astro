@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import VariantHub from '@/components/VariantHub.astro';
+import PocketHub from '@/components/PocketHub.astro';
+interface Props {
+  variant?: 'flow' | 'pocket' | 'journal' | 'focus';
+  title?: string;
+  description?: string;
+  path?: string;
+  noindex?: boolean;
+}
+const {
+  variant = 'pocket',
+  title = 'The Clear Quran | Live with Ayoub',
+  path = '',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = new URL(
+  import.meta.env.SITE ?? 'https://islam.ayoubabed.xyz/'
+).toString();
+const socialImageUrl = new URL('og-image.png', siteUrl).toString();
+const basePath = import.meta.env.BASE_URL;
+const canonicalUrl = new URL(path, siteUrl).toString();
+const pageDescription =
+  Astro.props.description ??
+  "Read The Clear Quran online, request free English Quran copies where eligible, find Ayoub's stream edition, and watch recorded sessions and learning resources.";
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  url: canonicalUrl,
+  description: pageDescription,
+  ...(path ? {} : { datePublished: '2026-05-02', dateModified: '2026-05-27' }),
+  author: {
+    '@type': 'Person',
+    name: 'Ayoub Abedrabbo',
+  },
+  sameAs: [
+    'https://www.tiktok.com/@ayoubabedrabbo',
+    'https://www.twitch.tv/ayoubabedrabbo',
+    'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ',
+    'https://ko-fi.com/ayoubab1',
+  ],
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${basePath}favicon.svg`} />
+    <link rel="icon" href={`${basePath}favicon.ico`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" type="application/xml" href={`${siteUrl}sitemap.xml`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    ></script>
+  </head>
+  <body>
+    {Astro.slots.has('default') ? (
+      <slot />
+    ) : variant === 'pocket' ? (
+      <PocketHub />
+    ) : (
+      <VariantHub variant={variant} />
+    )}
+  </body>
+</html>

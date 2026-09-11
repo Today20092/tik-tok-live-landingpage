@@ -1,4 +1,5 @@
-import { z, defineCollection } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const linkIcons = [
@@ -62,6 +63,17 @@ const drawingsCollection = defineCollection({
 });
 
 export const collections = {
+  articles: defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+    schema: z.object({
+      title: z.string().min(1),
+      description: z.string().min(1),
+      date: z.coerce.date(),
+      category: z.string().default('Articles'),
+      draft: z.boolean().default(true),
+      cover: z.object({ src: z.string(), alt: z.string().min(1) }).optional(),
+    }),
+  }),
   site: siteCollection,
   links: linksCollection,
   drawings: drawingsCollection,

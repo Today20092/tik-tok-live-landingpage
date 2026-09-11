@@ -1,0 +1,12 @@
+---
+import HubPage from '../layouts/HubPage.astro';
+export function getStaticPaths() {
+  return (['pocket', 'journal', 'focus'] as const).map((variant) => ({
+    params: { variant },
+    props: { variant },
+  }));
+}
+const { variant } = Astro.props;
+---
+
+<HubPage variant={variant} />

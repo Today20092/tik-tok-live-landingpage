@@ -10,6 +10,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://islam.ayoubabed.xyz',
   vite: {
+    server: {
+      allowedHosts: ['desktop-ayoub.cuttlefish-coho.ts.net'],
+    },
     plugins: [tailwindcss()],
   },
 
