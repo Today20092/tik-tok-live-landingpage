@@ -1,12 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import HubPage from '@/layouts/HubPage.astro';
-import { buttonVariants } from '@/components/ui/button';
-import { IconArrowLeft, IconArrowUpRight, IconSearch } from '@tabler/icons-react';
+import ArticleCard from '@/components/ArticleCard.astro';
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const base = import.meta.env.BASE_URL;
 ---
 
 <HubPage
@@ -14,29 +12,9 @@ const base = import.meta.env.BASE_URL;
   description="Articles, reading notes, and explanations from Ayoub's live sessions."
   path="articles/"
 >
-  <main class="min-h-dvh bg-background px-5 py-8 font-sans text-foreground sm:py-12">
-    <div class="mx-auto max-w-2xl">
-      <nav aria-label="Site" class="flex flex-wrap items-center gap-2">
-      <a
-        href={base}
-        class={buttonVariants({
-          variant: 'ghost',
-          size: 'lg',
-          className: 'min-h-11',
-        })}
-      >
-        <IconArrowLeft data-icon="inline-start" />
-        Back to links
-      </a>
-      <a
-        href={`${base}search/`}
-        class={buttonVariants({ variant: 'ghost', size: 'lg', className: 'min-h-11' })}
-      >
-        <IconSearch data-icon="inline-start" aria-hidden="true" />
-        Search the site
-      </a>
-      </nav>
-      <header class="py-8">
+  <main class="mx-auto max-w-3xl px-5 pb-4 pt-8 sm:px-8 sm:pt-10">
+    <div>
+      <header class="pb-7">
         <h1 class="text-3xl font-semibold leading-tight tracking-tight">
           Articles & understanding
         </h1>
@@ -45,33 +23,9 @@ const base = import.meta.env.BASE_URL;
         </p>
       </header>
       {articles.length ? (
-        <div class="grid gap-8">
+        <div class="grid gap-5">
           {articles.map((article) => (
-            <a
-              href={`${base}articles/${article.id}/`}
-              class="group block border-t border-border pt-6"
-            >
-              {article.data.cover && (
-                <img
-                  src={`${base}${article.data.cover.src}`}
-                  alt={article.data.cover.alt}
-                  width="1200"
-                  height="675"
-                  loading="lazy"
-                  class="mb-4 aspect-video w-full rounded-xl object-cover"
-                />
-              )}
-              <p class="text-xs text-muted-foreground">
-                {article.data.category}
-              </p>
-              <h2 class="mt-2 flex items-center justify-between gap-4 text-xl font-semibold group-hover:underline">
-                {article.data.title}
-                <IconArrowUpRight size={20} className="shrink-0" />
-              </h2>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {article.data.description}
-              </p>
-            </a>
+            <ArticleCard article={article} />
           ))}
         </div>
       ) : (

@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { IconArrowRight } from '@tabler/icons-react';
+interface Props {
+  article: CollectionEntry<'articles'>;
+  heading?: 'h2' | 'h3';
+}
+const { article, heading: Heading = 'h2' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<a
+  href={`${base}articles/${article.id}/`}
+  class="group block rounded-lg bg-card p-5 text-card-foreground shadow-[3px_3px_0_var(--paper-shadow)] ring-1 ring-border transition-colors hover:bg-secondary sm:p-6"
+>
+  {article.data.cover && (
+    <img
+      src={`${base}${article.data.cover.src}`}
+      alt={article.data.cover.alt}
+      width="1200"
+      height="675"
+      loading="lazy"
+      class="mb-4 aspect-video w-full rounded-md object-cover"
+    />
+  )}
+  <span class="text-xs text-muted-foreground">{article.data.category}</span>
+  <div class="mt-2 flex items-start justify-between gap-4">
+    <Heading class="font-serif text-xl font-semibold leading-snug tracking-tight group-hover:underline decoration-primary/40 underline-offset-4">
+      {article.data.title}
+    </Heading>
+    <IconArrowRight
+      size={18}
+      className="mt-1 shrink-0 text-primary"
+      aria-hidden="true"
+    />
+  </div>
+  <span class="mt-2 block text-sm leading-relaxed text-muted-foreground">
+    {article.data.description}
+  </span>
+</a>
