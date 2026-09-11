@@ -1,0 +1,112 @@
+---
+import lattice from '../assets/patterns/lattice.svg?url';
+import rosettes from '../assets/patterns/rosettes.svg?url';
+const patternImages = { lattice, rosettes };
+---
+
+<details
+  open
+  class="mb-8 rounded-lg border border-input bg-card p-4 text-card-foreground min-[1200px]:fixed min-[1200px]:top-8 min-[1200px]:left-4 min-[1200px]:w-64"
+  data-palette-preview
+  data-pagefind-ignore
+>
+  <summary class="min-h-11 cursor-pointer text-sm font-semibold">
+    Geometry preview
+  </summary>
+  <p class="text-sm text-muted-foreground">Scholarly inspired</p>
+  <fieldset class="mt-4">
+    <legend class="mb-2 text-xs text-muted-foreground">Islamic geometry</legend>
+    <div class="flex flex-wrap gap-2">
+      {['Lattice', 'Rosettes', 'None'].map((label) => (
+        <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:bg-secondary has-[:checked]:outline-2 has-[:checked]:outline-ring">
+          <input
+            type="radio"
+            name="pattern"
+            value={label.toLowerCase()}
+            checked={label === 'Lattice'}
+            class="size-4 accent-foreground"
+          />
+          {label}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <fieldset class="mt-4">
+    <legend class="mb-2 text-xs text-muted-foreground">Pattern strength</legend>
+    <div class="flex flex-wrap gap-2">
+      {['Soft', 'Medium', 'Bold'].map((label) => (
+        <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:bg-secondary has-[:checked]:outline-2 has-[:checked]:outline-ring">
+          <input
+            type="radio"
+            name="strength"
+            value={label.toLowerCase()}
+            checked={label === 'Medium'}
+            class="size-4 accent-foreground"
+          />
+          {label}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+    Smaller patterns on the selected palette. Development preview; your geometry
+    choices stay in this browser.
+  </p>
+</details>
+
+<script is:inline define:vars={{ patternImages }}>
+  (() => {
+    const panel = document.querySelector('[data-palette-preview]');
+    const root = document.documentElement;
+    const apply = () => {
+      const pattern = panel.querySelector('[name="pattern"]:checked').value;
+      const strength = panel.querySelector('[name="strength"]:checked').value;
+      root.style.setProperty(
+        '--pattern-image',
+        patternImages[pattern] ? `url("${patternImages[pattern]}")` : 'none'
+      );
+      root.style.setProperty(
+        '--pattern-size',
+        pattern === 'rosettes' ? '112px' : '96px'
+      );
+      root.dataset.strength = strength;
+    };
+    try {
+      for (const name of ['pattern', 'strength']) {
+        const saved = localStorage.getItem(`ayoub-preview-${name}`);
+        const input = [...panel.querySelectorAll(`input[name="${name}"]`)].find(
+          (input) => input.value === saved
+        );
+        if (input) input.checked = true;
+      }
+    } catch {
+      /* Storage may be unavailable in private browsing. */
+    }
+    apply();
+    panel.addEventListener('change', () => {
+      apply();
+      try {
+        for (const name of ['pattern', 'strength']) {
+          localStorage.setItem(
+            `ayoub-preview-${name}`,
+            panel.querySelector(`input[name="${name}"]:checked`).value
+          );
+        }
+      } catch {
+        /* The preview still works without persistence. */
+      }
+    });
+  })();
+</script>
+
+<style is:global>
+  :root[data-strength='soft'] {
+    --pattern-opacity: 0.07;
+  }
+  :root[data-strength='medium'] {
+    --pattern-opacity: 0.13;
+  }
+  :root[data-strength='bold'] {
+    --pattern-opacity: 0.2;
+  }
+</style>

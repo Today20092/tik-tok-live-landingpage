@@ -13,6 +13,8 @@ import {
   IconBrandYoutube,
 } from '@tabler/icons-react';
 import { getCollection } from 'astro:content';
+import PalettePreview from './PalettePreview.astro';
+import lattice from '../assets/patterns/lattice.svg?url';
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -43,21 +45,27 @@ const resourceLabels: Record<
     Icon: Compass,
   },
 };
-const button =
-  'group flex min-h-20 w-full items-center gap-4 rounded-3xl px-5 py-4 transition-[background-color,transform] duration-200 hover:-translate-y-0.5 active:scale-[0.99] motion-reduce:transform-none';
-const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
+const paperCard =
+  'rounded-lg shadow-[4px_4px_0_var(--paper-shadow,#d4ded0),5px_5px_0_var(--paper-edge,#9dad97)] ring-1 ring-[var(--paper-edge,#9dad97)] transition-[box-shadow,transform,background-color] duration-200 focus-visible:outline-offset-8 motion-reduce:transform-none';
+const button = `${paperCard} group flex min-h-20 w-full items-center gap-4 px-5 py-4 hover:-translate-y-0.5 active:scale-[0.99]`;
+const secondary = `${button} bg-secondary text-secondary-foreground hover:bg-accent`;
 ---
 
-<div class="min-h-dvh bg-[#f7f9f5] font-sans text-[#243a30]">
+<div
+  data-pocket-hub
+  style={{ '--default-pattern-image': `url("${lattice}")` }}
+  class="relative isolate min-h-dvh bg-background font-sans text-foreground"
+>
   <a
     href="#read"
-    class="fixed top-3 left-3 z-50 -translate-y-24 rounded-full bg-white px-5 py-3 focus:translate-y-0"
+    class="fixed top-3 left-3 z-50 -translate-y-24 rounded-full bg-card px-5 py-3 text-card-foreground focus:translate-y-0"
   >
     Skip to links
   </a>
-  <div class="mx-auto max-w-xl px-5 pb-8 pt-8 sm:px-8 sm:pt-12">
+  <div class="relative mx-auto max-w-xl px-5 pb-8 pt-8 sm:px-8 sm:pt-12">
+    {import.meta.env.DEV && <PalettePreview />}
     <header class="text-center">
-      <div class="relative isolate flex h-52 items-center overflow-hidden rounded-3xl bg-[#e1eadc] text-left sm:h-60">
+      <div class="relative isolate flex h-52 items-center overflow-hidden rounded-xl bg-accent text-accent-foreground text-left shadow-[6px_6px_0_var(--paper-shadow,#d4ded0),7px_7px_0_var(--paper-edge,#9dad97)] sm:h-60">
         <img
           src={`${base}ayoub-portrait.jpg`}
           alt="Ayoub smiling"
@@ -66,11 +74,11 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
           fetchpriority="high"
           class="absolute inset-y-0 right-0 -z-10 h-full w-[68%] object-cover object-[center_30%] [mask-image:linear-gradient(to_right,transparent,black_38%)]"
         />
-        <h1 class="max-w-[48%] px-5 text-3xl font-semibold leading-tight tracking-tight sm:px-7 sm:text-4xl">
+        <h1 class="flex max-w-[48%] self-stretch items-center bg-accent px-5 text-3xl font-semibold leading-tight tracking-tight sm:px-7 sm:text-4xl">
           Live with Ayoub
         </h1>
       </div>
-      <p class="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-[#52695b]">
+      <p class="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
         Read the Quran, find a copy, and explore the links from our live
         sessions.
       </p>
@@ -80,19 +88,19 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
       >
         <a
           href="https://www.tiktok.com/@ayoubabedrabbo"
-          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-[#eaf0e5]"
+          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-secondary"
         >
           <IconBrandTiktok size={18} aria-hidden="true" /> TikTok
         </a>
         <a
           href="https://www.twitch.tv/ayoubabedrabbo"
-          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-[#eaf0e5]"
+          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-secondary"
         >
           <IconBrandTwitch size={18} aria-hidden="true" /> Twitch
         </a>
         <a
           href={youtube}
-          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-[#eaf0e5]"
+          class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-secondary"
         >
           <IconBrandYoutube size={18} aria-hidden="true" /> YouTube
         </a>
@@ -101,6 +109,12 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
         aria-label="Site"
         class="mt-1 flex justify-center gap-4 text-sm font-medium"
       >
+        <a
+          href={`${base}articles/why-i-started/`}
+          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+        >
+          About
+        </a>
         <a
           href={`${base}articles/`}
           class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
@@ -124,14 +138,14 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
         {read && (
           <a
             href={read.url}
-            class={`${button} bg-[#254f39] text-white hover:bg-[#1b402c]`}
+            class={`${button} bg-primary text-primary-foreground hover:brightness-95`}
           >
             <BookOpen size={24} strokeWidth={1.5} className="shrink-0" />
             <span class="min-w-0 flex-1">
               <span class="block text-base font-semibold">
                 Read Quran in English
               </span>{' '}
-              <span class="mt-1 block text-xs text-[#d4e4cf]">
+              <span class="mt-1 block text-xs text-primary-foreground">
                 Free translation & audio on Quran.com
               </span>{' '}
             </span>
@@ -144,7 +158,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             <span class="block text-sm font-semibold">
               Watch the recordings
             </span>{' '}
-            <span class="mt-1 block text-xs text-[#52695b]">
+            <span class="mt-1 block text-xs text-muted-foreground">
               Catch up with Ayoub on YouTube
             </span>{' '}
           </span>
@@ -158,13 +172,13 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                 <span class="block text-sm font-semibold">
                   The book I read on stream
                 </span>{' '}
-                <span class="mt-1 block text-xs text-[#52695b]">
+                <span class="mt-1 block text-xs text-muted-foreground">
                   The Clear Quran · English + Arabic
                 </span>{' '}
               </span>
               <ArrowUpRight size={18} className="shrink-0" />
             </a>
-            <p class="px-5 pt-2 text-xs leading-relaxed text-[#52695b]">
+            <p class="px-5 pt-2 text-sm leading-relaxed text-muted-foreground">
               Paid paperback. My spiral binding was done locally.
             </p>
           </div>
@@ -188,7 +202,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                     ? 'Request The Clear Quran'
                     : 'Request The Quran Project'}
                 </span>{' '}
-                <span class="mt-1 block text-xs leading-relaxed text-[#52695b]">
+                <span class="mt-1 block text-sm leading-relaxed text-muted-foreground">
                   {link.icon === 'Mail'
                     ? 'Free for non-Muslims in the USA. One copy.'
                     : 'Free for non-Muslims. Check delivery eligibility.'}
@@ -217,7 +231,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             return (
               <a
                 href={link.url}
-                class="group grid grid-cols-[7.5rem_minmax(0,1fr)] items-center gap-4 rounded-xl focus-visible:outline-offset-4 sm:grid-cols-[10rem_minmax(0,1fr)]"
+                class={`${paperCard} group grid grid-cols-[7.5rem_minmax(0,1fr)] items-center gap-4 bg-card text-card-foreground p-3 sm:grid-cols-[10rem_minmax(0,1fr)]`}
               >
                 <span class="relative block aspect-video overflow-hidden rounded-xl bg-secondary">
                   <img
@@ -274,7 +288,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             {articles.slice(0, 3).map((article) => (
               <a
                 href={`${base}articles/${article.id}/`}
-                class="flex min-h-16 items-center gap-4 rounded-xl py-2 hover:bg-secondary"
+                class={`${paperCard} flex min-h-16 items-center gap-4 bg-card text-card-foreground p-3 hover:bg-secondary`}
               >
                 <BookOpen size={24} className="shrink-0" />
                 <span>
@@ -308,7 +322,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                   <span class="block text-sm font-medium">
                     {label?.title ?? link.title}
                   </span>{' '}
-                  <span class="mt-1 block text-xs text-[#52695b]">
+                  <span class="mt-1 block text-xs text-muted-foreground">
                     {label?.description ?? link.description}
                   </span>{' '}
                 </span>
@@ -321,7 +335,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
       {support && (
         <a
           href={support.url}
-          class="mt-6 flex min-h-24 items-center gap-4 rounded-3xl border-2 border-[#ff6433] bg-white p-5 transition-colors hover:bg-[#fff1eb]"
+          class={`${paperCard} mt-6 flex min-h-24 items-center gap-4 border-2 border-[#ff6433] bg-card text-card-foreground p-5 hover:bg-[var(--support-hover,#fff1eb)] dark:hover:bg-secondary`}
         >
           <img
             src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01229bf8a18f97a3c1_favion.avif"
@@ -335,15 +349,15 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             <span class="block text-base font-semibold">
               Support my work on Ko-fi
             </span>{' '}
-            <span class="mt-1 block text-sm leading-relaxed text-[#52695b]">
-              Help me keep sharing Islam through dawah, Quran readings, hadith
-              discussions, TikTok lives, and my podcast for the ummah.
+            <span class="mt-1 block text-sm leading-relaxed text-muted-foreground">
+              If you'd like to support my videos, articles, and live readings,
+              you can leave an optional tip.
             </span>
           </span>
         </a>
       )}
     </main>
-    <footer class="mt-5 text-center text-xs text-[#52695b]">
+    <footer class="mt-5 text-center text-xs text-muted-foreground">
       <p>For anyone curious about the Quran.</p>
       <a
         href="https://ayoubabed.xyz/"
@@ -361,6 +375,12 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
           the profiles above. This page has no forms, accounts, or sign-ins.
           Linked services have their own privacy policies.
         </p>
+        <a
+          href={`${base}articles/why-i-started/`}
+          class="inline-flex min-h-11 items-center underline underline-offset-4"
+        >
+          Why I started Live with Ayoub
+        </a>
       </details>
     </footer>
   </div>

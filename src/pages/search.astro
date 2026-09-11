@@ -113,6 +113,7 @@ const base = import.meta.env.BASE_URL;
 <style>
   #search {
     --pf-text: var(--foreground);
+    --pf-mark: var(--foreground);
     --pf-text-secondary: var(--muted-foreground);
     --pf-text-muted: var(--muted-foreground);
     --pf-background: var(--background);
@@ -124,4 +125,10 @@ const base = import.meta.env.BASE_URL;
     --pf-result-title-font-size: 18px;
     --pf-result-excerpt-font-size: 14px;
   }
+
+  #search :global(pagefind-input),
+  #search :global(pagefind-filter-dropdown) {
+    --pf-border: var(--input);
+  }
+
 </style>
