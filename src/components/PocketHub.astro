@@ -5,7 +5,6 @@ import {
   IconBook2 as Book,
   IconPlayerPlay as Play,
   IconPackage as PackageOpen,
-  IconHeart as Heart,
   IconPencil as PencilLine,
   IconCompass as Compass,
   IconScript as Scroll,
@@ -30,7 +29,7 @@ const videos = links.filter((link) => link.youtube);
 const resources = links.filter((link) => !link.variant && !link.youtube);
 const resourceLabels: Record<
   string,
-  { title: string; description: string; Icon: typeof BookOpen }
+  { title?: string; description?: string; Icon: typeof BookOpen }
 > = {
   PencilLine: {
     title: 'The live drawing board',
@@ -38,13 +37,9 @@ const resourceLabels: Record<
     Icon: PencilLine,
   },
   Scroll: {
-    title: 'Read hadith',
-    description: 'Collections on Sunnah.com',
     Icon: Scroll,
   },
   Compass: {
-    title: 'Find meaningful work',
-    description: 'The 80,000 Hours career guide',
     Icon: Compass,
   },
 };
@@ -294,10 +289,22 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
       {support && (
         <a
           href={support.url}
-          class="mt-6 flex min-h-14 items-center justify-center gap-2 rounded-full text-sm font-medium hover:bg-[#eaf0e5]"
+          class="mt-6 flex min-h-24 items-center gap-4 rounded-3xl border-2 border-[#ff6433] bg-white p-5 transition-colors hover:bg-[#fff1eb]"
         >
-          <Heart size={17} />
-          Support the live on Ko-fi <ArrowUpRight size={15} />
+          <img
+            src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01229bf8a18f97a3c1_favion.avif"
+            alt=""
+            width="48"
+            height="48"
+            loading="lazy"
+            class="size-12 shrink-0 object-contain"
+          />
+          <span class="min-w-0 flex-1">
+            <span class="block text-base font-semibold">Support my work on Ko-fi</span>
+            <span class="mt-1 block text-sm leading-relaxed text-[#52695b]">
+              Help me keep sharing Islam through dawah, Quran readings, hadith discussions, TikTok lives, and my podcast for the ummah.
+            </span>
+          </span>
         </a>
       )}
     </main>
