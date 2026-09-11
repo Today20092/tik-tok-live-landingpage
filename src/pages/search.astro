@@ -1,0 +1,123 @@
+---
+import HubPage from '@/layouts/HubPage.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<HubPage
+  title="Search | Live with Ayoub"
+  description="Search Ayoub's articles and reading resources."
+  path="search/"
+  noindex
+>
+  <main class="min-h-dvh bg-background px-5 py-8 font-sans text-foreground sm:py-12">
+    <div class="mx-auto max-w-2xl">
+      <nav aria-label="Site" class="flex gap-6 text-sm font-medium">
+        <a
+          href={base}
+          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+        >
+          Back to links
+        </a>
+        <a
+          href={`${base}articles/`}
+          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+        >
+          All articles
+        </a>
+      </nav>
+      <header class="py-8">
+        <h1 class="text-3xl font-semibold tracking-tight">Search the site</h1>
+        <p class="mt-3 leading-relaxed text-muted-foreground">
+          Find words and phrases in articles and reading resources.
+        </p>
+      </header>
+      {import.meta.env.DEV ? (
+        <p class="rounded-xl border border-border p-5 text-sm">
+          Search uses the published index. Run <code>pnpm build</code>, then{' '}
+          <code>pnpm preview</code> to try it.
+        </p>
+      ) : (
+        <>
+          <link
+            rel="stylesheet"
+            href={`${base}pagefind/pagefind-component-ui.css`}
+          />
+          <script
+            is:inline
+            type="module"
+            src={`${base}pagefind/pagefind-component-ui.js`}
+          ></script>
+          <div id="search" class="flex min-w-0 flex-col gap-4" aria-label="Site search">
+            <pagefind-config
+              bundle-path={`${base}pagefind/`}
+              base-url={base}
+            ></pagefind-config>
+            <pagefind-input placeholder="Search articles and resources"></pagefind-input>
+            <pagefind-filter-dropdown
+              filter="Type"
+              label="Content type"
+            ></pagefind-filter-dropdown>
+            <pagefind-summary></pagefind-summary>
+            <pagefind-results></pagefind-results>
+          </div>
+          <p
+            id="search-status"
+            role="status"
+            class="mt-4 text-sm text-muted-foreground"
+          >
+            Loading search…
+          </p>
+          <noscript>
+            <p class="mt-4 text-sm">
+              Enable JavaScript to search, or browse{' '}
+              <a href={`${base}articles/`} class="underline">
+                all articles
+              </a>
+              .
+            </p>
+          </noscript>
+          <script is:inline>
+            window.addEventListener('DOMContentLoaded', () => {
+              const status = document.getElementById('search-status');
+              if (!window.PagefindComponents) {
+                status.textContent =
+                  'Search could not load. Please reload or browse the articles above.';
+                return;
+              }
+              const search =
+                window.PagefindComponents.getInstanceManager().getInstance(
+                  'default'
+                );
+              search.on('search', (term) => {
+                const url = new URL(window.location.href);
+                if (term) url.searchParams.set('q', term);
+                else url.searchParams.delete('q');
+                window.history.replaceState(null, '', url);
+              });
+              status.hidden = true;
+              search.triggerSearch(
+                new URLSearchParams(window.location.search).get('q') || ''
+              );
+            });
+          </script>
+        </>
+      )}
+    </div>
+  </main>
+</HubPage>
+
+<style>
+  #search {
+    --pf-text: var(--foreground);
+    --pf-text-secondary: var(--muted-foreground);
+    --pf-text-muted: var(--muted-foreground);
+    --pf-background: var(--background);
+    --pf-border: var(--border);
+    --pf-hover: var(--secondary);
+    --pf-font: var(--font-sans);
+    --pf-border-radius: 1rem;
+    --pf-input-height: 48px;
+    --pf-result-title-font-size: 18px;
+    --pf-result-excerpt-font-size: 14px;
+  }
+</style>

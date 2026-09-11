@@ -90,8 +90,29 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
           <IconBrandYoutube size={18} aria-hidden="true" /> YouTube
         </a>
       </nav>
+      <nav
+        aria-label="Site"
+        class="mt-1 flex justify-center gap-4 text-sm font-medium"
+      >
+        <a
+          href={`${base}articles/`}
+          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+        >
+          Articles
+        </a>
+        <a
+          href={`${base}search/`}
+          class="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+        >
+          Search the site
+        </a>
+      </nav>
     </header>
-    <main class="mt-6">
+    <main
+      class="mt-6"
+      data-pagefind-body={Astro.url.pathname === base ? '' : undefined}
+      data-pagefind-filter="Type:Resources"
+    >
       <section id="read" aria-label="Start here" class="grid scroll-mt-5 gap-3">
         {read && (
           <a
@@ -102,10 +123,10 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             <span class="min-w-0 flex-1">
               <span class="block text-base font-semibold">
                 Read Quran in English
-              </span>
+              </span>{' '}
               <span class="mt-1 block text-xs text-[#d4e4cf]">
                 Free translation & audio on Quran.com
-              </span>
+              </span>{' '}
             </span>
             <ArrowUpRight size={19} className="shrink-0" />
           </a>
@@ -115,10 +136,10 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
           <span class="min-w-0 flex-1">
             <span class="block text-sm font-semibold">
               Watch the recordings
-            </span>
+            </span>{' '}
             <span class="mt-1 block text-xs text-[#52695b]">
               Catch up with Ayoub on YouTube
-            </span>
+            </span>{' '}
           </span>
           <ArrowUpRight size={18} className="shrink-0" />
         </a>
@@ -129,10 +150,10 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
               <span class="min-w-0 flex-1">
                 <span class="block text-sm font-semibold">
                   The book I read on stream
-                </span>
+                </span>{' '}
                 <span class="mt-1 block text-xs text-[#52695b]">
                   The Clear Quran · English + Arabic
-                </span>
+                </span>{' '}
               </span>
               <ArrowUpRight size={18} className="shrink-0" />
             </a>
@@ -159,12 +180,12 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                   {link.icon === 'Mail'
                     ? 'Request The Clear Quran'
                     : 'Request The Quran Project'}
-                </span>
+                </span>{' '}
                 <span class="mt-1 block text-xs leading-relaxed text-[#52695b]">
                   {link.icon === 'Mail'
                     ? 'Free for non-Muslims in the USA. One copy.'
                     : 'Free for non-Muslims. Check delivery eligibility.'}
-                </span>
+                </span>{' '}
               </span>
               <ArrowUpRight size={18} className="shrink-0" />
             </a>
@@ -212,7 +233,7 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                 <span class="min-w-0 flex-1">
                   <span class="block text-sm font-medium leading-snug">
                     {link.title.replaceAll('—', '-')}
-                  </span>
+                  </span>{' '}
                   <span class="mt-2 flex items-center gap-1 text-xs font-medium text-muted-foreground">
                     {link.youtube?.startsWith('videoseries')
                       ? 'Watch playlist'
@@ -226,7 +247,11 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
         </div>
       </section>
       {articles.length > 0 && (
-        <section aria-labelledby="articles-title" class="pt-8">
+        <section
+          aria-labelledby="articles-title"
+          class="pt-8"
+          data-pagefind-ignore
+        >
           <div class="mb-3 flex items-center justify-between">
             <h2 id="articles-title" class="text-sm font-semibold">
               Articles & understanding
@@ -275,10 +300,10 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
                 <span class="min-w-0 flex-1">
                   <span class="block text-sm font-medium">
                     {label?.title ?? link.title}
-                  </span>
+                  </span>{' '}
                   <span class="mt-1 block text-xs text-[#52695b]">
                     {label?.description ?? link.description}
-                  </span>
+                  </span>{' '}
                 </span>
                 <ArrowUpRight size={17} className="shrink-0" />
               </a>
@@ -300,9 +325,12 @@ const secondary = `${button} bg-[#eaf0e5] hover:bg-[#e0e9d9]`;
             class="size-12 shrink-0 object-contain"
           />
           <span class="min-w-0 flex-1">
-            <span class="block text-base font-semibold">Support my work on Ko-fi</span>
+            <span class="block text-base font-semibold">
+              Support my work on Ko-fi
+            </span>{' '}
             <span class="mt-1 block text-sm leading-relaxed text-[#52695b]">
-              Help me keep sharing Islam through dawah, Quran readings, hadith discussions, TikTok lives, and my podcast for the ummah.
+              Help me keep sharing Islam through dawah, Quran readings, hadith
+              discussions, TikTok lives, and my podcast for the ummah.
             </span>
           </span>
         </a>
