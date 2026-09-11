@@ -123,6 +123,34 @@ html {
 }
 body {
   margin: 0;
+  background: var(--background);
+}
+
+/* Keep the geometric identity in the margins, away from reading text. */
+[data-site-shell]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--pattern-color);
+  opacity: 0.13;
+  mask-image: url('../assets/patterns/lattice.svg');
+  mask-size: 112px 112px;
+}
+[data-site-shell]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--background) max(1rem, calc(50% - 26rem)),
+    var(--background) min(calc(100% - 1rem), calc(50% + 26rem)),
+    transparent
+  );
 }
 button,
 a {
@@ -141,21 +169,9 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-[data-pocket-hub]::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: var(--pattern-opacity, 0.13);
-  background-color: var(--pattern-color);
-  mask-image: var(--pattern-image, var(--default-pattern-image));
-  mask-repeat: repeat;
-  mask-position: center top;
-  mask-size: var(--pattern-size, 96px) var(--pattern-size, 96px);
-}
-
 @media (forced-colors: active) {
-  [data-pocket-hub]::before {
+  [data-site-shell]::before,
+  [data-site-shell]::after {
     display: none;
   }
 }

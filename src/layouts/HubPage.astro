@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import VariantHub from '@/components/VariantHub.astro';
 import PocketHub from '@/components/PocketHub.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
 interface Props {
   variant?: 'flow' | 'pocket' | 'journal' | 'focus';
   title?: string;
@@ -77,12 +79,27 @@ const structuredData = {
     ></script>
   </head>
   <body>
-    {Astro.slots.has('default') ? (
-      <slot />
-    ) : variant === 'pocket' ? (
-      <PocketHub />
-    ) : (
-      <VariantHub variant={variant} />
-    )}
+    <div
+      data-site-shell
+      class="relative isolate flex min-h-dvh flex-col bg-background text-foreground"
+    >
+      <a
+        href="#main-content"
+        class="fixed left-3 top-3 z-50 -translate-y-24 rounded-md bg-primary px-5 py-3 text-primary-foreground focus:translate-y-0"
+      >
+        Skip to content
+      </a>
+      <SiteHeader />
+      <div id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
+        {Astro.slots.has('default') ? (
+          <slot />
+        ) : variant === 'pocket' ? (
+          <PocketHub />
+        ) : (
+          <VariantHub variant={variant} />
+        )}
+      </div>
+      <SiteFooter />
+    </div>
   </body>
 </html>
