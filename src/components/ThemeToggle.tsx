@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
 const applyTheme = (dark: boolean) => {
@@ -12,14 +12,16 @@ const applyTheme = (dark: boolean) => {
   }
 };
 
+const subscribe = () => () => {};
+const getClientMounted = () => true;
+const getServerMounted = () => false;
+
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
+  const mounted = useSyncExternalStore(subscribe, getClientMounted, getServerMounted);
 
   useEffect(() => {
-    setMounted(true);
-
     const html = document.documentElement;
     // Suppress transitions on initial theme load
     html.classList.add('no-transition');
@@ -27,6 +29,8 @@ export default function ThemeToggle() {
     // Check localStorage or system preference
     const stored = localStorage.getItem('theme');
     if (stored) {
+      // Client-only preference must be read after hydration.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDark(stored === 'dark');
       applyTheme(stored === 'dark');
     } else {
