@@ -1,0 +1,21 @@
+---
+title: Hadith quotation template
+description: A private preview of Arabic and English hadith quotations, references, and excerpts.
+date: 2026-09-11
+category: Writing notes
+draft: true
+---
+
+import HadithQuote from '@/components/HadithQuote.astro';
+
+This draft shows a short bilingual excerpt and a longer English-only hadith. Each quotation has a source link and a visible authenticity status in its footer.
+
+## Arabic and English
+
+<HadithQuote hadith="muslim-55a" />
+
+## English only
+
+<HadithQuote hadith="muslim-2699a" showArabic={false} />
+
+The longer example uses an English rendering prepared from the Arabic for this layout preview. Its reference links to Sunnah.com's published translation. Expand "Source details" for the narrator and grading attribution.

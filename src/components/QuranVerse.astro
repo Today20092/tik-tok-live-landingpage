@@ -1,0 +1,46 @@
+---
+import '@fontsource/amiri-quran/arabic-400.css';
+import verses from '@/data/quran-verses.json';
+
+interface Props {
+  verse: keyof typeof verses;
+}
+
+const { verse } = Astro.props;
+if (!Object.hasOwn(verses, verse)) {
+  throw new Error(
+    `Quran verse ${verse} has no checked text in src/data/quran-verses.json.`
+  );
+}
+const { arabic, translation, translator } = verses[verse];
+const source = `https://quran.com/${verse.replace(':', '/')}`;
+---
+
+<figure
+  data-not-typeset
+  data-quran-verse={verse}
+  dir="ltr"
+  class="my-6 min-w-0 rounded-xl border border-border bg-card px-5 py-6 text-card-foreground sm:px-6"
+>
+  <blockquote cite={source} class="m-0 flex flex-col gap-5">
+    <p
+      lang="ar"
+      dir="rtl"
+      class="m-0 text-start font-['Amiri_Quran',serif] text-3xl leading-[2.5] font-normal tracking-normal [overflow-wrap:normal] sm:text-4xl"
+    >
+      {arabic}
+    </p>
+    <p lang="en" dir="ltr" class="m-0 text-base leading-relaxed">
+      {translation}
+    </p>
+  </blockquote>
+  <figcaption class="mt-5 flex flex-col gap-1 text-sm text-muted-foreground">
+    <a
+      href={source}
+      class="inline-flex min-h-11 w-fit items-center rounded-sm font-medium text-primary underline underline-offset-4"
+    >
+      Quran {verse} · Read on Quran.com
+    </a>
+    <span>Translation by {translator}</span>
+  </figcaption>
+</figure>

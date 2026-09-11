@@ -23,12 +23,12 @@
   --secondary: #eaf0e5;
   --secondary-foreground: #243a30;
   --muted: #eaf0e5;
-  --muted-foreground: #52695b;
+  --muted-foreground: #485f50;
   --accent: #e1eadc;
   --accent-foreground: #243a30;
   --destructive: #b42318;
   --border: #d4ded0;
-  --input: #b8c8b4;
+  --input: #7b8f7d;
   --ring: #47734c;
   --radius: 1rem;
 }
@@ -50,7 +50,7 @@
   --accent: #2a4234;
   --accent-foreground: #f1f5ed;
   --border: #425b48;
-  --input: #58735b;
+  --input: #8aa18a;
   --ring: #c6dfbc;
   --destructive: #ffaca6;
 }

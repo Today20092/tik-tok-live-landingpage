@@ -1,0 +1,31 @@
+{
+  "muslim-55a": {
+    "reference": "Sahih Muslim 55a",
+    "url": "https://sunnah.com/muslim:55a",
+    "narrator": "Tamim ad-Dari",
+    "arabic": "الدِّينُ النَّصِيحَةُ",
+    "translation": "The Religion is sincerity.",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam Muslim in his Sahih collection",
+      "url": "https://sunnah.com/muslim/about"
+    },
+    "checkedOn": "2026-09-11"
+  },
+  "muslim-2699a": {
+    "reference": "Sahih Muslim 2699a",
+    "url": "https://sunnah.com/muslim:2699a",
+    "narrator": "Abu Huraira",
+    "translation": "Whoever eases a believer's distress in this life, Allah will ease a distress for them on the Day of Resurrection. Whoever gives relief to someone in financial hardship, Allah will give them relief in this life and the next. Whoever conceals a Muslim's faults, Allah will conceal theirs in this life and the next. Allah helps His servant while that servant helps their brother.\n\nWhoever follows a path seeking knowledge, Allah will make a path to Paradise easier for them through it. Whenever people gather in one of Allah's houses, reciting His Book and studying it together, tranquillity descends upon them, mercy embraces them, angels surround them, and Allah mentions them among those in His presence. Whoever falls behind because of their deeds will not be brought forward by their ancestry.",
+    "translationSource": "English rendering prepared for this preview from the Arabic; see Sunnah.com for its published translation.",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam Muslim in his Sahih collection",
+      "url": "https://sunnah.com/muslim/about"
+    },
+    "checkedOn": "2026-09-11"
+  }
+}

@@ -1,0 +1,839 @@
+---
+import stars from '../assets/patterns/eight-point.svg?url';
+import rosettes from '../assets/patterns/rosettes.svg?url';
+import sixfold from '../assets/patterns/sixfold.svg?url';
+import tenfold from '../assets/patterns/tenfold.svg?url';
+import twelvefold from '../assets/patterns/twelvefold.svg?url';
+import octagons from '../assets/patterns/octagons.svg?url';
+import lattice from '../assets/patterns/lattice.svg?url';
+const patternImages = {
+  stars,
+  rosettes,
+  sixfold,
+  tenfold,
+  twelvefold,
+  octagons,
+  lattice,
+};
+const palettes = [
+  ['rp-dawn', 'Rosé Pine Dawn', '#faf4ed', '#907aa9'],
+  ['gruvbox', 'Gruvbox Light', '#fbf1c7', '#076678'],
+  ['lotus', 'Kanagawa Lotus', '#f2ecbc', '#4d699b'],
+  ['nord', 'Nord', '#2e3440', '#88c0d0'],
+  ['vesper', 'Vesper', '#101010', '#ffc799'],
+  ['hedger', 'Hedger neutral', '#171717', '#e5e5e5'],
+  ['scholarly', 'Scholarly inspired', '#fbfaf6', '#335966'],
+  ['norevia', 'Norevia inspired', '#0e1315', '#6eb4c2'],
+  ['ivory', 'Ivory & lapis', '#f4f0e6', '#214b78'],
+  ['ceramic', 'Porcelain & turquoise', '#e8f0ed', '#155963'],
+  ['limestone', 'Limestone & umber', '#eee7d9', '#52432f'],
+  ['lapis', 'Lapis & parchment', '#122532', '#c9b477'],
+  ['cypress', 'Cypress & ivory', '#f0eddf', '#204b3b'],
+  ['aubergine', 'Aubergine & copper', '#291f28', '#e4b68d'],
+  ['terracotta', 'Terracotta & cream', '#efd6c6', '#923e2f'],
+  ['sand', 'Sand & teal', '#e8dbb9', '#185c59'],
+  ['wine', 'Parchment & wine', '#eadbc0', '#722f48'],
+  ['blue', 'Porcelain & cobalt', '#dce5ec', '#274e92'],
+  ['ochre', 'Ochre & ink', '#efdfa8', '#333c56'],
+  ['rose', 'Rose & espresso', '#e9d2d1', '#593d35'],
+  ['lavender', 'Lavender & olive', '#e0daea', '#4d572f'],
+  ['midnight', 'Midnight & brass', '#1d293e', '#dfb969'],
+  ['plum', 'Plum & apricot', '#302233', '#efb888'],
+  ['charcoal', 'Charcoal & coral', '#242726', '#edaa8e'],
+  ['flexoki', 'Flexoki paper', '#fffcf0', '#205ea6'],
+  ['mocha', 'Catppuccin mocha', '#1e1e2e', '#cba6f7'],
+  ['original', 'Original', '#f7f9f5', '#254f39'],
+  ['sage', 'Sage paper', '#e4e8db', '#344c36'],
+  ['olive', 'Warm olive', '#e6dfcd', '#4b5031'],
+  ['pine', 'Soft pine', '#cfdbd1', '#214b3b'],
+  ['forest', 'Forest night', '#18251e', '#c3d3aa'],
+];
+---
+
+<details
+  open
+  class="mb-8 rounded-lg border border-input bg-card p-4 text-card-foreground min-[1200px]:fixed min-[1200px]:top-8 min-[1200px]:left-4 min-[1200px]:max-h-[calc(100dvh-4rem)] min-[1200px]:w-64 min-[1200px]:overflow-y-auto"
+  data-palette-preview
+  data-pagefind-ignore
+>
+  <summary class="min-h-11 cursor-pointer text-sm font-semibold">
+    Color & geometry preview
+  </summary>
+  <fieldset class="mt-2">
+    <legend class="mb-2 text-xs text-muted-foreground">Choose a palette</legend>
+    <div class="flex flex-wrap gap-2">
+      {[palettes.slice(0, 8), palettes.slice(8, 14), palettes.slice(14)].map(
+        (group, index) => (
+          <details open={index === 0} class="w-full" data-palette-group>
+            <summary class="min-h-11 cursor-pointer text-sm font-medium">
+              {
+                [
+                  'From your references',
+                  'Previous new directions',
+                  'Earlier palettes',
+                ][index]
+              }
+            </summary>
+            <div class="flex flex-wrap gap-2">
+              {group.map(([value, label, background, foreground]) => (
+                <label class="relative flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:bg-secondary has-[:checked]:outline-2 has-[:checked]:outline-ring has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-ring">
+                  <input
+                    type="radio"
+                    name="palette"
+                    value={value}
+                    checked={value === 'rp-dawn'}
+                    class="sr-only"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="grid size-5 place-items-center rounded-full border border-current text-xs font-bold"
+                    style={{ background, color: foreground }}
+                  >
+                    Aa
+                  </span>
+                  {label}
+                </label>
+              ))}
+            </div>
+          </details>
+        )
+      )}
+    </div>
+  </fieldset>
+  <fieldset class="mt-4">
+    <legend class="mb-2 text-xs text-muted-foreground">Islamic geometry</legend>
+    <div class="flex flex-wrap gap-2">
+      {[
+        'None',
+        'Stars',
+        'Rosettes',
+        'Sixfold',
+        'Tenfold',
+        'Twelvefold',
+        'Octagons',
+        'Lattice',
+      ].map((label) => (
+        <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:bg-secondary has-[:checked]:outline-2 has-[:checked]:outline-ring">
+          <input
+            type="radio"
+            name="pattern"
+            value={label.toLowerCase()}
+            checked={label === 'Rosettes'}
+            class="size-4 accent-foreground"
+          />
+          {label}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+    Original geometric studies informed by{' '}
+    <a
+      href="https://artofislamicpattern.com/resources/educational-posters/"
+      class="underline underline-offset-4"
+    >
+      Art of Islamic Pattern
+    </a>
+    . The original rosette is preserved.
+  </p>
+  <fieldset class="mt-4">
+    <legend class="mb-2 text-xs text-muted-foreground">Pattern strength</legend>
+    <div class="flex flex-wrap gap-2">
+      {['Soft', 'Medium', 'Bold'].map((label) => (
+        <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:bg-secondary has-[:checked]:outline-2 has-[:checked]:outline-ring">
+          <input
+            type="radio"
+            name="strength"
+            value={label.toLowerCase()}
+            checked={label === 'Bold'}
+            class="size-4 accent-foreground"
+          />
+          {label}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+    Published palettes and site-inspired adaptations are grouped first. Small
+    text is adjusted for contrast with geometry.
+    <a
+      href="https://astro-palette.8limb.dev/"
+      class="underline underline-offset-4"
+    >
+      Astro Palette
+    </a>
+    ,
+    <a href="https://hedger.ch/posts" class="underline underline-offset-4">
+      Hedger
+    </a>
+    ,
+    <a
+      href="https://astro-theme-scholars.pages.dev/"
+      class="underline underline-offset-4"
+    >
+      Scholarly
+    </a>
+    ,
+    <a href="https://norevia.pages.dev/" class="underline underline-offset-4">
+      Norevia
+    </a>
+    . Development preview. Your choices stay in this browser. Collapse this
+    panel to see the page.
+  </p>
+  <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
+    New color studies use ceramic whites, mineral blues and manuscript-inspired
+    ink and brass. Earlier palette references:
+    <a
+      href="https://stephango.com/flexoki"
+      class="underline underline-offset-4"
+    >
+      Flexoki by Steph Ango
+    </a>
+    and{' '}
+    <a
+      href="https://github.com/catppuccin/catppuccin"
+      class="underline underline-offset-4"
+    >
+      Catppuccin Mocha
+    </a>
+    . Adapted to this page with stronger secondary text where needed.
+  </p>
+</details>
+
+<script is:inline define:vars={{ patternImages }}>
+  (() => {
+    const panel = document.querySelector('[data-palette-preview]');
+    const root = document.documentElement;
+    const apply = () => {
+      root.dataset.palette = panel.querySelector(
+        '[name="palette"]:checked'
+      ).value;
+      root.dataset.pattern = panel.querySelector(
+        '[name="pattern"]:checked'
+      ).value;
+      root.style.setProperty(
+        '--pattern-image',
+        patternImages[root.dataset.pattern]
+          ? `url("${patternImages[root.dataset.pattern]}")`
+          : 'none'
+      );
+      root.dataset.strength = panel.querySelector(
+        '[name="strength"]:checked'
+      ).value;
+    };
+    try {
+      for (const name of ['palette', 'pattern', 'strength']) {
+        const saved = localStorage.getItem(`ayoub-preview-${name}`);
+        const input = [...panel.querySelectorAll(`input[name="${name}"]`)].find(
+          (input) => input.value === saved
+        );
+        if (input) {
+          input.checked = true;
+          input.closest('[data-palette-group]')?.setAttribute('open', '');
+        }
+      }
+    } catch {
+      /* Preview still works when browser storage is unavailable. */
+    }
+    apply();
+    panel.addEventListener('change', () => {
+      apply();
+      try {
+        localStorage.setItem('ayoub-preview-palette', root.dataset.palette);
+        localStorage.setItem('ayoub-preview-pattern', root.dataset.pattern);
+        localStorage.setItem('ayoub-preview-strength', root.dataset.strength);
+      } catch {
+        /* No persistence required to compare colors. */
+      }
+    });
+  })();
+</script>
+
+<style is:global>
+  :root[data-palette='rp-dawn'] {
+    color-scheme: light;
+    --background: #faf4ed;
+    --foreground: #191724;
+    --card: #fffaf3;
+    --primary: #907aa9;
+    --primary-foreground: #191724;
+    --secondary: #f2e9e1;
+    --muted-foreground: #464261;
+    --accent: #e6ded7;
+    --border: #d8d0ca;
+    --input: #797593;
+    --ring: #464261;
+    --paper-shadow: #e6ded7;
+    --paper-edge: #9893a5;
+    --support-hover: #f2e9e1;
+    --pattern-color: #56949f;
+  }
+  :root[data-palette='gruvbox'] {
+    color-scheme: light;
+    --background: #fbf1c7;
+    --foreground: #282828;
+    --card: #fbf1c7;
+    --primary: #076678;
+    --primary-foreground: #fbf1c7;
+    --secondary: #f2e5bc;
+    --muted-foreground: #3c3836;
+    --accent: #ebdbb2;
+    --border: #d5c4a1;
+    --input: #665c54;
+    --ring: #076678;
+    --paper-shadow: #ebdbb2;
+    --paper-edge: #bdae93;
+    --support-hover: #f2e5bc;
+    --pattern-color: #79740e;
+  }
+  :root[data-palette='lotus'] {
+    color-scheme: light;
+    --background: #f2ecbc;
+    --foreground: #2a2a37;
+    --card: #f2ecbc;
+    --primary: #4d699b;
+    --primary-foreground: #fff9e9;
+    --secondary: #e5ddb0;
+    --muted-foreground: #3f3f50;
+    --accent: #dcd5ac;
+    --border: #b7b2a0;
+    --input: #545464;
+    --ring: #4d699b;
+    --paper-shadow: #e5ddb0;
+    --paper-edge: #b7b2a0;
+    --support-hover: #e5ddb0;
+    --pattern-color: #77713f;
+  }
+  :root[data-palette='nord'] {
+    color-scheme: dark;
+    --background: #2e3440;
+    --foreground: #eceff4;
+    --card: #343b49;
+    --primary: #88c0d0;
+    --primary-foreground: #2e3440;
+    --secondary: #3b4252;
+    --muted-foreground: #d8dee9;
+    --accent: #434c5e;
+    --border: #4c566a;
+    --input: #b4bdce;
+    --ring: #88c0d0;
+    --paper-shadow: #242933;
+    --paper-edge: #5f6a80;
+    --support-hover: #434c5e;
+    --pattern-color: #a3be8c;
+  }
+  :root[data-palette='vesper'] {
+    color-scheme: dark;
+    --background: #101010;
+    --foreground: #ffffff;
+    --card: #1a1a1a;
+    --primary: #ffc799;
+    --primary-foreground: #101010;
+    --secondary: #232323;
+    --muted-foreground: #c8c8c8;
+    --accent: #282828;
+    --border: #343434;
+    --input: #a3a3a3;
+    --ring: #ffc799;
+    --paper-shadow: #080808;
+    --paper-edge: #525252;
+    --support-hover: #282828;
+    --pattern-color: #ffc799;
+  }
+  :root[data-palette='hedger'] {
+    color-scheme: dark;
+    --background: #171717;
+    --foreground: #ffffff;
+    --card: #202020;
+    --primary: #e5e5e5;
+    --primary-foreground: #171717;
+    --secondary: #262626;
+    --muted-foreground: #c5c5c5;
+    --accent: #303030;
+    --border: #404040;
+    --input: #a3a3a3;
+    --ring: #e5e5e5;
+    --paper-shadow: #101010;
+    --paper-edge: #525252;
+    --support-hover: #303030;
+    --pattern-color: #a3a3a3;
+  }
+  :root[data-palette='scholarly'] {
+    color-scheme: light;
+    --background: #fbfaf6;
+    --foreground: #161918;
+    --card: #ffffff;
+    --primary: #335966;
+    --primary-foreground: #fbfaf6;
+    --secondary: #f4f1e8;
+    --muted-foreground: #45433e;
+    --accent: #e7efee;
+    --border: #c8d1cf;
+    --input: #737875;
+    --ring: #335966;
+    --paper-shadow: #e9e6dc;
+    --paper-edge: #a7b2ad;
+    --support-hover: #f0ebe0;
+    --pattern-color: #527d84;
+  }
+  :root[data-palette='norevia'] {
+    color-scheme: dark;
+    --background: #0e1315;
+    --foreground: #f0f3f2;
+    --card: #161c1e;
+    --primary: #6eb4c2;
+    --primary-foreground: #0e1315;
+    --secondary: #1e2629;
+    --muted-foreground: #c3cdcb;
+    --accent: #1a3339;
+    --border: #405155;
+    --input: #9aafae;
+    --ring: #6eb4c2;
+    --paper-shadow: #080e10;
+    --paper-edge: #5d7578;
+    --support-hover: #263738;
+    --pattern-color: #6eb4c2;
+  }
+  :root[data-palette='ivory'] {
+    color-scheme: light;
+    --background: #f4f0e6;
+    --foreground: #202e43;
+    --card: #fffcf4;
+    --primary: #214b78;
+    --primary-foreground: #fff9e9;
+    --secondary: #ebe9df;
+    --muted-foreground: #3b4653;
+    --accent: #dce8e4;
+    --border: #c7c5b5;
+    --input: #65716e;
+    --ring: #214b78;
+    --paper-shadow: #d9d6c8;
+    --paper-edge: #a6ac9f;
+    --support-hover: #ebe7da;
+    --pattern-color: #316a70;
+  }
+  :root[data-palette='ceramic'] {
+    color-scheme: light;
+    --background: #e8f0ed;
+    --foreground: #233d40;
+    --card: #fafbf6;
+    --primary: #155963;
+    --primary-foreground: #fffbed;
+    --secondary: #e0e9e4;
+    --muted-foreground: #384e4e;
+    --accent: #c5ded9;
+    --border: #b5cbc4;
+    --input: #536f6d;
+    --ring: #155963;
+    --paper-shadow: #c2d4cd;
+    --paper-edge: #91ada5;
+    --support-hover: #dce7dc;
+    --pattern-color: #256e79;
+  }
+  :root[data-palette='limestone'] {
+    color-scheme: light;
+    --background: #eee7d9;
+    --foreground: #302b25;
+    --card: #faf5e9;
+    --primary: #52432f;
+    --primary-foreground: #fff5da;
+    --secondary: #e9e3d5;
+    --muted-foreground: #484139;
+    --accent: #dfd2ad;
+    --border: #c8baa0;
+    --input: #796d58;
+    --ring: #52432f;
+    --paper-shadow: #d6cbb5;
+    --paper-edge: #aa987a;
+    --support-hover: #e7d9c5;
+    --pattern-color: #806236;
+  }
+  :root[data-palette='lapis'] {
+    color-scheme: dark;
+    --background: #122532;
+    --foreground: #f0ece0;
+    --card: #1d3542;
+    --primary: #c9b477;
+    --primary-foreground: #182b36;
+    --secondary: #213c49;
+    --muted-foreground: #d0d8d1;
+    --accent: #2b4855;
+    --border: #58717b;
+    --input: #b1beb6;
+    --ring: #c9b477;
+    --paper-shadow: #0b1b25;
+    --paper-edge: #6b8590;
+    --support-hover: #314448;
+    --pattern-color: #bbad7b;
+  }
+  :root[data-palette='cypress'] {
+    color-scheme: light;
+    --background: #f0eddf;
+    --foreground: #243b33;
+    --card: #faf7ed;
+    --primary: #204b3b;
+    --primary-foreground: #fff6df;
+    --secondary: #e3e7d9;
+    --muted-foreground: #3b4c40;
+    --accent: #d3ddc5;
+    --border: #b8c2a9;
+    --input: #63755f;
+    --ring: #204b3b;
+    --paper-shadow: #cdd4be;
+    --paper-edge: #97a58c;
+    --support-hover: #e8e1cc;
+    --pattern-color: #687545;
+  }
+  :root[data-palette='aubergine'] {
+    color-scheme: dark;
+    --background: #291f28;
+    --foreground: #f4e7d6;
+    --card: #3b2e38;
+    --primary: #e4b68d;
+    --primary-foreground: #30222b;
+    --secondary: #433340;
+    --muted-foreground: #ddcdbf;
+    --accent: #513e49;
+    --border: #826676;
+    --input: #c2aaad;
+    --ring: #e4b68d;
+    --paper-shadow: #1e1520;
+    --paper-edge: #967986;
+    --support-hover: #503d3e;
+    --pattern-color: #c5a98a;
+  }
+  /* Darker original captions retain contrast with the stronger pattern. */
+  :root[data-palette='original'] {
+    --muted-foreground: #3c5042;
+  }
+  :root[data-palette='terracotta'] {
+    color-scheme: light;
+    --background: #efd6c6;
+    --foreground: #38251f;
+    --card: #fbede0;
+    --primary: #923e2f;
+    --primary-foreground: #fff6eb;
+    --secondary: #e9c3aa;
+    --muted-foreground: #493027;
+    --accent: #dbb395;
+    --border: #ac806b;
+    --input: #785141;
+    --ring: #793726;
+    --paper-shadow: #c79f84;
+    --paper-edge: #96745f;
+    --support-hover: #e6c1a9;
+  }
+  :root[data-palette='sand'] {
+    color-scheme: light;
+    --background: #e8dbb9;
+    --foreground: #203a39;
+    --card: #f5edd9;
+    --primary: #185c59;
+    --primary-foreground: #f5f1db;
+    --secondary: #d6e0cd;
+    --muted-foreground: #2d423a;
+    --accent: #b8d1c1;
+    --border: #9ca88e;
+    --input: #526f64;
+    --ring: #18514b;
+    --paper-shadow: #b8b79a;
+    --paper-edge: #7e9485;
+    --support-hover: #dbdfc7;
+  }
+  :root[data-palette='wine'] {
+    color-scheme: light;
+    --background: #eadbc0;
+    --foreground: #402534;
+    --card: #f7efdc;
+    --primary: #722f48;
+    --primary-foreground: #fff4df;
+    --secondary: #e7c9c5;
+    --muted-foreground: #523743;
+    --accent: #d9b9b9;
+    --border: #b69799;
+    --input: #7b5765;
+    --ring: #722f48;
+    --paper-shadow: #c8a9a4;
+    --paper-edge: #9b7881;
+    --support-hover: #edd3bd;
+  }
+  :root[data-palette='blue'] {
+    color-scheme: light;
+    --background: #dce5ec;
+    --foreground: #243147;
+    --card: #f0f2ef;
+    --primary: #274e92;
+    --primary-foreground: #fff5df;
+    --secondary: #cddbe7;
+    --muted-foreground: #35465c;
+    --accent: #b9cddf;
+    --border: #90a6be;
+    --input: #526987;
+    --ring: #274e92;
+    --paper-shadow: #aebfd1;
+    --paper-edge: #778ba5;
+    --support-hover: #d4dfdf;
+  }
+  :root[data-palette='ochre'] {
+    color-scheme: light;
+    --background: #efdfa8;
+    --foreground: #302e31;
+    --card: #faf0d1;
+    --primary: #333c56;
+    --primary-foreground: #fff0c3;
+    --secondary: #e6d39a;
+    --muted-foreground: #454038;
+    --accent: #d5bd79;
+    --border: #b49b63;
+    --input: #726343;
+    --ring: #333c56;
+    --paper-shadow: #c6ae77;
+    --paper-edge: #97804d;
+    --support-hover: #ebd2a3;
+  }
+  :root[data-palette='rose'] {
+    color-scheme: light;
+    --background: #e9d2d1;
+    --foreground: #3c2930;
+    --card: #f7e8e2;
+    --primary: #593d35;
+    --primary-foreground: #fff1dd;
+    --secondary: #e1c0bb;
+    --muted-foreground: #4f383a;
+    --accent: #d4ada8;
+    --border: #b38a83;
+    --input: #795c58;
+    --ring: #593d35;
+    --paper-shadow: #c79c94;
+    --paper-edge: #96776d;
+    --support-hover: #e5c7b5;
+  }
+  :root[data-palette='lavender'] {
+    color-scheme: light;
+    --background: #e0daea;
+    --foreground: #332b42;
+    --card: #f1edf3;
+    --primary: #4d572f;
+    --primary-foreground: #faf3dd;
+    --secondary: #dbd9c1;
+    --muted-foreground: #443c51;
+    --accent: #c6c9a8;
+    --border: #a7a990;
+    --input: #63684b;
+    --ring: #4d572f;
+    --paper-shadow: #b7b89b;
+    --paper-edge: #858770;
+    --support-hover: #ddd8c8;
+  }
+  :root[data-palette='midnight'] {
+    color-scheme: dark;
+    --background: #1d293e;
+    --foreground: #f1e7cd;
+    --card: #28364c;
+    --primary: #dfb969;
+    --primary-foreground: #242c3b;
+    --secondary: #304057;
+    --muted-foreground: #d7cdb8;
+    --accent: #394c63;
+    --border: #5d7089;
+    --input: #b2bdbf;
+    --ring: #dfb969;
+    --paper-shadow: #121e30;
+    --paper-edge: #70829a;
+    --support-hover: #3d4554;
+  }
+  :root[data-palette='plum'] {
+    color-scheme: dark;
+    --background: #302233;
+    --foreground: #f6e4d5;
+    --card: #422f43;
+    --primary: #efb888;
+    --primary-foreground: #392738;
+    --secondary: #4c3549;
+    --muted-foreground: #e0c9c9;
+    --accent: #583f50;
+    --border: #806275;
+    --input: #c4a8b3;
+    --ring: #efb888;
+    --paper-shadow: #211827;
+    --paper-edge: #967788;
+    --support-hover: #56403f;
+  }
+  :root[data-palette='charcoal'] {
+    color-scheme: dark;
+    --background: #242726;
+    --foreground: #f0ece0;
+    --card: #333938;
+    --primary: #edaa8e;
+    --primary-foreground: #302924;
+    --secondary: #3c4440;
+    --muted-foreground: #d8d3c5;
+    --accent: #475049;
+    --border: #6d7e72;
+    --input: #b5c3b4;
+    --ring: #edaa8e;
+    --paper-shadow: #191e1a;
+    --paper-edge: #8b9c8c;
+    --support-hover: #4c4940;
+  }
+  :root[data-palette='flexoki'] {
+    color-scheme: light;
+    --background: #fffcf0;
+    --foreground: #100f0f;
+    --card: #f2f0e5;
+    --primary: #205ea6;
+    --primary-foreground: #fffcf0;
+    --secondary: #e6e4d9;
+    --muted-foreground: #403e3c;
+    --accent: #dad8ce;
+    --border: #b7b5ac;
+    --input: #6f6e69;
+    --ring: #205ea6;
+    --paper-shadow: #cecdc3;
+    --paper-edge: #878580;
+    --support-hover: #ffe1d5;
+  }
+  :root[data-palette='mocha'] {
+    color-scheme: dark;
+    --background: #1e1e2e;
+    --foreground: #cdd6f4;
+    --card: #313244;
+    --primary: #cba6f7;
+    --primary-foreground: #1e1e2e;
+    --secondary: #45475a;
+    --muted-foreground: #cdd6f4;
+    --accent: #45475a;
+    --border: #6c7086;
+    --input: #a6adc8;
+    --ring: #cba6f7;
+    --paper-shadow: #11111b;
+    --paper-edge: #7f849c;
+    --support-hover: #45475a;
+  }
+  /* Paired colors keep small descriptions readable on every card state.
+     Original inherits the site's existing tokens for an honest comparison. */
+  :root[data-palette='sage'] {
+    --background: #e4e8db;
+    --foreground: #27392b;
+    --card: #f1f2e9;
+    --primary: #344c36;
+    --primary-foreground: #f5f4e9;
+    --secondary: #d9e0cd;
+    --muted-foreground: #374532;
+    --accent: #cdd7bf;
+    --border: #b3bfa5;
+    --input: #65755c;
+    --ring: #344c36;
+    --paper-shadow: #bbc7ae;
+    --paper-edge: #87977b;
+    --support-hover: #e1e5d4;
+  }
+  :root[data-palette='olive'] {
+    --background: #e6dfcd;
+    --foreground: #353a29;
+    --card: #f2ecdd;
+    --primary: #4b5031;
+    --primary-foreground: #fff5df;
+    --secondary: #ddd7c0;
+    --muted-foreground: #41422e;
+    --accent: #d1ccb0;
+    --border: #bcb699;
+    --input: #777657;
+    --ring: #4b5031;
+    --paper-shadow: #c5bea4;
+    --paper-edge: #999275;
+    --support-hover: #e7dcc5;
+  }
+  :root[data-palette='pine'] {
+    --background: #cfdbd1;
+    --foreground: #1c3629;
+    --card: #e8eee6;
+    --primary: #214b3b;
+    --primary-foreground: #eff4e8;
+    --secondary: #c3d3c5;
+    --muted-foreground: #2c4031;
+    --accent: #b5c8b7;
+    --border: #9bb49f;
+    --input: #546f59;
+    --ring: #214b3b;
+    --paper-shadow: #a6bfa9;
+    --paper-edge: #748f79;
+    --support-hover: #ccd9c8;
+  }
+  :root[data-palette='forest'] {
+    color-scheme: dark;
+    --background: #18251e;
+    --foreground: #e7ecde;
+    --card: #22342a;
+    --primary: #c3d3aa;
+    --primary-foreground: #203324;
+    --secondary: #2b3e30;
+    --muted-foreground: #b7c6ac;
+    --accent: #354b39;
+    --border: #4f6550;
+    --input: #96ab8d;
+    --ring: #c3d3aa;
+    --paper-shadow: #101c15;
+    --paper-edge: #607557;
+    --support-hover: #354331;
+  }
+  :root[data-palette]:not([data-palette='original']) {
+    --card-foreground: var(--foreground);
+    --secondary-foreground: var(--foreground);
+    --accent-foreground: var(--foreground);
+    --popover: var(--card);
+    --popover-foreground: var(--foreground);
+    --muted: var(--secondary);
+  }
+  :root[data-palette] :is(a, summary, input):focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 4px;
+  }
+  /* A stationary pattern sits behind the content, never over text or images. */
+  :root[data-strength='soft'] {
+    --pattern-opacity: 0.07;
+  }
+  :root[data-strength='medium'] {
+    --pattern-opacity: 0.13;
+  }
+  :root[data-strength='bold'] {
+    --pattern-opacity: 0.2;
+  }
+  :root[data-pattern]:not([data-pattern='none']) [data-pocket-hub]::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--pattern-opacity, 0.2);
+    background-color: var(--pattern-color, var(--primary));
+    mask-image: var(--pattern-image);
+    mask-repeat: repeat;
+    mask-position: center top;
+  }
+  :root[data-pattern='stars'] [data-pocket-hub]::before {
+    mask-size: 176px 176px;
+  }
+  :root[data-pattern='rosettes'] [data-pocket-hub]::before {
+    mask-size: 192px 192px;
+  }
+  :root[data-pattern='sixfold'] [data-pocket-hub]::before {
+    mask-size: 192px 110.85px;
+  }
+  :root[data-pattern='tenfold'] [data-pocket-hub]::before {
+    mask-size: 240px 240px;
+  }
+  :root[data-pattern='twelvefold'] [data-pocket-hub]::before {
+    mask-size: 240px 240px;
+  }
+  :root[data-pattern='octagons'] [data-pocket-hub]::before {
+    mask-size: 144px 144px;
+  }
+  :root[data-pattern='lattice'] [data-pocket-hub]::before {
+    mask-size: 160px 160px;
+  }
+  @media (forced-colors: active) {
+    [data-pocket-hub]::before {
+      display: none;
+    }
+  }
+</style>
