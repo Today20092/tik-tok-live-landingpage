@@ -1,4 +1,19 @@
 {
+  "bukhari-5027": {
+    "reference": "Sahih al-Bukhari 5027",
+    "url": "https://sunnah.com/bukhari:5027",
+    "narrator": "Uthman ibn Affan",
+    "arabic": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+    "translation": "The best among you (Muslims) are those who learn the Qur'an and teach it.",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Encyclopedia of Translated Prophetic Hadiths (HadeethEnc)",
+      "url": "https://hadeethenc.com/en/browse/hadith/5913"
+    },
+    "checkedOn": "2026-09-11"
+  },
   "muslim-55a": {
     "reference": "Sahih Muslim 55a",
     "url": "https://sunnah.com/muslim:55a",
