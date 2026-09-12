@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import courtyard from '../assets/courtyard.webp';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -152,10 +154,10 @@ const shortNames: Record<string, string> = {
                 the Quran.
               </h1>
             </div>
-            <img
-              src={`${base}courtyard.webp`}
-              width="1536"
-              height="1024"
+            <Image
+              src={courtyard}
+              width={576}
+              loading="eager"
               alt=""
               fetchpriority="high"
               class="h-36 w-20 shrink-0 rounded-t-full object-cover sm:h-48 sm:w-32"
@@ -178,10 +180,11 @@ const shortNames: Record<string, string> = {
           id="read"
           class="relative -mx-6 isolate scroll-mt-24 overflow-hidden px-6 py-10 sm:mx-0 sm:rounded-t-full sm:px-10 sm:pt-20"
         >
-          <img
-            src={`${base}courtyard.webp`}
-            width="1536"
-            height="1024"
+          <Image
+            src={courtyard}
+            widths={[480, 960, 1536]}
+            sizes="(min-width: 1024px) 960px, 100vw"
+            loading="eager"
             alt=""
             fetchpriority="high"
             class="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -266,10 +269,9 @@ const shortNames: Record<string, string> = {
                   and explanations on Quran.com.
                 </p>
               </div>
-              <img
-                src={`${base}courtyard.webp`}
-                width="1536"
-                height="1024"
+              <Image
+                src={courtyard}
+                width={480}
                 alt=""
                 loading="lazy"
                 class="h-40 w-24 shrink-0 rounded-full object-cover"
@@ -399,10 +401,15 @@ const shortNames: Record<string, string> = {
                         : 'aspect-square w-20 shrink-0 rounded-full',
                     ]}
                   >
-                    <img
+                    <Image
                       src={`https://i.ytimg.com/vi/${thumbnail}/hqdefault.jpg`}
-                      width="480"
-                      height="360"
+                      width={480}
+                      height={360}
+                      widths={[160, 320, 480]}
+                      quality={70}
+                      sizes={
+                        journal ? '(min-width: 1024px) 480px, 90vw' : '80px'
+                      }
                       alt=""
                       loading="lazy"
                       class="h-full w-full object-cover transition-transform duration-300 group-hover/video:scale-105 motion-reduce:transform-none"

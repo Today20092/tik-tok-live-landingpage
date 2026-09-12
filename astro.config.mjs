@@ -17,6 +17,11 @@ const excludedFromSitemap = new Set([
 // https://astro.build/config
 export default defineConfig({
   site: 'https://islam.ayoubabed.xyz',
+  image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'i.ytimg.com', pathname: '/vi/**' },
+    ],
+  },
   vite: {
     server: {
       allowedHosts: ['desktop-ayoub.cuttlefish-coho.ts.net'],
