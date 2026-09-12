@@ -35,7 +35,8 @@ for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
     assert.ok(html.includes('Request The Clear Quran'));
     assert.ok(html.includes('Free for non-Muslims in the USA. One copy.'));
   } else {
-    assert.ok(html.includes('Request a copy'));
+    assert.ok(html.includes('Request The Clear Quran'));
+    assert.ok(html.includes('Request The Quran Project'));
     assert.ok(html.includes('USA only. One English copy'));
   }
   assert.ok(

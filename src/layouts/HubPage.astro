@@ -51,6 +51,11 @@ const structuredData = {
         headline: title,
         datePublished: Astro.props.publishedTime,
         mainEntityOfPage: canonicalUrl,
+        publisher: {
+          '@type': 'Person',
+          name: 'Ayoub Abedrabbo',
+          url: 'https://ayoubabed.xyz/',
+        },
       }
     : {}),
   author: {

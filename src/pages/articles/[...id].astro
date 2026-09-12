@@ -25,10 +25,14 @@ const { article } = Astro.props;
 const { Content, headings } = await render(article);
 const sections = headings.filter((heading) => heading.depth === 2);
 const base = import.meta.env.BASE_URL;
+const pageTitle =
+  article.id === 'about-me'
+    ? 'About Ayoub and Islam | Islam with Ayoub'
+    : `${article.data.title} | Islam with Ayoub`;
 ---
 
 <HubPage
-  title={`${article.data.title} | Islam with Ayoub`}
+  title={pageTitle}
   description={article.data.description}
   path={`articles/${article.id}/`}
   noindex={article.data.draft}

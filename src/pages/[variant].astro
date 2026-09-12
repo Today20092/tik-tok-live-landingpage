@@ -7,6 +7,27 @@ export function getStaticPaths() {
   }));
 }
 const { variant } = Astro.props;
+const metadata = {
+  pocket: {
+    title: 'Pocket Quran resources | Islam with Ayoub',
+    description:
+      'Read the Quran in English, request a free copy where eligible, watch Ayoub\'s live recordings, and explore practical resources in one place.',
+  },
+  journal: {
+    title: 'Quran reading journal | Islam with Ayoub',
+    description:
+      'A calm collection of Quran reading links, free translation requests, live recordings, and learning resources from Ayoub.',
+  },
+  focus: {
+    title: 'Focused Quran resources | Islam with Ayoub',
+    description:
+      'Stay focused on Quran reading with clear English resources, free copy requests, live sessions, and learning links shared by Ayoub.',
+  },
+} as const;
 ---
 
-<HubPage variant={variant} />
+<HubPage
+  variant={variant}
+  title={metadata[variant].title}
+  description={metadata[variant].description}
+/>

@@ -102,7 +102,7 @@ const shortNames: Record<string, string> = {
     <main>
       {variant === 'flow' && (
         <section id="read" class="scroll-mt-24 pb-9 pt-5">
-          <p class="mb-4 text-sm text-[#52695b]">
+          <p class="mb-4 text-sm text-muted-foreground">
             From the live, for your own time.
           </p>
           <h1 class="max-w-lg text-4xl font-medium leading-[1.12] tracking-tight sm:text-5xl">
@@ -110,7 +110,7 @@ const shortNames: Record<string, string> = {
             <br />
             to learn.
           </h1>
-          <p class="mt-5 max-w-sm text-base leading-relaxed text-[#52695b]">
+          <p class="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
             Read the Quran in English, find a copy, and keep exploring with
             Ayoub.
           </p>
@@ -120,7 +120,7 @@ const shortNames: Record<string, string> = {
           >
             Read Quran <ArrowUpRight size={18} />
           </a>
-          <p class="mt-3 text-xs text-[#52695b]">
+          <p class="mt-3 text-xs text-muted-foreground">
             Free on Quran.com. Translation & audio.
           </p>
           <nav aria-label="Quick actions" class="mt-8 grid gap-1">
@@ -153,10 +153,11 @@ const shortNames: Record<string, string> = {
               </h1>
             </div>
             <img
-              src={`${base}courtyard.png`}
+              src={`${base}courtyard.webp`}
               width="1536"
               height="1024"
               alt=""
+              fetchpriority="high"
               class="h-36 w-20 shrink-0 rounded-t-full object-cover sm:h-48 sm:w-32"
             />
           </div>
@@ -178,10 +179,11 @@ const shortNames: Record<string, string> = {
           class="relative -mx-6 isolate scroll-mt-24 overflow-hidden px-6 py-10 sm:mx-0 sm:rounded-t-full sm:px-10 sm:pt-20"
         >
           <img
-            src={`${base}courtyard.png`}
+            src={`${base}courtyard.webp`}
             width="1536"
             height="1024"
             alt=""
+            fetchpriority="high"
             class="absolute inset-0 -z-20 h-full w-full object-cover"
           />
           <div class="absolute inset-0 -z-10 bg-[#10231c]/85"></div>
@@ -218,7 +220,7 @@ const shortNames: Record<string, string> = {
               <br />
               you here?
             </h1>
-            <p class="mt-3 text-sm text-[#52695b]">
+            <p class="mt-3 text-sm text-muted-foreground">
               Quran resources, one thing at a time.
             </p>
           </section>
@@ -258,17 +260,18 @@ const shortNames: Record<string, string> = {
                   <br />
                   Take your time.
                 </h2>
-                <p class="mt-4 text-sm leading-relaxed text-[#52695b]">
+                <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
                   English translation, recitation,
                   <br />
                   and explanations on Quran.com.
                 </p>
               </div>
               <img
-                src={`${base}courtyard.png`}
+                src={`${base}courtyard.webp`}
                 width="1536"
                 height="1024"
                 alt=""
+                loading="lazy"
                 class="h-40 w-24 shrink-0 rounded-full object-cover"
               />
             </div>
@@ -278,7 +281,7 @@ const shortNames: Record<string, string> = {
             >
               Open Quran.com <ArrowUpRight size={18} />
             </a>
-            <p class="mt-4 text-center text-xs text-[#52695b]">
+            <p class="mt-4 text-center text-xs text-muted-foreground">
               Free to read. No account needed to begin.
             </p>
           </section>
@@ -304,11 +307,19 @@ const shortNames: Record<string, string> = {
           <div class="mt-5 grid gap-8">
             {copies.map((link) => (
               <article class={journal ? 'border-l border-current/25 pl-5' : ''}>
-                <h3 class="text-base font-semibold">
-                  {link.icon === 'Mail'
-                    ? 'The Clear Quran'
-                    : 'The Quran Project'}
-                </h3>
+                {focus ? (
+                  <h2 class="text-base font-semibold">
+                    {link.icon === 'Mail'
+                      ? 'The Clear Quran'
+                      : 'The Quran Project'}
+                  </h2>
+                ) : (
+                  <h3 class="text-base font-semibold">
+                    {link.icon === 'Mail'
+                      ? 'The Clear Quran'
+                      : 'The Quran Project'}
+                  </h3>
+                )}
                 <p class="mt-1 text-xs font-medium opacity-80">
                   Free for non-Muslims
                 </p>
@@ -321,7 +332,10 @@ const shortNames: Record<string, string> = {
                   href={link.url}
                   class="mt-3 inline-flex min-h-11 items-center gap-3 text-sm font-semibold underline decoration-current/30 underline-offset-8 hover:decoration-current"
                 >
-                  Request a copy <ArrowUpRight size={16} />
+                  {link.icon === 'Mail'
+                    ? 'Request The Clear Quran'
+                    : 'Request The Quran Project'}{' '}
+                  <ArrowUpRight size={16} />
                 </a>
               </article>
             ))}

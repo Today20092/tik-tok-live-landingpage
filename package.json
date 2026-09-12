@@ -11,6 +11,7 @@
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
     "test:search": "node scripts/check-search.mjs",
+    "test:audit": "node scripts/check-audit.mjs",
     "test:quran": "node scripts/check-quran.mjs",
     "test:hadith": "node scripts/check-hadith.mjs",
     "preview": "astro preview",
