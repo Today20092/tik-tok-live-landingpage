@@ -1,4 +1,64 @@
 {
+  "bukhari-1": {
+    "reference": "Sahih al-Bukhari 1",
+    "url": "https://sunnah.com/bukhari/1/1",
+    "narrator": "Umar ibn al-Khattab",
+    "arabic": "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+    "translation": "The reward of deeds depends upon the intentions and every person will get the reward according to what he has intended.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-09-12"
+  },
+  "bukhari-1427-1428": {
+    "reference": "Sahih al-Bukhari 1427, 1428",
+    "url": "https://sunnah.com/bukhari/24/31",
+    "narrator": "Hakim ibn Hizam",
+    "arabic": "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى",
+    "translation": "The upper hand is better than the lower hand (i.e. he who gives in charity is better than him who takes it).",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-09-12"
+  },
+  "bukhari-6021": {
+    "reference": "Sahih al-Bukhari 6021",
+    "url": "https://sunnah.com/bukhari:6021",
+    "narrator": "Jabir ibn Abdullah",
+    "arabic": "كُلُّ مَعْرُوفٍ صَدَقَةٌ",
+    "translation": "Enjoining, all that is good is a Sadaqa.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-09-12"
+  },
+  "bayhaqi-4929": {
+    "reference": "Shu'ab al-Iman 4929",
+    "url": "https://dorar.net/h/UtSlZmEN?osoul=1",
+    "narrator": "Aisha",
+    "arabic": "إنَّ اللهَ تعالى يُحِبُّ إذا عمِلَ أحدُكمْ عملًا أنْ يُتقِنَهُ",
+    "translation": "Allah Most High loves that when any of you does a task, he does it well.",
+    "translationSource": "English rendering prepared for this article from the Arabic recorded on Dorar.net.",
+    "excerpt": false,
+    "grade": {
+      "text": "Hasan according to al-Albani; chain graded weak by al-Busiri",
+      "attributedTo": "Al-Albani, Sahih al-Jami' 1880; see the article for al-Busiri's assessment",
+      "url": "https://dorar.net/h/UtSlZmEN"
+    },
+    "checkedOn": "2026-09-12"
+  },
   "bukhari-5027": {
     "reference": "Sahih al-Bukhari 5027",
     "url": "https://sunnah.com/bukhari:5027",
