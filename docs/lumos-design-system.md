@@ -6,6 +6,8 @@ Use shared tokens for color, spacing, type, widths, corners, and controls. Compo
 
 The stylesheet order is `base`, `patterns`, `components`, `utilities`. Site tokens override upstream defaults in the base layer. Utilities are small per-instance overrides. Content, quotations, Pagefind, and existing React behavior retain their own implementations.
 
+Default to the warm off-white light palette, matching master. Dark mode is an explicit, remembered choice through the theme control; do not select it automatically from the operating system.
+
 All routes now load the Lumos foundation and native component styles; there is no Tailwind compiler or utility runtime. `/lumos-preview/` demonstrates the shared tokens, headings, cards, and controls. It exists only during development or when explicitly building with `LUMOS_PREVIEW=1`; normal production builds exclude it.
 
 Read the reference page before changing shared styles. Check both themes, narrow screens, enlarged text, focus, and the actual consuming pages. API upgrades require a reviewed diff against the pinned revision and fresh visual checks.

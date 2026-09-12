@@ -518,7 +518,7 @@
     height: calc(var(--spacing) * 4);
   }
 }
-.input-group_input {
+.input-group_div > .input-group_input {
   flex: 1;
   border-radius: 0;
   border-style: solid;
@@ -543,7 +543,7 @@
     }
   }
 }
-.input-group_textarea {
+.input-group_div > .input-group_textarea {
   flex: 1;
   resize: none;
   border-radius: 0;

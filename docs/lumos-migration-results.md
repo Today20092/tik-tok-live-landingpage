@@ -1,6 +1,6 @@
 # Lumos migration experiment
 
-The migration is isolated on `experiment/lumos-migration`. The comparison baseline is `master` at `0f0d75daed117c00492bd129c77da07e7d071233`. Nothing has been merged or published.
+The migration is isolated on `experiment/lumos-migration`. The comparison baseline is `master` at `0f0d75daed117c00492bd129c77da07e7d071233`. The owner reviewed the preview and chose to keep Lumos, with integration proceeding through a pull request.
 
 ## Compare locally
 
@@ -22,6 +22,7 @@ Shared tokens now control the site's colors, fonts, spacing, reading widths, cor
 
 - The compact hub, destinations, copy, photos, and reading flow remain. Shared cards have consistent corners and spacing; titles and controls may wrap differently from master.
 - Sharing and article controls use the same control variants. The not-found page now uses the shared shell.
+- Light mode is the default, matching master's warm off-white background. Dark mode is an explicit remembered choice. The search field uses a single outer border; its shared input-group rule overrides the standalone input styling, with a regression check in both themes.
 - Theme selection persists across navigation. Journal and the other alternate layouts follow the selected palette; Focus deliberately retains light text over its dark hero image. Ko-fi preview samples retain their brand colors.
 - Navigation wraps when text is enlarged, fixing an overflow found during the 200% text check. Arabic quotation typography remains Amiri Quran with its own size and line-height treatment.
 

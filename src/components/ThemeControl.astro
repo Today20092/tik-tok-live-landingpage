@@ -33,17 +33,4 @@ import { IconSun, IconMoon } from '@tabler/icons-react';
     }
     updateLabel();
   });
-  matchMedia('(prefers-color-scheme: dark)').addEventListener(
-    'change',
-    ({ matches }) => {
-      try {
-        if (localStorage.getItem('theme')) return;
-      } catch {
-        /* Use the system setting. */
-      }
-      document.documentElement.classList.toggle('dark', matches);
-      document.documentElement.style.colorScheme = matches ? 'dark' : 'light';
-      updateLabel();
-    }
-  );
 </script>
