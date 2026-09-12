@@ -1,0 +1,70 @@
+{
+  "baseUrl": "https://go.alphabravomedia.co",
+  "tag": "islamic-linktree",
+  "links": [
+    {
+      "slug": "islam-help-yaya",
+      "url": "https://www.gofundme.com/f/help-yaya-fatty-gambia"
+    },
+    {
+      "slug": "islam-kofi",
+      "url": "https://ko-fi.com/ayoubab1/tip"
+    },
+    {
+      "slug": "islam-quran",
+      "url": "https://quran.com"
+    },
+    {
+      "slug": "islam-free-clear-quran",
+      "url": "https://www.onemessagefoundation.com/free-quran/p/quran-english"
+    },
+    {
+      "slug": "islam-quran-project",
+      "url": "https://www.quranproject.org/The-Quran-Project-1-p"
+    },
+    {
+      "slug": "islam-stream-quran",
+      "url": "https://furqaanbookstore.com/products/the-clear-quran-with-arabic-text-paperback"
+    },
+    {
+      "slug": "islam-drawing-board",
+      "url": "https://excalidraw.com/#json=0eMN-o58H7OFKtn7Nd1QL,wFkUY8MDYaF2EatlLqC-uw"
+    },
+    {
+      "slug": "islam-riyad-pdf",
+      "url": "https://annas-archive.gd/slow_download/89499a84b93460af30da13876855fbbd/0/0"
+    },
+    {
+      "slug": "islam-career-guide",
+      "url": "https://80000hours.org/career-guide/introduction/"
+    },
+    {
+      "slug": "islam-prophet-biography",
+      "url": "https://youtube.com/playlist?list=PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg&si=oFs9lenNTmA0qQJW"
+    },
+    {
+      "slug": "islam-prophet-stories",
+      "url": "https://youtube.com/playlist?list=PL9821CA747E7E0674&si=z2kUMzRKa6_-eJr4"
+    },
+    {
+      "slug": "islam-ai-tutorial",
+      "url": "https://youtu.be/HVmHxSztp_A"
+    },
+    {
+      "slug": "islam-tiktok",
+      "url": "https://www.tiktok.com/@ayoubabedrabbo"
+    },
+    {
+      "slug": "islam-twitch",
+      "url": "https://www.twitch.tv/ayoubabedrabbo"
+    },
+    {
+      "slug": "islam-youtube",
+      "url": "https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
+    },
+    {
+      "slug": "islam-about-ayoub",
+      "url": "https://ayoubabed.xyz/"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ const book = links.find((link) => link.variant === 'stream-pick');
 const videos = links.filter((link) => link.youtube);
 const resources = links.filter((link) => !link.variant && !link.youtube);
 const support = links.find((link) => link.variant === 'support');
-const youtube = 'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ';
+const youtube = 'https://go.alphabravomedia.co/islam-youtube';
 const base = import.meta.env.BASE_URL;
 const pocket = variant === 'pocket';
 const journal = variant === 'journal';
@@ -95,7 +95,7 @@ const shortNames: Record<string, string> = {
         Ayoub
       </a>
       <a
-        href="https://www.tiktok.com/@ayoubabedrabbo"
+        href="https://go.alphabravomedia.co/islam-tiktok"
         class="inline-flex min-h-11 items-center gap-1 text-xs"
       >
         Find me on TikTok <ArrowUpRight size={14} />
@@ -117,7 +117,7 @@ const shortNames: Record<string, string> = {
             Ayoub.
           </p>
           <a
-            href="https://quran.com"
+            href="https://go.alphabravomedia.co/islam-quran"
             class={`${action} mt-7 bg-[#254f39] text-white`}
           >
             Read Quran <ArrowUpRight size={18} />
@@ -168,7 +168,7 @@ const shortNames: Record<string, string> = {
             the live.
           </p>
           <a
-            href="https://quran.com"
+            href="https://go.alphabravomedia.co/islam-quran"
             class="mt-6 inline-flex min-h-12 items-center gap-5 border-b border-current pb-1 text-lg font-medium"
           >
             Read Quran online <ArrowUpRight size={20} />
@@ -202,7 +202,7 @@ const shortNames: Record<string, string> = {
             Read in English, listen, and understand.
           </p>
           <a
-            href="https://quran.com"
+            href="https://go.alphabravomedia.co/islam-quran"
             class={`${action} mt-7 bg-[#e3eed8] text-[#14271f]`}
           >
             Start reading <ArrowUpRight size={18} />
@@ -278,7 +278,7 @@ const shortNames: Record<string, string> = {
               />
             </div>
             <a
-              href="https://quran.com"
+              href="https://go.alphabravomedia.co/islam-quran"
               class={`${action} mt-8 w-full bg-[#254f39] text-white`}
             >
               Open Quran.com <ArrowUpRight size={18} />
@@ -469,10 +469,10 @@ const shortNames: Record<string, string> = {
         </a>
       )}
       <nav aria-label="Social profiles" class="mt-3 flex gap-5">
-        <a href="https://www.tiktok.com/@ayoubabedrabbo" class="py-3">
+        <a href="https://go.alphabravomedia.co/islam-tiktok" class="py-3">
           TikTok
         </a>
-        <a href="https://www.twitch.tv/ayoubabedrabbo" class="py-3">
+        <a href="https://go.alphabravomedia.co/islam-twitch" class="py-3">
           Twitch
         </a>
         <a href={youtube} class="py-3">

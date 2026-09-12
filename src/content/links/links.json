@@ -3,81 +3,81 @@
     "icon": "HeartHandshake",
     "title": "Urgent: Help Yaya Fatty — Hospital Bills (Busumbala, Gambia)",
     "description": "Yaya, 18, was struck by a car on Eid and needs urgent spinal surgery. Total cost: $2,000. Organized by Ayoub with full receipts — same family behind the water well campaign.",
-    "url": "https://www.gofundme.com/f/help-yaya-fatty-gambia",
+    "url": "https://go.alphabravomedia.co/islam-help-yaya",
     "variant": "charity"
   },
   {
     "icon": "Kofi",
     "title": "Send Ayoub a Tip on Ko-fi",
     "description": "Send a tip to financially support a Muslim brother and encourage him to continue reading Quran live and sharing Islamic reminders online.",
-    "url": "https://ko-fi.com/ayoubab1/tip",
+    "url": "https://go.alphabravomedia.co/islam-kofi",
     "variant": "support"
   },
   {
     "icon": "BookOpen",
     "title": "The Quran — Read Online",
     "description": "Read the Quran in English with audio recitation, translation, and scholarly explanations",
-    "url": "https://quran.com",
+    "url": "https://go.alphabravomedia.co/islam-quran",
     "variant": "featured"
   },
   {
     "icon": "Mail",
     "title": "Order The Clear Quran in English - FREE for non-Muslims",
     "description": "One Message Foundation offers one free English copy for non-Muslims in the USA.",
-    "url": "https://www.onemessagefoundation.com/free-quran/p/quran-english",
+    "url": "https://go.alphabravomedia.co/islam-free-clear-quran",
     "variant": "featured"
   },
   {
     "icon": "PackageOpen",
     "title": "Order The Quran Project Translation - FREE for non-Muslims",
     "description": "Easy-to-understand English translation made specifically for non-Muslims and beginners. Free for non-Muslims, with chapter introductions and appendices.",
-    "url": "https://www.quranproject.org/The-Quran-Project-1-p",
+    "url": "https://go.alphabravomedia.co/islam-quran-project",
     "variant": "featured"
   },
   {
     "icon": "Book",
     "title": "The Clear Quran English + Arabic Text (Furqaan Bookstore)",
     "description": "The exact book Ayoub reads on stream — English + Arabic side by side. Note: the spiral binding on Ayoub's copy was done locally, it does not come that way.",
-    "url": "https://furqaanbookstore.com/products/the-clear-quran-with-arabic-text-paperback",
+    "url": "https://go.alphabravomedia.co/islam-stream-quran",
     "variant": "stream-pick"
   },
   {
     "icon": "PencilLine",
     "title": "Why Islam isn't a new religion",
     "description": "Explore my Excalidraw diagram, the one I share during live sessions.",
-    "url": "https://tiny.alphabravomedia.co/97Y16"
+    "url": "https://go.alphabravomedia.co/islam-drawing-board"
   },
   {
     "icon": "Scroll",
     "title": "Riyad as-Salihin: The Meadows of the Righteous",
     "description": "Get the abridged and annotated English PDF, based on Shaykh Yusuf an-Nabhani's abridged Riyad as-Salihin and Nuzhat al-Muttaqin.",
-    "url": "https://go.alphabravomedia.co/riyad-as-salign-pdf"
+    "url": "https://go.alphabravomedia.co/islam-riyad-pdf"
   },
   {
     "icon": "Compass",
     "title": "Find a fulfilling career that does good",
     "description": "80,000 Hours' free guide to meaningful work, personal fit, and helping others through your career or donations to effective charities.",
-    "url": "https://80000hours.org/career-guide/introduction/"
+    "url": "https://go.alphabravomedia.co/islam-career-guide"
   },
   {
     "icon": "Youtube",
     "title": "The Life of Prophet Muhammad — AI Visualized",
     "description": "An animated visual journey through the biography of Prophet Muhammad (ﷺ) with enriching commentary",
-    "url": "https://youtube.com/playlist?list=PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg&si=oFs9lenNTmA0qQJW",
+    "url": "https://go.alphabravomedia.co/islam-prophet-biography",
     "youtube": "videoseries?list=PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg"
   },
   {
     "icon": "Play",
     "title": "Stories of the Prophets — Mufti Menk",
     "description": "Learn the inspiring stories of all the prophets from Adam to Muhammad (ﷺ). Be reassured by the divine guidance throughout history",
-    "url": "https://youtube.com/playlist?list=PL9821CA747E7E0674&si=z2kUMzRKa6_-eJr4",
+    "url": "https://go.alphabravomedia.co/islam-prophet-stories",
     "youtube": "videoseries?list=PL9821CA747E7E0674"
   },
   {
     "icon": "Youtube",
     "title": "How Ayoub Uses AI During TikTok Live",
     "description": "A short tutorial showing the T3 Chat setup and system prompt Ayoub uses to research Islamic questions with Quran and hadith source links.",
-    "url": "https://youtu.be/HVmHxSztp_A",
+    "url": "https://go.alphabravomedia.co/islam-ai-tutorial",
     "youtube": "HVmHxSztp_A"
   }
 ]

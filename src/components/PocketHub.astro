@@ -22,8 +22,8 @@ const articles = (
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const base = import.meta.env.BASE_URL;
 const links = (await getCollection('links')).map((entry) => entry.data);
-const youtube = 'https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ';
-const read = links.find((link) => link.url === 'https://quran.com');
+const youtube = 'https://go.alphabravomedia.co/islam-youtube';
+const read = links.find((link) => link.icon === 'BookOpen');
 const book = links.find((link) => link.variant === 'stream-pick');
 const support = links.find((link) => link.variant === 'support');
 const copies = links.filter(
@@ -77,13 +77,13 @@ const secondary = `${button} bg-secondary text-secondary-foreground hover:bg-acc
         class="mt-3 flex justify-center gap-1 text-xs font-medium"
       >
         <a
-          href="https://www.tiktok.com/@ayoubabedrabbo"
+          href="https://go.alphabravomedia.co/islam-tiktok"
           class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-secondary"
         >
           <IconBrandTiktok size={18} aria-hidden="true" /> TikTok
         </a>
         <a
-          href="https://www.twitch.tv/ayoubabedrabbo"
+          href="https://go.alphabravomedia.co/islam-twitch"
           class="inline-flex min-h-11 items-center gap-1 rounded-full px-3 hover:bg-secondary"
         >
           <IconBrandTwitch size={18} aria-hidden="true" /> Twitch
