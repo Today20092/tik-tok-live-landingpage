@@ -2,8 +2,14 @@
 import '../../styles/global.css';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
+import { getCollection } from 'astro:content';
+import ArticleList from '@/components/ArticleList.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
+import { IconLink } from '@tabler/icons-react';
 import chartImage from '../../assets/80000-hours-income-life-satisfaction.png';
+const articles = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
 export function getStaticPaths() {
   return import.meta.env.DEV || import.meta.env.LUMOS_PREVIEW === '1'
     ? [{ params: { path: undefined } }]
@@ -63,6 +69,22 @@ export function getStaticPaths() {
           Read the Quran, find a copy, and explore the links from our live
           sessions.
         </p>
+      </section>
+      <section class="reading-width">
+        <Heading variant="h2">Article list spacing</Heading>
+        <p class="text-muted">
+          Compact article lists use full text line boxes and two spacing units
+          between the title, description, and reading time, without inherited
+          prose heading margins.
+        </p>
+        <ArticleList articles={articles} heading="h3" />
+      </section>
+      <section class="reading-width typeset">
+        <h2 class="article-section-heading">
+          <span>Article heading with a section link</span>
+          <a class="control control-ghost control-icon" href="#" aria-label="Link to section"><IconLink aria-hidden="true" /></a>
+        </h2>
+        <p>Section headings use full line boxes so the link stays beside the text.</p>
       </section>
       <div class="flex-horizontal-wrap gap-3">
         <button class="control control-primary">Primary action</button>

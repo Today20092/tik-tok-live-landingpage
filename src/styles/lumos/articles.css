@@ -1,3 +1,6 @@
+.site-main:has(.article-index) + .share-page {
+  margin-top: 0;
+}
 .article-list {
   list-style-type: none;
   :where(& > :not(:last-child)) {
@@ -36,6 +39,7 @@
   }
 }
 .article-list_heading {
+  margin-block: 0;
   font-size: var(--text-2xl);
   line-height: var(--leading-snug);
   line-height: var(--leading-snug);
@@ -46,6 +50,11 @@
     font-size: var(--text-3xl);
     line-height: var(--leading-snug);
   }
+}
+/* Compact lists use full line boxes; Lumos prose trimming crowds these gaps. */
+.article-list :is(.article-list_heading, p)::before,
+.article-list :is(.article-list_heading, p)::after {
+  content: none;
 }
 .article-list_link {
   border-radius: calc(var(--radius) - 4px);
@@ -370,6 +379,7 @@
   padding-bottom: calc(var(--spacing) * 7);
 }
 .article-page {
+  width: 100%;
   margin-inline: auto;
   max-width: var(--container-3xl);
 }
