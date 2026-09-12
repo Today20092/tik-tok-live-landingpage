@@ -1,5 +1,6 @@
 ---
 import HubPage from '@/layouts/HubPage.astro';
+import SearchInput from '@/components/SearchInput';
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -42,7 +43,7 @@ const base = import.meta.env.BASE_URL;
               bundle-path={`${base}pagefind/`}
               base-url={base}
             ></pagefind-config>
-            <pagefind-input placeholder="Search articles and resources"></pagefind-input>
+            <SearchInput client:load />
             <pagefind-filter-dropdown
               filter="Type"
               label="Content type"
@@ -78,7 +79,28 @@ const base = import.meta.env.BASE_URL;
                 window.PagefindComponents.getInstanceManager().getInstance(
                   'default'
                 );
+              const input = document.getElementById('site-search-input');
+              let debounce;
+              const runSearch = () => {
+                window.clearTimeout(debounce);
+                debounce = window.setTimeout(
+                  () => search.triggerSearch(input.value),
+                  150
+                );
+              };
+              input.addEventListener('input', (event) => {
+                if (!event.isComposing) runSearch();
+              });
+              input.addEventListener('compositionend', runSearch);
+              input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && !event.isComposing) {
+                  window.clearTimeout(debounce);
+                  search.triggerSearch(input.value);
+                }
+              });
               search.on('search', (term) => {
+                if (input.value !== term) input.value = term;
+                input.dispatchEvent(new Event('search-sync'));
                 const url = new URL(window.location.href);
                 if (term) url.searchParams.set('q', term);
                 else url.searchParams.delete('q');
@@ -112,8 +134,16 @@ const base = import.meta.env.BASE_URL;
     --pf-result-excerpt-font-size: 14px;
   }
 
-  #search :global(pagefind-input),
   #search :global(pagefind-filter-dropdown) {
     --pf-border: var(--input);
+  }
+
+  /* Override Pagefind's mobile centering under the narrow filter trigger. */
+  @media (max-width: 640px) {
+    #search :global(.pf-dropdown-menu) {
+      left: 0 !important;
+      transform: none !important;
+      width: min(20rem, calc(100vw - 2.5rem)) !important;
+    }
   }
 </style>
