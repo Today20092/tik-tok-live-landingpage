@@ -28,6 +28,10 @@ Use paths relative to `public/`, with no leading slash. Keep images wide, ideall
 
 ## Typography and UI
 
+Article pages and cards show an estimated reading time at 200 words per minute, including stored Quran and hadith quotations. Article headings get copy-link controls, and unlinked images open in a shadcn image viewer. Images already inside links keep their destinations.
+
+The `recommendations` map in `src/pages/articles/[...id].astro` selects the current articles' “Read next” links. New articles default to other published articles in the same category, then newest first. Drafts are excluded.
+
 The official [shadcn Typeset](https://ui.shadcn.com/docs/typeset) stylesheet is vendored in `src/styles/typeset.css`, fetched from `https://ui.shadcn.com/typeset.css`. The `typeset-article` preset in `global.css` controls body size, line height, and spacing. Astro renders Markdown inside `typeset typeset-article`; no client-side Markdown renderer is needed.
 
 shadcn is configured in `components.json` with Tabler icons, local UI components, and Pocket's green theme tokens. The Button component is installed and used by the article navigation. Add more components when needed:

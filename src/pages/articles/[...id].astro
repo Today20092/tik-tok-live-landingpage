@@ -3,6 +3,9 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import HubPage from '@/layouts/HubPage.astro';
 import { buttonVariants } from '@/components/ui/button';
 import ArticleReadingTools from '@/components/ArticleReadingTools.astro';
+import ArticleExtras from '@/components/ArticleExtras.astro';
+import ArticleList from '@/components/ArticleList.astro';
+import { readingTime } from '@/lib/reading-time';
 import {
   IconArrowLeft,
   IconList,
@@ -25,6 +28,18 @@ interface Props {
 const { article } = Astro.props;
 const { Content, headings } = await render(article);
 const sections = headings.filter((heading) => heading.depth === 2);
+const published = await getCollection('articles', ({ data }) => !data.draft);
+const recommendations: Record<string, string[]> = {
+  '80000-hours': ['why-i-started', 'about-me'],
+  'why-i-started': ['about-me', '80000-hours'],
+  'about-me': ['why-i-started', '80000-hours'],
+};
+const related = (recommendations[article.id]
+  ? recommendations[article.id].map((id) => published.find((entry) => entry.id === id))
+      .filter((entry): entry is CollectionEntry<'articles'> => Boolean(entry))
+  : published.filter((entry) => entry.id !== article.id)
+      .sort((a, b) => Number(b.data.category === article.data.category) - Number(a.data.category === article.data.category)
+        || b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 2));
 const base = import.meta.env.BASE_URL;
 const pageTitle =
   article.id === 'about-me'
@@ -42,6 +57,7 @@ const pageTitle =
   imageAlt={article.data.cover?.alt}
 >
   <ArticleReadingTools />
+  <ArticleExtras />
   <main
     data-pagefind-body={!article.data.draft ? '' : undefined}
     data-pagefind-filter="Type:Articles"
@@ -96,10 +112,12 @@ const pageTitle =
               timeZone: 'UTC',
             })}
           </time>
+          <span data-pagefind-ignore> · About {readingTime(article.body)} min read</span>
         </p>
       </header>
       {article.data.cover && (
         <img
+          data-article-image
           src={`${base}${article.data.cover.src}`}
           alt={article.data.cover.alt}
           width="1200"
@@ -162,6 +180,12 @@ const pageTitle =
               </a>
             </div>
           </section>
+        )}
+        {related.length > 0 && (
+          <nav aria-labelledby="read-next" class="mb-8">
+            <h2 id="read-next" class="mb-5 text-xl font-semibold">Read next</h2>
+            <ArticleList articles={related} heading="h3" />
+          </nav>
         )}
         <a
           href={base}

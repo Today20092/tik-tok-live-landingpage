@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '@/lib/reading-time';
 interface Props {
   articles: CollectionEntry<'articles'>[];
   heading?: 'h2' | 'h3';
@@ -35,6 +36,7 @@ const base = import.meta.env.BASE_URL;
           <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
             {article.data.description}
           </p>
+          <p class="mt-2 text-xs text-muted-foreground">About {readingTime(article.body)} min read</p>
         </div>
       </article>
     </li>
