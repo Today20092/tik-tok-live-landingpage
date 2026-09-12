@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import console from 'node:console';
 import { readFileSync } from 'node:fs';
+import process from 'node:process';
 
-const response = await globalThis.fetch('http://127.0.0.1:4321/articles/hadith-template/');
+const response = await globalThis.fetch(`${process.env.TEST_BASE_URL ?? 'http://127.0.0.1:4321'}/articles/hadith-template/`);
 assert.equal(response.status, 200, 'Start pnpm dev before checking the hadith preview');
 const html = await response.text();
 const entries = JSON.parse(readFileSync('src/data/hadith.json', 'utf8'));

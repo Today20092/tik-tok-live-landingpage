@@ -6,8 +6,7 @@ interface Props {
   url: string;
 }
 const { title, description, url } = Astro.props;
-const button =
-  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border px-4 text-sm font-medium hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring';
+const button = 'control control-outline';
 ---
 
 <section
@@ -16,17 +15,15 @@ const button =
   data-description={description}
   data-url={url}
   data-pagefind-ignore
-  class="mx-auto mt-10 w-full max-w-5xl px-5 sm:px-8"
+  class="share-page"
   aria-labelledby="share-title"
 >
-  <div class="border-t border-border pt-6">
-    <h2 id="share-title" class="text-xl font-semibold">
+  <div class="share-page_content">
+    <h2 id="share-title" class="share-page_share-title">
       Share this page
     </h2>
-    <p class="mt-2 text-sm text-muted-foreground">
-      Know someone who would find this useful?
-    </p>
-    <div class="mt-4 flex flex-wrap gap-2">
+    <p class="share-page_intro">Know someone who would find this useful?</p>
+    <div class="share-page_actions">
       <button type="button" data-native-share class={button}>
         <IconShare size={18} aria-hidden="true" /> Share
       </button>
@@ -40,18 +37,10 @@ const button =
         <IconMail size={18} aria-hidden="true" /> Email
       </a>
     </div>
-    <p
-      data-share-status
-      role="status"
-      class="mt-2 text-sm text-muted-foreground empty:mt-0"
-    ></p>
-    <label data-share-fallback hidden class="mt-2 block text-sm">
+    <p data-share-status role="status" class="share-page_status"></p>
+    <label data-share-fallback hidden class="share-page_label">
       Copy this address
-      <input
-        readonly
-        value={url}
-        class="mt-2 block min-h-11 w-full rounded-md border border-border bg-background px-3 text-foreground"
-      />
+      <input readonly value={url} class="share-page_address" />
     </label>
   </div>
 </section>

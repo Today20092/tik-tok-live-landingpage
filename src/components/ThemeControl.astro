@@ -1,0 +1,49 @@
+---
+import { IconSun, IconMoon } from '@tabler/icons-react';
+---
+
+<button
+  class="control control-ghost control-icon"
+  type="button"
+  data-theme-control
+  aria-label="Switch color theme"
+>
+  <IconSun className="theme-icon-light" size={18} aria-hidden="true" />
+  <IconMoon className="theme-icon-dark" size={18} aria-hidden="true" />
+</button>
+<script>
+  const control = document.querySelector<HTMLButtonElement>(
+    '[data-theme-control]'
+  );
+  const updateLabel = () =>
+    control?.setAttribute(
+      'aria-label',
+      document.documentElement.classList.contains('dark')
+        ? 'Switch to light theme'
+        : 'Switch to dark theme'
+    );
+  updateLabel();
+  control?.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark');
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    try {
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    } catch {
+      /* Theme still works when storage is unavailable. */
+    }
+    updateLabel();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener(
+    'change',
+    ({ matches }) => {
+      try {
+        if (localStorage.getItem('theme')) return;
+      } catch {
+        /* Use the system setting. */
+      }
+      document.documentElement.classList.toggle('dark', matches);
+      document.documentElement.style.colorScheme = matches ? 'dark' : 'light';
+      updateLabel();
+    }
+  );
+</script>

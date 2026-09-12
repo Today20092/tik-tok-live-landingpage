@@ -30,9 +30,9 @@ assert.ok(
   !section.includes('video-layout'),
   'The layout comparison is finished'
 );
-const stories = section.indexOf('PL9821CA747E7E0674');
-const biography = section.indexOf('PLlZazEh_c4nScNCvGBn8OEf6ujk-sDUpg');
-const tutorial = section.indexOf('HVmHxSztp_A');
+const stories = section.indexOf('Stories of the Prophets - Mufti Menk');
+const biography = section.indexOf('The Life of Prophet Muhammad - AI Visualized');
+const tutorial = section.indexOf('How Ayoub Uses AI During TikTok Live');
 assert.ok(
   stories >= 0 && stories < biography && biography < tutorial,
   'Feature Mufti Menk, then the biography, then the tutorial'

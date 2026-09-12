@@ -1,5 +1,7 @@
 ---
 import HubPage from '@/layouts/HubPage.astro';
+import Section from '@/components/lumos/Section.astro';
+import Heading from '@/components/lumos/Heading.astro';
 import SearchInput from '@/components/SearchInput';
 const base = import.meta.env.BASE_URL;
 ---
@@ -10,16 +12,16 @@ const base = import.meta.env.BASE_URL;
   path="search/"
   noindex
 >
-  <main class="mx-auto w-full max-w-5xl px-5 pb-4 pt-8 sm:px-8 sm:pt-10">
+  <Section tag="main" class="page-section" paddingTop="medium" paddingBottom="small" gap="0">
     <div>
-      <header class="pb-7">
-        <h1 class="text-3xl font-semibold tracking-tight">Search the site</h1>
-        <p class="mt-3 leading-relaxed text-muted-foreground">
+      <header class="u-pb-7">
+        <Heading tag="h1" class="page-title">Search the site</Heading>
+        <p class="search_p">
           Find words and phrases in articles and reading resources.
         </p>
       </header>
       {import.meta.env.DEV ? (
-        <p class="rounded-xl border border-border p-5 text-sm">
+        <p class="search_p-2">
           Search uses the published index. Run <code>pnpm build</code>, then{' '}
           <code>pnpm preview</code> to try it.
         </p>
@@ -36,7 +38,7 @@ const base = import.meta.env.BASE_URL;
           ></script>
           <div
             id="search"
-            class="flex min-w-0 flex-col gap-4"
+            class="search_search"
             aria-label="Site search"
           >
             <pagefind-config
@@ -54,14 +56,14 @@ const base = import.meta.env.BASE_URL;
           <p
             id="search-status"
             role="status"
-            class="mt-4 text-sm text-muted-foreground"
+            class="search_search-status"
           >
             Loading search…
           </p>
           <noscript>
-            <p class="mt-4 text-sm">
+            <p class="search_p-3">
               Enable JavaScript to search, or browse{' '}
-              <a href={`${base}articles/`} class="underline">
+              <a href={`${base}articles/`} class="u-underline">
                 all articles
               </a>
               .
@@ -115,7 +117,7 @@ const base = import.meta.env.BASE_URL;
         </>
       )}
     </div>
-  </main>
+  </Section>
 </HubPage>
 
 <style>
@@ -128,8 +130,8 @@ const base = import.meta.env.BASE_URL;
     --pf-border: var(--border);
     --pf-hover: var(--secondary);
     --pf-font: var(--font-sans);
-    --pf-border-radius: 1rem;
-    --pf-input-height: 48px;
+    --pf-border-radius: var(--radius-main);
+    --pf-input-height: calc(var(--control-height) + var(--space-1));
     --pf-result-title-font-size: 18px;
     --pf-result-excerpt-font-size: 14px;
   }

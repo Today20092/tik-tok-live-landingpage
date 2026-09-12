@@ -23,7 +23,7 @@ Public assets referenced in code should use `import.meta.env.BASE_URL` or absolu
 
 ## Runtime and verification
 
-- Astro 7 static site, React 19 islands, Tailwind CSS v4, Lucide React, and Astro Content Layer collections.
+- Astro 7 static site, React 19 islands, Lumos for Astro (pinned native CSS), Lucide React, and Astro Content Layer collections.
 - Use the pinned pnpm version. Run `pnpm dev`, `pnpm check`, `pnpm lint`, `pnpm build`, and `pnpm preview`; do not create an npm lockfile.
 - Before changing Astro configuration, integrations, content APIs, or framework behavior, consult the current official Astro documentation. Astro's docs MCP is the preferred source when available; generated changes still need review and a passing build.
 - For content schemas, import `z` from `astro/zod` and collection utilities from `astro:content`/`astro/loaders`. This keeps schemas aligned with Astro's bundled Zod version.
@@ -34,9 +34,9 @@ Public assets referenced in code should use `import.meta.env.BASE_URL` or absolu
 - `src/pages/index.astro` is the main landing page and owns page metadata, structured data, section layout, hero content, social links, footer, and site-info copy.
 - `src/content/links/links.json` is the main list of cards/links shown on the page.
 - `src/content.config.ts` defines Content Layer collections and validates link content.
-- `src/components/LinkCard.tsx` renders each link card, including badges, icons, YouTube thumbnails, and card variants.
-- `src/components/ThemeToggle.tsx` controls light/dark mode.
-- `src/styles/global.css` should stay small and global: theme tokens, body/background rules, decorative background effects, SVG-specific styling, and reduced-motion behavior.
+- `src/components/PocketHub.astro` and `LearningVideos.astro` compose resource cards and learning content.
+- `src/components/ThemeControl.astro` controls light/dark mode.
+- `src/styles/global.css` imports the Lumos foundation and component styles; shared tokens and patterns live in `src/styles/lumos/`. Keep article prose in `src/styles/typeset.css`.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.
 - `astro.config.mjs` defines the production site URL, Vite plugins, and integrations.
 
@@ -58,14 +58,13 @@ Do not invent contact details. Use the existing public social profiles unless th
 
 ## Styling
 
-This site is Tailwind-first.
+This branch is the approved Lumos for Astro migration experiment. Before styling any page or component, read [the shared design system](docs/lumos-design-system.md).
 
-- Use Tailwind utility classes for layout, spacing, sizing, typography, borders, radius, shadows, transitions, responsive behavior, and component states.
-- Prefer Tailwind's spacing and sizing scale before arbitrary values.
-- Keep custom CSS limited to site-wide design tokens, body/background rules, complex decorative effects, SVG-specific styling, and cases that are clearly less readable in utilities.
-- Do not reintroduce broad semantic component CSS classes for normal UI components when Tailwind utilities can express the styling directly.
-- When modifying existing UI, preserve the Tailwind-first direction and remove obsolete CSS selectors as components are migrated.
-- Maintain the current quiet, compact landing-page feel. This is not a marketing splash page; it is a practical link hub.
+- Reuse Lumos components and shared site patterns before adding new presentation code.
+- Use the shared tokens for color, spacing, typography, reading widths, corners, and controls. Add a named variant when a treatment repeats.
+- Keep component CSS in the components layer. Keep one source of truth for shared styles and show supported variants on the development reference page.
+- Verify changes on all consuming pages in both themes, at narrow widths, with enlarged text, and with keyboard focus.
+- Preserve the quiet, compact resource-hub feel and existing content behavior.
 
 ## SEO And Audit Notes
 

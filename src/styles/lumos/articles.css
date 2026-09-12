@@ -1,0 +1,529 @@
+.article-list {
+  list-style-type: none;
+  :where(& > :not(:last-child)) {
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-top-width: calc(1px * 0);
+    border-bottom-width: calc(1px * calc(1 - 0));
+  }
+  :where(& > :not(:last-child)) {
+    border-color: var(--border);
+  }
+}
+.article-list_item {
+  position: relative;
+  padding-block: calc(var(--spacing) * 5);
+  &:first-child {
+    padding-top: 0px;
+  }
+}
+.article-list_entry {
+  display: grid;
+  gap: calc(var(--spacing) * 2);
+  @media (width >= 40rem) {
+    grid-template-columns: 8rem 1fr;
+  }
+  @media (width >= 40rem) {
+    gap: calc(var(--spacing) * 6);
+  }
+}
+.article-list_date {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--muted-foreground);
+  @media (width >= 40rem) {
+    padding-top: var(--spacing);
+  }
+}
+.article-list_heading {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  line-height: var(--leading-snug);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--foreground);
+  @media (width >= 40rem) {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
+  }
+}
+.article-list_link {
+  border-radius: calc(var(--radius) - 4px);
+  text-decoration-color: var(--primary);
+  @supports (color: color-mix(in lab, red, red)) {
+    text-decoration-color: color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+  text-underline-offset: 4px;
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      color: var(--primary);
+    }
+  }
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+  }
+  &::after {
+    content: '';
+    inset: 0px;
+  }
+  &::after {
+    content: '';
+    content: '';
+  }
+  &:focus-visible {
+    outline-style: none;
+  }
+  &:focus-visible {
+    &::after {
+      content: '';
+      border-radius: calc(var(--radius) - 4px);
+    }
+  }
+  &:focus-visible {
+    &::after {
+      content: '';
+      outline-style: solid;
+      outline-width: 2px;
+    }
+  }
+  &:focus-visible {
+    &::after {
+      content: '';
+      outline-offset: 4px;
+    }
+  }
+  &:focus-visible {
+    &::after {
+      content: '';
+      outline-color: var(--ring);
+    }
+  }
+}
+.article-list_description {
+  margin-top: calc(var(--spacing) * 2);
+  max-width: var(--container-xl);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+  color: var(--muted-foreground);
+}
+.article-list_reading-time {
+  margin-top: calc(var(--spacing) * 2);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--muted-foreground);
+}
+.quran-verse_figure {
+  margin-block: calc(var(--spacing) * 6);
+  min-width: 0px;
+  border-radius: calc(var(--radius) + 4px);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  background-color: var(--card);
+  padding-inline: calc(var(--spacing) * 5);
+  padding-block: calc(var(--spacing) * 6);
+  color: var(--card-foreground);
+  @media (width >= 40rem) {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+}
+.quran-verse_blockquote {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 5);
+}
+.quran-verse_p {
+  margin: 0px;
+  text-align: start;
+  font-family: 'Amiri Quran', serif;
+  font-size: var(--text-3xl);
+  line-height: 2.5;
+  line-height: 2.5;
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--tracking-normal);
+  overflow-wrap: normal;
+  @media (width >= 40rem) {
+    font-size: var(--text-4xl);
+    line-height: 2.5;
+  }
+}
+.quran-verse_p-2 {
+  margin: 0px;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+}
+.quran-verse_figcaption {
+  margin-top: calc(var(--spacing) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--muted-foreground);
+}
+.quran-verse_a {
+  display: inline-flex;
+  min-height: calc(var(--spacing) * 11);
+  width: fit-content;
+  align-items: center;
+  border-radius: calc(var(--radius) - 4px);
+  font-weight: var(--font-weight-medium);
+  color: var(--primary);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+.hadith-quote_figure {
+  margin-block: calc(var(--spacing) * 6);
+  min-width: 0px;
+  border-radius: calc(var(--radius) + 4px);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  background-color: var(--card);
+  padding-inline: calc(var(--spacing) * 5);
+  padding-top: calc(var(--spacing) * 6);
+  padding-bottom: calc(var(--spacing) * 3);
+  color: var(--card-foreground);
+  @media (width >= 40rem) {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+}
+.hadith-quote_blockquote {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 5);
+}
+.hadith-quote_p {
+  margin: 0px;
+  text-align: start;
+  font-family: 'Amiri Quran', serif;
+  font-size: var(--text-3xl);
+  line-height: 2.5;
+  line-height: 2.5;
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--tracking-normal);
+  overflow-wrap: normal;
+  @media (width >= 40rem) {
+    font-size: var(--text-4xl);
+    line-height: 2.5;
+  }
+}
+.hadith-quote_p-2 {
+  margin: 0px;
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+  white-space: pre-line;
+}
+.hadith-quote_figcaption {
+  margin-top: calc(var(--spacing) * 5);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: var(--border);
+  padding-top: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--muted-foreground);
+}
+.hadith-quote_div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: calc(var(--spacing) * 4);
+  row-gap: var(--spacing);
+}
+.hadith-quote_a {
+  display: inline-flex;
+  min-height: calc(var(--spacing) * 11);
+  align-items: center;
+  gap: var(--spacing);
+  border-radius: calc(var(--radius) - 4px);
+  font-weight: var(--font-weight-medium);
+  color: var(--primary);
+}
+.hadith-quote_span {
+  text-decoration-line: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 4px;
+  &:is(:where(.group):hover *) {
+    @media (hover: hover) {
+      text-decoration-color: currentcolor;
+    }
+  }
+}
+.hadith-quote_p-3 {
+  margin: 0px;
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+.hadith-quote_summary {
+  display: flex;
+  min-height: calc(var(--spacing) * 11);
+  width: fit-content;
+  cursor: pointer;
+  list-style-type: none;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  border-radius: calc(var(--radius) - 4px);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--foreground);
+    }
+  }
+}
+.hadith-quote_iconchevrondown {
+  flex-shrink: 0;
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: var(--default-transition-timing-function);
+  transition-duration: var(--default-transition-duration);
+  &:is(:where(.group):is([open], :popover-open, :open) *) {
+    rotate: 180deg;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: none;
+  }
+}
+.hadith-quote_div-2 {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  padding-bottom: var(--spacing);
+  line-height: var(--leading-relaxed);
+}
+.hadith-quote_a-2 {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--spacing);
+  border-radius: calc(var(--radius) - 4px);
+  text-underline-offset: 4px;
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+.u-m-0 {
+  margin: 0px;
+}
+.reflection_aside {
+  margin-block: calc(var(--spacing) * 6);
+  border-inline-start-style: solid;
+  border-inline-start-width: 2px;
+  border-color: var(--primary);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+  background-color: var(--secondary);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
+  }
+  padding-inline: calc(var(--spacing) * 5);
+  padding-block: calc(var(--spacing) * 4);
+}
+.reflection_p {
+  margin: 0px;
+  margin-bottom: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary);
+}
+:where(.u-space-y-3 > :not(:last-child)) {
+  margin-block-start: calc(calc(var(--spacing) * 3) * 0);
+  margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - 0));
+}
+.index_p {
+  margin-top: calc(var(--spacing) * 3);
+  color: var(--muted-foreground);
+}
+.index_p-2 {
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: var(--border);
+  padding-block: calc(var(--spacing) * 6);
+  color: var(--muted-foreground);
+}
+.u-pb-7 {
+  padding-bottom: calc(var(--spacing) * 7);
+}
+.article-page {
+  margin-inline: auto;
+  max-width: var(--container-3xl);
+}
+.article-page_breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+.article-page_header {
+  padding-top: calc(var(--spacing) * 6);
+  padding-bottom: calc(var(--spacing) * 8);
+}
+.article-page_draft {
+  margin-bottom: calc(var(--spacing) * 4);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary);
+}
+.article-page_category {
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--muted-foreground);
+}
+.article-page_description {
+  margin-top: calc(var(--spacing) * 4);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+  color: var(--muted-foreground);
+}
+.article-page_byline {
+  margin-top: calc(var(--spacing) * 4);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--muted-foreground);
+}
+.article-page_author {
+  font-weight: var(--font-weight-medium);
+  color: var(--primary);
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+}
+.article-page_cover {
+  margin-bottom: calc(var(--spacing) * 8);
+  aspect-ratio: var(--aspect-video);
+  width: 100%;
+  border-radius: calc(var(--radius) + 4px);
+  object-fit: cover;
+}
+.article-page_contents {
+  margin-bottom: calc(var(--spacing) * 8);
+  border-radius: var(--radius);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  background-color: var(--secondary);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--secondary) 60%, transparent);
+  }
+  padding-inline: calc(var(--spacing) * 5);
+}
+.article-page_contents-toggle {
+  display: flex;
+  min-height: calc(var(--spacing) * 14);
+  cursor: pointer;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: var(--font-weight-medium);
+}
+.article-page_contents-chevron {
+  margin-left: auto;
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: var(--default-transition-timing-function);
+  transition-duration: var(--default-transition-duration);
+  &:is(:where(.group):is([open], :popover-open, :open) *) {
+    rotate: 180deg;
+  }
+}
+.article-page_contents-link {
+  display: inline-flex;
+  min-height: calc(var(--spacing) * 11);
+  align-items: center;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  text-decoration-line: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 4px;
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-color: currentcolor;
+    }
+  }
+}
+.article-page_footer {
+  margin-top: calc(var(--spacing) * 10);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: var(--border);
+  padding-top: calc(var(--spacing) * 6);
+}
+.article-page_resources-title {
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: var(--font-weight-semibold);
+}
+.article-page_resources {
+  margin-top: calc(var(--spacing) * 3);
+  display: grid;
+  gap: calc(var(--spacing) * 3);
+  @media (width >= 40rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.article-page_resource {
+  display: flex;
+  min-height: calc(var(--spacing) * 16);
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 3);
+  border-radius: var(--radius);
+  background-color: var(--secondary);
+  padding: calc(var(--spacing) * 4);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: var(--font-weight-medium);
+  &:hover {
+    @media (hover: hover) {
+      background-color: var(--accent);
+    }
+  }
+}
+.article-page_related-title {
+  margin-bottom: calc(var(--spacing) * 5);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  font-weight: var(--font-weight-semibold);
+}
+.u-min-h-11 {
+  min-height: calc(var(--spacing) * 11);
+}
+.u-pb-4 {
+  padding-bottom: calc(var(--spacing) * 4);
+}
+.u-mb-6 {
+  margin-bottom: calc(var(--spacing) * 6);
+}
+.u-mb-8 {
+  margin-bottom: calc(var(--spacing) * 8);
+}

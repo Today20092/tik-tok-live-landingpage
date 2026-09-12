@@ -1,0 +1,10 @@
+@layer base, patterns, components, utilities;
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/source-sans-3/wght-italic.css';
+@import '@fontsource-variable/source-serif-4/standard.css';
+@import '@fontsource-variable/source-serif-4/standard-italic.css';
+@import './base.css' layer(base);
+@import './tokens.css' layer(base);
+@import './patterns.css' layer(patterns);
+@import './utilities.css' layer(utilities);
+@import './shared.css' layer(components);

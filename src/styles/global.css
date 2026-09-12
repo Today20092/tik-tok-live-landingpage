@@ -1,75 +1,14 @@
-@import 'tailwindcss';
-@import '@fontsource-variable/source-sans-3';
-@import '@fontsource-variable/source-sans-3/wght-italic.css';
-@import '@fontsource-variable/source-serif-4/standard.css';
-@import '@fontsource-variable/source-serif-4/standard-italic.css';
 @import './typeset.css';
-
-/* Include utilities from development-only preview routes in every CSS build. */
-@source '../pages/podcast-preview';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-.income-wellbeing-chart {
-  --income-affect: #087e95;
-  --income-life: #a56315;
-}
-
-.dark .income-wellbeing-chart {
-  --income-affect: #67d3e8;
-  --income-life: #e9b16b;
-}
+@import './lumos/index.css';
+@import './lumos/migrated.css' layer(components);
+@import './lumos/hub.css' layer(components);
+@import './lumos/articles.css' layer(components);
+@import './lumos/interactions.css' layer(components);
+@import './lumos/search.css' layer(components);
+@import './lumos/variants.css' layer(components);
+@import './lumos/shared.css' layer(components);
 
 :root {
-  color-scheme: light;
-  --background: #fbfaf6;
-  --foreground: #161918;
-  --card: #ffffff;
-  --card-foreground: #161918;
-  --popover: #ffffff;
-  --popover-foreground: #161918;
-  --primary: #335966;
-  --primary-foreground: #fbfaf6;
-  --secondary: #f4f1e8;
-  --secondary-foreground: #161918;
-  --muted: #f4f1e8;
-  --muted-foreground: #45433e;
-  --accent: #e7efee;
-  --accent-foreground: #161918;
-  --destructive: #b42318;
-  --border: #c8d1cf;
-  --input: #737875;
-  --ring: #335966;
-  --paper-shadow: #e9e6dc;
-  --paper-edge: #a7b2ad;
-  --support-hover: #f0ebe0;
-  --pattern-color: #527d84;
-  --radius: 1rem;
-}
-
-.dark {
-  color-scheme: dark;
-  --background: #14271f;
-  --foreground: #f1f5ed;
-  --card: #20392d;
-  --card-foreground: #f1f5ed;
-  --popover: #20392d;
-  --popover-foreground: #f1f5ed;
-  --primary: #c6dfbc;
-  --primary-foreground: #14271f;
-  --secondary: #2a4234;
-  --secondary-foreground: #f1f5ed;
-  --muted: #20392d;
-  --muted-foreground: #b7c9b5;
-  --accent: #2a4234;
-  --accent-foreground: #f1f5ed;
-  --border: #425b48;
-  --input: #8aa18a;
-  --ring: #c6dfbc;
-  --destructive: #ffaca6;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -103,29 +42,13 @@
   --typeset-flow: 1.4em;
 }
 
-@theme {
-  --font-sans:
-    'Source Sans 3 Variable', ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, serif;
+.income-wellbeing-chart {
+  --income-affect: #087e95;
+  --income-life: #a56315;
 }
-
-@theme inline {
-  --font-heading: var(--font-serif);
-}
-
-@layer base {
-  body {
-    @apply font-sans;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading;
-  }
+.dark .income-wellbeing-chart {
+  --income-affect: #67d3e8;
+  --income-life: #e9b16b;
 }
 
 html {

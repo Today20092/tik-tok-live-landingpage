@@ -12,7 +12,9 @@ const draft = await page('/articles/writing-your-first-article/');
 const toc = draft.match(/<nav\b[^>]*aria-labelledby="article-contents-title"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
 assert.ok(toc, 'Multi-section article needs a table of contents');
 const targets = [...toc.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
-const headings = [...draft.matchAll(/<h2\b[^>]*id="([^"]+)"[^>]*>/g)]
+const article = draft.match(/<article\b[^>]*id="article-body"[^>]*>([\s\S]*?)<\/article>/)?.[1];
+assert.ok(article, 'Article body must render');
+const headings = [...article.matchAll(/<h2\b[^>]*id="([^"]+)"[^>]*>/g)]
   .map((match) => match[1]).filter((id) => id !== 'article-contents-title');
 assert.deepEqual(targets, headings, 'Contents must match rendered h2 targets in order');
 assert.equal(targets.length, 2, 'Fixture has two major sections');

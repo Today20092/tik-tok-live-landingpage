@@ -22,14 +22,19 @@ interface Hadith {
 
 const { hadith, showArabic = true } = Astro.props;
 if (!Object.hasOwn(entries, hadith)) {
-  throw new Error(`Hadith ${hadith} has no checked text in src/data/hadith.json.`);
+  throw new Error(
+    `Hadith ${hadith} has no checked text in src/data/hadith.json.`
+  );
 }
 const entry: Hadith = entries[hadith];
 const source = new URL(entry.url);
 if (source.protocol !== 'https:') {
   throw new Error(`Hadith ${hadith} needs an HTTPS source URL.`);
 }
-if (entry.grade && (!entry.grade.text.trim() || !entry.grade.attributedTo.trim())) {
+if (
+  entry.grade &&
+  (!entry.grade.text.trim() || !entry.grade.attributedTo.trim())
+) {
   throw new Error(`Hadith ${hadith} needs both a grade and its attribution.`);
 }
 if (entry.grade && new URL(entry.grade.url).protocol !== 'https:') {
@@ -41,49 +46,56 @@ if (entry.grade && new URL(entry.grade.url).protocol !== 'https:') {
   data-not-typeset
   data-hadith={hadith}
   dir="ltr"
-  class="my-6 min-w-0 rounded-xl border border-border bg-card px-5 pt-6 pb-3 text-card-foreground sm:px-6"
+  class="hadith-quote_figure"
 >
-  <blockquote cite={entry.url} class="m-0 flex flex-col gap-5">
+  <blockquote cite={entry.url} class="hadith-quote_blockquote">
     {showArabic && entry.arabic && (
-      <p
-        lang="ar"
-        dir="rtl"
-        class="m-0 text-start font-['Amiri_Quran',serif] text-3xl leading-[2.5] font-normal tracking-normal [overflow-wrap:normal] sm:text-4xl"
-      >
+      <p lang="ar" dir="rtl" class="quotation_arabic">
         {entry.arabic}
       </p>
     )}
-    <p lang="en" dir="ltr" class="m-0 whitespace-pre-line text-lg leading-relaxed">
+    <p lang="en" dir="ltr" class="hadith-quote_p-2">
       {entry.translation}
     </p>
   </blockquote>
-  <figcaption class="mt-5 border-t border-border pt-2 text-sm text-muted-foreground">
-    <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-      <a
-        href={entry.url}
-        class="group inline-flex min-h-11 items-center gap-1 rounded-sm font-medium text-primary"
-      >
-        <span class="underline decoration-border underline-offset-4 group-hover:decoration-current">{entry.reference}</span>
-        <IconArrowUpRight size={16} aria-hidden="true" className="shrink-0" />
+  <figcaption class="hadith-quote_figcaption">
+    <div class="hadith-quote_div">
+      <a href={entry.url} class="group hadith-quote_a">
+        <span class="hadith-quote_span">{entry.reference}</span>
+        <IconArrowUpRight
+          size={16}
+          aria-hidden="true"
+          className="flex-noshrink"
+        />
       </a>
       <span data-hadith-authenticity>
-        <span class="sr-only">Authenticity: </span>
+        <span class="visually-hidden">Authenticity: </span>
         {entry.grade?.text ?? 'Authenticity not yet verified'}
       </span>
     </div>
-    {entry.excerpt && <p class="m-0 text-xs">Excerpt from the full hadith</p>}
+    {entry.excerpt && (
+      <p class="hadith-quote_p-3">Excerpt from the full hadith</p>
+    )}
     <details class="group">
-      <summary class="flex min-h-11 w-fit cursor-pointer list-none items-center gap-2 rounded-sm hover:text-foreground">
+      <summary class="hadith-quote_summary">
         Source details
-        <IconChevronDown size={16} aria-hidden="true" className="shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none" />
+        <IconChevronDown
+          size={16}
+          aria-hidden="true"
+          className="hadith-quote_iconchevrondown"
+        />
       </summary>
-      <div class="flex flex-col gap-2 pb-1 leading-relaxed">
-        {entry.narrator && <p class="m-0">Narrated by {entry.narrator}</p>}
-        <p class="m-0">Translation: {entry.translationSource}</p>
+      <div class="hadith-quote_div-2">
+        {entry.narrator && <p class="u-m-0">Narrated by {entry.narrator}</p>}
+        <p class="u-m-0">Translation: {entry.translationSource}</p>
         {entry.grade && (
-          <a href={entry.grade.url} class="inline-flex w-fit items-center gap-1 rounded-sm underline-offset-4 hover:underline">
+          <a href={entry.grade.url} class="hadith-quote_a-2">
             <span>{entry.grade.attributedTo}</span>
-            <IconArrowUpRight size={16} aria-hidden="true" className="shrink-0" />
+            <IconArrowUpRight
+              size={16}
+              aria-hidden="true"
+              className="flex-noshrink"
+            />
           </a>
         )}
       </div>
