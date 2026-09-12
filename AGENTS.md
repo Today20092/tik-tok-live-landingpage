@@ -77,3 +77,17 @@ The site has been audited with `squirrel`/squirrelscan. Keep these in mind:
 - Cloudflare Pages static hosting should use `pnpm build` with `dist` as the build output directory. Do not add a Worker deploy command such as `npx wrangler versions upload` for this static site.
 - CSP and X-Frame-Options warnings may remain hosting-level limitations unless configured in Cloudflare.
 - The site intentionally stays a single-page landing page. About, contact, and privacy information are compact sections rather than separate pages unless the owner asks otherwise.
+
+## Agent skills
+
+### Issue tracker
+
+Track issues and specs as local Markdown under `.scratch/`. Before creating, reading, or updating tickets, read `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default five triage roles. Before assigning triage status, read `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Use a single-context layout. Before exploring domain concepts or proposing architectural changes, read `docs/agents/domain.md`.
