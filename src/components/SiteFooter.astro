@@ -1,9 +1,5 @@
 ---
 const base = import.meta.env.BASE_URL;
-const aboutArticleUrl = new URL(
-  'articles/why-i-started/',
-  import.meta.env.SITE ?? 'https://islam.ayoubabed.xyz/'
-).toString();
 ---
 
 <footer
@@ -12,56 +8,61 @@ const aboutArticleUrl = new URL(
   class="mx-auto mt-10 w-full max-w-5xl px-5 pb-8 text-sm text-muted-foreground sm:px-8"
 >
   <div class="border-t border-border pt-6">
-    <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+    <div>
       <a
         href={base}
         class="inline-flex min-h-11 items-center font-serif text-base font-semibold text-foreground"
       >
         Islam with Ayoub
       </a>
-      <nav aria-label="Ayoub's social profiles" class="flex gap-5 text-xs">
-        <a
-          class="inline-flex min-h-11 items-center hover:underline"
-          href="https://www.tiktok.com/@ayoubabedrabbo"
-        >
-          TikTok
-        </a>
-        <a
-          class="inline-flex min-h-11 items-center hover:underline"
-          href="https://www.twitch.tv/ayoubabedrabbo"
-        >
-          Twitch
-        </a>
-        <a
-          class="inline-flex min-h-11 items-center hover:underline"
-          href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
-        >
-          YouTube
-        </a>
-      </nav>
+      <p class="text-sm">For anyone curious about the Quran.</p>
     </div>
-    <p class="text-xs">For anyone curious about the Quran.</p>
-    <a
-      href="https://ayoubabed.xyz/"
-      class="inline-flex min-h-11 items-center rounded-sm text-xs text-foreground underline underline-offset-4 hover:text-primary"
+    <nav
+      aria-label="Ayoub's social profiles"
+      class="mt-3 flex flex-wrap gap-x-5 text-sm"
     >
-      About Ayoub & my work
-    </a>
-    <details class="mt-2 text-xs">
-      <summary class="inline-flex min-h-11 cursor-pointer items-center underline decoration-current/30 underline-offset-4">
-        About & privacy
-      </summary>
-      <p class="max-w-lg pb-3 leading-relaxed">
-        Links shared by Ayoub during live Quran readings. Contact me through the
-        profiles above. This site has no forms, accounts, or sign-ins. Linked
-        services have their own privacy policies.
-      </p>
       <a
-        href={aboutArticleUrl}
-        class="inline-flex min-h-11 items-center underline underline-offset-4"
+        class="inline-flex min-h-11 items-center rounded-sm underline decoration-current/30 underline-offset-4 hover:text-primary"
+        href="https://www.tiktok.com/@ayoubabedrabbo"
       >
-        Why I started Islam with Ayoub
+        TikTok
       </a>
-    </details>
+      <a
+        class="inline-flex min-h-11 items-center rounded-sm underline decoration-current/30 underline-offset-4 hover:text-primary"
+        href="https://www.twitch.tv/ayoubabedrabbo"
+      >
+        Twitch
+      </a>
+      <a
+        class="inline-flex min-h-11 items-center rounded-sm underline decoration-current/30 underline-offset-4 hover:text-primary"
+        href="https://www.youtube.com/channel/UCQ5YfTwU5n_khZx-WJEkZKQ"
+      >
+        YouTube
+      </a>
+    </nav>
+    <div class="flex flex-wrap items-start gap-x-5 text-sm">
+      <a
+        href="https://ayoubabed.xyz/"
+        class="inline-flex min-h-11 items-center gap-1 rounded-sm underline decoration-current/30 underline-offset-4 hover:text-primary"
+      >
+        About Ayoub <span aria-hidden="true">↗</span>
+      </a>
+      <details class="group max-w-lg">
+        <summary class="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-sm underline decoration-current/30 underline-offset-4 hover:text-primary">
+          Site information & privacy
+          <span
+            aria-hidden="true"
+            class="transition-transform group-open:rotate-180 motion-reduce:transition-none"
+          >
+            ▾
+          </span>
+        </summary>
+        <p class="max-w-lg pb-3 leading-relaxed">
+          Links shared by Ayoub during live Quran readings. Contact me through
+          the profiles above. This site has no forms, accounts, or sign-ins.
+          Linked services have their own privacy policies.
+        </p>
+      </details>
+    </div>
   </div>
 </footer>
