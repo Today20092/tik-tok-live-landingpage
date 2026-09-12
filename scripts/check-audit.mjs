@@ -6,6 +6,9 @@ import { readFile, stat } from 'node:fs/promises';
 const dist = new URL('../dist/', import.meta.url);
 const readPage = (path) => readFile(new URL(path, dist), 'utf8');
 const canonical = 'https://islam.ayoubabed.xyz/';
+const headers = await readPage('_headers');
+assert.ok(headers.includes("'wasm-unsafe-eval'"), 'Pagefind requires CSP permission for WebAssembly');
+assert.ok(headers.includes("worker-src 'self' blob:"), 'Pagefind requires CSP permission for its worker');
 
 const courtyard = await stat(new URL('courtyard.webp', dist));
 assert.ok(courtyard.size < 1024 * 1024, 'courtyard.webp must stay below 1 MB');
