@@ -10,7 +10,7 @@ const base = import.meta.env.BASE_URL;
 
 <ol class="list-none divide-y divide-border">
   {articles.map((article) => (
-    <li class="py-5 first:pt-0">
+    <li class="group relative py-5 first:pt-0">
       <article class="grid gap-2 sm:grid-cols-[8rem_1fr] sm:gap-6">
         <time
           datetime={article.data.date.toISOString().slice(0, 10)}
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
           <Heading class="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
             <a
               href={`${base}articles/${article.id}/`}
-              class="rounded-sm decoration-primary/40 underline-offset-4 hover:text-primary hover:underline"
+              class="rounded-sm decoration-primary/40 underline-offset-4 after:absolute after:inset-0 after:content-[''] group-hover:text-primary group-hover:underline focus-visible:outline-none focus-visible:after:rounded-sm focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-ring"
             >
               {article.data.title}
             </a>
