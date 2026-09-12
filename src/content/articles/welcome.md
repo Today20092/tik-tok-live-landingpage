@@ -1,5 +1,5 @@
 ---
-title: Welcome to Live with Ayoub
+title: Welcome to Islam with Ayoub
 description: A short hello and a guide to the links from our Quran reading sessions.
 date: 2026-09-11
 category: Welcome

@@ -34,7 +34,7 @@ assert.match(
   'Card labels need word boundaries'
 );
 assert.ok(
-  !hub.content.includes('Welcome to Live with Ayoub'),
+  !hub.content.includes('Welcome to Islam with Ayoub'),
   'Article teasers must not duplicate article results'
 );
 const article = pages.find((page) => page.url === '/articles/welcome/');
@@ -42,7 +42,7 @@ assert.ok(
   article.content.includes('Eligibility and delivery depend on the provider'),
   'Full article text must be indexed'
 );
-assert.equal(article.meta.title, 'Welcome to Live with Ayoub');
+assert.equal(article.meta.title, 'Welcome to Islam with Ayoub');
 assert.deepEqual(article.filters.Type, ['Articles']);
 assert.deepEqual(hub.filters.Type, ['Resources']);
 console.log(

@@ -19,7 +19,7 @@ for (const [path, activeHref, activeKind] of pages) {
     /<header\b[^>]*data-site-header[^>]*>([\s\S]*?)<\/header>/
   )?.[1];
   assert.ok(header, `${path}: shared identity is present`);
-  assert.ok(header.includes('Live with Ayoub'), `${path}: site name`);
+  assert.ok(header.includes('Islam with Ayoub'), `${path}: site name`);
   const nav = header.match(
     /<nav\b[^>]*aria-label="Site"[^>]*>([\s\S]*?)<\/nav>/
   )?.[1];

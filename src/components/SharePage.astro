@@ -1,0 +1,102 @@
+---
+import { IconShare, IconCopy, IconMail } from '@tabler/icons-react';
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+}
+const { title, description, url } = Astro.props;
+const button =
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border px-4 text-sm font-medium hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring';
+---
+
+<section
+  data-share-page
+  data-title={title}
+  data-description={description}
+  data-url={url}
+  data-pagefind-ignore
+  class="mx-auto mt-10 w-full max-w-4xl px-5 sm:px-8"
+  aria-labelledby="share-title"
+>
+  <div class="border-t border-border pt-6">
+    <h2 id="share-title" class="text-xl font-semibold">
+      Share this page
+    </h2>
+    <p class="mt-2 text-sm text-muted-foreground">
+      Know someone who would find this useful?
+    </p>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <button type="button" data-native-share class={button}>
+        <IconShare size={18} aria-hidden="true" /> Share
+      </button>
+      <button type="button" data-copy-link class={button}>
+        <IconCopy size={18} aria-hidden="true" /> Copy link
+      </button>
+      <a
+        href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${description}\n\n${url}`)}`}
+        class={button}
+      >
+        <IconMail size={18} aria-hidden="true" /> Email
+      </a>
+    </div>
+    <p
+      data-share-status
+      role="status"
+      class="mt-2 min-h-5 text-sm text-muted-foreground"
+    ></p>
+    <label data-share-fallback hidden class="mt-2 block text-sm">
+      Copy this address
+      <input
+        readonly
+        value={url}
+        class="mt-2 block min-h-11 w-full rounded-md border border-border bg-background px-3 text-foreground"
+      />
+    </label>
+  </div>
+</section>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-share-page]')
+    .forEach((section) => {
+      const status = section.querySelector<HTMLElement>('[data-share-status]')!;
+      const fallback = section.querySelector<HTMLElement>(
+        '[data-share-fallback]'
+      )!;
+      const data = {
+        title: section.dataset.title!,
+        text: section.dataset.description!,
+        url: section.dataset.url!,
+      };
+      const copy = async () => {
+        try {
+          await navigator.clipboard.writeText(data.url);
+          status.textContent = 'Link copied.';
+          fallback.hidden = true;
+        } catch {
+          status.textContent = 'Select and copy the address below.';
+          fallback.hidden = false;
+          fallback.querySelector('input')!.select();
+        }
+      };
+      section
+        .querySelector('[data-copy-link]')!
+        .addEventListener('click', copy);
+      section
+        .querySelector('[data-native-share]')!
+        .addEventListener('click', async () => {
+          status.textContent = '';
+          if (navigator.share) {
+            try {
+              await navigator.share(data);
+              return;
+            } catch (error) {
+              if (error instanceof DOMException && error.name === 'AbortError')
+                return;
+            }
+          }
+          await copy();
+        });
+    });
+</script>

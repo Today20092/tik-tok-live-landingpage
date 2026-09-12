@@ -4,16 +4,20 @@ import VariantHub from '@/components/VariantHub.astro';
 import PocketHub from '@/components/PocketHub.astro';
 import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
+import SharePage from '@/components/SharePage.astro';
 interface Props {
   variant?: 'flow' | 'pocket' | 'journal' | 'focus';
   title?: string;
   description?: string;
   path?: string;
   noindex?: boolean;
+  publishedTime?: string;
+  image?: string;
+  imageAlt?: string;
 }
 const {
   variant = 'pocket',
-  title = 'The Clear Quran | Live with Ayoub',
+  title = 'Islam with Ayoub | Quran readings & resources',
   path = '',
   noindex = false,
 } = Astro.props;
@@ -21,7 +25,14 @@ const {
 const siteUrl = new URL(
   import.meta.env.SITE ?? 'https://islam.ayoubabed.xyz/'
 ).toString();
-const socialImageUrl = new URL('og-image.png', siteUrl).toString();
+const socialImageUrl = new URL(
+  Astro.props.image ?? 'islam-with-ayoub-share.png',
+  siteUrl
+).toString();
+const socialImageAlt =
+  Astro.props.imageAlt ??
+  'Islam with Ayoub. Quran readings, articles and resources, beside a teal clothbound book.';
+const isArticle = Boolean(Astro.props.publishedTime);
 const basePath = import.meta.env.BASE_URL;
 const canonicalUrl = new URL(path, siteUrl).toString();
 const pageDescription =
@@ -30,11 +41,18 @@ const pageDescription =
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'WebPage',
+  '@type': isArticle ? 'Article' : 'WebPage',
   name: title,
   url: canonicalUrl,
   description: pageDescription,
-  ...(path ? {} : { datePublished: '2026-05-02', dateModified: '2026-05-27' }),
+  image: socialImageUrl,
+  ...(isArticle
+    ? {
+        headline: title,
+        datePublished: Astro.props.publishedTime,
+        mainEntityOfPage: canonicalUrl,
+      }
+    : {}),
   author: {
     '@type': 'Person',
     name: 'Ayoub Abedrabbo',
@@ -64,17 +82,33 @@ const structuredData = {
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" type="application/xml" href={`${siteUrl}sitemap.xml`} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+    <meta property="og:site_name" content="Islam with Ayoub" />
+    <meta property="og:locale" content="en_US" />
+    {isArticle && (
+      <meta
+        property="article:published_time"
+        content={Astro.props.publishedTime}
+      />
+    )}
+    {isArticle && (
+      <meta property="article:author" content="https://ayoubabed.xyz/" />
+    )}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    {!Astro.props.image && (
+      <meta property="og:image:type" content="image/png" />
+    )}
+    {!Astro.props.image && <meta property="og:image:width" content="1733" />}
+    {!Astro.props.image && <meta property="og:image:height" content="907" />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <script
       is:inline
       type="application/ld+json"
@@ -102,6 +136,13 @@ const structuredData = {
           <VariantHub variant={variant} />
         )}
       </div>
+      {!noindex && (
+        <SharePage
+          title={title}
+          description={pageDescription}
+          url={canonicalUrl}
+        />
+      )}
       <SiteFooter />
     </div>
   </body>
