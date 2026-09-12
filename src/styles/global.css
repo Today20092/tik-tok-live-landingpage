@@ -88,7 +88,7 @@
   --typeset-font-body: var(--font-sans);
   --typeset-font-heading: var(--font-heading);
   --typeset-font-mono: var(--font-mono);
-  --typeset-size: 1rem;
+  --typeset-size: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
   --typeset-leading: 1.8;
   --typeset-flow: 1.4em;
 }
