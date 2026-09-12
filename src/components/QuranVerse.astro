@@ -13,6 +13,7 @@ if (!Object.hasOwn(verses, verse)) {
   );
 }
 const { arabic, translation, translator } = verses[verse];
+const excerpt = 'excerpt' in verses[verse] && verses[verse].excerpt;
 const source = `https://quran.com/${verse.replace(':', '/')}`;
 ---
 
@@ -39,7 +40,7 @@ const source = `https://quran.com/${verse.replace(':', '/')}`;
       href={source}
       class="inline-flex min-h-11 w-fit items-center rounded-sm font-medium text-primary underline underline-offset-4"
     >
-      Quran {verse} · Read on Quran.com
+      Quran {verse}{excerpt ? ' (excerpt)' : ''} · Read on Quran.com
     </a>
     <span>Translation by {translator}</span>
   </figcaption>

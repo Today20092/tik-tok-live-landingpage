@@ -48,6 +48,14 @@ When a link is free only for non-Muslims or limited by country/order quantity, s
 
 Do not invent contact details. Use the existing public social profiles unless the owner provides another contact method.
 
+### Quran and hadith in articles
+
+- Default every English Quran translation to **The Qur'an by M. A. S. Abdel Haleem**, including quotation blocks and translation-based paraphrases. Use another translation only when Ayoub explicitly selects it. If the default cannot be used, explain the constraint rather than silently substituting another translator. Hadith translations follow their own cited sources.
+- When creating or editing an article that quotes or discusses Quran verses, read [Quran passages in articles](docs/quran-in-articles.md). Use `QuranVerse` in `.mdx` for displayed verses.
+- When creating or editing an article that quotes or discusses hadith, read [Hadith quotations in articles](docs/hadith-in-articles.md). Use `HadithQuote` in `.mdx` for displayed narrations.
+- Keep paraphrases and personal reflections in prose with inline source links. Select quotation blocks where the exact passage helps the reader follow the article.
+- Before delivery, verify each displayed quotation against its source, preserve the required attribution, and complete the relevant guide's checks and mobile preview.
+
 ## Styling
 
 This site is Tailwind-first.

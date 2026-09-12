@@ -27,6 +27,12 @@ for (const key of ['61:2', '61:3']) {
   assert.ok(!figure.includes('<astro-island'), 'Passages must render without hydration');
 }
 assert.match(html, /<html lang="en">/);
+const about = readFileSync('dist/articles/about-me/index.html', 'utf8');
+const excerpt = about.match(/<figure[^>]*data-quran-verse="4:29"[^>]*>[\s\S]*?<\/figure>/)?.[0];
+assert.ok(excerpt?.includes('4:29 (excerpt)'), 'Partial verses must be labeled as excerpts');
+assert.ok(excerpt.includes(verses['4:29'].translation), 'The selected translation must render unchanged');
+assert.ok(excerpt.includes(verses['4:29'].arabic), 'The aligned Arabic excerpt must render unchanged');
+assert.ok(excerpt.includes('Saheeh International'), 'The selected translator must be credited');
 assert.ok(
   !html.includes('Compare Arabic fonts'),
   'Font comparison controls must be removed'

@@ -18,6 +18,8 @@ Before using another verse, add its exact Arabic text, translation, translator, 
 
 Use one component per ayah. For inline links in prose, use `https://quran.com/16/125` for one verse or `https://quran.com/61/2-3` for a range within a surah. Keep commentary outside the quotation.
 
+For a partial passage, set `excerpt: true` in its data record and keep the Arabic and English excerpts aligned. The component labels it as an excerpt and links to the full verse.
+
 The article's English layout stays left-to-right. shadcn's Direction provider is appropriate if we later add interactive controls in Arabic. It does not supply Quran text or a Quran font.
 
 Run `pnpm check`, `pnpm lint`, `pnpm build`, and `pnpm test:quran`. Inspect a narrow mobile preview for Arabic shaping, diacritics, line spacing, and overflow before publishing new passages.

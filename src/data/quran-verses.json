@@ -1,4 +1,17 @@
 {
+  "4:29": {
+    "arabic": "وَلَا تَقۡتُلُوٓاْ أَنفُسَكُمۡۚ إِنَّ ٱللَّهَ كَانَ بِكُمۡ رَحِيمٗا",
+    "translation": "And do not kill yourselves [or one another]. Indeed, Allah is to you ever Merciful.",
+    "translator": "Saheeh International",
+    "excerpt": true,
+    "checkedOn": "2026-09-11"
+  },
+  "4:82": {
+    "arabic": "أَفَلَا يَتَدَبَّرُونَ ٱلۡقُرۡءَانَۚ وَلَوۡ كَانَ مِنۡ عِندِ غَيۡرِ ٱللَّهِ لَوَجَدُواْ فِيهِ ٱخۡتِلَٰفٗا كَثِيرٗا",
+    "translation": "Will they not then ponder on the Qur'an? If it had been from other than Allah they would have found therein much incongruity.",
+    "translator": "Marmaduke Pickthall, The Meaning of the Glorious Koran (1930)",
+    "checkedOn": "2026-09-11"
+  },
   "61:2": {
     "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ لِمَ تَقُولُونَ مَا لَا تَفۡعَلُونَ",
     "translation": "O believers! Why do you say what you do not do?",
