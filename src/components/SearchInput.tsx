@@ -21,7 +21,7 @@ export default function SearchInput() {
   }, []);
 
   return (
-    <InputGroup className="h-12">
+    <InputGroup className="u-h-12">
       <InputGroupInput
         ref={input}
         id="site-search-input"
@@ -30,7 +30,7 @@ export default function SearchInput() {
         placeholder="Search articles and resources"
         autoComplete="off"
         enterKeyHint="search"
-        className="h-full [&::-webkit-search-cancel-button]:appearance-none"
+        className="search-input_inputgroupinput"
         onChange={(event) => setQuery(event.target.value)}
       />
       <InputGroupAddon>
@@ -40,7 +40,7 @@ export default function SearchInput() {
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-sm"
-            className="size-11"
+            className="u-size-11"
             aria-label="Clear search"
             onClick={() => {
               if (!input.current) return;

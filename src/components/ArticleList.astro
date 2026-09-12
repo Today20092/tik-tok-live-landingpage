@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { readingTime } from '@/lib/reading-time';
+import LumosHeading from './lumos/Heading.astro';
 interface Props {
   articles: CollectionEntry<'articles'>[];
   heading?: 'h2' | 'h3';
@@ -9,13 +10,13 @@ const { articles, heading: Heading = 'h2' } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<ol class="list-none divide-y divide-border">
+<ol class="article-list">
   {articles.map((article) => (
-    <li class="group relative py-5 first:pt-0">
-      <article class="grid gap-2 sm:grid-cols-[8rem_1fr] sm:gap-6">
+    <li class="group article-list_item">
+      <article class="article-list_entry">
         <time
           datetime={article.data.date.toISOString().slice(0, 10)}
-          class="text-xs text-muted-foreground sm:pt-1"
+          class="article-list_date"
         >
           {article.data.date.toLocaleDateString('en-US', {
             month: 'short',
@@ -25,18 +26,18 @@ const base = import.meta.env.BASE_URL;
           })}
         </time>
         <div>
-          <Heading class="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+          <LumosHeading tag={Heading} variant="h2" class="article-list_heading">
             <a
               href={`${base}articles/${article.id}/`}
-              class="rounded-sm decoration-primary/40 underline-offset-4 after:absolute after:inset-0 after:content-[''] group-hover:text-primary group-hover:underline focus-visible:outline-none focus-visible:after:rounded-sm focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-ring"
+              class="article-list_link"
             >
               {article.data.title}
             </a>
-          </Heading>
-          <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            {article.data.description}
+          </LumosHeading>
+          <p class="article-list_description">{article.data.description}</p>
+          <p class="article-list_reading-time">
+            About {readingTime(article.body)} min read
           </p>
-          <p class="mt-2 text-xs text-muted-foreground">About {readingTime(article.body)} min read</p>
         </div>
       </article>
     </li>

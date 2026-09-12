@@ -21,26 +21,20 @@ const source = `https://quran.com/${verse.replace(':', '/')}`;
   data-not-typeset
   data-quran-verse={verse}
   dir="ltr"
-  class="my-6 min-w-0 rounded-xl border border-border bg-card px-5 py-6 text-card-foreground sm:px-6"
+  class="quran-verse_figure"
 >
-  <blockquote cite={source} class="m-0 flex flex-col gap-5">
-    <p
-      lang="ar"
-      dir="rtl"
-      class="m-0 text-start font-['Amiri_Quran',serif] text-3xl leading-[2.5] font-normal tracking-normal [overflow-wrap:normal] sm:text-4xl"
-    >
+  <blockquote cite={source} class="quran-verse_blockquote">
+    <p lang="ar" dir="rtl" class="quotation_arabic">
       {arabic}
     </p>
-    <p lang="en" dir="ltr" class="m-0 text-base leading-relaxed">
+    <p lang="en" dir="ltr" class="quran-verse_p-2">
       {translation}
     </p>
   </blockquote>
-  <figcaption class="mt-5 flex flex-col gap-1 text-sm text-muted-foreground">
-    <a
-      href={source}
-      class="inline-flex min-h-11 w-fit items-center rounded-sm font-medium text-primary underline underline-offset-4"
-    >
-      Quran {verse}{excerpt ? ' (excerpt)' : ''} · Read on Quran.com
+  <figcaption class="quran-verse_figcaption">
+    <a href={source} class="quran-verse_a">
+      Quran {verse}
+      {excerpt ? ' (excerpt)' : ''} · Read on Quran.com
     </a>
     <span>Translation by {translator}</span>
   </figcaption>

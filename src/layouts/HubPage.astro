@@ -73,10 +73,34 @@ const structuredData = {
 
 <html lang="en">
   <head>
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('theme');
+        const dark = saved === 'dark';
+        document.documentElement.classList.toggle('dark', dark);
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+      } catch {
+        /* The default palette remains usable without storage. */
+      }
+    </script>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href={`${basePath}favicon.ico`} />
-    <link rel="icon" type="image/svg+xml" sizes="any" href={`${basePath}favicon.svg`} />
-    <link rel="apple-touch-icon" sizes="180x180" href={`${basePath}apple-touch-icon.png`} />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32 48x48"
+      href={`${basePath}favicon.ico`}
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      sizes="any"
+      href={`${basePath}favicon.svg`}
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={`${basePath}apple-touch-icon.png`}
+    />
     <link rel="manifest" href={`${basePath}site.webmanifest`} />
     <meta name="theme-color" content="#335966" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -121,18 +145,12 @@ const structuredData = {
     ></script>
   </head>
   <body>
-    <div
-      data-site-shell
-      class="relative isolate flex min-h-dvh flex-col bg-background text-foreground"
-    >
-      <a
-        href="#main-content"
-        class="fixed left-3 top-3 z-50 -translate-y-24 rounded-md bg-primary px-5 py-3 text-primary-foreground focus:translate-y-0"
-      >
+    <div data-site-shell class="site-shell">
+      <a href="#main-content" class="skip-link">
         Skip to content
       </a>
       <SiteHeader />
-      <div id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
+      <div id="main-content" tabindex="-1" class="site-main">
         {Astro.slots.has('default') ? (
           <slot />
         ) : variant === 'pocket' ? (

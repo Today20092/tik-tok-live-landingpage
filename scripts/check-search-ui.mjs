@@ -1,4 +1,4 @@
-/* global document */
+/* global document, getComputedStyle, localStorage */
 import assert from 'node:assert/strict';
 import console from 'node:console';
 import { createRequire } from 'node:module';
@@ -11,11 +11,14 @@ const { chromium } = createRequire(import.meta.url)(
 );
 const browser = await chromium.launch();
 try {
-  for (const width of [320, 390, 640, 1280]) {
-    const page = await browser.newPage({ viewport: { width, height: 844 } });
+  for (const { width, theme } of [320, 390, 640, 1280].flatMap(width => ['light', 'dark'].map(theme => ({ width, theme })))) {
+    const page = await browser.newPage({ viewport: { width, height: 844 }, colorScheme: theme });
+    await page.addInitScript(theme => localStorage.setItem('theme', theme), theme);
     const errors = [];
     page.on('pageerror', (error) => errors.push(error.message));
-    await page.goto('http://127.0.0.1:4321/search/?q=Islam');
+    await page.goto(
+      `${process.env.TEST_BASE_URL || 'http://127.0.0.1:4321'}/search/?q=Islam`
+    );
     await page
       .locator('astro-island[component-export="default"]:not([ssr])')
       .first()
@@ -28,13 +31,19 @@ try {
       exact: true,
     });
     await page.waitForFunction(
-      () => document.querySelectorAll('.pf-result-link').length === 3
+      () => document.querySelectorAll('.pf-result-link').length === 4
     );
     assert.equal(
       await input.inputValue(),
       'Islam',
       'Shared URL restores the field'
     );
+    await input.focus();
+    const fieldStyle = await input.evaluate(element => {
+      const style = getComputedStyle(element);
+      return { border: style.borderTopWidth, radius: style.borderRadius, background: style.backgroundColor };
+    });
+    assert.deepEqual(fieldStyle, { border: '0px', radius: '0px', background: 'rgba(0, 0, 0, 0)' }, 'The input group owns the border and focus treatment, not the inner field');
     await clear.click();
     assert.equal(await input.inputValue(), '');
     await page.waitForURL((url) => !url.searchParams.has('q'));
@@ -52,14 +61,14 @@ try {
     );
     await page.getByRole('option', { name: /Articles/ }).click();
     await page.waitForFunction(
-      () => document.querySelectorAll('.pf-result-link').length === 2
+      () => document.querySelectorAll('.pf-result-link').length === 3
     );
     await page.keyboard.press('Escape');
     await page
       .getByRole('button', { name: 'Clear Content type', exact: true })
       .click();
     await page.waitForFunction(
-      () => document.querySelectorAll('.pf-result-link').length === 3
+      () => document.querySelectorAll('.pf-result-link').length === 4
     );
     await input.fill('zzzznonexistentword');
     await page.waitForURL(
@@ -70,7 +79,7 @@ try {
     );
     assert.deepEqual(errors, [], 'No browser errors');
     console.log(
-      `${width}px: URL, typing, clear, filters, empty results, and layout passed`
+      `${width}px ${theme}: URL, typing, clear, filters, empty results, and layout passed`
     );
     await page.close();
   }

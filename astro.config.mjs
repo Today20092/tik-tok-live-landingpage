@@ -2,7 +2,6 @@
 import { URL } from 'node:url';
 import { defineConfig } from 'astro/config';
 
-import tailwindcss from '@tailwindcss/vite';
 
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -10,6 +9,7 @@ import mdx from '@astrojs/mdx';
 
 const excludedFromSitemap = new Set([
   '/search/',
+  '/lumos-preview/',
   '/kofi-preview/',
   '/podcast-preview/',
 ]);
@@ -26,7 +26,6 @@ export default defineConfig({
     server: {
       allowedHosts: ['desktop-ayoub.cuttlefish-coho.ts.net'],
     },
-    plugins: [tailwindcss()],
   },
 
   integrations: [

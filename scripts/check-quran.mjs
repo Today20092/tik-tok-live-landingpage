@@ -23,7 +23,8 @@ for (const key of ['16:125', '61:2', '61:3']) {
   assert.ok(
     figure.includes(`href="https://quran.com/${key.replace(':', '/')}"`)
   );
-  assert.ok(figure.includes('Amiri_Quran'), 'Passages must use Amiri Quran');
+  assert.ok(figure.includes('quotation_arabic'), 'Passages must use the shared Arabic typography');
+  assert.match(readFileSync('src/styles/lumos/shared.css', 'utf8'), /\.quotation_arabic\s*\{[^}]*font-family:\s*'Amiri Quran',\s*serif/, 'Shared Arabic typography must use Amiri Quran');
   assert.ok(!figure.includes('<astro-island'), 'Passages must render without hydration');
 }
 assert.match(html, /<html lang="en">/);

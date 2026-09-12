@@ -1,0 +1,99 @@
+---
+import '../../styles/global.css';
+import Section from '@/components/lumos/Section.astro';
+import Heading from '@/components/lumos/Heading.astro';
+import ArticleImageViewer from '@/components/ArticleImageViewer';
+import chartImage from '../../assets/80000-hours-income-life-satisfaction.png';
+export function getStaticPaths() {
+  return import.meta.env.DEV || import.meta.env.LUMOS_PREVIEW === '1'
+    ? [{ params: { path: undefined } }]
+    : [];
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Lumos design reference | Islam with Ayoub</title>
+  </head>
+  <body>
+    <Section>
+      <Heading tag="h1">One system, across the site</Heading>
+      <p class="text-muted">
+        Development reference for the Lumos migration experiment.
+      </p>
+      <div class="reference-grid">
+        <section class="reference-panel theme-light">
+          <Heading variant="h3">Resource card · light</Heading>
+          <a
+            class="resource-card resource-card-primary"
+            href="https://go.alphabravomedia.co/islam-quran"
+          >
+            <span class="resource-card_content">
+              <span class="resource-card_title">Read Quran in English</span>
+              <span class="resource-card_description">
+                Free translation & audio on Quran.com
+              </span>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+        <section class="reference-panel theme-dark">
+          <Heading variant="h3">Resource card · dark</Heading>
+          <a
+            class="resource-card"
+            href="https://go.alphabravomedia.co/islam-youtube"
+          >
+            <span class="resource-card_content">
+              <span class="resource-card_title">Watch the recordings</span>
+              <span class="resource-card_description">
+                Catch up with Ayoub on YouTube
+              </span>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+      </div>
+      <section class="reading-width">
+        <Heading variant="h2">Articles & understanding</Heading>
+        <p class="text-muted">Reading notes and explanations from the live.</p>
+        <p class="text-style-main">
+          Read the Quran, find a copy, and explore the links from our live
+          sessions.
+        </p>
+      </section>
+      <div class="flex-horizontal-wrap gap-3">
+        <button class="control control-primary">Primary action</button>
+        <button class="control control-outline">Secondary action</button>
+        <button class="control control-ghost">Quiet action</button>
+        <button class="control control-primary" disabled>
+          Disabled action
+        </button>
+      </div>
+      <a class="control control-outline" href={import.meta.env.BASE_URL}>
+        Open the site
+      </a>
+      <section class="reference-panel theme-dark">
+        <Heading variant="h3">Intentional theme and layout variants</Heading>
+        <p>Focus keeps light text over its dark photo overlay. Journal uses the secondary surface. Both surrounding layouts follow the selected site theme. Ko-fi preview samples retain Ko-fi's orange brand colors.</p>
+      </section>
+      <section class="reading-width">
+        <Heading variant="h2">Image viewer</Heading>
+        <p class="text-muted">
+          The viewer uses a wider dialog for images. Its controls share the
+          site's size, focus, and corner tokens.
+        </p>
+        <img
+          data-article-image
+          src={chartImage.src}
+          width={chartImage.width}
+          height={chartImage.height}
+          alt="Income and life satisfaction chart for testing the image viewer"
+        />
+        <ArticleImageViewer client:load />
+      </section>
+    </Section>
+  </body>
+</html>

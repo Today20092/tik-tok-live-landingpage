@@ -2,59 +2,121 @@
 import HubPage from '@/layouts/HubPage.astro';
 const base = import.meta.env.BASE_URL;
 const url = 'https://go.alphabravomedia.co/islam-kofi';
-const logo = 'https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01229bf8a18f97a3c1_favion.avif';
-const button = 'inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-85';
+const logo =
+  'https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01229bf8a18f97a3c1_favion.avif';
+const button = 'kofi-preview_button';
 ---
 
 <HubPage title="Ko-fi options | Islam with Ayoub" path="kofi-preview/" noindex>
-  <main class="min-h-dvh bg-background px-5 py-10 font-sans text-foreground">
-    <div class="mx-auto max-w-6xl">
-      <a href={base} class="inline-flex min-h-11 items-center text-sm underline underline-offset-4">Back to the homepage</a>
-      <h1 class="mt-5 text-3xl font-semibold tracking-tight">Choose a support card</h1>
-      <p class="mt-3 max-w-xl text-muted-foreground">Four options for the space above your footer. Each button opens your Ko-fi page.</p>
-      <div class="mt-10 grid items-start gap-10 lg:grid-cols-2">
+  <main class="kofi-preview_main">
+    <div class="kofi-preview_div">
+      <a href={base} class="kofi-preview_a">
+        Back to the homepage
+      </a>
+      <h1 class="kofi-preview_h1">Choose a support card</h1>
+      <p class="kofi-preview_p">
+        Four options for the space above your footer. Each button opens your
+        Ko-fi page.
+      </p>
+      <div class="kofi-preview_div-2">
         <section>
-          <h2 class="mb-4 text-sm font-semibold">A. Soft orange · Recommended</h2>
-          <div class="rounded-3xl border border-[#f3cbbb] bg-[#fff1eb] p-6 text-[#202020]">
-            <img src={logo} alt="Ko-fi" width="48" height="48" class="size-12 object-contain" />
-            <h3 class="mt-4 text-xl font-semibold">Support the live</h3>
-            <p class="mt-2 text-sm leading-relaxed">Help support these Quran reading sessions.</p>
-            <a href={url} class={`${button} mt-5 w-full bg-[#ff6433] text-[#202020]`}>Support on Ko-fi</a>
+          <h2 class="kofi-preview_h2">A. Soft orange · Recommended</h2>
+          <div class="kofi-preview_div-3">
+            <img
+              src={logo}
+              alt="Ko-fi"
+              width="48"
+              height="48"
+              class="kofi-preview_img"
+            />
+            <h3 class="kofi-preview_h3">Support the live</h3>
+            <p class="kofi-preview_p-2">
+              Help support these Quran reading sessions.
+            </p>
+            <a href={url} class={`${button} kofi-preview_a-2`}>
+              Support on Ko-fi
+            </a>
           </div>
-          <p class="mt-3 text-sm text-muted-foreground">A clear accent that still feels calm beside your green links.</p>
+          <p class="kofi-preview_p-3">
+            A clear accent that still feels calm beside your green links.
+          </p>
         </section>
         <section>
-          <h2 class="mb-4 text-sm font-semibold">B. Full orange</h2>
-          <div class="rounded-3xl bg-[#ff6433] p-6 text-[#202020]">
-            <img src={logo} alt="Ko-fi" width="48" height="48" class="size-12 object-contain" />
-            <h3 class="mt-4 text-xl font-semibold">Support the live</h3>
-            <p class="mt-2 text-sm leading-relaxed">Help support these Quran reading sessions.</p>
-            <a href={url} class={`${button} mt-5 w-full bg-[#202020] text-white`}>Support on Ko-fi</a>
+          <h2 class="kofi-preview_h2">B. Full orange</h2>
+          <div class="kofi-preview_div-4">
+            <img
+              src={logo}
+              alt="Ko-fi"
+              width="48"
+              height="48"
+              class="kofi-preview_img"
+            />
+            <h3 class="kofi-preview_h3">Support the live</h3>
+            <p class="kofi-preview_p-2">
+              Help support these Quran reading sessions.
+            </p>
+            <a href={url} class={`${button} kofi-preview_a-3`}>
+              Support on Ko-fi
+            </a>
           </div>
-          <p class="mt-3 text-sm text-muted-foreground">The most noticeable option. Best if support should stand out strongly.</p>
+          <p class="kofi-preview_p-3">
+            The most noticeable option. Best if support should stand out
+            strongly.
+          </p>
         </section>
         <section>
-          <h2 class="mb-4 text-sm font-semibold">C. Compact outline</h2>
-          <a href={url} class="flex min-h-24 items-center gap-4 rounded-3xl border-2 border-[#ff6433] bg-card p-5 text-card-foreground transition-colors hover:bg-secondary">
-            <img src={logo} alt="" width="48" height="48" class="size-12 shrink-0 object-contain" />
-            <span class="flex-1"><span class="block text-base font-semibold">Support the live on Ko-fi</span><span class="mt-1 block text-sm text-muted-foreground">Help support these Quran reading sessions.</span></span>
+          <h2 class="kofi-preview_h2">C. Compact outline</h2>
+          <a href={url} class="kofi-preview_a-4">
+            <img
+              src={logo}
+              alt=""
+              width="48"
+              height="48"
+              class="kofi-preview_img-2"
+            />
+            <span class="flex-grow">
+              <span class="kofi-preview_span">Support the live on Ko-fi</span>
+              <span class="kofi-preview_span-2">
+                Help support these Quran reading sessions.
+              </span>
+            </span>
           </a>
-          <p class="mt-3 text-sm text-muted-foreground">Keeps the page short. The whole row is clickable.</p>
+          <p class="kofi-preview_p-3">
+            Keeps the page short. The whole row is clickable.
+          </p>
         </section>
         <section>
-          <h2 class="mb-4 text-sm font-semibold">D. Green with an orange button</h2>
-          <div class="rounded-3xl bg-[#254f39] p-6 text-[#f7f9f5]">
-            <div class="flex items-center gap-3">
-              <img src={logo} alt="Ko-fi" width="40" height="40" class="size-10 object-contain" />
-              <h3 class="text-xl font-semibold">Support the live</h3>
+          <h2 class="kofi-preview_h2">D. Green with an orange button</h2>
+          <div class="kofi-preview_div-5">
+            <div class="kofi-preview_div-6">
+              <img
+                src={logo}
+                alt="Ko-fi"
+                width="40"
+                height="40"
+                class="kofi-preview_img-3"
+              />
+              <h3 class="kofi-preview_h3-2">Support the live</h3>
             </div>
-            <p class="mt-3 text-sm leading-relaxed text-[#e1eadc]">Help support these Quran reading sessions.</p>
-            <a href={url} class={`${button} mt-5 w-full bg-[#ff6433] text-[#202020]`}>Support on Ko-fi</a>
+            <p class="kofi-preview_p-4">
+              Help support these Quran reading sessions.
+            </p>
+            <a href={url} class={`${button} kofi-preview_a-2`}>
+              Support on Ko-fi
+            </a>
           </div>
-          <p class="mt-3 text-sm text-muted-foreground">Closest to your existing palette, with color focused on the action.</p>
+          <p class="kofi-preview_p-3">
+            Closest to your existing palette, with color focused on the action.
+          </p>
         </section>
       </div>
-      <p class="mt-10 text-xs text-muted-foreground">Logo and orange from the <a href="https://more.ko-fi.com/brand-assets" class="underline underline-offset-4">official Ko-fi creator kit</a>.</p>
+      <p class="kofi-preview_p-5">
+        Logo and orange from the{' '}
+        <a href="https://more.ko-fi.com/brand-assets" class="kofi-preview_a-5">
+          official Ko-fi creator kit
+        </a>
+        .
+      </p>
     </div>
   </main>
 </HubPage>
