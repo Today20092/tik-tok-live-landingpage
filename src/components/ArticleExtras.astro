@@ -5,7 +5,7 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
 ---
 
 <template id="section-link-template">
-  <a data-pagefind-ignore class={buttonVariants({ variant: 'ghost', size: 'icon', className: 'ml-2 min-h-11 min-w-11 align-middle' })}>
+  <a data-pagefind-ignore class={buttonVariants({ variant: 'ghost', size: 'icon', className: 'size-11 text-muted-foreground no-underline' })}>
     <IconLink aria-hidden="true" />
   </a>
 </template>
@@ -43,7 +43,11 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
           status.textContent = 'Copy this section’s address from your browser address bar.';
         }
       });
-      heading.append(link);
+      const text = document.createElement('span');
+      text.className = 'min-w-0';
+      text.append(...heading.childNodes);
+      heading.classList.add('grid', 'grid-cols-[minmax(0,1fr)_auto]', 'items-start', 'gap-x-2');
+      heading.replaceChildren(text, link);
     });
   }
 
