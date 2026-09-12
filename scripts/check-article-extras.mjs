@@ -6,7 +6,7 @@ import { readingTime } from '../src/lib/reading-time.ts';
 
 assert.equal(readingTime(''), 1);
 assert.equal(readingTime('word '.repeat(401)), 3);
-assert.equal(readingTime('word '.repeat(190) + '\n<QuranVerse id="2:261" />'), 2, 'Include displayed scripture in the estimate');
+assert.equal(readingTime('word '.repeat(190) + '\n<QuranVerse verse="2:261" />'), 2, 'Include displayed scripture in the estimate');
 assert.equal(readingTime('Read [this](https://example.com/' + 'path/'.repeat(500) + ')'), 1, 'Do not count link destinations');
 const root = new URL('../dist/articles/', import.meta.url);
 for (const dir of readdirSync(root, { withFileTypes: true }).filter((entry) => entry.isDirectory())) {

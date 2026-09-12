@@ -10,6 +10,16 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.income-wellbeing-chart {
+  --income-affect: #087e95;
+  --income-life: #a56315;
+}
+
+.dark .income-wellbeing-chart {
+  --income-affect: #67d3e8;
+  --income-life: #e9b16b;
+}
+
 :root {
   color-scheme: light;
   --background: #fbfaf6;

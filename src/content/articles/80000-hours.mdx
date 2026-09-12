@@ -7,6 +7,7 @@ draft: false
 ---
 
 import QuranVerse from '@/components/QuranVerse.astro';
+import IncomeWellbeingCharts from '@/components/IncomeWellbeingCharts';
 import HadithQuote from '@/components/HadithQuote.astro';
 
 If you're a young Muslim, especially if you come from an Arab family, I really encourage you to read the 80,000 Hours career guide before you choose your college major.
@@ -41,9 +42,19 @@ The guide gives a useful example of diminishing returns. In the US survey it dis
 
 That's an approximately logarithmic relationship: each doubling of income is associated with a similar increase in life satisfaction, so each extra dollar brings a smaller gain. These are historical US household figures in 2009 dollars, not a current salary target or a guarantee about what a pay rise will do for you. But they give you a reason to look carefully at what you're giving up for higher pay.
 
-![Three approximate examples: annual pre-tax household income of $40,000, $80,000 and $160,000 corresponds to life satisfaction of 6.5, 7 and 7.5 out of 10.](../../assets/80000-hours-income-life-satisfaction.png)
+The part I care about even more is **positive affect**: the positive feelings people experience in everyday life. In this study, researchers combined reports of happiness, enjoyment, and smiling or laughter the previous day. Life satisfaction asks you to evaluate your life overall. Positive affect gets closer to what I mean when I ask, "Am I actually enjoying my days?"
 
-Historical US household income in 2009 dollars. Approximate examples from the [80,000 Hours career guide](https://80000hours.org/career-guide/dream-job/#dont-chase-the-money), not a current salary target or a prediction of an individual's happiness.
+That matters to me when choosing a career. A salary or a respected title might make me feel successful when I look at my life on paper. But I also want to care about the work and feel good during the days I spend doing it. Both measures matter; for this question, everyday experience is the one I want young people to pay more attention to.
+
+<IncomeWellbeingCharts client:visible />
+
+Look at the highlighted line around $50,000, $60,000, and $70,000. It's already much flatter than at lower incomes. Reading the guide's figure approximately, positive affect is around 85% at $40,000 and around 90% at the highest income shown. The older study found it largely levelled off around $75,000, even while life satisfaction kept rising. Those percentages describe average positive responses to the survey questions, not how happy your life is out of 100.
+
+I wouldn't treat $75,000 as a magic cutoff. These are historical household incomes, and newer research changes the picture. A [2021 study](https://doi.org/10.1073/pnas.2016976118), based on about 1.7 million real-time reports from 33,391 employed US adults, found that everyday emotional wellbeing and life satisfaction kept rising above $75,000. The relationship was approximately logarithmic. Each doubling of income was associated with a similar increase in wellbeing, so each extra dollar mattered less at higher incomes.
+
+In [2023](https://doi.org/10.1073/pnas.2208661120), researchers from the earlier conflicting studies worked together to reanalyze the data. A plateau around $100,000 appeared mainly among the least happy 15 to 20%. For happier people, wellbeing kept rising with income, and the relationship became steeper above $100,000 for the happiest group. They also found that the older study's yes/no questions couldn't distinguish degrees of happiness well.
+
+So more money can improve wellbeing, but doubling your salary doesn't double your happiness. These studies show associations, not a guarantee that taking a higher-paying job will make you happier. I want young people to consider salary alongside the work itself, their lifestyle, and the good they can do.
 
 For me, the practical question is whether the extra pay is worth what a particular job asks of you.
 
@@ -116,7 +127,8 @@ I dictated my thoughts using speech-to-text. AI helped me clarify them through f
 ### Career guidance and giving
 
 - [80,000 Hours career guide](https://80000hours.org/career-guide/), free to read online.
-- [What makes for a dream job?](https://80000hours.org/career-guide/dream-job/), including the income and life-satisfaction discussion used for the chart.
+- [What makes for a dream job?](https://80000hours.org/career-guide/dream-job/), including the life-satisfaction and positive-affect figures used for the charts.
+- [Kahneman and Deaton's 2010 study](https://www.princeton.edu/~deaton/downloads/deaton_kahneman_high_income_improves_evaluation_August2010.pdf), the original survey analysis, and the [2023 follow-up](https://doi.org/10.1073/pnas.2208661120) on income and emotional wellbeing.
 - [How anyone can have an impact](https://80000hours.org/career-guide/how-anyone-can-have-an-impact/), including giving without changing careers.
 - [GiveWell's recommended charities](https://www.givewell.org/charities/top-charities), with research on malaria prevention and other programs.
 - <a href="https://amzn.to/4A7XnBB" rel="sponsored">80,000 Hours paperback on Amazon</a>, an affiliate link. As an Amazon Associate, I earn from qualifying purchases.

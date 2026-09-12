@@ -3,7 +3,7 @@ import hadith from '../data/hadith.json' with { type: 'json' };
 
 export function readingTime(body = ''): number {
   const text = body
-    .replace(/<(QuranVerse|HadithQuote)\s+[^>]*id="([^"]+)"[^>]*\/>/g,
+    .replace(/<(QuranVerse|HadithQuote)\s+[^>]*(?:verse|hadith)="([^"]+)"[^>]*\/>/g,
       (_, component: string, id: string) => {
         const entries: Record<string, { arabic?: string; translation: string }> =
           component === 'QuranVerse' ? verses : hadith;
