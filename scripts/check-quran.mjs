@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 
 const html = readFileSync('dist/articles/why-i-started/index.html', 'utf8');
 const verses = JSON.parse(readFileSync('src/data/quran-verses.json', 'utf8'));
-for (const key of ['61:2', '61:3']) {
+for (const key of ['16:125', '61:2', '61:3']) {
   const figure = html.match(
     new RegExp(`<figure[^>]*data-quran-verse="${key}"[^>]*>[\\s\\S]*?</figure>`)
   )?.[0];
