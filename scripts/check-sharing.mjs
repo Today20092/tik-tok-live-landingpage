@@ -10,7 +10,7 @@ const read = (path) =>
 for (const path of [
   '',
   'articles/',
-  'articles/welcome/',
+  'articles/about-me/',
   'articles/why-i-started/',
 ]) {
   const html = read(`dist/${path}index.html`);
@@ -59,7 +59,7 @@ for (const mode of [
     dataset: {
       title: 'Article',
       description: 'Description',
-      url: 'https://islam.ayoubabed.xyz/articles/welcome/',
+      url: 'https://islam.ayoubabed.xyz/articles/about-me/',
     },
     querySelector: (selector) =>
       selector === '[data-share-status]'

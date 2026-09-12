@@ -7,7 +7,7 @@ const pages = [
   ['index.html', '/', 'page'],
   ['articles/index.html', '/articles/', 'page'],
   ['articles/why-i-started/index.html', '/articles/', 'location'],
-  ['articles/welcome/index.html', '/articles/', 'location'],
+  ['articles/about-me/index.html', '/articles/', 'location'],
   ['search/index.html', '/search/', 'page'],
 ];
 for (const [path, activeHref, activeKind] of pages) {

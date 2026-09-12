@@ -16,6 +16,4 @@ const headings = [...draft.matchAll(/<h2\b[^>]*id="([^"]+)"[^>]*>/g)]
   .map((match) => match[1]).filter((id) => id !== 'article-contents-title');
 assert.deepEqual(targets, headings, 'Contents must match rendered h2 targets in order');
 assert.equal(targets.length, 2, 'Fixture has two major sections');
-const welcome = await page('/articles/welcome/');
-assert.ok(!welcome.includes('article-contents-title'), 'Short welcome needs no table of contents');
 console.log('Table of contents checks passed.');

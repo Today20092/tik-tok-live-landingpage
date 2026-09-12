@@ -34,15 +34,16 @@ assert.match(
   'Card labels need word boundaries'
 );
 assert.ok(
-  !hub.content.includes('Welcome to Islam with Ayoub'),
+  !hub.content.includes('About me'),
   'Article teasers must not duplicate article results'
 );
-const article = pages.find((page) => page.url === '/articles/welcome/');
+assert.ok(!pages.some((page) => page.url === '/articles/welcome/'), 'Removed example must stay out of search');
+const article = pages.find((page) => page.url === '/articles/about-me/');
 assert.ok(
-  article.content.includes('Eligibility and delivery depend on the provider'),
+  article.content.includes('Growing up with questions'),
   'Full article text must be indexed'
 );
-assert.equal(article.meta.title, 'Welcome to Islam with Ayoub');
+assert.equal(article.meta.title, 'About me');
 assert.deepEqual(article.filters.Type, ['Articles']);
 assert.deepEqual(hub.filters.Type, ['Resources']);
 console.log(
