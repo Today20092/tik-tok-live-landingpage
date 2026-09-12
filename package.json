@@ -6,6 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "icons:generate": "node scripts/generate-favicons.mjs",
+    "test:favicons": "node scripts/check-favicons.mjs",
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
     "test:search": "node scripts/check-search.mjs",
@@ -50,6 +52,7 @@
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^1.0.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "sharp": "0.35.4",
     "tailwind-merge": "^3.6.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.0"
