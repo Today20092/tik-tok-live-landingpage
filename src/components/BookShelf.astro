@@ -67,9 +67,10 @@ const books = [
   },
   {
     title: '80,000 Hours', author: 'Benjamin Todd',
-    format: 'Paperback', category: 'Careers', status: 'Career guide',
-    note: 'How to Have a Fulfilling Career That Does Good.',
-    terms: 'Paid book · Affiliate link', action: 'View on Amazon', affiliate: true,
+    format: 'Online or paperback', category: 'Careers', status: 'Read it free',
+    note: 'Read the complete guide free online, or buy the paperback.',
+    terms: 'Paperback · Affiliate link (Amazon)', action: 'Buy paperback', affiliate: true,
+    freeUrl: 'https://80000hours.org/career-guide/',
     image: hoursPaperback, url: 'https://amzn.to/4xXs8Yo',
   },
 ];
@@ -89,7 +90,7 @@ const books = [
   </div>}
   <div id="book-shelf-track" class="book-shelf-track" tabindex={variant === 'covers' ? 0 : undefined} role={variant === 'covers' ? 'region' : undefined} aria-label={variant === 'covers' ? 'Book covers, scroll horizontally to browse' : undefined}>
     {books.map((book, i) => <article class="shelf-book">
-      <a href={book.url} class="shelf-book-art" tabindex="-1" aria-hidden="true" rel={book.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank">
+      <a href={book.freeUrl ?? book.url} class="shelf-book-art" tabindex="-1" aria-hidden="true" rel={book.affiliate && !book.freeUrl ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank">
         <Image src={book.image} alt="" width={340} loading="lazy" />
       </a>
       <div class="shelf-book-body">
@@ -99,8 +100,11 @@ const books = [
         <p class="shelf-book-format">{book.category}<span aria-hidden="true"> / </span>{book.format}</p>
         <p class="shelf-book-note">{book.note}</p>
         {variant === 'featured' && i === 0 && <p class="shelf-book-detail">{book.detail}</p>}
-        <p class="shelf-book-terms">{book.terms}</p>
-        <a class="shelf-book-link" href={book.url} rel={book.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank" aria-label={`${book.action}: ${book.title} (opens in a new tab)`}>{book.action} <IconArrowUpRight size={17} aria-hidden="true" /></a>
+        {book.terms && <p class="shelf-book-terms">{book.terms}</p>}
+        <div class:list={['shelf-book-actions', { 'shelf-book-actions-pair': book.freeUrl }]}>
+          {book.freeUrl && <a class="shelf-book-link" href={book.freeUrl} rel="noopener noreferrer" target="_blank" aria-label={`Read free online: ${book.title} (opens in a new tab)`}>Free online</a>}
+          <a class:list={['shelf-book-link', { 'shelf-book-link-secondary': book.freeUrl }]} href={book.url} rel={book.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank" aria-label={`${book.action}: ${book.title} (opens in a new tab)`}>{book.action} <IconArrowUpRight size={17} aria-hidden="true" /></a>
+        </div>
       </div>
     </article>)}
   </div>
@@ -139,11 +143,17 @@ const books = [
     .shelf-book-terms { font-size: var(--text-small); font-weight: 600; margin-bottom: var(--space-4); }
     .shelf-book-detail { margin-bottom: var(--space-4); color: var(--muted-foreground); }
     .shelf-book-disclosure { margin-top: var(--space-3); font-size: var(--text-small); color: var(--muted-foreground); }
+    .shelf-book-actions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); margin-top: auto; max-width: 100%; }
+    .shelf-book-actions .shelf-book-link { white-space: normal; }
+    .shelf-book-actions-pair { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 1px; background: var(--border); border-radius: var(--radius-small); }
+    .shelf-book-actions-pair .shelf-book-link { margin: 0; padding-inline: var(--space-2); font-size: var(--text-small); border-radius: 0; min-width: 0; }
+    .shelf-book-actions-pair .shelf-book-link:first-child { border-radius: var(--radius-small) 0 0 var(--radius-small); }
+    .shelf-book-actions-pair .shelf-book-link:last-child { border-radius: 0 var(--radius-small) var(--radius-small) 0; }
     .shelf-book-link { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: var(--control-height); padding: var(--space-2) var(--space-4); border-radius: var(--radius-small); background: var(--primary); color: var(--primary-foreground); font-weight: 600; margin-top: auto; white-space: nowrap; }
     .book-shelf-controls { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
     .book-shelf-controls > span { margin-right: auto; font-size: var(--text-small); color: var(--muted-foreground); }
     .book-shelf--covers .book-shelf-track { grid-auto-flow: column; grid-auto-columns: 38%; overflow-x: auto; scroll-snap-type: x mandatory; padding: var(--space-1) var(--space-1) var(--space-4); scrollbar-color: var(--border) transparent; }
-    .book-shelf--covers .shelf-book { display: grid; grid-template-rows: auto 1fr; scroll-snap-align: start; }
+    .book-shelf--covers .shelf-book { display: grid; align-self: stretch; grid-template-rows: auto 1fr; scroll-snap-align: start; }
     .book-shelf--featured .book-shelf-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .book-shelf--featured .shelf-book:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 38% 1fr; }
     .book-shelf--featured .shelf-book:first-child .shelf-book-art { padding: var(--space-8); }
@@ -157,8 +167,8 @@ const books = [
     .book-shelf--compact .shelf-book-art { padding: var(--space-4); }
     .book-shelf--compact .shelf-book-art img { height: 130px; }
     .book-shelf--compact .shelf-book-body { padding: var(--space-4) var(--space-5); display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-4); }
-    .book-shelf--compact .shelf-book-body > :not(.shelf-book-link) { grid-column: 1; }
-    .book-shelf--compact .shelf-book-link { grid-column: 2; grid-row: 1 / 7; align-self: center; margin: 0; }
+    .book-shelf--compact .shelf-book-body > :not(.shelf-book-actions) { grid-column: 1; }
+    .book-shelf--compact .shelf-book-actions { grid-column: 2; grid-row: 1 / 7; align-self: center; margin: 0; }
     .book-shelf--compact .shelf-book-status { margin-bottom: var(--space-1); }
     .book-shelf--compact .shelf-book-note { margin-bottom: 0; }
     .book-shelf--compact .shelf-book-format { display: none; }
@@ -179,7 +189,7 @@ const books = [
       .book-shelf--compact .shelf-book-body { display: flex; padding: var(--space-4); }
       .book-shelf--compact .shelf-book-art { padding: var(--space-2); align-items: start; padding-top: var(--space-5); }
       .book-shelf--compact .shelf-book-art img { height: 104px; }
-      .book-shelf--compact .shelf-book-link { align-self: start; margin-top: var(--space-3); }
+      .book-shelf--compact .shelf-book-actions { align-self: start; margin-top: var(--space-3); }
     }
   }
 </style>
