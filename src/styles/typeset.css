@@ -346,14 +346,22 @@
     }
 
     &:where([data-footnote-backref]) {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      display: inline-block;
+      text-align: center;
       min-width: 44px;
-      min-height: 44px;
       vertical-align: baseline;
       border-radius: var(--radius-small);
-      font-size: 1.125em;
+      font-size: inherit;
+    }
+
+    &:where([data-footnote-backref])::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: 50%;
+      height: max(100%, 44px);
+      transform: translateY(-50%);
     }
 
     /* GFM footnotes. */
