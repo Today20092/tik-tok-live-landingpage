@@ -26,5 +26,5 @@ pnpm-debug.log*
 # temporary conversation attachments
 .codex-remote-attachments/
 
-# Local migration comparison screenshots (tickets and reports stay tracked).
-.scratch/lumos-migration/evidence/
+# Local scratch files
+.scratch/
