@@ -14,7 +14,7 @@ if (!Object.hasOwn(verses, verse)) {
 }
 const { arabic, translation, translator } = verses[verse];
 const excerpt = 'excerpt' in verses[verse] && verses[verse].excerpt;
-const source = `https://quran.com/${verse.replace(':', '/')}`;
+const source = `https://quran.com/${verse.replace(':', '/')}${translator === 'M. A. S. Abdel Haleem' ? '?translations=85' : ''}`;
 ---
 
 <figure

@@ -1,4 +1,18 @@
 {
+  "bukhari-5066": {
+    "reference": "Sahih al-Bukhari 5066",
+    "url": "https://sunnah.com/bukhari:5066",
+    "narrator": "Abdullah ibn Masud",
+    "translation": "O young people! Whoever among you can marry, should marry, because it helps him lower his gaze and guard his modesty",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-09-13"
+  },
   "bukhari-1": {
     "reference": "Sahih al-Bukhari 1",
     "url": "https://sunnah.com/bukhari/1/1",

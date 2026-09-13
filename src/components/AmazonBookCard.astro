@@ -1,0 +1,38 @@
+---
+import { IconBook, IconArrowUpRight } from '@tabler/icons-react';
+
+interface Props {
+  id: string;
+  title: string;
+  author: string;
+  href: string;
+}
+
+const { id, title, author, href } = Astro.props;
+const disclosureId = `${id}-disclosure`;
+---
+
+<aside data-not-typeset class="u-mt-6 u-mb-6" aria-label="Recommended book">
+  <a
+    href={href}
+    class="resource-card"
+    rel="sponsored noopener noreferrer"
+    target="_blank"
+    aria-describedby={disclosureId}
+    aria-label={`View ${title} on Amazon (affiliate link, opens in a new tab)`}
+  >
+    <IconBook size={24} strokeWidth={1.5} aria-hidden="true" />
+    <span class="resource-card_content">
+      <span class="resource-card_title">{title}</span>
+      <span class="resource-card_description">
+        {author} · View on Amazon · Affiliate link
+      </span>
+    </span>
+    <IconArrowUpRight size={20} aria-hidden="true" />
+  </a>
+  <p id={disclosureId} class="resource-card_description u-mt-3">
+    If you'd like to read it, you can use this link. I may earn a commission at
+    no extra cost to you. As an Amazon Associate I earn from qualifying
+    purchases.
+  </p>
+</aside>

@@ -332,6 +332,30 @@
       margin-block-start: var(--typeset-flow);
     }
 
+    /* Leave reading room above a footnote when returning from its reference. */
+    &:where([data-footnote-ref]) {
+      scroll-margin-block-start: 20vh;
+    }
+
+    /* Native footnote return links highlight the whole source paragraph. */
+    &:where(p:has([data-footnote-ref]:target)) {
+      background-color: var(--secondary);
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-small);
+    }
+
+    &:where([data-footnote-backref]) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      vertical-align: baseline;
+      border-radius: var(--radius-small);
+      font-size: 1.125em;
+    }
+
     /* GFM footnotes. */
     &:where(.footnotes, [data-footnotes]) {
       margin-block-start: calc(var(--typeset-flow) * 2);

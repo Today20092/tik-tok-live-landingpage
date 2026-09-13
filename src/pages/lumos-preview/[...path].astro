@@ -3,6 +3,7 @@ import '../../styles/global.css';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
+import AmazonBookCard from '@/components/AmazonBookCard.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
@@ -28,6 +29,39 @@ export function getStaticPaths() {
   <body>
     <Section>
       <QuoteStylePreview />
+      <section class="article-page typeset typeset-article">
+        <h2>Article book recommendation and footnotes</h2>
+        <AmazonBookCard
+          id="reference-book"
+          title="Men Are from Mars, Women Are from Venus"
+          author="John Gray"
+          href="https://amzn.to/4yvf9wN"
+        />
+        <p>
+          Follow the footnote and return to highlight this whole paragraph.
+          <sup>
+            <a id="reference-fnref" href="#reference-fn" data-footnote-ref>
+              1
+            </a>
+          </sup>
+        </p>
+        <section data-footnotes aria-label="Reference example">
+          <ol>
+            <li id="reference-fn">
+              <p>
+                Example reference.{' '}
+                <a
+                  href="#reference-fnref"
+                  data-footnote-backref
+                  aria-label="Back to reference example"
+                >
+                  ↩
+                </a>
+              </p>
+            </li>
+          </ol>
+        </section>
+      </section>
       <Heading tag="h1">One system, across the site</Heading>
       <p class="text-muted">
         Development reference for the Lumos migration experiment.
@@ -83,22 +117,43 @@ export function getStaticPaths() {
       </section>
       <section class="site-shell reading-width">
         <h2 class="section-title">Migrated site text spacing</h2>
-        <p class="page-intro">The shared site shell keeps full line boxes for headings and paragraphs, including learning recommendations, resource labels, sharing, and footer copy.</p>
+        <p class="page-intro">
+          The shared site shell keeps full line boxes for headings and
+          paragraphs, including learning recommendations, resource labels,
+          sharing, and footer copy.
+        </p>
       </section>
       <section class="article-page">
         <header class="article-page_header">
           <p class="article-page_category">Article spacing reference</p>
-          <Heading tag="h2" class="page-title">A longer article title that wraps onto multiple lines</Heading>
-          <p class="article-page_description">Full line boxes and shared spacing tokens keep the title, description, and byline separate.</p>
+          <Heading tag="h2" class="page-title">
+            A longer article title that wraps onto multiple lines
+          </Heading>
+          <p class="article-page_description">
+            Full line boxes and shared spacing tokens keep the title,
+            description, and byline separate.
+          </p>
           <p class="article-page_byline">Ayoub · About 8 min read</p>
         </header>
         <div class="typeset typeset-article">
-        <h2 class="article-section-heading">
-          <span>Article heading with a section link</span>
-          <a class="control control-ghost control-icon" href="#" aria-label="Link to section"><IconLink aria-hidden="true" /></a>
-        </h2>
-        <p>Section headings use full line boxes so the link stays beside the text.</p>
-        <p>Paragraphs and quotation text use the same full line boxes, with larger gaps between sections than within them.</p>
+          <h2 class="article-section-heading">
+            <span>Article heading with a section link</span>
+            <a
+              class="control control-ghost control-icon"
+              href="#"
+              aria-label="Link to section"
+            >
+              <IconLink aria-hidden="true" />
+            </a>
+          </h2>
+          <p>
+            Section headings use full line boxes so the link stays beside the
+            text.
+          </p>
+          <p>
+            Paragraphs and quotation text use the same full line boxes, with
+            larger gaps between sections than within them.
+          </p>
         </div>
       </section>
       <div class="flex-horizontal-wrap gap-3">
@@ -114,7 +169,11 @@ export function getStaticPaths() {
       </a>
       <section class="reference-panel theme-dark">
         <Heading variant="h3">Intentional theme and layout variants</Heading>
-        <p>Focus keeps light text over its dark photo overlay. Journal uses the secondary surface. Both surrounding layouts follow the selected site theme. Ko-fi preview samples retain Ko-fi's orange brand colors.</p>
+        <p>
+          Focus keeps light text over its dark photo overlay. Journal uses the
+          secondary surface. Both surrounding layouts follow the selected site
+          theme. Ko-fi preview samples retain Ko-fi's orange brand colors.
+        </p>
       </section>
       <section class="reading-width">
         <Heading variant="h2">Image viewer</Heading>
@@ -133,9 +192,24 @@ export function getStaticPaths() {
       </section>
       <section class="reading-width">
         <Heading variant="h2">Book shelf</Heading>
-        <p>The homepage uses the cover shelf: horizontal scroll snapping on mobile, real publisher covers, visible free-copy eligibility, and reduced-motion controls. Cards use the main corner token; controls use the small corner token.</p>
-        <a class="control control-outline" href={`${import.meta.env.BASE_URL}#books`}>View book shelf</a>
-        <a class="control control-ghost" href={`${import.meta.env.BASE_URL}books-preview/covers/`}>Compare shelf layouts</a>
+        <p>
+          The homepage uses the cover shelf: horizontal scroll snapping on
+          mobile, real publisher covers, visible free-copy eligibility, and
+          reduced-motion controls. Cards use the main corner token; controls use
+          the small corner token.
+        </p>
+        <a
+          class="control control-outline"
+          href={`${import.meta.env.BASE_URL}#books`}
+        >
+          View book shelf
+        </a>
+        <a
+          class="control control-ghost"
+          href={`${import.meta.env.BASE_URL}books-preview/covers/`}
+        >
+          Compare shelf layouts
+        </a>
       </section>
     </Section>
   </body>

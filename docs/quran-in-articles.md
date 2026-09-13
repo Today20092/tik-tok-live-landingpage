@@ -14,9 +14,11 @@ The component uses checked text from `src/data/quran-verses.json`. It renders Ar
 
 Amiri Quran is the selected font for all passages. Quotations render as static HTML with no comparison controls, browser JavaScript, or runtime API requests.
 
+For Abdel Haleem references, append `?translations=85` to select his translation: [single verse](https://quran.com/30/21?translations=85) or [verse range](https://quran.com/24/30-31?translations=85). These URL forms were checked on Quran.com on 2026-09-13. Use the range that supports the claim. If a different translator is explicitly chosen, verify that translator's URL selection rather than reusing `85`. The shared `QuranVerse` component selects `85` for its Abdel Haleem entries.
+
 Before using another verse, add its exact Arabic text, translation, translator, and check date to that JSON file. Use a `surah:ayah` key, such as `61:2`. Verify the reference and both texts against Quran.com, retain the Arabic diacritics, and check the selected translator. Observe the translation's reuse terms. Do not compose or paraphrase text in the quotation fields. An unknown key fails the build instead of displaying an empty passage.
 
-Use one component per ayah. For inline links in prose, use `https://quran.com/16/125` for one verse or `https://quran.com/61/2-3` for a range within a surah. Keep commentary outside the quotation.
+Use one component per ayah. All reader-facing Quran references—including prose links, footnotes, reference lists, and component attributions—must link to the exact verse or range on Quran.com. Use `https://quran.com/16/125` for one verse or `https://quran.com/61/2-3` for a range within a surah. Keep commentary outside the quotation. Preserve the selected translator's attribution separately; a Quran.com link does not mean its default translation supplied the quoted wording. Other editions may be consulted for verification, but do not replace the reader-facing Quran.com reference with a PDF or another website.
 
 For a partial passage, set `excerpt: true` in its data record and keep the Arabic and English excerpts aligned. The component labels it as an excerpt and links to the full verse.
 

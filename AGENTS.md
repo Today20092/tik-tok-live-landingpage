@@ -50,6 +50,10 @@ Do not invent contact details. Use the existing public social profiles unless th
 
 ### Quran and hadith in articles
 
+- Link all reader-facing Quran references to the exact verse or range on Quran.com, including inline citations, footnotes, reference lists, and quotation components. Keep the English translator's attribution separate from the link destination.
+
+- Before creating or formatting a website article, read [Writing articles](docs/writing-articles.md) for the reusable component inventory and footnote conventions. Update that inventory in the same change whenever an article component is added or its usage changes.
+
 - Default every English Quran translation to **The Qur'an by M. A. S. Abdel Haleem**, including quotation blocks and translation-based paraphrases. Use another translation only when Ayoub explicitly selects it. If the default cannot be used, explain the constraint rather than silently substituting another translator. Hadith translations follow their own cited sources.
 - When creating or editing an article that quotes or discusses Quran verses, read [Quran passages in articles](docs/quran-in-articles.md). Use `QuranVerse` in `.mdx` for displayed verses.
 - When creating or editing an article that quotes or discusses hadith, read [Hadith quotations in articles](docs/hadith-in-articles.md). Use `HadithQuote` in `.mdx` for displayed narrations.

@@ -21,7 +21,7 @@ for (const key of ['16:125', '61:2', '61:3']) {
     `Missing attribution for ${key}`
   );
   assert.ok(
-    figure.includes(`href="https://quran.com/${key.replace(':', '/')}"`)
+    figure.includes(`href="https://quran.com/${key.replace(':', '/')}${verses[key].translator === 'M. A. S. Abdel Haleem' ? '?translations=85' : ''}"`)
   );
   assert.ok(figure.includes('quotation_arabic'), 'Passages must use the shared Arabic typography');
   assert.match(readFileSync('src/styles/lumos/shared.css', 'utf8'), /\.quotation_arabic\s*\{[^}]*font-family:\s*'Amiri Quran',\s*serif/, 'Shared Arabic typography must use Amiri Quran');
