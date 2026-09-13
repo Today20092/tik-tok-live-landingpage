@@ -131,6 +131,12 @@ export function getStaticPaths() {
         />
         <ArticleImageViewer client:load />
       </section>
+      <section class="reading-width">
+        <Heading variant="h2">Book shelf</Heading>
+        <p>The homepage uses the cover shelf: horizontal scroll snapping on mobile, real publisher covers, visible free-copy eligibility, and reduced-motion controls. Cards use the main corner token; controls use the small corner token.</p>
+        <a class="control control-outline" href={`${import.meta.env.BASE_URL}#books`}>View book shelf</a>
+        <a class="control control-ghost" href={`${import.meta.env.BASE_URL}books-preview/covers/`}>Compare shelf layouts</a>
+      </section>
     </Section>
   </body>
 </html>

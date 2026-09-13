@@ -6,10 +6,8 @@ import {
   IconBook as BookOpen,
   IconBook2 as Book,
   IconPlayerPlay as Play,
-  IconPackage as PackageOpen,
   IconPencil as PencilLine,
   IconCompass as Compass,
-  IconScript as Scroll,
   IconBrandTiktok,
   IconBrandTwitch,
   IconBrandYoutube,
@@ -17,6 +15,7 @@ import {
 import { getCollection } from 'astro:content';
 import ArticleList from './ArticleList.astro';
 import LearningVideos from './LearningVideos.astro';
+import BookShelf from './BookShelf.astro';
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -26,20 +25,14 @@ const youtube = 'https://go.alphabravomedia.co/islam-youtube';
 const read = links.find((link) => link.icon === 'BookOpen');
 const book = links.find((link) => link.variant === 'stream-pick');
 const support = links.find((link) => link.variant === 'support');
-const copies = links.filter(
-  (link) => link.variant === 'featured' && link !== read
-);
 const videos = links.filter((link) => link.youtube);
-const resources = links.filter((link) => !link.variant && !link.youtube);
+const resources = links.filter((link) => !link.variant && !link.youtube && link.icon !== 'Scroll');
 const resourceLabels: Record<
   string,
   { title?: string; description?: string; Icon: typeof BookOpen }
 > = {
   PencilLine: {
     Icon: PencilLine,
-  },
-  Scroll: {
-    Icon: Scroll,
   },
   Compass: {
     Icon: Compass,
@@ -135,39 +128,7 @@ const secondary = button;
           </div>
         )}
       </section>
-      <section
-        id="copies"
-        aria-labelledby="copies-title"
-        class="pocket-hub_copies"
-      >
-        <h2 id="copies-title" class="pocket-hub_copies-title">
-          Get a free English copy
-        </h2>
-        <div class="pocket-hub_div-4">
-          {copies.map((link) => (
-            <a href={link.url} class={secondary}>
-              <PackageOpen
-                size={23}
-                strokeWidth={1.5}
-                className="flex-noshrink"
-              />
-              <span class="resource-card_content">
-                <span class="resource-card_title">
-                  {link.icon === 'Mail'
-                    ? 'Request The Clear Quran'
-                    : 'Request The Quran Project'}
-                </span>{' '}
-                <span class="resource-card_description">
-                  {link.icon === 'Mail'
-                    ? 'Free for non-Muslims in the USA. One copy.'
-                    : 'Free for non-Muslims. Check delivery eligibility.'}
-                </span>{' '}
-              </span>
-              <ArrowUpRight size={18} className="flex-noshrink" />
-            </a>
-          ))}
-        </div>
-      </section>
+      <slot name="books"><BookShelf /></slot>
       <section
         id="watch"
         aria-labelledby="watch-title"
@@ -242,3 +203,10 @@ const secondary = button;
     </main>
   </div>
 </div>
+
+<style>
+  @layer components {
+    .pocket-hub_nav { flex-wrap: wrap; }
+    .resource-card { overflow-wrap: anywhere; }
+  }
+</style>

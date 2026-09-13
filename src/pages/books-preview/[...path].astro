@@ -1,0 +1,47 @@
+---
+import HubPage from '@/layouts/HubPage.astro';
+import PocketHub from '@/components/PocketHub.astro';
+import BookShelf from '@/components/BookShelf.astro';
+
+export function getStaticPaths() {
+  return import.meta.env.DEV
+    ? [undefined, 'covers', 'featured', 'compact'].map((path) => ({ params: { path } }))
+    : [];
+}
+
+const variant = (Astro.params.path ?? 'covers') as 'covers' | 'featured' | 'compact';
+const base = import.meta.env.BASE_URL;
+const options = [
+  { id: 'covers', label: 'Cover shelf', note: 'Large covers, with a shelf you can swipe on your phone.' },
+  { id: 'featured', label: 'Featured book', note: 'One current read gets more space, with two smaller books below.' },
+  { id: 'compact', label: 'Compact rows', note: 'A shorter section that fits naturally alongside your resource links.' },
+];
+---
+
+<HubPage title="Book shelf previews | Islam with Ayoub" path={`books-preview/${variant}/`} noindex>
+  <aside class="shelf-switcher" aria-label="Homepage design previews">
+    <div class="shelf-switcher-top"><strong>Book shelf previews</strong><a href="#books">Jump to books</a></div>
+    <nav aria-label="Book shelf layout">
+      {options.map((option) => <a href={`${base}books-preview/${option.id}/#books`} aria-current={variant === option.id ? 'page' : undefined}>{option.label}</a>)}
+    </nav>
+    <p>{options.find((option) => option.id === variant)?.note}</p>
+  </aside>
+  <div class="books-home-preview"><PocketHub><BookShelf slot="books" variant={variant} /></PocketHub></div>
+</HubPage>
+
+<style>
+  @layer components {
+    :global(astro-dev-toolbar) { display: none; }
+    .books-home-preview :global(.pocket-hub_nav) { flex-wrap: wrap; }
+    .books-home-preview :global(.resource-card) { overflow-wrap: anywhere; }
+    .shelf-switcher { max-width: 60rem; margin: var(--space-4) auto 0; padding: var(--space-4); background: var(--secondary); border: 1px solid var(--border); border-radius: var(--radius-main); }
+    .shelf-switcher-top { display: flex; justify-content: space-between; gap: var(--space-3); align-items: center; }
+    .shelf-switcher-top a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+    .shelf-switcher nav { display: flex; gap: var(--space-2); margin-block: var(--space-3); flex-wrap: wrap; }
+    .shelf-switcher nav a { display: inline-flex; min-height: var(--control-height); align-items: center; padding-inline: var(--space-4); border-radius: var(--radius-small); border: 1px solid var(--border); background: var(--card); color: var(--foreground); font-weight: 600; }
+    .shelf-switcher nav a[aria-current] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+    .shelf-switcher p { color: var(--muted-foreground); font-size: var(--text-small); }
+    @media (width < 64rem) { .shelf-switcher { margin-inline: var(--space-5); } }
+    @media (width < 48rem) { .shelf-switcher-top { align-items: start; flex-wrap: wrap; } .shelf-switcher nav a { flex: 1 1 auto; justify-content: center; padding-inline: var(--space-3); } }
+  }
+</style>
