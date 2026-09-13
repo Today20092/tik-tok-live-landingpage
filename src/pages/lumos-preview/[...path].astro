@@ -193,11 +193,11 @@ export function getStaticPaths() {
       <section class="reading-width">
         <Heading variant="h2">Book shelf</Heading>
         <p>
-          The homepage uses the live shelf: Meadows first, print and digital
-          actions grouped under each book, then free-copy eligibility and other
-          editions. Cards stack vertically on mobile. The compact introduction
-          uses the shared serif, spacing, and control tokens. Covers, featured,
-          and compact shelf variants remain available in the comparison page.
+          The homepage uses a reading note with a centred cover and direct
+          reading links. Free-copy eligibility and other editions expand on
+          request. Compare the reading note, cover-and-text, and text-first
+          variants below. The welcome section uses a grid gap to keep heading
+          and paragraph spacing consistent without collapsed margins.
         </p>
         <a
           class="control control-outline"
@@ -207,7 +207,7 @@ export function getStaticPaths() {
         </a>
         <a
           class="control control-ghost"
-          href={`${import.meta.env.BASE_URL}books-preview/covers/`}
+          href={`${import.meta.env.BASE_URL}reading-preview/note/`}
         >
           Compare shelf layouts
         </a>

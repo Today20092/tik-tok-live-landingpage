@@ -9,7 +9,7 @@ const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:4322';
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ reducedMotion: 'reduce' });
-  const routes = process.env.BUILT_SITE ? ['/', '/pocket/'] : ['/', '/pocket/', '/books-preview/covers/', '/books-preview/featured/', '/books-preview/compact/'];
+  const routes = ['/books-preview/covers/', '/books-preview/featured/', '/books-preview/compact/'];
   for (const route of routes) {
     const variant = route.includes('featured') ? 'featured' : route.includes('compact') ? 'compact' : route.includes('covers') ? 'covers' : 'live';
     const screenshotName = route === '/' ? 'home' : route === '/pocket/' ? 'pocket' : variant;
@@ -86,8 +86,8 @@ try {
     console.log(`${route}: widths, themes, enlarged text, eligibility, editions, affiliate links, PDF relocation, keyboard focus, and controls passed.`);
   }
   await page.goto(base);
-  assert.equal(await page.locator('#books').count(), 1, 'Homepage has one shelf');
-  assert.equal(await page.locator('a[href="https://go.alphabravomedia.co/islam-free-clear-quran"]').count(), 2, 'The free-copy offer only appears in its shelf card, image and button');
+  assert.equal(await page.locator('#books').count(), 1, 'Homepage has one reading section');
+  assert.equal(await page.locator('a[href="https://go.alphabravomedia.co/islam-free-clear-quran"]').count(), 1, 'The free-copy offer appears once in the expandable reading links');
 } finally {
   await browser.close();
 }

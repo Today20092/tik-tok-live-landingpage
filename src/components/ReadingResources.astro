@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import cover from '../assets/books/riyad-as-salihin.webp';
+interface Props { layout?: 'note' | 'split' | 'minimal' }
+const { layout = 'note' } = Astro.props;
+const links = (await getCollection('links')).map(({ data }) => data);
+function resource(icon: string) {
+  const link = links.find((item) => item.icon === icon);
+  if (!link) throw new Error(`Missing reading resource: ${icon}`);
+  return link.url;
+}
+---
+
+<section id="books" class:list={['reading-resources', `reading-resources--${layout}`]} aria-labelledby="reading-title">
+  <div class="reading-feature">
+    <div class="reading-cover"><Image src={cover} alt="Red cover of Riyad as-Salihin" width={240} loading="eager" /></div>
+    <div class="reading-copy">
+      <p class="reading-label">What we're reading</p>
+      <h2 id="reading-title">Meadows of the Righteous</h2>
+      <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
+      <p>I'm reading this collection of hadith and Quran passages about faith, character, and everyday life.</p>
+      <div class="reading-actions">
+        <a class="control control-primary" href={resource('Scroll')}>Find the free PDF ↗</a>
+        <a href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated">The print edition I use ↗</a>
+      </div>
+      <p class="reading-caption">Abridged English edition from Turath Publishing. Print copy is paid; the PDF link opens a download page.</p>
+    </div>
+  </div>
+  <div id="copies" class="reading-links">
+    <a href={resource('BookOpen')}>Read the Quran online <span aria-hidden="true">↗</span></a>
+    <p>Free English translation and audio on Quran.com.</p>
+    <details>
+      <summary>Looking for a free printed Quran?</summary>
+      <div class="reading-expanded">
+        <p><a href={resource('Mail')}>The Clear Quran · One Message Foundation ↗</a><br />For non-Muslims in the USA. One free copy per order.</p>
+        <p><a href={resource('PackageOpen')}>The Quran Project ↗</a><br />Free for non-Muslims. Check delivery eligibility and postage.</p>
+      </div>
+    </details>
+    <details>
+      <summary>The Quran from my earlier lives & other editions</summary>
+      <div class="reading-expanded">
+        <p><a href={resource('Book')}>The Clear Quran, English and Arabic ↗</a><br />The paid edition from my earlier lives. My spiral binding was done locally.</p>
+        <p>For Quran passages in my articles, I normally use M. A. S. Abdel Haleem's translation.</p>
+        <p><a href="https://amzn.to/4dxs7C8" rel="sponsored">English paperback ↗</a> · <a href="https://amzn.to/4xS97GV" rel="sponsored">Arabic and English hardcover ↗</a></p>
+        <p class="reading-caption">Paid editions. As an Amazon Associate I earn from qualifying purchases.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .reading-resources { margin-block: var(--space-6) var(--space-8); }
+    .reading-feature { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
+    .reading-cover { display: grid; place-items: center; padding: var(--space-5); }
+    .reading-cover img { width: auto; height: 8rem; max-width: 100%; object-fit: contain; filter: drop-shadow(3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)); }
+    .reading-copy { display: grid; gap: var(--space-3); min-width: 0; }
+    .reading-copy > *, .reading-links p { margin: 0; }
+    .reading-copy h2 { font-family: var(--font-serif); font-size: var(--text-2xl); line-height: var(--leading-tight); text-wrap: balance; }
+    .reading-label { color: var(--primary); font-size: var(--text-small); font-weight: 600; }
+    .reading-subtitle, .reading-caption { color: var(--muted-foreground); font-size: var(--text-small); }
+    .reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+    .reading-actions a { min-height: var(--control-height); display: inline-flex; align-items: center; white-space: normal; }
+    .reading-actions a:not(.control), .reading-expanded a { text-decoration: underline; text-underline-offset: .2em; }
+    .reading-links { margin-top: var(--space-6); }
+    .reading-links > a { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); min-height: var(--control-height); font-weight: 600; }
+    .reading-links > p { color: var(--muted-foreground); margin-bottom: var(--space-4); }
+    .reading-links details { border-top: 1px solid var(--border); }
+    .reading-links summary { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); min-height: var(--control-height); padding-block: var(--space-3); cursor: pointer; }
+    .reading-links summary::after { content: '+'; flex-shrink: 0; }
+    .reading-links details[open] summary::after { content: '−'; }
+    .reading-expanded { display: grid; gap: var(--space-4); padding-block: var(--space-2) var(--space-5); color: var(--muted-foreground); }
+    .reading-expanded a { color: var(--foreground); }
+    .reading-resources--split .reading-feature { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr); background: transparent; border: 0; padding-inline: 0; }
+    .reading-resources--split .reading-cover { background: var(--secondary); border-radius: var(--radius-main); }
+    .reading-resources--split .reading-cover img { height: 11rem; }
+    .reading-resources--minimal .reading-feature { border: 0; border-block: 1px solid var(--border); background: transparent; border-radius: 0; padding-inline: 0; }
+    .reading-resources--minimal .reading-cover { display: none; }
+    .reading-resources--minimal .reading-actions .control { background: transparent; color: var(--primary); padding-inline: 0; text-decoration: underline; text-underline-offset: .2em; }
+    @media (width < 40rem) {
+      .reading-feature { padding: var(--space-5); gap: var(--space-3); }
+      .reading-cover { padding: var(--space-3); }
+      .reading-resources--split .reading-feature { grid-template-columns: minmax(0, 1fr); }
+      .reading-resources--split .reading-cover { padding: var(--space-6); }
+      .reading-resources--split .reading-cover img { height: 8rem; }
+    }
+  }
+</style>

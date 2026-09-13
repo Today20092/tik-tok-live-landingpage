@@ -2,7 +2,6 @@
 import {
   IconArrowUpRight as ArrowUpRight,
   IconBook as BookOpen,
-  IconPlayerPlay as Play,
   IconPencil as PencilLine,
   IconCompass as Compass,
   IconBrandTiktok,
@@ -12,7 +11,9 @@ import {
 import { getCollection } from 'astro:content';
 import ArticleList from './ArticleList.astro';
 import LearningVideos from './LearningVideos.astro';
-import BookShelf from './BookShelf.astro';
+import ReadingResources from './ReadingResources.astro';
+interface Props { readingLayout?: 'note' | 'split' | 'minimal' }
+const { readingLayout = 'note' } = Astro.props;
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -54,17 +55,6 @@ const secondary = button;
         I'm mostly reading Meadows of the Righteous on TikTok Live.
         Find your copy or follow along for free.
       </p>
-      <nav aria-label="Find what you came for" class="live-intro_nav">
-        <a class="control control-outline" href="#books">
-          Books
-        </a>
-        <a class="control control-ghost" href="#copies">
-          Free Quran
-        </a>
-        <a class="control control-ghost" href="#start-here">
-          New to Islam?
-        </a>
-      </nav>
     </header>
     <main
       class="u-mt-6"
@@ -73,7 +63,7 @@ const secondary = button;
     >
       <div id="read">
         <slot name="books">
-          <BookShelf variant="live" />
+          <ReadingResources layout={readingLayout} />
         </slot>
       </div>
       <section id="start-here" aria-labelledby="start-title" class="live-help">
@@ -84,7 +74,9 @@ const secondary = button;
           You can listen, read along, and ask basic questions during the live.
           You don't need to buy a book or know anything about Islam to join.
         </p>
-        <dl class="live-help_questions">
+        <details class="live-help_details">
+          <summary>Questions about reading along</summary>
+          <dl class="live-help_questions">
           <div>
             <dt>Is Meadows of the Righteous the Quran?</dt>
             <dd>
@@ -109,7 +101,8 @@ const secondary = button;
               reader before choosing a print edition.
             </dd>
           </div>
-        </dl>
+          </dl>
+        </details>
         <a href={introduction.url} class={secondary}>
           <BookOpen size={23} aria-hidden="true" className="flex-noshrink" />
           <span class="resource-card_content">
@@ -150,19 +143,9 @@ const secondary = button;
             <IconBrandTwitch size={18} aria-hidden="true" /> Twitch
           </a>
           <a href={youtube} class="control control-ghost">
-            <IconBrandYoutube size={18} aria-hidden="true" /> YouTube
+            <IconBrandYoutube size={18} aria-hidden="true" /> Watch recordings
           </a>
         </nav>
-        <a href={youtube} class={secondary}>
-          <Play size={23} strokeWidth={1.5} className="flex-noshrink" />
-          <span class="resource-card_content">
-            <span class="resource-card_title">Watch the recordings</span>{' '}
-            <span class="resource-card_description">
-              Catch up with Ayoub on YouTube
-            </span>{' '}
-          </span>
-          <ArrowUpRight size={18} className="flex-noshrink" />
-        </a>
       </section>
       <section
         id="watch"
@@ -263,12 +246,19 @@ const secondary = button;
       white-space: normal;
     }
     .live-help {
+      display: grid;
+      gap: var(--space-4);
       margin-block: var(--space-8);
       scroll-margin-top: var(--space-5);
     }
+    .live-help > * { margin-block: 0; }
+    .live-help > h2 { padding-inline: 0; }
+    .live-help_details summary { cursor: pointer; padding-block: var(--space-3); min-height: var(--control-height); border-block: 1px solid var(--border); }
+    .live-help_details summary::after { content: ' +'; }
+    .live-help_details[open] summary::after { content: ' −'; }
     .live-help > p {
       max-width: 65ch;
-      margin-bottom: var(--space-4);
+      margin-bottom: 0;
     }
     .live-help_questions {
       display: grid;
