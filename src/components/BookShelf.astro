@@ -9,187 +9,686 @@ import haleemPaperback from '../assets/books/abdel-haleem-paperback.jpg';
 import haleemHardcover from '../assets/books/abdel-haleem-hardcover.jpg';
 import hoursPaperback from '../assets/books/80000-hours-paperback.jpg';
 import shelfScene from '../assets/books-preview/reading-shelf.png';
-import { IconArrowUpRight, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import {
+  IconArrowUpRight,
+  IconChevronLeft,
+  IconChevronRight,
+} from '@tabler/icons-react';
 
-interface Props { variant?: 'covers' | 'featured' | 'compact' }
+interface Props {
+  variant?: 'covers' | 'featured' | 'compact' | 'live';
+}
 const { variant = 'covers' } = Astro.props;
 const links = (await getCollection('links')).map(({ data }) => data);
 const clearQuran = links.find((link) => link.icon === 'Mail');
 const quranProject = links.find((link) => link.icon === 'PackageOpen');
 const riyadPdf = links.find((link) => link.icon === 'Scroll');
+const streamQuran = links.find((link) => link.variant === 'stream-pick');
+const onlineQuran = links.find((link) => link.icon === 'BookOpen');
+if (!streamQuran || !onlineQuran)
+  throw new Error('Book shelf requires the print and online Quran resources.');
 if (!riyadPdf) throw new Error('Book shelf requires the Riyad PDF resource.');
-if (!clearQuran || !quranProject) throw new Error('Book shelf requires both free Quran resources.');
+if (!clearQuran || !quranProject)
+  throw new Error('Book shelf requires both free Quran resources.');
 const books = [
   {
-    title: 'Riyad as-Salihin — PDF', author: 'Imam Yahya ibn Sharaf an-Nawawi',
-    format: 'PDF', category: 'English', status: 'Free PDF download',
-    note: 'Abridged and annotated. Read the English edition digitally.',
-    terms: 'Free download · Not an affiliate link', action: 'Download free PDF',
-    image: riyadCover, url: riyadPdf.url,
+    title: 'Meadows of the Righteous',
+    author: 'Riyad as-Salihin · Imam an-Nawawi',
+    format: 'Abridged and annotated',
+    category: 'English',
+    status: 'Currently reading on live',
+    note: "The book I'm reading most on TikTok Live. Hadith and Quran passages about worship, character, and everyday Islamic manners.",
+    detail:
+      'My print edition is published by Turath Publishing. The PDF link opens a separate download page; page numbers may differ from print.',
+    terms: 'Paid print edition · Free PDF available · No affiliate links',
+    action: 'Find my edition',
+    freeUrl: riyadPdf.url,
+    freeAction: 'Find the free PDF',
+    image: riyadCover,
+    url: 'https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated',
   },
   {
-    title: 'Riyad as-Salihin', author: 'Imam Yahya ibn Sharaf an-Nawawi',
-    format: 'Abridged and annotated', category: 'English', status: 'Reading now',
-    note: "The Meadows of the Righteous. The English edition I'm currently reading.",
-    detail: 'Published by Turath Publishing.',
-    terms: 'Paid book. Not an affiliate link.', action: 'View book',
-    image: riyadCover, url: 'https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated',
+    title: 'The Quran',
+    author: 'The Clear Quran · Translated by Dr. Mustafa Khattab',
+    format: 'English + Arabic',
+    category: 'Print edition',
+    status: 'From earlier live readings',
+    note: 'Looking for the Quran from my earlier lives? This is the English and Arabic edition I used.',
+    detail:
+      'My spiral binding was done locally. The book does not come spiral-bound.',
+    terms: 'Paid print edition · Read online for free',
+    action: 'Find my Quran edition',
+    freeUrl: onlineQuran.url,
+    freeAction: 'Read Quran online',
+    image: clearQuranCover,
+    url: streamQuran.url,
   },
   {
-    title: 'The Clear Quran', author: 'Translated by Dr. Mustafa Khattab',
-    format: 'English translation', category: 'Quran', status: 'Free copy',
+    title: 'The Clear Quran',
+    author: 'Translated by Dr. Mustafa Khattab',
+    format: 'English translation',
+    category: 'Quran',
+    status: 'Free copy',
     note: 'An English translation from One Message Foundation.',
-    terms: 'For non-Muslims in the USA. One free copy per order.', action: 'Request copy',
+    terms: 'For non-Muslims in the USA. One free copy per order.',
+    action: 'Request copy',
     detail: 'One Message Foundation arranges the order and delivery.',
-    image: clearQuranCover, url: clearQuran.url,
+    image: clearQuranCover,
+    url: clearQuran.url,
   },
   {
-    title: "The Qur'an Project", author: "The Qur'an Project",
-    format: 'English translation', category: 'Quran', status: 'Free copy',
+    title: "The Qur'an Project",
+    author: "The Qur'an Project",
+    format: 'English translation',
+    category: 'Quran',
+    status: 'Free copy',
     note: 'English translation with chapter introductions and appendices.',
-    terms: 'Free for non-Muslims. Check delivery eligibility and postage.', action: 'Request copy',
+    terms: 'Free for non-Muslims. Check delivery eligibility and postage.',
+    action: 'Request copy',
     detail: 'Select who the book is for on the request page.',
-    image: quranProjectCover, url: quranProject.url,
+    image: quranProjectCover,
+    url: quranProject.url,
   },
   {
-    title: "The Qur'an — paperback", author: 'Translated by M. A. S. Abdel Haleem',
-    format: 'Paperback', category: 'English only', status: 'English translation',
+    title: "The Qur'an — paperback",
+    author: 'Translated by M. A. S. Abdel Haleem',
+    format: 'Paperback',
+    category: 'English only',
+    status: 'English translation',
     note: "The English translation in Oxford World's Classics.",
-    terms: 'Paid book · Affiliate link', action: 'View on Amazon', affiliate: true,
-    image: haleemPaperback, url: 'https://amzn.to/4dxs7C8',
+    terms: 'Paid book · Affiliate link',
+    action: 'View on Amazon',
+    affiliate: true,
+    image: haleemPaperback,
+    url: 'https://amzn.to/4dxs7C8',
   },
   {
-    title: "The Qur'an — hardcover", author: 'Translated by M. A. S. Abdel Haleem',
-    format: 'Hardcover', category: 'Arabic + English', status: 'Parallel text',
+    title: "The Qur'an — hardcover",
+    author: 'Translated by M. A. S. Abdel Haleem',
+    format: 'Hardcover',
+    category: 'Arabic + English',
+    status: 'Parallel text',
     note: 'Arabic text alongside the English translation.',
-    terms: 'Paid book · Affiliate link', action: 'View on Amazon', affiliate: true,
-    image: haleemHardcover, url: 'https://amzn.to/4xS97GV',
+    terms: 'Paid book · Affiliate link',
+    action: 'View on Amazon',
+    affiliate: true,
+    image: haleemHardcover,
+    url: 'https://amzn.to/4xS97GV',
   },
   {
-    title: '80,000 Hours', author: 'Benjamin Todd',
-    format: 'Online or paperback', category: 'Careers', status: 'Read it free',
+    title: '80,000 Hours',
+    author: 'Benjamin Todd',
+    format: 'Online or paperback',
+    category: 'Careers',
+    status: 'Read it free',
     note: 'Read the complete guide free online, or buy the paperback.',
-    terms: 'Paperback · Affiliate link (Amazon)', action: 'Buy paperback', affiliate: true,
+    terms: 'Paperback · Affiliate link (Amazon)',
+    action: 'Buy paperback',
+    affiliate: true,
     freeUrl: 'https://80000hours.org/career-guide/',
-    image: hoursPaperback, url: 'https://amzn.to/4xXs8Yo',
+    freeAction: 'Read free online',
+    image: hoursPaperback,
+    url: 'https://amzn.to/4xXs8Yo',
   },
 ];
 ---
 
-<section id="books" class:list={['book-shelf', `book-shelf--${variant}`]} aria-labelledby="books-title">
-  <span id="copies" aria-hidden="true"></span>
-  {variant === 'featured' && <Image class="book-shelf-scene" src={shelfScene} alt="" width={1024} loading="lazy" />}
+<section
+  id="books"
+  class:list={['book-shelf', `book-shelf--${variant}`]}
+  aria-labelledby="books-title"
+>
+  {variant !== 'live' && <span id="copies" aria-hidden="true"></span>}
+  {variant === 'featured' && (
+    <Image
+      class="book-shelf-scene"
+      src={shelfScene}
+      alt=""
+      width={1024}
+      loading="lazy"
+    />
+  )}
   <header class="book-shelf-heading">
-    <Heading tag="h2" id="books-title">Books & free Qur'ans</Heading>
-    <p>What I'm reading, Qur'an translations, and free copies and downloads.</p>
+    <Heading tag="h2" id="books-title">
+      {variant === 'live'
+        ? 'Find the book from the live'
+        : 'Books & free Qurans'}
+    </Heading>
+    <p>
+      {variant === 'live'
+        ? 'Print books and free reading options.'
+        : 'My live-reading books, Quran translations, and free copies.'}
+    </p>
   </header>
-  {variant === 'covers' && <div class="book-shelf-controls" aria-label="Browse the shelf">
-    <span>Browse the books</span>
-    <button type="button" class="control control-ghost control-icon" data-shelf-direction="-1" aria-label="Previous book" aria-controls="book-shelf-track"><IconChevronLeft size={20} /></button>
-    <button type="button" class="control control-ghost control-icon" data-shelf-direction="1" aria-label="Next book" aria-controls="book-shelf-track"><IconChevronRight size={20} /></button>
-  </div>}
-  <div id="book-shelf-track" class="book-shelf-track" tabindex={variant === 'covers' ? 0 : undefined} role={variant === 'covers' ? 'region' : undefined} aria-label={variant === 'covers' ? 'Book covers, scroll horizontally to browse' : undefined}>
-    {books.map((book, i) => <article class="shelf-book">
-      <a href={book.freeUrl ?? book.url} class="shelf-book-art" tabindex="-1" aria-hidden="true" rel={book.affiliate && !book.freeUrl ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank">
-        <Image src={book.image} alt="" width={340} loading="lazy" />
-      </a>
-      <div class="shelf-book-body">
-        <p class="shelf-book-status">{book.status}</p>
-        <Heading tag="h3" variant={variant === 'featured' && i === 0 ? 'h2' : 'h3'}>{book.title}</Heading>
-        <p class="shelf-book-author">{book.author}</p>
-        <p class="shelf-book-format">{book.category}<span aria-hidden="true"> / </span>{book.format}</p>
-        <p class="shelf-book-note">{book.note}</p>
-        {variant === 'featured' && i === 0 && <p class="shelf-book-detail">{book.detail}</p>}
-        {book.terms && <p class="shelf-book-terms">{book.terms}</p>}
-        <div class:list={['shelf-book-actions', { 'shelf-book-actions-pair': book.freeUrl }]}>
-          {book.freeUrl && <a class="shelf-book-link" href={book.freeUrl} rel="noopener noreferrer" target="_blank" aria-label={`Read free online: ${book.title} (opens in a new tab)`}>Free online</a>}
-          <a class:list={['shelf-book-link', { 'shelf-book-link-secondary': book.freeUrl }]} href={book.url} rel={book.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} target="_blank" aria-label={`${book.action}: ${book.title} (opens in a new tab)`}>{book.action} <IconArrowUpRight size={17} aria-hidden="true" /></a>
-        </div>
-      </div>
-    </article>)}
+  {variant === 'covers' && (
+    <div class="book-shelf-controls" aria-label="Browse the shelf">
+      <span>Browse the books</span>
+      <button
+        type="button"
+        class="control control-ghost control-icon"
+        data-shelf-direction="-1"
+        aria-label="Previous book"
+        aria-controls="book-shelf-track"
+      >
+        <IconChevronLeft size={20} />
+      </button>
+      <button
+        type="button"
+        class="control control-ghost control-icon"
+        data-shelf-direction="1"
+        aria-label="Next book"
+        aria-controls="book-shelf-track"
+      >
+        <IconChevronRight size={20} />
+      </button>
+    </div>
+  )}
+  <div
+    id="book-shelf-track"
+    class="book-shelf-track"
+    tabindex={variant === 'covers' ? 0 : undefined}
+    role={variant === 'covers' ? 'region' : undefined}
+    aria-label={
+      variant === 'covers'
+        ? 'Book covers, scroll horizontally to browse'
+        : undefined
+    }
+  >
+    {books.map((book, i) => (
+      <>
+        {variant === 'live' && i === 2 && (
+          <header id="copies" class="book-shelf-group">
+            <Heading tag="h2">Request a free English Quran</Heading>
+            <p>
+              Check the eligibility below before ordering. The provider handles
+              delivery.
+            </p>
+          </header>
+        )}
+        {variant === 'live' && i === 4 && (
+          <header class="book-shelf-group">
+            <Heading tag="h2">Other Quran editions</Heading>
+            <p>
+              The Clear Quran above is from my earlier lives. M. A. S. Abdel
+              Haleem is the default English translation for Quran passages in my
+              articles. These are different English translations of the Quran.
+            </p>
+          </header>
+        )}
+        {variant === 'live' && i === 6 && (
+          <header class="book-shelf-group">
+            <Heading tag="h2">Beyond the reading</Heading>
+            <p>
+              A resource on meaningful work, if you'd like to explore further.
+            </p>
+          </header>
+        )}
+        <article
+          class:list={[
+            'shelf-book',
+            { 'shelf-book-live': variant === 'live' && i < 2 },
+          ]}
+        >
+          <a
+            href={book.freeUrl ?? book.url}
+            class="shelf-book-art"
+            tabindex="-1"
+            aria-hidden="true"
+            rel={
+              book.affiliate && !book.freeUrl
+                ? 'sponsored noopener noreferrer'
+                : 'noopener noreferrer'
+            }
+            target="_blank"
+          >
+            <Image src={book.image} alt="" width={340} loading="lazy" />
+          </a>
+          <div class="shelf-book-body">
+            <p class="shelf-book-status">{book.status}</p>
+            <Heading
+              tag="h3"
+              variant={variant === 'featured' && i === 0 ? 'h2' : 'h3'}
+            >
+              {book.title}
+            </Heading>
+            <p class="shelf-book-author">{book.author}</p>
+            <p class="shelf-book-format">
+              {book.category}
+              <span aria-hidden="true"> / </span>
+              {book.format}
+            </p>
+            {book.terms && <p class="shelf-book-terms">{book.terms}</p>}
+            <div
+              class:list={[
+                'shelf-book-actions',
+                { 'shelf-book-actions-pair': book.freeUrl },
+              ]}
+            >
+              {book.freeUrl && (
+                <a
+                  class="shelf-book-link"
+                  href={book.freeUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-label={`${book.freeAction}: ${book.title} (opens in a new tab)`}
+                >
+                  {book.freeAction}
+                </a>
+              )}
+              <a
+                class:list={[
+                  'shelf-book-link',
+                  { 'shelf-book-link-secondary': book.freeUrl },
+                ]}
+                href={book.url}
+                rel={
+                  book.affiliate
+                    ? 'sponsored noopener noreferrer'
+                    : 'noopener noreferrer'
+                }
+                target="_blank"
+                aria-label={`${book.action}: ${book.title} (opens in a new tab)`}
+              >
+                {book.action} <IconArrowUpRight size={17} aria-hidden="true" />
+              </a>
+            </div>
+            <p class="shelf-book-note">{book.note}</p>
+            {book.detail && <p class="shelf-book-detail">{book.detail}</p>}
+          </div>
+        </article>
+      </>
+    ))}
   </div>
-  <p class="shelf-book-disclosure">As an Amazon Associate I earn from qualifying purchases.</p>
+  <p class="shelf-book-disclosure">
+    As an Amazon Associate I earn from qualifying purchases.
+  </p>
 </section>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[data-shelf-direction]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const track = document.getElementById('book-shelf-track');
-      if (!track) return;
-      track.scrollBy({ left: track.clientWidth * Number(button.dataset.shelfDirection), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-shelf-direction]')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const track = document.getElementById('book-shelf-track');
+        if (!track) return;
+        track.scrollBy({
+          left: track.clientWidth * Number(button.dataset.shelfDirection),
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'instant'
+            : 'smooth',
+        });
+      });
     });
-  });
 </script>
 
 <style>
   @layer components {
-    .book-shelf { margin-block: var(--space-8); padding-block: var(--space-6); border-block: 1px solid var(--border); scroll-margin-top: var(--space-5); }
-    .book-shelf-heading p { margin-top: var(--space-2); color: var(--muted-foreground); max-width: 60ch; }
-    .book-shelf-scene { width: 100%; height: 144px; object-fit: cover; border-radius: var(--radius-main); margin-bottom: var(--space-5); }
-    .book-shelf-heading { margin-bottom: var(--space-5); }
-    .book-shelf-track { display: grid; grid-auto-flow: dense; gap: var(--space-4); }
-    .shelf-book { min-width: 0; overflow: hidden; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
-    .shelf-book-art { display: flex; justify-content: center; align-items: center; padding: var(--space-6); background: var(--accent); min-width: 0; overflow: hidden; }
-    .shelf-book:nth-child(2) .shelf-book-art { background: var(--secondary); }
-    .shelf-book:nth-child(3) .shelf-book-art { background: color-mix(in srgb, var(--primary) 12%, var(--background)); }
-    .shelf-book-art img { display: block; width: 100%; height: 220px; object-fit: contain; filter: drop-shadow(5px 8px 6px color-mix(in srgb, var(--foreground) 18%, transparent)); }
-    .shelf-book-body { display: flex; flex-direction: column; align-items: start; padding: var(--space-5); min-width: 0; overflow-wrap: anywhere; }
-    .shelf-book-body :global(.heading) { margin: 0; }
-    .shelf-book-status { display: inline-flex; font-size: var(--text-small); font-weight: 600; color: var(--primary); margin-bottom: var(--space-3); }
-    .shelf-book-author { font-size: var(--text-small); color: var(--muted-foreground); margin-top: var(--space-1); }
-    .shelf-book-format { font-size: var(--text-small); color: var(--muted-foreground); margin-top: var(--space-3); }
-    .shelf-book-format span { padding-inline: var(--space-1); }
-    .shelf-book-note { margin-block: var(--space-3) var(--space-4); line-height: 1.55; }
-    .shelf-book-terms { font-size: var(--text-small); font-weight: 600; margin-bottom: var(--space-4); }
-    .shelf-book-detail { margin-bottom: var(--space-4); color: var(--muted-foreground); }
-    .shelf-book-disclosure { margin-top: var(--space-3); font-size: var(--text-small); color: var(--muted-foreground); }
-    .shelf-book-actions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); margin-top: auto; max-width: 100%; }
-    .shelf-book-actions .shelf-book-link { white-space: normal; }
-    .shelf-book-actions-pair { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 1px; background: var(--border); border-radius: var(--radius-small); }
-    .shelf-book-actions-pair .shelf-book-link { margin: 0; padding-inline: var(--space-2); font-size: var(--text-small); border-radius: 0; min-width: 0; }
-    .shelf-book-actions-pair .shelf-book-link:first-child { border-radius: var(--radius-small) 0 0 var(--radius-small); }
-    .shelf-book-actions-pair .shelf-book-link:last-child { border-radius: 0 var(--radius-small) var(--radius-small) 0; }
-    .shelf-book-link { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: var(--control-height); padding: var(--space-2) var(--space-4); border-radius: var(--radius-small); background: var(--primary); color: var(--primary-foreground); font-weight: 600; margin-top: auto; white-space: nowrap; }
-    .book-shelf-controls { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
-    .book-shelf-controls > span { margin-right: auto; font-size: var(--text-small); color: var(--muted-foreground); }
-    .book-shelf--covers .book-shelf-track { grid-auto-flow: column; grid-auto-columns: 38%; overflow-x: auto; scroll-snap-type: x mandatory; padding: var(--space-1) var(--space-1) var(--space-4); scrollbar-color: var(--border) transparent; }
-    .book-shelf--covers .shelf-book { display: grid; align-self: stretch; grid-template-rows: auto 1fr; scroll-snap-align: start; }
-    .book-shelf--featured .book-shelf-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .book-shelf--featured .shelf-book:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 38% 1fr; }
-    .book-shelf--featured .shelf-book:first-child .shelf-book-art { padding: var(--space-8); }
-    .book-shelf--featured .shelf-book:first-child img { height: 300px; }
-    .book-shelf--featured .shelf-book:first-child .shelf-book-body { padding: var(--space-8); }
-    .book-shelf--featured .shelf-book:not(:first-child) { display: grid; grid-template-columns: 30% 1fr; }
-    .book-shelf--featured .shelf-book:not(:first-child) .shelf-book-art { padding: var(--space-3); }
-    .book-shelf--featured .shelf-book:not(:first-child) img { height: 150px; }
-    .book-shelf--featured .shelf-book:not(:first-child) .shelf-book-format { display: none; }
-    .book-shelf--compact .shelf-book { display: grid; grid-template-columns: 120px 1fr; }
-    .book-shelf--compact .shelf-book-art { padding: var(--space-4); }
-    .book-shelf--compact .shelf-book-art img { height: 130px; }
-    .book-shelf--compact .shelf-book-body { padding: var(--space-4) var(--space-5); display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-4); }
-    .book-shelf--compact .shelf-book-body > :not(.shelf-book-actions) { grid-column: 1; }
-    .book-shelf--compact .shelf-book-actions { grid-column: 2; grid-row: 1 / 7; align-self: center; margin: 0; }
-    .book-shelf--compact .shelf-book-status { margin-bottom: var(--space-1); }
-    .book-shelf--compact .shelf-book-note { margin-bottom: 0; }
-    .book-shelf--compact .shelf-book-format { display: none; }
+    .book-shelf {
+      margin-block: var(--space-8);
+      padding-block: var(--space-6);
+      border-block: 1px solid var(--border);
+      scroll-margin-top: var(--space-5);
+    }
+    .book-shelf--live {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+    .book-shelf-group {
+      margin-top: var(--space-6);
+      scroll-margin-top: var(--space-5);
+    }
+    .book-shelf-group p {
+      margin-top: var(--space-2);
+      color: var(--muted-foreground);
+      max-width: 65ch;
+    }
+    .book-shelf--live .shelf-book {
+      display: grid;
+      grid-template-columns: 24% minmax(0, 1fr);
+    }
+    .book-shelf--live .shelf-book-art {
+      padding: var(--space-4);
+    }
+    .book-shelf--live .shelf-book-art img {
+      height: auto;
+      max-height: 14rem;
+    }
+    .book-shelf--live .shelf-book:first-of-type {
+      border-color: var(--primary);
+    }
+    .book-shelf--live .shelf-book:first-of-type .shelf-book-art {
+      background: var(--secondary);
+    }
+    .book-shelf--live .shelf-book-actions {
+      width: 100%;
+    }
+    .book-shelf--live .shelf-book-actions-pair {
+      gap: var(--space-2);
+      background: transparent;
+    }
+    .book-shelf--live .shelf-book-link {
+      border-radius: var(--radius-small);
+    }
+    .book-shelf--live .shelf-book-link-secondary {
+      background: var(--secondary);
+      color: var(--foreground);
+    }
+    .book-shelf-heading p {
+      margin-top: var(--space-2);
+      color: var(--muted-foreground);
+      max-width: 60ch;
+    }
+    .book-shelf-scene {
+      width: 100%;
+      height: 144px;
+      object-fit: cover;
+      border-radius: var(--radius-main);
+      margin-bottom: var(--space-5);
+    }
+    .book-shelf-heading {
+      margin-bottom: var(--space-5);
+    }
+    .book-shelf-track {
+      display: grid;
+      grid-auto-flow: dense;
+      gap: var(--space-4);
+    }
+    .shelf-book {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-main);
+    }
+    .shelf-book-art {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-6);
+      background: var(--accent);
+      min-width: 0;
+      overflow: hidden;
+    }
+    .shelf-book:nth-child(2) .shelf-book-art {
+      background: var(--secondary);
+    }
+    .shelf-book:nth-child(3) .shelf-book-art {
+      background: color-mix(in srgb, var(--primary) 12%, var(--background));
+    }
+    .shelf-book-art img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      filter: drop-shadow(
+        5px 8px 6px color-mix(in srgb, var(--foreground) 18%, transparent)
+      );
+    }
+    .shelf-book-body {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      padding: var(--space-5);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .shelf-book-body :global(.heading) {
+      margin: 0;
+    }
+    .shelf-book-status {
+      display: inline-flex;
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: var(--space-3);
+    }
+    .shelf-book-author {
+      font-size: var(--text-small);
+      color: var(--muted-foreground);
+      margin-top: var(--space-1);
+    }
+    .shelf-book-format {
+      font-size: var(--text-small);
+      color: var(--muted-foreground);
+      margin-top: var(--space-3);
+    }
+    .shelf-book-format span {
+      padding-inline: var(--space-1);
+    }
+    .shelf-book-note {
+      margin-block: var(--space-3) var(--space-4);
+      line-height: 1.55;
+    }
+    .shelf-book-terms {
+      margin-top: var(--space-3);
+      font-size: var(--text-small);
+      font-weight: 600;
+      margin-bottom: var(--space-4);
+    }
+    .shelf-book-detail {
+      margin-bottom: var(--space-4);
+      color: var(--muted-foreground);
+    }
+    .shelf-book-disclosure {
+      margin-top: var(--space-3);
+      font-size: var(--text-small);
+      color: var(--muted-foreground);
+    }
+    .shelf-book-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-2);
+      margin-top: auto;
+      max-width: 100%;
+    }
+    .shelf-book-actions .shelf-book-link {
+      white-space: normal;
+    }
+    .shelf-book-actions-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius-small);
+    }
+    .shelf-book-actions-pair .shelf-book-link {
+      margin: 0;
+      padding-inline: var(--space-2);
+      font-size: var(--text-small);
+      border-radius: 0;
+      min-width: 0;
+    }
+    .shelf-book-actions-pair .shelf-book-link:first-child {
+      border-radius: var(--radius-small) 0 0 var(--radius-small);
+    }
+    .shelf-book-actions-pair .shelf-book-link:last-child {
+      border-radius: 0 var(--radius-small) var(--radius-small) 0;
+    }
+    .shelf-book-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-height: var(--control-height);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-small);
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-weight: 600;
+      margin-top: auto;
+      white-space: nowrap;
+    }
+    .book-shelf-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+      margin-bottom: var(--space-3);
+    }
+    .book-shelf-controls > span {
+      margin-right: auto;
+      font-size: var(--text-small);
+      color: var(--muted-foreground);
+    }
+    .book-shelf--covers .book-shelf-track {
+      grid-auto-flow: column;
+      grid-auto-columns: 38%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: var(--space-1) var(--space-1) var(--space-4);
+      scrollbar-color: var(--border) transparent;
+    }
+    .book-shelf--covers .shelf-book {
+      display: grid;
+      align-self: stretch;
+      grid-template-rows: auto 1fr;
+      scroll-snap-align: start;
+    }
+    .book-shelf--featured .book-shelf-track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .book-shelf--featured .shelf-book:first-child {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 38% 1fr;
+    }
+    .book-shelf--featured .shelf-book:first-child .shelf-book-art {
+      padding: var(--space-8);
+    }
+    .book-shelf--featured .shelf-book:first-child img {
+      height: 300px;
+    }
+    .book-shelf--featured .shelf-book:first-child .shelf-book-body {
+      padding: var(--space-8);
+    }
+    .book-shelf--featured .shelf-book:not(:first-child) {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+    }
+    .book-shelf--featured .shelf-book:not(:first-child) .shelf-book-art {
+      padding: var(--space-3);
+    }
+    .book-shelf--featured .shelf-book:not(:first-child) img {
+      height: 150px;
+    }
+    .book-shelf--featured .shelf-book:not(:first-child) .shelf-book-format {
+      display: none;
+    }
+    .book-shelf--compact .shelf-book {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+    }
+    .book-shelf--compact .shelf-book-art {
+      padding: var(--space-4);
+    }
+    .book-shelf--compact .shelf-book-art img {
+      height: 130px;
+    }
+    .book-shelf--compact .shelf-book-body {
+      padding: var(--space-4) var(--space-5);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: var(--space-4);
+    }
+    .book-shelf--compact .shelf-book-body > :not(.shelf-book-actions) {
+      grid-column: 1;
+    }
+    .book-shelf--compact .shelf-book-actions {
+      grid-column: 2;
+      grid-row: 1 / 7;
+      align-self: center;
+      margin: 0;
+    }
+    .book-shelf--compact .shelf-book-status {
+      margin-bottom: var(--space-1);
+    }
+    .book-shelf--compact .shelf-book-note {
+      margin-bottom: 0;
+    }
+    .book-shelf--compact .shelf-book-format {
+      display: none;
+    }
     @media (prefers-reduced-motion: no-preference) {
-      .shelf-book img, .shelf-book-link { transition: transform 220ms ease-out; }
-      .shelf-book:hover img { transform: translateY(-4px) rotate(-1deg); }
-      .shelf-book-link:hover { transform: translateY(-2px); }
-      .shelf-book-link:active { transform: scale(.98); }
+      .shelf-book img,
+      .shelf-book-link {
+        transition: transform 220ms ease-out;
+      }
+      .shelf-book:hover img {
+        transform: translateY(-4px) rotate(-1deg);
+      }
+      .shelf-book-link:hover {
+        transform: translateY(-2px);
+      }
+      .shelf-book-link:active {
+        transform: scale(0.98);
+      }
     }
     @media (width < 48rem) {
-      .shelf-book-link { white-space: normal; }
-      .book-shelf--covers .book-shelf-track { grid-auto-columns: 82%; }
-      .book-shelf--featured .book-shelf-track { grid-template-columns: minmax(0, 1fr); }
-      .book-shelf--featured .shelf-book:first-child { grid-template-columns: minmax(0, 1fr); }
-      .book-shelf--featured .shelf-book:first-child img { height: 230px; }
-      .book-shelf--featured .shelf-book:first-child .shelf-book-body { padding: var(--space-5); }
-      .book-shelf--compact .shelf-book { grid-template-columns: 88px minmax(0, 1fr); }
-      .book-shelf--compact .shelf-book-body { display: flex; padding: var(--space-4); }
-      .book-shelf--compact .shelf-book-art { padding: var(--space-2); align-items: start; padding-top: var(--space-5); }
-      .book-shelf--compact .shelf-book-art img { height: 104px; }
-      .book-shelf--compact .shelf-book-actions { align-self: start; margin-top: var(--space-3); }
+      .book-shelf--live .shelf-book {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .book-shelf--live .shelf-book-art {
+        padding: var(--space-4);
+      }
+      .book-shelf--live .shelf-book-art img {
+        height: 6rem;
+        width: auto;
+        max-width: 100%;
+      }
+      .book-shelf--live .shelf-book-actions-pair {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .book-shelf--live .shelf-book:not(.shelf-book-live) {
+        grid-template-columns: 24% minmax(0, 1fr);
+      }
+      .book-shelf--live .shelf-book:not(.shelf-book-live) .shelf-book-art {
+        padding: var(--space-2);
+        align-items: start;
+        padding-top: var(--space-5);
+      }
+      .book-shelf--live .shelf-book:not(.shelf-book-live) .shelf-book-art img {
+        height: auto;
+      }
+      .shelf-book-link {
+        white-space: normal;
+      }
+      .book-shelf--covers .book-shelf-track {
+        grid-auto-columns: 82%;
+      }
+      .book-shelf--featured .book-shelf-track {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .book-shelf--featured .shelf-book:first-child {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .book-shelf--featured .shelf-book:first-child img {
+        height: 230px;
+      }
+      .book-shelf--featured .shelf-book:first-child .shelf-book-body {
+        padding: var(--space-5);
+      }
+      .book-shelf--compact .shelf-book {
+        grid-template-columns: 88px minmax(0, 1fr);
+      }
+      .book-shelf--compact .shelf-book-body {
+        display: flex;
+        padding: var(--space-4);
+      }
+      .book-shelf--compact .shelf-book-art {
+        padding: var(--space-2);
+        align-items: start;
+        padding-top: var(--space-5);
+      }
+      .book-shelf--compact .shelf-book-art img {
+        height: 104px;
+      }
+      .book-shelf--compact .shelf-book-actions {
+        align-self: start;
+        margin-top: var(--space-3);
+      }
     }
   }
 </style>

@@ -1,10 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import portrait from '../assets/ayoub-portrait.jpg';
 import {
   IconArrowUpRight as ArrowUpRight,
   IconBook as BookOpen,
-  IconBook2 as Book,
   IconPlayerPlay as Play,
   IconPencil as PencilLine,
   IconCompass as Compass,
@@ -22,11 +19,17 @@ const articles = (
 const base = import.meta.env.BASE_URL;
 const links = (await getCollection('links')).map((entry) => entry.data);
 const youtube = 'https://go.alphabravomedia.co/islam-youtube';
-const read = links.find((link) => link.icon === 'BookOpen');
-const book = links.find((link) => link.variant === 'stream-pick');
 const support = links.find((link) => link.variant === 'support');
+const introduction = links.find((link) => link.icon === 'PencilLine');
+if (!introduction)
+  throw new Error('The beginner introduction resource is required.');
 const videos = links.filter((link) => link.youtube);
-const resources = links.filter((link) => !link.variant && !link.youtube && link.icon !== 'Scroll');
+const resources = links.filter(
+  (link) =>
+    !link.variant &&
+    !link.youtube &&
+    !['Scroll', 'PencilLine'].includes(link.icon)
+);
 const resourceLabels: Record<
   string,
   { title?: string; description?: string; Icon: typeof BookOpen }
@@ -45,38 +48,21 @@ const secondary = button;
 
 <div data-pocket-hub class="pocket-hub">
   <div class="pocket-hub_content">
-    <header class="u-text-center">
-      <div class="pocket-hub_hero">
-        <Image
-          src={portrait}
-          alt="Ayoub smiling"
-          widths={[320, 640, 960, 1280]}
-          sizes="(min-width: 1024px) 650px, 68vw"
-          loading="eager"
-          fetchpriority="high"
-          class="pocket-hub_portrait"
-        />
-        <h1 class="pocket-hub_title">Islam with Ayoub</h1>
-      </div>
-      <p class="pocket-hub_intro">
-        Read the Quran, find a copy, and explore the links from our live
-        sessions.
+    <header class="live-intro">
+      <h1 class="live-intro_title">Reading along?</h1>
+      <p class="live-intro_description">
+        I'm mostly reading Meadows of the Righteous on TikTok Live.
+        Find your copy or follow along for free.
       </p>
-      <nav aria-label="Ayoub's social profiles" class="pocket-hub_nav">
-        <a
-          href="https://go.alphabravomedia.co/islam-tiktok"
-          class="pocket-hub_a"
-        >
-          <IconBrandTiktok size={18} aria-hidden="true" /> TikTok
+      <nav aria-label="Find what you came for" class="live-intro_nav">
+        <a class="control control-outline" href="#books">
+          Books
         </a>
-        <a
-          href="https://go.alphabravomedia.co/islam-twitch"
-          class="pocket-hub_a"
-        >
-          <IconBrandTwitch size={18} aria-hidden="true" /> Twitch
+        <a class="control control-ghost" href="#copies">
+          Free Quran
         </a>
-        <a href={youtube} class="pocket-hub_a">
-          <IconBrandYoutube size={18} aria-hidden="true" /> YouTube
+        <a class="control control-ghost" href="#start-here">
+          New to Islam?
         </a>
       </nav>
     </header>
@@ -85,19 +71,88 @@ const secondary = button;
       data-pagefind-body={Astro.url.pathname === base ? '' : undefined}
       data-pagefind-filter="Type:Resources"
     >
-      <section id="read" aria-label="Start here" class="pocket-hub_read">
-        {read && (
-          <a href={read.url} class={`${button} resource-card-primary`}>
-            <BookOpen size={24} strokeWidth={1.5} className="flex-noshrink" />
-            <span class="resource-card_content">
-              <span class="resource-card_title">Read Quran in English</span>{' '}
-              <span class="resource-card_description">
-                Free translation & audio on Quran.com
-              </span>{' '}
+      <div id="read">
+        <slot name="books">
+          <BookShelf variant="live" />
+        </slot>
+      </div>
+      <section id="start-here" aria-labelledby="start-title" class="live-help">
+        <h2 id="start-title" class="pocket-hub_copies-title">
+          New to Islam? You're welcome here.
+        </h2>
+        <p>
+          You can listen, read along, and ask basic questions during the live.
+          You don't need to buy a book or know anything about Islam to join.
+        </p>
+        <dl class="live-help_questions">
+          <div>
+            <dt>Is Meadows of the Righteous the Quran?</dt>
+            <dd>
+              No. It is a collection of hadith, reports of what Prophet Muhammad
+              said and did, with Quran passages alongside them. The Quran is
+              Islam's scripture, believed by Muslims to be God's revelation.
+            </dd>
+          </div>
+          <div>
+            <dt>Where are we reading today?</dt>
+            <dd>
+              Ask me for the chapter or hadith number in the live. Page numbers
+              can differ between the printed book and PDF.
+            </dd>
+          </div>
+          <div>
+            <dt>Which Quran should I choose?</dt>
+            <dd>
+              To recognise the book from my earlier lives, choose The Clear
+              Quran in English and Arabic. For my article quotations, I normally
+              use M. A. S. Abdel Haleem. You can also start with the free online
+              reader before choosing a print edition.
+            </dd>
+          </div>
+        </dl>
+        <a href={introduction.url} class={secondary}>
+          <BookOpen size={23} aria-hidden="true" className="flex-noshrink" />
+          <span class="resource-card_content">
+            <span class="resource-card_title">
+              Start here: why Islam isn't a new religion
             </span>
-            <ArrowUpRight size={19} className="flex-noshrink" />
+            <span class="resource-card_description">
+              The diagram I share on live, introducing how Islam connects with
+              earlier prophets.
+            </span>
+          </span>
+          <ArrowUpRight
+            size={18}
+            aria-hidden="true"
+            className="flex-noshrink"
+          />
+        </a>
+      </section>
+      <section id="join" aria-labelledby="join-title" class="live-help">
+        <h2 id="join-title" class="pocket-hub_copies-title">
+          Join the next reading
+        </h2>
+        <p>
+          Follow my TikTok profile for future lives. Missed a session? Find
+          recorded readings on YouTube.
+        </p>
+        <nav aria-label="Ayoub's social profiles" class="live-intro_nav">
+          <a
+            href="https://go.alphabravomedia.co/islam-tiktok"
+            class="control control-primary"
+          >
+            <IconBrandTiktok size={18} aria-hidden="true" /> Follow on TikTok
           </a>
-        )}
+          <a
+            href="https://go.alphabravomedia.co/islam-twitch"
+            class="control control-ghost"
+          >
+            <IconBrandTwitch size={18} aria-hidden="true" /> Twitch
+          </a>
+          <a href={youtube} class="control control-ghost">
+            <IconBrandYoutube size={18} aria-hidden="true" /> YouTube
+          </a>
+        </nav>
         <a href={youtube} class={secondary}>
           <Play size={23} strokeWidth={1.5} className="flex-noshrink" />
           <span class="resource-card_content">
@@ -108,27 +163,7 @@ const secondary = button;
           </span>
           <ArrowUpRight size={18} className="flex-noshrink" />
         </a>
-        {book && (
-          <div>
-            <a href={book.url} class={secondary}>
-              <Book size={23} strokeWidth={1.5} className="flex-noshrink" />
-              <span class="resource-card_content">
-                <span class="resource-card_title">
-                  The book I read on stream
-                </span>{' '}
-                <span class="resource-card_description">
-                  The Clear Quran · English + Arabic
-                </span>{' '}
-              </span>
-              <ArrowUpRight size={18} className="flex-noshrink" />
-            </a>
-            <p class="pocket-hub_p-2">
-              Paid paperback. My spiral binding was done locally.
-            </p>
-          </div>
-        )}
       </section>
-      <slot name="books"><BookShelf /></slot>
       <section
         id="watch"
         aria-labelledby="watch-title"
@@ -206,7 +241,53 @@ const secondary = button;
 
 <style>
   @layer components {
-    .pocket-hub_nav { flex-wrap: wrap; }
-    .resource-card { overflow-wrap: anywhere; }
+    .live-intro_title {
+      margin-top: 0;
+      font-family: var(--font-serif);
+      font-size: var(--text-4xl);
+      line-height: var(--leading-tight);
+      text-wrap: balance;
+    }
+    .live-intro_description {
+      max-width: 60ch;
+      margin-top: var(--space-3);
+      color: var(--muted-foreground);
+    }
+    .live-intro_nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-block: var(--space-4);
+    }
+    .live-intro_nav a {
+      white-space: normal;
+    }
+    .live-help {
+      margin-block: var(--space-8);
+      scroll-margin-top: var(--space-5);
+    }
+    .live-help > p {
+      max-width: 65ch;
+      margin-bottom: var(--space-4);
+    }
+    .live-help_questions {
+      display: grid;
+      gap: var(--space-5);
+      margin-block: var(--space-5);
+    }
+    .live-help_questions dt {
+      font-weight: 600;
+    }
+    .live-help_questions dd {
+      margin: var(--space-2) 0 0;
+      max-width: 65ch;
+      color: var(--muted-foreground);
+    }
+    .pocket-hub_nav {
+      flex-wrap: wrap;
+    }
+    .resource-card {
+      overflow-wrap: anywhere;
+    }
   }
 </style>

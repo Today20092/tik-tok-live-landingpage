@@ -11,7 +11,7 @@ try {
   const page = await browser.newPage({ reducedMotion: 'reduce' });
   const routes = process.env.BUILT_SITE ? ['/', '/pocket/'] : ['/', '/pocket/', '/books-preview/covers/', '/books-preview/featured/', '/books-preview/compact/'];
   for (const route of routes) {
-    const variant = route.includes('featured') ? 'featured' : route.includes('compact') ? 'compact' : 'covers';
+    const variant = route.includes('featured') ? 'featured' : route.includes('compact') ? 'compact' : route.includes('covers') ? 'covers' : 'live';
     const screenshotName = route === '/' ? 'home' : route === '/pocket/' ? 'pocket' : variant;
     for (const width of [320, 768, 1280]) {
       for (const dark of [false, true]) {
@@ -32,15 +32,15 @@ try {
             assert.ok(sizes.every(size => Math.abs(size.width - sizes[0].width) < 1 && Math.abs(size.height - sizes[0].height) < 1), 'All shelf cards must have equal dimensions');
           }
           assert.equal(await page.locator('#copies').count(), 1);
-          assert.match(await page.locator('.shelf-book').first().innerText(), /Riyad as-Salihin[\s\S]*Not an affiliate link/);
-          assert.match(await page.locator('.shelf-book').nth(1).innerText(), /non-Muslims in the USA[\s\S]*One free copy/);
-          assert.match(await page.locator('.shelf-book').nth(2).innerText(), /Free for non-Muslims[\s\S]*postage/);
+          assert.match(await page.locator('.shelf-book').first().innerText(), /Meadows of the Righteous[\s\S]*No affiliate links/);
+          assert.match(await page.locator('.shelf-book').nth(2).innerText(), /non-Muslims in the USA[\s\S]*One free copy/);
+          assert.match(await page.locator('.shelf-book').nth(3).innerText(), /Free for non-Muslims[\s\S]*postage/);
           for (const [url, format] of [['https://amzn.to/4dxs7C8', 'English only'], ['https://amzn.to/4xS97GV', 'Arabic + English'], ['https://amzn.to/4xXs8Yo', 'Online or paperback']]) {
             const card = page.locator('.shelf-book').filter({ has: page.locator(`a[href="${url}"]`) });
             assert.ok((await card.textContent()).includes(format));
             assert.ok((await card.innerText()).includes('Affiliate link'));
           }
-          assert.match(await page.locator('.shelf-book').nth(5).innerText(), /Free PDF download[\s\S]*Download free PDF/);
+          assert.match(await page.locator('.shelf-book').first().innerText(), /Free PDF available[\s\S]*Find the free PDF/);
           const hours = page.locator('.shelf-book').last();
           assert.equal(await hours.locator('.shelf-book-link').first().getAttribute('href'), 'https://80000hours.org/career-guide/');
           assert.equal(await hours.locator('.shelf-book-link-secondary').getAttribute('href'), 'https://amzn.to/4xXs8Yo');
