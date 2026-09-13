@@ -58,7 +58,7 @@ Do not invent contact details. Use the existing public social profiles unless th
 
 ## Styling
 
-This branch is the approved Lumos for Astro migration experiment. Before styling any page or component, read [the shared design system](docs/lumos-design-system.md).
+Before styling pages or components, changing shared styles, or upgrading Lumos, read [the shared design system](docs/lumos-design-system.md). This project uses a pinned adaptation of Lumos for Astro; follow its local structure and documented overrides when upstream examples differ.
 
 - Reuse Lumos components and shared site patterns before adding new presentation code.
 - Use the shared tokens for color, spacing, typography, reading widths, corners, and controls. Add a named variant when a treatment repeats.
