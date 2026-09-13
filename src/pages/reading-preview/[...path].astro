@@ -5,18 +5,7 @@ export function getStaticPaths() {
   return import.meta.env.DEV ? ['note', 'split', 'minimal'].map((path) => ({ params: { path } })) : [];
 }
 const layout = Astro.params.path as 'note' | 'split' | 'minimal';
-const options = [{ id: 'note', title: 'Reading note' }, { id: 'split', title: 'Cover & text' }, { id: 'minimal', title: 'Text first' }];
 ---
 <HubPage title="Reading layout comparison | Islam with Ayoub" noindex>
-  <nav class="reading-comparison" aria-label="Compare reading layouts">
-    {options.map(({ id, title }) => <a class="control control-outline" aria-current={layout === id ? 'page' : undefined} href={`${import.meta.env.BASE_URL}reading-preview/${id}/`}>{title}</a>)}
-  </nav>
   <PocketHub readingLayout={layout} />
 </HubPage>
-<style>
-  @layer components {
-    .reading-comparison { display: flex; flex-wrap: wrap; gap: var(--space-2); max-width: var(--container-5xl); padding: var(--space-4) var(--space-5) 0; margin-inline: auto; }
-    .reading-comparison a { white-space: normal; }
-    .reading-comparison [aria-current] { background: var(--primary); color: var(--primary-foreground); }
-  }
-</style>

@@ -36,10 +36,9 @@ const groups = [
       <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
       <p>Hadith and Quran passages on faith, character, and everyday life.</p>
       <div class="reading-actions">
-        <a class="control control-primary" href={resource('Scroll')}>Find the free PDF ↗</a>
+        <a class="control control-primary" href={resource('Scroll')}>Download free PDF ↗</a>
         <a class="control control-outline" href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated">My print edition ↗</a>
       </div>
-      <p class="reading-caption">Abridged English · Turath Publishing.<br />Print is paid. PDF link opens a download page.</p>
     </div>
   </div>
   <div id="copies" class="reading-links">
@@ -65,16 +64,16 @@ const groups = [
 
 <style>
   @layer components {
-    .reading-resources { margin-block: var(--space-6) var(--space-8); }
+    .reading-resources { margin-block: 0 var(--space-8); }
     .reading-feature { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
     .reading-cover { display: grid; place-items: center; padding: var(--space-5); }
     .reading-cover img { width: auto; height: 8rem; max-width: 100%; object-fit: contain; filter: drop-shadow(3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)); }
-    .reading-copy { display: grid; gap: var(--space-3); min-width: 0; }
+    .reading-copy { display: grid; gap: var(--space-2); min-width: 0; align-content: center; }
     .reading-copy > *, .reading-links p { margin: 0; }
     .reading-copy h1 { font-family: var(--font-serif); font-size: var(--text-3xl); line-height: var(--leading-tight); text-wrap: balance; }
     .reading-label { color: var(--primary); font-size: var(--text-small); font-weight: 600; }
     .reading-subtitle, .reading-caption { color: var(--muted-foreground); font-size: var(--text-small); }
-    .reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+    .reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-2); }
     .reading-actions a { min-height: var(--control-height); display: inline-flex; align-items: center; white-space: normal; }
     .reading-actions a:not(.control), .reading-expanded a { text-decoration: underline; text-underline-offset: .2em; }
     .reading-links { margin-top: var(--space-6); }
@@ -94,7 +93,7 @@ const groups = [
     .reading-book h3 { font-size: var(--text-lg); line-height: var(--leading-tight); }
     .reading-book p { font-size: var(--text-small); color: var(--muted-foreground); }
     .reading-book a { margin-top: auto; white-space: normal; text-decoration: none; }
-    .reading-resources--split .reading-feature { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr); background: transparent; border: 0; padding-inline: 0; }
+    .reading-resources--split .reading-feature { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr); background: transparent; border: 0; padding: 0; }
     .reading-resources--split .reading-cover { background: var(--secondary); border-radius: var(--radius-main); }
     .reading-resources--split .reading-cover img { height: 11rem; }
     .reading-resources--minimal .reading-feature { border: 0; border-block: 1px solid var(--border); background: transparent; border-radius: 0; padding-inline: 0; }

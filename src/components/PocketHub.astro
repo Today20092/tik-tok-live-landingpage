@@ -51,7 +51,7 @@ const secondary = button;
   <div class="pocket-hub_content">
     {Astro.slots.has('books') && <h1 class="live-intro_title">Books from the live</h1>}
     <main
-      class="u-mt-6"
+      class="pocket-hub_main"
       data-pagefind-body={Astro.url.pathname === base ? '' : undefined}
       data-pagefind-filter="Type:Resources"
     >
@@ -218,6 +218,7 @@ const secondary = button;
 
 <style>
   @layer components {
+    .pocket-hub_content { padding-top: var(--space-4); }
     .live-intro_title {
       margin-top: 0;
       font-family: var(--font-serif);

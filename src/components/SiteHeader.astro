@@ -49,7 +49,33 @@ const links = [
           {label}
         </a>
       ))}
-      <ThemeControl />
     </nav>
+    <div class="site-header_tools">
+      <ThemeControl />
+      <details class="site-header_menu">
+        <summary class="control control-outline">Menu</summary>
+        <nav aria-label="Mobile site navigation">
+          {links.map(({ label, path }) => <a class="site-header_link" href={`${base}${path}`}>{label}</a>)}
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
+<style>
+  @layer components {
+    .site-header_row { position: relative; }
+    .site-header_tools { display: flex; align-items: center; gap: var(--space-1); }
+    .site-header_menu { display: none; }
+    @media (width < 40rem) {
+      .site-header { padding-top: var(--space-2); }
+      .site-header_row { column-gap: var(--space-2); row-gap: var(--space-1); padding-bottom: var(--space-2); }
+      .site-header_brand { gap: var(--space-2); }
+      .site-header_portrait { width: 2rem; height: 2rem; }
+      .site-header_name { font-size: var(--text-base); }
+      .site-header_navigation { display: none; }
+      .site-header_menu { display: block; }
+      .site-header_menu summary { cursor: pointer; list-style: none; }
+      .site-header_menu nav { position: absolute; top: 100%; right: 0; z-index: 20; display: grid; width: 12rem; max-width: 100%; padding: var(--space-2); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
+    }
+  }
+</style>
