@@ -383,6 +383,11 @@
   margin-inline: auto;
   max-width: var(--container-3xl);
 }
+/* Article spacing uses full line boxes, including prose and quotation text. */
+.article-page :is(h1, h2, h3, h4, h5, h6, p)::before,
+.article-page :is(h1, h2, h3, h4, h5, h6, p)::after {
+  content: none;
+}
 .article-page_breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -390,8 +395,13 @@
   gap: calc(var(--spacing) * 2);
 }
 .article-page_header {
+  display: grid;
+  gap: var(--space-4);
   padding-top: calc(var(--spacing) * 6);
   padding-bottom: calc(var(--spacing) * 8);
+}
+.article-page .article-page_header > * {
+  margin-block: 0;
 }
 .article-page_draft {
   margin-bottom: calc(var(--spacing) * 4);
@@ -489,6 +499,7 @@
   padding-top: calc(var(--spacing) * 6);
 }
 .article-page_resources-title {
+  margin-block: 0;
   font-size: var(--text-lg);
   line-height: var(--text-lg--line-height);
   font-weight: var(--font-weight-semibold);
@@ -520,6 +531,7 @@
   }
 }
 .article-page_related-title {
+  margin-top: 0;
   margin-bottom: calc(var(--spacing) * 5);
   font-size: var(--text-xl);
   line-height: var(--text-xl--line-height);

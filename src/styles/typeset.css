@@ -4,6 +4,12 @@
  */
 
 @layer components {
+  /* Article tables must fit narrow screens and enlarged text. */
+  .typeset-article :is(th, td) {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
   .typeset {
     --typeset-font-body: inherit;
     --typeset-font-heading: var(--font-heading);

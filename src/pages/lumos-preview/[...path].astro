@@ -79,12 +79,21 @@ export function getStaticPaths() {
         </p>
         <ArticleList articles={articles} heading="h3" />
       </section>
-      <section class="reading-width typeset">
+      <section class="article-page">
+        <header class="article-page_header">
+          <p class="article-page_category">Article spacing reference</p>
+          <Heading tag="h2" class="page-title">A longer article title that wraps onto multiple lines</Heading>
+          <p class="article-page_description">Full line boxes and shared spacing tokens keep the title, description, and byline separate.</p>
+          <p class="article-page_byline">Ayoub · About 8 min read</p>
+        </header>
+        <div class="typeset typeset-article">
         <h2 class="article-section-heading">
           <span>Article heading with a section link</span>
           <a class="control control-ghost control-icon" href="#" aria-label="Link to section"><IconLink aria-hidden="true" /></a>
         </h2>
         <p>Section headings use full line boxes so the link stays beside the text.</p>
+        <p>Paragraphs and quotation text use the same full line boxes, with larger gaps between sections than within them.</p>
+        </div>
       </section>
       <div class="flex-horizontal-wrap gap-3">
         <button class="control control-primary">Primary action</button>
