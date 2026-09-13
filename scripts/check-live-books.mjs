@@ -26,14 +26,19 @@ try {
           }, { dark, size });
           assert.equal(await page.locator('nav[aria-label="Find what you came for"]').count(), 0);
           assert.equal(await page.locator('#join a[href="https://go.alphabravomedia.co/islam-youtube"]').count(), 1);
-          await page.getByRole('link', { name: 'The print edition I use ↗' }).focus();
+          assert.equal(await page.locator('.site-shell h1').count(), 1);
+          await page.getByRole('link', { name: 'My print edition ↗' }).focus();
           assert.equal(await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle !== 'none'), true);
           for (const summary of await page.locator('.reading-resources summary, .live-help_details summary').all()) {
             await summary.focus();
             await page.keyboard.press('Enter');
             assert.equal(await summary.evaluate(el => el.parentElement.open), true);
           }
-          assert.match(await page.locator('#copies').innerText(), /non-Muslims in the USA/);
+          assert.match(await page.locator('#copies').innerText(), /Non-Muslims in the USA/);
+          for (const shelf of await page.locator('.reading-carousel').all()) {
+            await shelf.locator('a').last().focus();
+            assert.ok(await shelf.evaluate(el => el.scrollWidth <= el.clientWidth + 1 || el.scrollLeft > 0), 'Keyboard focus reveals later books');
+          }
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), false, `${route} overflow at ${width}, ${dark}, ${size}`);
           const gap = await page.locator('#start-title').evaluate(el => el.nextElementSibling.getBoundingClientRect().top - el.getBoundingClientRect().bottom);
           assert.ok(gap >= 15, `Welcome heading gap: ${gap}`);
