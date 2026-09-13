@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { IconPlayerPlay } from '@tabler/icons-react';
+
+interface Props {
+  videoId: string;
+  title: string;
+  channel: string;
+}
+const { videoId, title, channel } = Astro.props;
+const href = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
+---
+
+<figure data-not-typeset class="u-mt-6 u-mb-6">
+  <a href={href} class="learning-videos_a" aria-label={`Watch ${title} on YouTube`}>
+    <Image
+      src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+      alt=""
+      width={480}
+      height={360}
+      widths={[320, 480]}
+      sizes="(max-width: 480px) 90vw, 480px"
+      loading="lazy"
+      class="learning-videos_image"
+    />
+    <span class="learning-videos_span" aria-hidden="true">
+      <span class="learning-videos_span-2"><IconPlayerPlay size={22} fill="currentColor" /></span>
+    </span>
+  </a>
+  <figcaption class="resource-card_description u-mt-3">
+    <a href={href}>{title}</a> · {channel} · Watch on YouTube
+  </figcaption>
+</figure>

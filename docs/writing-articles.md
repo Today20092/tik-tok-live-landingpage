@@ -28,6 +28,8 @@ Use paths relative to `public/`, with no leading slash. Keep images wide, ideall
 
 ## Reusable article components and references
 
+For a recommended YouTube video, import `ArticleVideo` from `@/components/ArticleVideo.astro` and use `<ArticleVideo videoId="2GxlL5-0m_g" title="Wealth Inequality in America (Updated 2026)" channel="politizane" />`. It reuses the site's thumbnail/play-button styling and links to YouTube without loading a player. Keep the recommendation in the author's prose and cite substantive claims in footnotes.
+
 Use `.mdx` when an article needs components. Import them from `@/components/`; keep ordinary paragraphs and headings in Markdown. This inventory is the entry point for `voice-to-blog` and other article editing workflows. Update it when adding a component or changing how authors use one; component implementations and linked guides remain authoritative for props and validation.
 
 | Content                                        | Component              | Usage guide                                                                                                                                            |
