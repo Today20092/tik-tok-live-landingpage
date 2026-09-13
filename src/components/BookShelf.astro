@@ -21,6 +21,13 @@ if (!riyadPdf) throw new Error('Book shelf requires the Riyad PDF resource.');
 if (!clearQuran || !quranProject) throw new Error('Book shelf requires both free Quran resources.');
 const books = [
   {
+    title: 'Riyad as-Salihin — PDF', author: 'Imam Yahya ibn Sharaf an-Nawawi',
+    format: 'PDF', category: 'English', status: 'Free PDF download',
+    note: 'Abridged and annotated. Read the English edition digitally.',
+    terms: 'Free download · Not an affiliate link', action: 'Download free PDF',
+    image: riyadCover, url: riyadPdf.url,
+  },
+  {
     title: 'Riyad as-Salihin', author: 'Imam Yahya ibn Sharaf an-Nawawi',
     format: 'Abridged and annotated', category: 'English', status: 'Reading now',
     note: "The Meadows of the Righteous. The English edition I'm currently reading.",
@@ -57,13 +64,6 @@ const books = [
     note: 'Arabic text alongside the English translation.',
     terms: 'Paid book · Affiliate link', action: 'View on Amazon', affiliate: true,
     image: haleemHardcover, url: 'https://amzn.to/4xS97GV',
-  },
-  {
-    title: 'Riyad as-Salihin — PDF', author: 'Imam Yahya ibn Sharaf an-Nawawi',
-    format: 'PDF', category: 'English', status: 'Free PDF download',
-    note: 'Abridged and annotated. Read the English edition digitally.',
-    terms: 'Free download · Not an affiliate link', action: 'Download free PDF',
-    image: riyadCover, url: riyadPdf.url,
   },
   {
     title: '80,000 Hours', author: 'Benjamin Todd',
