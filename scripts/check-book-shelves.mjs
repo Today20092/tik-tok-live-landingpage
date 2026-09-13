@@ -26,17 +26,17 @@ try {
           }, { dark, size });
           await page.locator('#books').scrollIntoViewIfNeeded();
           await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-          assert.equal(await page.locator('.shelf-book').count(), 6);
+          assert.equal(await page.locator('.shelf-book').count(), 7);
           assert.equal(await page.locator('#copies').count(), 1);
           assert.match(await page.locator('.shelf-book').first().innerText(), /Riyad as-Salihin[\s\S]*Not an affiliate link/);
           assert.match(await page.locator('.shelf-book').nth(1).innerText(), /non-Muslims in the USA[\s\S]*One free copy/);
           assert.match(await page.locator('.shelf-book').nth(2).innerText(), /Free for non-Muslims[\s\S]*postage/);
-          for (const [url, format] of [['https://amzn.to/4dxs7C8', 'English only'], ['https://amzn.to/4xS97GV', 'Arabic + English']]) {
+          for (const [url, format] of [['https://amzn.to/4dxs7C8', 'English only'], ['https://amzn.to/4xS97GV', 'Arabic + English'], ['https://amzn.to/4xXs8Yo', 'Paperback']]) {
             const card = page.locator('.shelf-book').filter({ has: page.locator(`a[href="${url}"]`) });
             assert.ok((await card.textContent()).includes(format));
             assert.ok((await card.innerText()).includes('Affiliate link'));
           }
-          assert.match(await page.locator('.shelf-book').last().innerText(), /Free PDF download[\s\S]*Download free PDF/);
+          assert.match(await page.locator('.shelf-book').nth(5).innerText(), /Free PDF download[\s\S]*Download free PDF/);
           assert.equal(await page.locator('a.resource-card[href="https://go.alphabravomedia.co/islam-riyad-pdf"]').count(), 0);
           assert.equal(await page.locator('a.resource-card[href="https://go.alphabravomedia.co/islam-career-guide"]').count(), 1);
           const errors = await page.evaluate(() => {

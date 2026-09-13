@@ -1,5 +1,7 @@
 # Book shelf sources
 
+- `80000-hours-paperback.jpg`: [Porchlight Books listing](https://www.porchlightbooks.com/collections/social-science/products/80000-hours-benjamin-todd-9780593981092), [product cover](https://www.porchlightbooks.com/cdn/shop/files/9780593981092.jpg?v=1778094879). Benjamin Todd, *80,000 Hours: How to Have a Fulfilling Career That Does Good*, Harmony paperback, ISBN 9780593981092. Ayoub's affiliate link `https://amzn.to/4xXs8Yo` resolved to ASIN 059398109X with his affiliate tag on September 13, 2026.
+
 The first card is Ayoub's current read, confirmed on September 13, 2026. Its Turath link is not affiliated. The two free-copy cards reuse the existing resource URLs in `src/content/links/links.json`.
 
 - `riyad-as-salihin.webp`: [Turath Publishing product page](https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated), [original cover](https://cdn.shopify.com/s/files/1/0815/3605/7668/files/Riyadas-SalihinAbridgedandAnnotated.webp?v=1726554615).

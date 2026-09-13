@@ -3,7 +3,7 @@ import console from 'node:console';
 import { URL } from 'node:url';
 import { existsSync, readFileSync } from 'node:fs';
 
-// Run after npm run build: node scripts/check-mobile-hub.mjs
+// Run after pnpm build: node scripts/check-mobile-hub.mjs
 const links = JSON.parse(
   readFileSync(
     new URL('../src/content/links/links.json', import.meta.url),
@@ -32,8 +32,10 @@ for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
     assert.ok(!html.includes('aria-label="Compare layouts"'));
     assert.ok(!html.includes('role="tab"'));
     assert.ok(html.includes('Read Quran in English'));
-    assert.ok(html.includes('Request The Clear Quran'));
-    assert.ok(html.includes('Free for non-Muslims in the USA. One copy.'));
+    assert.ok(html.includes('Request copy: The Clear Quran'));
+    assert.ok(html.includes('For non-Muslims in the USA. One free copy per order.'));
+    assert.ok(html.includes('Free PDF download'));
+    assert.ok(html.includes('https://amzn.to/4xXs8Yo'));
   } else {
     assert.ok(html.includes('Request The Clear Quran'));
     assert.ok(html.includes('Request The Quran Project'));
