@@ -1,3 +1,9 @@
+/* Migrated site layouts measure spacing with full text line boxes. */
+.site-shell :is(h1, h2, h3, h4, h5, h6, p)::before,
+.site-shell :is(h1, h2, h3, h4, h5, h6, p)::after {
+  content: none;
+}
+
 .page-width {
   width: 100%;
   max-width: var(--max-width-main);

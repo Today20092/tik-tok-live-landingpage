@@ -14,6 +14,8 @@ Read the reference page before changing shared styles. Check both themes, narrow
 
 Component styles preserve existing layouts and interactive behavior. The compact hub and alternate editorial layouts intentionally use different compositions; shared color, type families, control height, and focus tokens remain consistent. The image viewer and Arabic quotations have documented sizing exceptions in `shared.css`.
 
+Migrated pages inside `.site-shell` use full text line boxes. `shared.css` disables Lumos's leading-trim pseudo-elements there so section gaps, compact labels, and paragraph spacing retain their intended measurements. Keep this shared rule rather than adding separate trim overrides to each component. Run `scripts/check-site-layout.mjs` against the built preview to check every built route with expanded content in both themes and at enlarged text sizes.
+
 The component CSS was extracted from the original utility groups and simplified to native declarations. Tailwind’s MIT attribution is retained in `src/styles/lumos/TAILWIND-LICENSE`; these files do not require Tailwind to build.
 
 Run `scripts/check-lumos.mjs` against the built preview and development server after shared changes. See [the experiment results](lumos-migration-results.md) for commands, deliberate visual differences, and measured bundle sizes. The check detects actual cross-page overrides; it does not ban justified custom layouts.
