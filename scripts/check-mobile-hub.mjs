@@ -16,6 +16,11 @@ for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
     'utf8'
   );
   for (const link of links.filter((item) => item.variant !== 'charity')) {
+    if ((variant === '' || variant === 'pocket/') && link.icon === 'Compass') {
+      assert.ok(html.includes('href="https://80000hours.org/career-guide/"'));
+      assert.ok(html.includes('href="https://amzn.to/4xXs8Yo"'));
+      continue;
+    }
     assert.ok(
       html.includes(`href="${link.url.replaceAll('&', '&amp;')}"`),
       `Missing resource: ${link.title}`
@@ -31,10 +36,10 @@ for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
   if (variant === '' || variant === 'pocket/') {
     assert.ok(!html.includes('aria-label="Compare layouts"'));
     assert.ok(!html.includes('role="tab"'));
-    assert.ok(html.includes('Read Quran in English'));
-    assert.ok(html.includes('Request copy: The Clear Quran'));
-    assert.ok(html.includes('For non-Muslims in the USA. One free copy per order.'));
-    assert.ok(html.includes('Free PDF download'));
+    assert.ok(html.includes('Read the Quran online'));
+    assert.ok(html.includes('The Clear Quran'));
+    assert.ok(html.includes('Non-Muslims in the USA. One free copy per order.'));
+    assert.ok(html.includes('Download free PDF'));
     assert.ok(html.includes('https://amzn.to/4xXs8Yo'));
   } else {
     assert.ok(html.includes('Request The Clear Quran'));
