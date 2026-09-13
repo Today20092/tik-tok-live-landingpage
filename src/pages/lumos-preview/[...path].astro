@@ -2,6 +2,7 @@
 import '../../styles/global.css';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
+import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
@@ -26,6 +27,7 @@ export function getStaticPaths() {
   </head>
   <body>
     <Section>
+      <QuoteStylePreview />
       <Heading tag="h1">One system, across the site</Heading>
       <p class="text-muted">
         Development reference for the Lumos migration experiment.

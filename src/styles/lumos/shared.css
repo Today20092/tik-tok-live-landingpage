@@ -293,9 +293,9 @@
   margin: 0;
   text-align: start;
   font-family: 'Amiri Quran', serif;
-  font-size: clamp(1.875rem, 1.7rem + 0.7vw, 2.25rem);
+  font-size: 1.75rem;
   font-weight: 400;
-  line-height: 2.5;
+  line-height: 2.2;
   letter-spacing: normal;
   overflow-wrap: normal;
 }

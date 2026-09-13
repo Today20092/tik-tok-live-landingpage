@@ -1,0 +1,96 @@
+---
+import QuranVerse from './QuranVerse.astro';
+import HadithQuote from './HadithQuote.astro';
+import ThemeControl from './ThemeControl.astro';
+const styles = [
+  ['academic', 'Academic indent', 'APA / MLA inspired indentation, with a plain citation below. Adapted for web reading, not a formal citation template.'],
+  ['rule', 'Margin rule', 'A slim accent rule groups the passage and its source without enclosing them.'],
+  ['editorial', 'Editorial serif', 'Book-like English typography with a short rule separating the citation.'],
+  ['sidenote', 'Side citation', 'Sources sit beside the passage on wide screens and below it on mobile.'],
+];
+---
+
+<section id="quote-styles" class="quote-preview site-shell">
+  <header class="quote-preview_header">
+    <h1 class="page-title">Quotes, without the box</h1>
+    <ThemeControl />
+  </header>
+  <p>Four compact treatments for Quran and hadith. Choose a style to compare the same passages.</p>
+  <fieldset class="quote-preview_choices">
+    <legend>Quotation style</legend>
+    {styles.map(([value, label]) => (
+      <label>
+        <input type="radio" name="quote-style" value={value} checked={value === 'rule'} />
+        <span>{label}</span>
+      </label>
+    ))}
+  </fieldset>
+  {styles.map(([value, , description]) => <p class="quote-preview_description" data-description={value}>{description}</p>)}
+  <label class="quote-preview_arabic-toggle">
+    <input type="checkbox" name="quote-arabic" checked /> Show Arabic
+  </label>
+  <div class="quote-preview_samples">
+    <section aria-labelledby="quote-quran-heading">
+      <h2 id="quote-quran-heading" class="section-title">Quran</h2>
+      <p class="quote-preview_context">A passage within an article should stand apart while keeping the reading flow.</p>
+      <QuranVerse verse="16:125" />
+      <p class="quote-preview_context">The article continues here, with room to reflect on the passage.</p>
+    </section>
+    <section aria-labelledby="quote-hadith-heading">
+      <h2 id="quote-hadith-heading" class="section-title">Hadith</h2>
+      <HadithQuote hadith="bukhari-1" />
+    </section>
+    <details class="quote-preview_long">
+      <summary>Try a longer passage</summary>
+      <QuranVerse verse="2:261" />
+    </details>
+  </div>
+</section>
+
+<style is:global>
+  @layer components {
+    .quote-preview {
+      width: 100%;
+      max-width: var(--max-width-small);
+      margin-inline: auto;
+      color: var(--foreground);
+    }
+    .quote-preview_header { display: flex; align-items: start; justify-content: space-between; gap: var(--space-4); }
+    .quote-preview_header h1 { margin: 0; }
+    .quote-preview > p { margin-block: var(--space-4); }
+    .quote-preview_choices { border: 0; padding: 0; margin-block: var(--space-6) var(--space-3); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+    .quote-preview_choices legend { margin-bottom: var(--space-2); font-weight: 600; }
+    .quote-preview_choices label { position: relative; cursor: pointer; }
+    .quote-preview_choices input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+    .quote-preview_choices span { display: flex; justify-content: center; align-items: center; min-height: var(--control-height); padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-small); font-size: var(--text-small); }
+    .quote-preview_choices input:checked + span { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+    .quote-preview_choices input:focus-visible + span { outline: var(--focus-width) solid var(--ring); outline-offset: var(--focus-offset); }
+    .quote-preview_choices label:hover span { border-color: var(--primary); }
+    .quote-preview_description { display: none; color: var(--muted-foreground); font-size: var(--text-small); }
+    .quote-preview:has([value="academic"]:checked) [data-description="academic"],
+    .quote-preview:has([value="rule"]:checked) [data-description="rule"],
+    .quote-preview:has([value="editorial"]:checked) [data-description="editorial"],
+    .quote-preview:has([value="sidenote"]:checked) [data-description="sidenote"] { display: block; }
+    .quote-preview_arabic-toggle { display: flex; align-items: center; gap: var(--space-2); min-height: var(--control-height); width: fit-content; cursor: pointer; }
+    .quote-preview input { accent-color: var(--primary); }
+    .quote-preview_samples { margin-top: var(--space-6); }
+    .quote-preview_samples > section + section { margin-top: var(--space-8); }
+    .quote-preview_context { font-size: var(--text-large); line-height: var(--leading-relaxed); margin-block: var(--space-3); }
+    .quote-preview:not(:has([value="rule"]:checked)) :is(.quran-verse_figure, .hadith-quote_figure) { border: 0; padding: 0; }
+    .quote-preview:has([name="quote-arabic"]:not(:checked)) .quotation_arabic { display: none; }
+    .quote-preview:has([value="academic"]:checked) figure { margin-inline-start: var(--space-8); }
+    .quote-preview:has([value="editorial"]:checked) :is(.quran-verse_p-2, .hadith-quote_p-2) { font-family: var(--font-serif); }
+    .quote-preview:has([value="editorial"]:checked) figcaption::before { content: ''; display: block; width: var(--space-8); border-top: 1px solid var(--primary); margin-block: var(--space-4) var(--space-2); }
+    .quote-preview_long { margin-top: var(--space-6); }
+    .quote-preview_long > summary { cursor: pointer; color: var(--primary); padding-block: var(--space-3); }
+    @media (min-width: 48rem) {
+      .quote-preview:has([value="sidenote"]:checked) figure { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 12rem); gap: var(--space-6); }
+      .quote-preview:has([value="sidenote"]:checked) figcaption { margin-top: var(--space-2); border-inline-start: 1px solid var(--border); padding-inline-start: var(--space-4); }
+    }
+    @media (max-width: 47.999rem) {
+      .quote-preview_choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .quote-preview:has([value="academic"]:checked) figure { margin-inline-start: var(--space-4); }
+      .quote-preview:has([value="sidenote"]:checked) figcaption { padding-inline-start: var(--space-4); border-inline-start: 1px solid var(--border); }
+    }
+  }
+</style>
