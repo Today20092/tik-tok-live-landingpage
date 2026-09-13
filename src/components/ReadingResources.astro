@@ -2,10 +2,10 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import cover from '../assets/books/riyad-as-salihin.webp';
-import clearCover from '../assets/books/clear-quran.jpg';
-import projectCover from '../assets/books/quran-project.jpg';
-import haleemCover from '../assets/books/abdel-haleem-paperback.jpg';
-import parallelCover from '../assets/books/abdel-haleem-hardcover.jpg';
+import clearCover from '../assets/books/clear-quran-generated.png';
+import projectCover from '../assets/books/quran-project-generated.png';
+import haleemCover from '../assets/books/abdel-haleem-paperback-generated.png';
+import parallelCover from '../assets/books/abdel-haleem-hardcover-generated.png';
 interface Props { layout?: 'note' | 'split' | 'minimal' }
 const { layout = 'split' } = Astro.props;
 const links = (await getCollection('links')).map(({ data }) => data);
@@ -47,20 +47,51 @@ const groups = [
     {groups.map((group, i) => <details>
       <summary>{group.title}</summary>
       <div class="reading-expanded">
-        <p class="reading-caption">Swipe to browse, or tab through the links.</p>
-        <div class="reading-carousel" tabindex="0" role="region" aria-label={group.title}>
+        <reading-shelf>
+        <div class:list={['reading-carousel', { 'reading-carousel-pair': i === 0 }]} tabindex="0" role="region" aria-label={group.title}>
           {group.books.map((book) => <article class="reading-book">
-            <div class="reading-book-cover"><Image src={book.image} alt={`${book.title} cover`} width={200} loading="lazy" /></div>
+            <div class="reading-book-cover"><Image src={book.image} alt={`${book.title} cover illustration`} width={400} loading="lazy" /></div>
             <h3>{book.title}</h3>
             <p>{book.note}</p>
             <a class="control control-outline" href={book.url} rel={book.url.includes('amzn.to') ? 'sponsored' : undefined}>{book.label} ↗</a>
           </article>)}
         </div>
+        </reading-shelf>
         {i === 1 && <p class="reading-caption">Paid editions. Amazon links are affiliate links; I earn from qualifying purchases.</p>}
       </div>
     </details>)}
   </div>
 </section>
+
+<script>
+  class ReadingShelf extends HTMLElement {
+    connectedCallback() {
+      const carousel = this.querySelector<HTMLElement>('.reading-carousel');
+      if (!carousel) return;
+      const update = () => {
+        const inset = parseFloat(getComputedStyle(carousel).paddingInlineStart) + 1;
+        this.toggleAttribute('data-more-left', carousel.scrollLeft > inset);
+        this.toggleAttribute('data-more-right', carousel.scrollWidth - carousel.clientWidth - carousel.scrollLeft > inset);
+      };
+      carousel.addEventListener('scroll', update, { passive: true });
+      const revealFocusedCard = (event: FocusEvent) => {
+        if (event.target instanceof Element) event.target.closest('.reading-book')?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'instant' });
+      };
+      carousel.addEventListener('focusin', revealFocusedCard);
+      const observer = new ResizeObserver(update);
+      observer.observe(carousel);
+      this.cleanup = () => {
+        carousel.removeEventListener('scroll', update);
+        carousel.removeEventListener('focusin', revealFocusedCard);
+        observer.disconnect();
+      };
+      update();
+    }
+    cleanup?: () => void;
+    disconnectedCallback() { this.cleanup?.(); }
+  }
+  if (!customElements.get('reading-shelf')) customElements.define('reading-shelf', ReadingShelf);
+</script>
 
 <style>
   @layer components {
@@ -85,14 +116,23 @@ const groups = [
     .reading-links details[open] summary::after { content: '−'; }
     .reading-expanded { display: grid; gap: var(--space-4); padding-block: var(--space-2) var(--space-5); color: var(--muted-foreground); }
     .reading-expanded a { color: var(--foreground); }
-    .reading-carousel { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 44%); gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; padding: var(--space-2) var(--space-2) var(--space-4); scrollbar-color: var(--border) transparent; }
+    reading-shelf { display: block; position: relative; min-width: 0; }
+    reading-shelf::before, reading-shelf::after { content: ''; position: absolute; z-index: 1; top: 0; bottom: var(--space-4); width: var(--space-8); pointer-events: none; opacity: 0; }
+    reading-shelf::before { left: 0; background: linear-gradient(to right, var(--background), transparent); }
+    reading-shelf::after { right: 0; background: linear-gradient(to left, var(--background), transparent); }
+    reading-shelf[data-more-left]::before, reading-shelf[data-more-right]::after { opacity: 1; }
+    .reading-carousel { display: grid; grid-auto-flow: column; grid-template-columns: repeat(3, minmax(16rem, var(--book-width, 44%))); grid-template-rows: 14rem auto 1fr auto; gap: var(--space-3) var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; padding: var(--space-2) var(--space-2) var(--space-4); scrollbar-color: var(--border) transparent; }
+    .reading-carousel-pair { grid-template-columns: repeat(2, minmax(16rem, var(--book-width, 44%))); }
+    .reading-carousel { scroll-padding-inline: var(--space-2); }
+    .reading-book { scroll-snap-stop: always; }
     .reading-carousel:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
-    .reading-book { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; scroll-snap-align: start; color: var(--foreground); }
-    .reading-book-cover { display: grid; place-items: center; background: var(--secondary); padding: var(--space-5); border-radius: var(--radius-main); }
-    .reading-book-cover img { width: 100%; height: 8rem; object-fit: contain; }
+    .reading-book { display: grid; grid-template-rows: subgrid; grid-row: span 4; min-width: 0; scroll-snap-align: start; color: var(--foreground); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); overflow: hidden; }
+    .reading-book > :not(.reading-book-cover) { margin-inline: var(--space-4); }
+    .reading-book-cover { display: grid; place-items: center; padding: var(--space-4); min-height: 0; }
+    .reading-book-cover img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
     .reading-book h3 { font-size: var(--text-lg); line-height: var(--leading-tight); }
     .reading-book p { font-size: var(--text-small); color: var(--muted-foreground); }
-    .reading-book a { margin-top: auto; white-space: normal; text-decoration: none; }
+    .reading-book a { margin-block: var(--space-2) var(--space-4); white-space: normal; text-decoration: none; align-self: stretch; }
     .reading-resources--split .reading-feature { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr); background: transparent; border: 0; padding: 0; }
     .reading-resources--split .reading-cover { background: var(--secondary); border-radius: var(--radius-main); }
     .reading-resources--split .reading-cover img { height: 11rem; }
@@ -100,7 +140,7 @@ const groups = [
     .reading-resources--minimal .reading-cover { display: none; }
     .reading-resources--minimal .reading-actions .control { background: transparent; color: var(--primary); padding-inline: 0; text-decoration: underline; text-underline-offset: .2em; }
     @media (width < 40rem) {
-      .reading-carousel { grid-auto-columns: minmax(0, 82%); }
+      .reading-carousel { --book-width: 82%; }
       .reading-feature { padding: var(--space-5); gap: var(--space-3); }
       .reading-cover { padding: var(--space-3); }
       .reading-resources--split .reading-feature { grid-template-columns: minmax(0, 1fr); }

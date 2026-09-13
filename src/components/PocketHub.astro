@@ -9,6 +9,8 @@ import {
   IconBrandYoutube,
 } from '@tabler/icons-react';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import hoursCover from '../assets/books/80000-hours-paperback.jpg';
 import ArticleList from './ArticleList.astro';
 import LearningVideos from './LearningVideos.astro';
 import ReadingResources from './ReadingResources.astro';
@@ -20,7 +22,6 @@ const articles = (
 const base = import.meta.env.BASE_URL;
 const links = (await getCollection('links')).map((entry) => entry.data);
 const youtube = 'https://go.alphabravomedia.co/islam-youtube';
-const support = links.find((link) => link.variant === 'support');
 const introduction = links.find((link) => link.icon === 'PencilLine');
 if (!introduction)
   throw new Error('The beginner introduction resource is required.');
@@ -42,8 +43,7 @@ const resourceLabels: Record<
     Icon: Compass,
   },
 };
-const paperCard = 'pocket-hub_papercard';
-const button = 'resource-card';
+const button = 'resource-card hub-resource-row';
 const secondary = button;
 ---
 
@@ -173,7 +173,20 @@ const secondary = button;
           More from the live
         </h2>
         <div class="pocket-hub_div-4">
-          {resources.map((link) => {
+          <article class="career-book">
+            <div class="career-book_cover"><Image src={hoursCover} alt="80,000 Hours by Benjamin Todd cover" width={240} loading="lazy" /></div>
+            <div>
+              <h3>80,000 Hours</h3>
+              <p class="text-small">Benjamin Todd</p>
+              <p>A guide to finding a fulfilling career that does good.</p>
+              <div class="live-intro_nav">
+                <a class="control control-outline" href="https://80000hours.org/career-guide/">Read free online ↗</a>
+                <a class="control control-outline" href="https://amzn.to/4xXs8Yo" rel="sponsored">Buy paperback ↗</a>
+              </div>
+              <p class="text-small">Paid paperback. Amazon affiliate link; I earn from qualifying purchases.</p>
+            </div>
+          </article>
+          {resources.filter((link) => link.icon !== 'Compass').map((link) => {
             const label = resourceLabels[link.icon];
             const Icon = label?.Icon ?? BookOpen;
             return (
@@ -193,25 +206,6 @@ const secondary = button;
           })}
         </div>
       </section>
-      {support && (
-        <a href={support.url} class={`${paperCard} pocket-hub_a-4`}>
-          <img
-            src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/670f5a01229bf8a18f97a3c1_favion.avif"
-            alt=""
-            width="48"
-            height="48"
-            loading="lazy"
-            class="pocket-hub_img"
-          />
-          <span class="resource-card_content">
-            <span class="resource-card_title">Support my work on Ko-fi</span>{' '}
-            <span class="resource-card_description">
-              If you'd like to support my videos, articles, and live readings,
-              you can leave an optional tip.
-            </span>
-          </span>
-        </a>
-      )}
     </main>
   </div>
 </div>
@@ -219,6 +213,26 @@ const secondary = button;
 <style>
   @layer components {
     .pocket-hub_content { padding-top: var(--space-4); }
+    .hub-resource-row { background: transparent; border-radius: 0; border: 0; border-bottom: 1px solid var(--border); box-shadow: none; padding: var(--space-4) 0; }
+    .hub-resource-row::before, .hub-resource-row::after { display: none; }
+    .hub-resource-row:hover { transform: none; box-shadow: none; }
+    .career-book { display: grid; grid-template-columns: minmax(0, 8rem) minmax(0, 1fr); gap: var(--space-4); padding-block: var(--space-4); }
+    .pocket-hub_copies-title, .pocket-hub_articles-title { font-family: var(--font-serif); font-size: var(--text-2xl); line-height: var(--leading-tight); padding-inline: 0; }
+    .pocket-hub :global(.article-list_heading), .pocket-hub :global(.learning-videos_h3), .career-book h3, .pocket-hub :global(.reading-book h3) { font-size: var(--text-xl); line-height: var(--leading-tight); }
+    :global(.site-main:has([data-pocket-hub]) + .share-page .share-page_share-title) { font-size: var(--text-2xl); line-height: var(--leading-tight); }
+    .pocket-hub_copies { padding-top: 0; margin-top: var(--space-6); }
+    #watch-title { margin-bottom: var(--space-5); }
+    .career-book { padding-bottom: 0; }
+    .career-book > div > p:last-child { margin-bottom: 0; }
+    :global(.site-main:has([data-pocket-hub]) + .share-page) { margin-top: var(--space-4); }
+    .pocket-hub_div-5 { flex-wrap: wrap; gap: var(--space-2); }
+    .pocket-hub :global(h2), .pocket-hub :global(h3) { overflow-wrap: anywhere; }
+    .career-book_cover { display: grid; place-items: center; align-self: start; padding: var(--space-3); background: var(--secondary); border-radius: var(--radius-main); }
+    .career-book_cover img { width: 100%; height: auto; object-fit: contain; }
+    .career-book h3 { margin: 0; }
+    .career-book p { margin-block: var(--space-2); }
+    .career-book .text-small { color: var(--muted-foreground); }
+    @media (width < 30rem) { .career-book { grid-template-columns: minmax(0, 1fr); } .career-book_cover img { width: auto; max-width: 100%; height: 10rem; } }
     .live-intro_title {
       margin-top: 0;
       font-family: var(--font-serif);
@@ -248,9 +262,9 @@ const secondary = button;
     }
     .live-help > * { margin-block: 0; }
     .live-help > h2 { padding-inline: 0; }
-    .live-help_details summary { cursor: pointer; padding-block: var(--space-3); min-height: var(--control-height); border-block: 1px solid var(--border); }
-    .live-help_details summary::after { content: ' +'; }
-    .live-help_details[open] summary::after { content: ' −'; }
+    .live-help_details summary { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); cursor: pointer; padding-block: var(--space-3); min-height: var(--control-height); border-block: 1px solid var(--border); }
+    .live-help_details summary::after { content: '+'; flex-shrink: 0; }
+    .live-help_details[open] summary::after { content: '−'; }
     .live-help > p {
       max-width: 65ch;
       margin-bottom: 0;

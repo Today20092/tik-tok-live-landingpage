@@ -27,6 +27,13 @@ try {
           assert.equal(await page.locator('nav[aria-label="Find what you came for"]').count(), 0);
           assert.equal(await page.locator('#join a[href="https://go.alphabravomedia.co/islam-youtube"]').count(), 1);
           assert.equal(await page.locator('.site-shell h1').count(), 1);
+          if (await page.locator('.reading-resources--split').count()) {
+            assert.ok(await page.evaluate(() => {
+              const header = document.querySelector('.site-header').getBoundingClientRect();
+              const cover = document.querySelector('.reading-cover').getBoundingClientRect();
+              return cover.top - header.bottom <= parseFloat(getComputedStyle(document.querySelector('.pocket-hub_content')).paddingTop) + 1;
+            }), 'Only the intended container padding separates the header and cover');
+          }
           await page.getByRole('link', { name: 'My print edition ↗' }).focus();
           assert.equal(await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle !== 'none'), true);
           for (const summary of await page.locator('.reading-resources summary, .live-help_details summary').all()) {
@@ -36,11 +43,18 @@ try {
           }
           assert.match(await page.locator('#copies').innerText(), /Non-Muslims in the USA/);
           for (const shelf of await page.locator('.reading-carousel').all()) {
+            const boxes = await shelf.locator('.reading-book').evaluateAll(cards => cards.map(card => {
+              const image = card.querySelector('.reading-book-cover').getBoundingClientRect();
+              const button = card.querySelector('a').getBoundingClientRect();
+              return [image.width, image.height, button.width, button.height, button.top];
+            }));
+            assert.ok(boxes.every(box => box.every((value, i) => Math.abs(value - boxes[0][i]) <= 1)), 'Image frames and buttons align across each shelf');
             await shelf.locator('a').last().focus();
             assert.ok(await shelf.evaluate(el => el.scrollWidth <= el.clientWidth + 1 || el.scrollLeft > 0), 'Keyboard focus reveals later books');
           }
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), false, `${route} overflow at ${width}, ${dark}, ${size}`);
           const gap = await page.locator('#start-title').evaluate(el => el.nextElementSibling.getBoundingClientRect().top - el.getBoundingClientRect().bottom);
+          assert.equal(await page.locator('.live-help_details summary').evaluate(el => getComputedStyle(el).justifyContent), 'space-between');
           assert.ok(gap >= 15, `Welcome heading gap: ${gap}`);
           if (!route.includes('minimal')) {
             const inset = await page.locator('.reading-cover img').evaluate(el => {

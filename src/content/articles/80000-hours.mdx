@@ -10,6 +10,7 @@ import QuranVerse from '@/components/QuranVerse.astro';
 import IncomeWellbeingCharts from '@/components/IncomeWellbeingCharts';
 import HadithQuote from '@/components/HadithQuote.astro';
 import Reflection from '@/components/Reflection.astro';
+import AmazonBookCard from '@/components/AmazonBookCard.astro';
 
 If you're a young Muslim, especially if you come from an Arab family, I really encourage you to read the 80,000 Hours career guide before you choose your college major.
 
@@ -31,7 +32,7 @@ That's why I want young people to investigate before choosing a major. Talk to p
 
 ## What makes a job worth doing?
 
-The guide's [chapter on a dream job](https://80000hours.org/career-guide/dream-job/) points to five things: engaging tasks, helping others, work you can become good at, supportive colleagues, and avoiding serious drawbacks such as unfair pay or hours that clash with your personal life.
+The guide points to five things: engaging tasks, helping others, work you can become good at, supportive colleagues, and avoiding serious drawbacks such as unfair pay or hours that clash with your personal life.[^dream-job]
 
 It also discusses finding a level of challenge you can handle, with enough support to grow. A job being easy isn't enough to make it fulfilling.
 
@@ -44,9 +45,9 @@ That gives you more useful questions to ask about a career:
 
 Money belongs in that conversation. You need to cover your expenses and responsibilities. But I wouldn't base a career choice on the biggest salary alone.
 
-The guide gives a useful example of diminishing returns. In the US survey it discusses, households earning $40,000 before tax reported life satisfaction of about 6.5 out of 10. At $80,000, the figure was about 7. Reaching roughly 7.5 was associated with another doubling of income to $160,000. That's a much bigger income for a modest difference in how people rated their lives. See the guide's [discussion of money and life satisfaction](https://80000hours.org/career-guide/dream-job/#dont-chase-the-money).
+The guide gives a useful example of diminishing returns: each doubling of household income was associated with a similar, modest increase in reported life satisfaction.[^income-figures]
 
-That's an approximately logarithmic relationship: each doubling of income is associated with a similar increase in life satisfaction, so each extra dollar brings a smaller gain. These are historical US household figures in 2009 dollars, not a current salary target or a guarantee about what a pay rise will do for you. But they give you a reason to look carefully at what you're giving up for higher pay.
+These are historical US household figures in 2009 dollars, not a current salary target or a guarantee about what a pay rise will do for you. But they give you a reason to look carefully at what you're giving up for higher pay.
 
 The part I care about even more is **positive affect**: the positive feelings people experience in everyday life. In this study, researchers combined reports of happiness, enjoyment, and smiling or laughter the previous day. Life satisfaction asks you to evaluate your life overall. Positive affect gets closer to what I mean when I ask, "Am I actually enjoying my days?"
 
@@ -54,11 +55,11 @@ That matters to me when choosing a career. A salary or a respected title might m
 
 <IncomeWellbeingCharts client:visible />
 
-Look at the highlighted line around $50,000, $60,000, and $70,000. It's already much flatter than at lower incomes. Reading the guide's figure approximately, positive affect is around 85% at $40,000 and around 90% at the highest income shown. The older study found it largely levelled off around $75,000, even while life satisfaction kept rising. Those percentages describe average positive responses to the survey questions, not how happy your life is out of 100.
+Look at the highlighted line around $50,000, $60,000, and $70,000. It's already much flatter than at lower incomes. The older study found positive affect largely levelled off around $75,000, even while life satisfaction kept rising.[^income-2010] Those percentages describe average positive responses to the survey questions, not how happy your life is out of 100.
 
-I wouldn't treat $75,000 as a magic cutoff. These are historical household incomes, and newer research changes the picture. A [2021 study](https://doi.org/10.1073/pnas.2016976118), based on about 1.7 million real-time reports from 33,391 employed US adults, found that everyday emotional wellbeing and life satisfaction kept rising above $75,000. The relationship was approximately logarithmic. Each doubling of income was associated with a similar increase in wellbeing, so each extra dollar mattered less at higher incomes.
+I wouldn't treat $75,000 as a magic cutoff. A 2021 study found that everyday emotional wellbeing and life satisfaction kept rising above that level.[^income-2021]
 
-In [2023](https://doi.org/10.1073/pnas.2208661120), researchers from the earlier conflicting studies worked together to reanalyze the data. A plateau around $100,000 appeared mainly among the least happy 15 to 20%. For happier people, wellbeing kept rising with income, and the relationship became steeper above $100,000 for the happiest group. They also found that the older study's yes/no questions couldn't distinguish degrees of happiness well.
+A 2023 reanalysis found that the pattern differed depending on how happy people already were. A plateau appeared mainly among the least happy group; wellbeing continued rising with income for happier people.[^income-2023]
 
 So more money can improve wellbeing, but doubling your salary doesn't double your happiness. These studies show associations, not a guarantee that taking a higher-paying job will make you happier. I want young people to consider salary alongside the work itself, their lifestyle, and the good they can do.
 
@@ -92,7 +93,7 @@ I also want to take the work itself seriously.
 
 <HadithQuote hadith="bayhaqi-4929" />
 
-Al-Albani graded this narration hasan, although [al-Busiri judged its chain weak](https://dorar.net/h/LEdjpu4R?osoul=1). I take it as encouragement to work with care and develop my ability. A respected title wouldn't be enough for me if I didn't want to do the actual work well.
+Scholars differ over this narration's grading.[^work-hadith] I take it as encouragement to work with care and develop my ability. A respected title wouldn't be enough for me if I didn't want to do the actual work well.
 
 And helping people isn't limited to one profession or to giving money.
 
@@ -108,7 +109,7 @@ This is the connection I see with 80,000 Hours. Its advice asks us to think abou
 
 ## You can give without changing careers
 
-The guide also explains how you can [help others without changing jobs](https://80000hours.org/career-guide/how-anyone-can-have-an-impact/), including by giving to effective charities. It points readers towards GiveWell, which evaluates charitable programs using research and evidence about their results. Its [recommended programs](https://www.givewell.org/charities/top-charities) include malaria prevention through medication and mosquito nets. GiveWell publishes its evidence and estimates of cost-effectiveness, so you can investigate what your donation could achieve.
+The guide also explains how you can help others without changing jobs, including by giving to effective charities.[^giving] It points readers towards GiveWell, which evaluates charitable programs using research and evidence about their results. Its recommended programs include malaria prevention through medication and mosquito nets. GiveWell publishes its evidence and estimates of cost-effectiveness, so you can investigate what your donation could achieve.[^givewell]
 
 I find that useful even for someone who already has a career. You can care about the work you do and think carefully about where your charity goes.
 
@@ -126,7 +127,14 @@ My hope is that young Muslims will bring that intention to their choices early, 
 
 ## Give this decision a few hours
 
-Start with the [free online guide](https://80000hours.org/career-guide/), especially the chapter on what makes a fulfilling job. If you prefer a physical copy, you can buy the <a href="https://amzn.to/4A7XnBB" rel="sponsored">paperback on Amazon through my affiliate link</a>. As an Amazon Associate, I earn from qualifying purchases.
+Start with the [free online guide](https://80000hours.org/career-guide/), especially the chapter on what makes a fulfilling job. If you prefer a physical copy, you can buy the paperback below.
+
+<AmazonBookCard
+  id="career-guide-book"
+  title="80,000 Hours"
+  author="Benjamin Todd"
+  href="https://amzn.to/4A7XnBB"
+/>
 
 You can begin in a few minutes, but set aside a couple of hours for the guide rather than expecting to finish it in one short sitting.
 
@@ -136,28 +144,20 @@ If you haven't chosen your major yet, this is a good time to read it. Before com
 
 I dictated my thoughts using speech-to-text. AI helped me clarify them through follow-up questions, organize the structure, edit the wording, and format the article. It also helped check references and create the chart from the guide's figures. I reviewed and revised the draft throughout the process. The personal experiences, opinions, and recommendation to read the guide are mine.
 
-## Resources
+## References
 
-### Career guidance and giving
+[^dream-job]: [80,000 Hours: What makes for a dream job?](https://80000hours.org/career-guide/dream-job/), on engaging work, helping others, personal fit, colleagues, and avoiding serious drawbacks.
 
-- [80,000 Hours career guide](https://80000hours.org/career-guide/), free to read online.
-- [What makes for a dream job?](https://80000hours.org/career-guide/dream-job/), including the life-satisfaction and positive-affect figures used for the charts.
-- [Kahneman and Deaton's 2010 study](https://www.princeton.edu/~deaton/downloads/deaton_kahneman_high_income_improves_evaluation_August2010.pdf), the original survey analysis, and the [2023 follow-up](https://doi.org/10.1073/pnas.2208661120) on income and emotional wellbeing.
-- [How anyone can have an impact](https://80000hours.org/career-guide/how-anyone-can-have-an-impact/), including giving without changing careers.
-- [GiveWell's recommended charities](https://www.givewell.org/charities/top-charities), with research on malaria prevention and other programs.
-- <a href="https://amzn.to/4A7XnBB" rel="sponsored">80,000 Hours paperback on Amazon</a>, an affiliate link. As an Amazon Associate, I earn from qualifying purchases.
+[^income-figures]: [The guide's discussion of money and life satisfaction](https://80000hours.org/career-guide/dream-job/#dont-chase-the-money). Approximate life-satisfaction scores are 6.5 at $40,000, 7 at $80,000, and 7.5 at $160,000 in annual household income. These historical figures illustrate an approximately logarithmic relationship, not a current salary target.
 
-### Quran passages
+[^income-2010]: [Kahneman and Deaton's 2010 study](https://www.princeton.edu/~deaton/downloads/deaton_kahneman_high_income_improves_evaluation_August2010.pdf). Positive affect combines reports of happiness, enjoyment, and smiling or laughter. Reading the guide's chart approximately, positive responses rise from around 85% at $40,000 to around 90% at the highest income shown.
 
-The Quran quotations in this article use M. A. S. Abdel Haleem's English translation.
+[^income-2021]: [Killingsworth's 2021 study](https://doi.org/10.1073/pnas.2016976118), based on about 1.7 million real-time reports from 33,391 employed US adults, found wellbeing continued rising above $75,000. The relationship was approximately logarithmic: similar gains accompanied each doubling of income.
 
-- [Surah Al-Mulk, 67:2](https://quran.com/67/2), life and death as a test of deeds.
-- [Surah Al-Baqarah, 2:261](https://quran.com/2/261), spending in Allah's cause and multiplied reward.
-- [Surah Al-Baqarah, 2:201](https://quran.com/2/201), asking for good in this world and the Hereafter.
+[^income-2023]: [The 2023 joint reanalysis](https://doi.org/10.1073/pnas.2208661120) found a plateau around $100,000 mainly among the least happy 15–20%. For happier people, wellbeing continued rising; for the happiest group, the relationship steepened above $100,000. The authors also identified limits in the older study's yes/no measures of happiness.
 
-### Hadith sources
+[^work-hadith]: [Shu'ab al-Iman 4929](https://dorar.net/h/UtSlZmEN?osoul=1): al-Albani graded the narration hasan; [al-Busiri judged its chain weak](https://dorar.net/h/LEdjpu4R?osoul=1).
 
-- [Sahih al-Bukhari 1](https://sunnah.com/bukhari/1/1), deeds and intentions.
-- [Sahih al-Bukhari 1427, 1428](https://sunnah.com/bukhari/24/31), the giving hand and providing for dependents.
-- [Shu'ab al-Iman 4929](https://dorar.net/h/UtSlZmEN?osoul=1), doing work well. Al-Albani graded it hasan; [al-Busiri judged its chain weak](https://dorar.net/h/LEdjpu4R?osoul=1).
-- [Sahih al-Bukhari 6021](https://sunnah.com/bukhari:6021), good deeds as charity.
+[^giving]: [80,000 Hours: How anyone can have an impact](https://80000hours.org/career-guide/how-anyone-can-have-an-impact/), including giving without changing careers.
+
+[^givewell]: [GiveWell's recommended charities](https://www.givewell.org/charities/top-charities), with evidence and cost-effectiveness estimates for programs including malaria prevention.

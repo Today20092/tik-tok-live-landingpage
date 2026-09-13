@@ -1,5 +1,7 @@
 ---
+import { getCollection } from 'astro:content';
 const base = import.meta.env.BASE_URL;
+const support = (await getCollection('links')).find(({ data }) => data.variant === 'support')?.data;
 ---
 
 <footer data-site-footer data-pagefind-ignore class="site-footer">
@@ -31,6 +33,7 @@ const base = import.meta.env.BASE_URL;
       </a>
     </nav>
     <div class="site-footer_information">
+      {support && <a href={support.url} class="site-footer_about"><span>Support my work on Ko-fi</span> <span aria-hidden="true">↗</span></a>}
       <a
         href="https://go.alphabravomedia.co/islam-about-ayoub"
         class="site-footer_about"
