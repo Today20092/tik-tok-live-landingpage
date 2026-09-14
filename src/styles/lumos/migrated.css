@@ -1,17 +1,16 @@
 .site-header {
   margin-inline: auto;
   width: 100%;
-  max-width: var(--container-5xl);
-  padding-inline: calc(var(--spacing) * 5);
+  padding-inline: 0;
   padding-top: calc(var(--spacing) * 5);
-  @media (width >= 40rem) {
-    padding-inline: calc(var(--spacing) * 8);
-  }
   @media (width >= 40rem) {
     padding-top: calc(var(--spacing) * 7);
   }
 }
 .site-header_row {
+  width: var(--site-width);
+  max-width: calc(var(--container-3xl) + 34rem);
+  margin-inline: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
