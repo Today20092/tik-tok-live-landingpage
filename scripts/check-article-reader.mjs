@@ -25,6 +25,17 @@ try {
       ?.classList.contains('has-reading-tools')
   );
   const contents = page.getByRole('navigation', { name: 'On this page' });
+  assert.ok(
+    await page
+      .locator('.article-page_contents')
+      .evaluate(
+        (el) =>
+          el.getBoundingClientRect().top <=
+          document.querySelector('.article-page_header').getBoundingClientRect()
+            .top
+      ),
+    'Desktop contents starts beside the article header, before scrolling'
+  );
   for (const link of await contents.getByRole('link').all()) {
     const href = await link.getAttribute('href');
     assert.ok(

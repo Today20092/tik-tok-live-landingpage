@@ -570,6 +570,7 @@
     --article-column: 2;
     display: grid;
     grid-template-columns: 14rem minmax(0, var(--container-3xl));
+    grid-template-rows: auto auto auto 1fr auto;
     column-gap: var(--article-gap);
     max-width: calc(var(--container-3xl) + 16rem);
   }
@@ -582,10 +583,23 @@
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
     align-items: start;
+    grid-row: 4;
   }
-  .article-page_contents-rail {
-    grid-column: 1;
+  .article-page--reader.has-contents > .article-page_breadcrumb {
     grid-row: 1;
+  }
+  .article-page--reader.has-contents > .article-page_header {
+    grid-row: 2;
+  }
+  .article-page--reader.has-contents > .article-page_cover {
+    grid-row: 3;
+  }
+  .article-page--reader.has-contents > .article-page_footer {
+    grid-row: 5;
+  }
+  .article-page--reader.has-contents > .article-page_contents-rail {
+    grid-column: 1;
+    grid-row: 1 / 5;
     align-self: stretch;
   }
   .article-page_reading > article {

@@ -28,7 +28,7 @@ These are starting dimensions to test, not measurements copied from IFP.
 
 Allow roughly 32 px between columns. Enable the full layout only when those widths fit, likely around 1280–1360 px. Preserve our warm background, green accents, typography tokens, and dark theme.
 
-The title and article metadata should align with the reading column. Start the rails alongside the article body. Keep Quran and hadith quotation components in the main column with their existing attributions.
+The title and article metadata align with the reading column. Following the desktop preview feedback, the contents rail starts beside the breadcrumb and header, then sticks near the viewport top. Margin notes remain aligned with citations in the body. Keep Quran and hadith quotation components in the main column with their existing attributions.
 
 ### Contents and progress
 
