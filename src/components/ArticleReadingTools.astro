@@ -38,6 +38,8 @@ import { IconArrowUp } from '@tabler/icons-react';
   const fill = progress?.firstElementChild;
   const backToTop = document.getElementById('back-to-top');
   const page = article?.closest<HTMLElement>('.article-page--reader');
+  const shell = page?.closest<HTMLElement>('.site-shell--article');
+  const siteHeader = shell?.querySelector<HTMLElement>('[data-site-header]');
   const contents = page?.querySelector<HTMLDetailsElement>(
     '.article-page_contents'
   );
@@ -65,6 +67,23 @@ import { IconArrowUp } from '@tabler/icons-react';
     let mobileOpen = contents?.open ?? false;
     const update = () => {
       pending = false;
+      const rootSize = parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+      );
+      if (shell && siteHeader && page?.parentElement) {
+        shell.classList.toggle(
+          'has-desktop-reader',
+          page.parentElement.getBoundingClientRect().width >= rootSize * 60
+        );
+        shell.style.setProperty(
+          '--article-reader-width',
+          `${page.getBoundingClientRect().width}px`
+        );
+        shell.style.setProperty(
+          '--article-header-height',
+          `${siteHeader.getBoundingClientRect().height}px`
+        );
+      }
       const nextDesktop = contents
         ? getComputedStyle(contents).position === 'sticky'
         : false;
@@ -93,8 +112,9 @@ import { IconArrowUp } from '@tabler/icons-react';
       fill.style.transform = `scaleX(${fraction})`;
       if (rail) rail.style.transform = `scaleY(${fraction})`;
       // Use one reading line for both heading clicks and manual scrolling.
-      const readingLine =
-        parseFloat(getComputedStyle(document.documentElement).fontSize) * 4;
+      const readingLine = parseFloat(
+        getComputedStyle(title).scrollMarginBlockStart
+      );
       let active = -1;
       headings.forEach((heading, index) => {
         if (
@@ -128,6 +148,7 @@ import { IconArrowUp } from '@tabler/icons-react';
     window.addEventListener('resize', scheduleUpdate);
     contents?.addEventListener('focusout', scheduleUpdate);
     new ResizeObserver(scheduleUpdate).observe(document.body);
+    if (siteHeader) new ResizeObserver(scheduleUpdate).observe(siteHeader);
     backToTop.addEventListener('click', (event) => {
       event.preventDefault();
       title.focus({ preventScroll: true });

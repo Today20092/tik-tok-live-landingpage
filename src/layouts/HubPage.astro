@@ -145,7 +145,10 @@ const structuredData = {
     ></script>
   </head>
   <body>
-    <div data-site-shell class="site-shell">
+    <div
+      data-site-shell
+      class:list={['site-shell', { 'site-shell--article': isArticle }]}
+    >
       <a href="#main-content" class="skip-link">
         Skip to content
       </a>

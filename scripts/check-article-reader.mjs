@@ -25,6 +25,54 @@ try {
       ?.classList.contains('has-reading-tools')
   );
   const contents = page.getByRole('navigation', { name: 'On this page' });
+  const checkHeader = async (scrolled = false) => {
+    const boxes = await page.evaluate(() => {
+      const rect = (selector) =>
+        document.querySelector(selector).getBoundingClientRect().toJSON();
+      return {
+        header: rect('[data-site-header]'),
+        row: rect('.site-header_row'),
+        article: rect('.article-page'),
+        contents: rect('.article-page_contents'),
+      };
+    });
+    assert.ok(
+      Math.abs(boxes.row.left - boxes.article.left) < 1,
+      'Header and article share a left edge'
+    );
+    assert.ok(
+      Math.abs(boxes.row.right - boxes.article.right) < 1,
+      'Header and article share a right edge'
+    );
+    assert.ok(
+      boxes.contents.top >= boxes.header.bottom,
+      'Contents clears the header'
+    );
+    if (scrolled) {
+      assert.ok(
+        Math.abs(boxes.header.top) < 1,
+        'Article header stays at the viewport top'
+      );
+      assert.ok(
+        boxes.contents.top - boxes.header.bottom <= 24,
+        'Sticky contents keeps a small header gap'
+      );
+    }
+  };
+  const checkTargetClearance = async (selector) => {
+    assert.ok(
+      await page
+        .locator(selector)
+        .evaluate(
+          (el) =>
+            el.getBoundingClientRect().top >=
+            document.querySelector('[data-site-header]').getBoundingClientRect()
+              .bottom
+        ),
+      `${selector} clears the sticky header`
+    );
+  };
+  await checkHeader();
   assert.ok(
     await page
       .locator('.article-page_contents')
@@ -56,10 +104,13 @@ try {
     Number(await page.getByRole('progressbar').getAttribute('aria-valuenow')) >
       0
   );
+  await checkHeader(true);
+  await checkTargetClearance('#start-preparing-yourself');
   const reference = page.locator('[data-footnote-ref]').first();
   const noteId = await reference.getAttribute('href');
   await reference.click();
   assert.equal(new URL(page.url()).hash, noteId);
+  await checkTargetClearance(noteId);
   await page
     .locator(noteId)
     .getByRole('link', { name: 'Back to reference 1', exact: true })
@@ -68,6 +119,7 @@ try {
     new URL(page.url()).hash,
     `#${await reference.getAttribute('id')}`
   );
+  await checkTargetClearance(`#${await reference.getAttribute('id')}`);
 
   const checkNotes = async (margin) => {
     await page.evaluate(
@@ -113,6 +165,7 @@ try {
   await checkNotes(true);
   await page.setViewportSize({ width: 1100, height: 960 });
   await checkNotes(false);
+  await checkHeader();
   assert.equal(
     await contents.isVisible(),
     true,
@@ -120,6 +173,13 @@ try {
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await checkNotes(false);
+  assert.equal(
+    await page
+      .locator('[data-site-header]')
+      .evaluate((el) => getComputedStyle(el).position),
+    'static',
+    'Mobile header keeps its native layout'
+  );
   assert.equal(
     await contents.isVisible(),
     false,
@@ -132,6 +192,13 @@ try {
     document.documentElement.style.fontSize = '200%';
   });
   await checkNotes(false);
+  assert.equal(
+    await page
+      .locator('[data-site-header]')
+      .evaluate((el) => getComputedStyle(el).position),
+    'static',
+    'Enlarged text restores the normal header'
+  );
   await page.evaluate(() => {
     document.documentElement.style.fontSize = '';
   });
@@ -148,6 +215,7 @@ try {
     name: 'Following a subsection',
     exact: true,
   });
+  await subsection.waitFor({ state: 'visible' });
   assert.equal(
     await subsection.isVisible(),
     true,
@@ -192,10 +260,40 @@ try {
   assert.ok(
     await page.locator('#user-content-fn-second').evaluate((el) => {
       const box = el.getBoundingClientRect();
-      return box.top >= 0 && box.top < window.innerHeight;
+      return (
+        box.top >=
+          document.querySelector('[data-site-header]').getBoundingClientRect()
+            .bottom && box.top < window.innerHeight
+      );
     }),
     'An incoming footnote URL lands on its note'
   );
+  await page.goto(`${base}/articles/about-me/`);
+  await page.waitForFunction(() =>
+    document
+      .querySelector('.article-page')
+      ?.classList.contains('has-reading-tools')
+  );
+  await checkHeader();
+  await page.evaluate(() => window.scrollTo(0, window.innerHeight * 3));
+  await page.locator('#back-to-top').waitFor({ state: 'visible' });
+  assert.ok(
+    await page.locator('#back-to-top').evaluate((el) => {
+      const box = el.getBoundingClientRect();
+      return box.top >= 0 && box.bottom <= window.innerHeight;
+    }),
+    'Back-to-top remains fixed within the viewport'
+  );
+  for (const path of ['', 'articles/']) {
+    await page.goto(`${base}/${path}`);
+    assert.equal(
+      await page
+        .locator('[data-site-header]')
+        .evaluate((el) => getComputedStyle(el).position),
+      'static',
+      'Other pages retain their normal header'
+    );
+  }
   await page.goto(`${base}/articles/preparing-for-marriage/#%`);
   await page.reload();
   await page.waitForLoadState('load');

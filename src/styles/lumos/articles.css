@@ -524,6 +524,23 @@
 }
 
 /* Individual articles can use the margins without widening other site pages. */
+.site-shell--article.has-desktop-reader > .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  max-width: none;
+  padding: var(--space-4) 0 0;
+  background: var(--background);
+}
+.site-shell--article.has-desktop-reader > .site-header .site-header_row {
+  width: var(--article-reader-width);
+  max-width: var(--site-width);
+  margin-inline: auto;
+}
+.site-shell--article.has-desktop-reader .article-page--reader {
+  --article-anchor-offset: calc(var(--article-header-height) + var(--space-4));
+  --article-contents-offset: var(--article-anchor-offset);
+}
 .article-reader {
   background: var(--background);
 }
@@ -532,6 +549,8 @@
   max-width: calc(var(--container-3xl) + 34rem);
 }
 .article-page--reader {
+  --article-anchor-offset: 4rem;
+  --article-contents-offset: var(--space-8);
   --article-gap: var(--space-8);
   --article-notes-width: 16rem;
   --article-column: 1;
@@ -556,8 +575,11 @@
 .article-page--reader #article-body {
   position: relative;
 }
-.article-page--reader :is(h2[id], h3[id], [data-footnotes] li[id]) {
-  scroll-margin-block-start: 4rem;
+.article-page--reader :is(h1[id], h2[id], h3[id], [data-footnotes] li[id]) {
+  scroll-margin-block-start: var(--article-anchor-offset);
+}
+.article-page--reader [data-footnote-ref] {
+  scroll-margin-block-start: max(20vh, var(--article-anchor-offset));
 }
 .article-page--reader [data-footnotes] li:target {
   outline: 2px solid var(--primary);
@@ -608,8 +630,8 @@
   }
   .article-page_contents {
     position: sticky;
-    top: var(--space-8);
-    max-height: calc(100dvh - var(--space-8) * 2);
+    top: var(--article-contents-offset);
+    max-height: calc(100dvh - var(--article-contents-offset) - var(--space-8));
     overflow-y: auto;
     scrollbar-width: thin;
     margin: 0;
@@ -757,6 +779,9 @@
   clip-path: inset(50%);
 }
 @media print {
+  .site-shell--article.has-desktop-reader > .site-header {
+    position: static;
+  }
   .article-reader .article-page--reader,
   .article-reader .article-page_reading {
     display: block;
