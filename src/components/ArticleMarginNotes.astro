@@ -1,0 +1,97 @@
+<script>
+  const article = document.getElementById('article-body');
+  const page = article?.closest<HTMLElement>('.article-page--reader');
+  const footnotes = article?.querySelector<HTMLElement>('[data-footnotes]');
+
+  if (article && page && footnotes) {
+    const notes = [
+      ...footnotes.querySelectorAll<HTMLElement>(':scope > ol > li'),
+    ];
+    const references = [
+      ...article.querySelectorAll<HTMLAnchorElement>('[data-footnote-ref]'),
+    ];
+    const anchors = notes.map((note) =>
+      references.find((ref) => ref.hash === `#${note.id}`)
+    );
+    const previous = footnotes.previousElementSibling;
+    const heading =
+      previous instanceof HTMLElement &&
+      previous.tagName === 'H2' &&
+      /^(references|footnotes|notes)$/i.test(previous.textContent?.trim() ?? '')
+        ? previous
+        : null;
+    // Keep the native document and IDs intact. Only its visual placement changes.
+    page.classList.add('has-margin-notes');
+    footnotes.classList.add('article-margin-notes');
+    heading?.setAttribute('data-margin-notes-heading', '');
+    const headingLink =
+      heading &&
+      page.querySelector<HTMLAnchorElement>(
+        `[data-contents-link][href="#${CSS.escape(heading.id)}"]`
+      );
+    headingLink?.closest('li')?.setAttribute('data-margin-notes-heading', '');
+    let pending = false;
+    const positionNotes = () => {
+      pending = false;
+      const wide = getComputedStyle(footnotes).position === 'absolute';
+      let bottom = 0;
+      if (wide) {
+        const top = article.getBoundingClientRect().top;
+        const gap = parseFloat(getComputedStyle(page).columnGap);
+        notes.forEach((note, index) => {
+          const anchorTop = anchors[index]?.getBoundingClientRect().top ?? top;
+          const offset = Math.max(bottom, anchorTop - top);
+          note.style.setProperty('--note-top', `${offset}px`);
+          bottom = offset + note.getBoundingClientRect().height + gap;
+        });
+      }
+      article.style.minHeight = wide ? `${bottom}px` : '';
+    };
+    const schedule = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(positionNotes);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(article);
+    observer.observe(page);
+    notes.forEach((note) => observer.observe(note));
+    article.addEventListener('load', schedule, true);
+    window.addEventListener('resize', schedule);
+    document.fonts.ready.then(schedule);
+    const followHash = () => {
+      positionNotes();
+      if (
+        heading &&
+        window.location.hash === `#${heading.id}` &&
+        getComputedStyle(footnotes).position === 'absolute'
+      ) {
+        notes[0]?.scrollIntoView();
+      }
+    };
+    window.addEventListener('hashchange', followHash);
+    window.addEventListener('beforeprint', () => {
+      article.style.minHeight = '';
+    });
+    window.addEventListener('afterprint', schedule);
+    positionNotes();
+    // Honor incoming footnote links after fonts and images settle the margin.
+    if (window.location.hash) {
+      window.addEventListener(
+        'load',
+        () => {
+          followHash();
+          let id = window.location.hash.slice(1);
+          try {
+            id = decodeURIComponent(id);
+          } catch {
+            // A malformed incoming fragment can still be treated as a literal ID.
+          }
+          const target = document.getElementById(id);
+          if (target && footnotes.contains(target)) target.scrollIntoView();
+        },
+        { once: true }
+      );
+    }
+  }
+</script>

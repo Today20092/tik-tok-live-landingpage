@@ -76,6 +76,12 @@ Keep card disclosure text inside its component, outside prose styling with `data
 
 Article pages and cards show an estimated reading time at 200 words per minute, including stored Quran and hadith quotations. Article headings get copy-link controls, and unlinked images open in a shadcn image viewer. Images already inside links keep their destinations.
 
+Individual articles with at least two main headings have a sticky contents rail when the available container is at least 60rem wide. It highlights the current heading and reveals that section's level-three headings. The vertical track shows approximate reading position; smaller layouts retain the horizontal progress bar and collapsible contents.
+
+`ArticleMarginNotes.astro` is included automatically by the article page, alongside `ArticleReadingTools.astro`. At a container width of 78rem, it places native footnotes beside their first citations and spaces dense notes to prevent overlap. Keep writing one set of Markdown footnotes with the syntax above. No author imports or separate margin-note definitions are needed. Repeated citations keep their individual return links. Smaller containers, enlarged text, printing, and JavaScript-disabled pages use ordinary endnotes. A final References heading containing only footnote definitions is hidden in the margin layout; a References section with explanatory prose remains visible.
+
+The draft `/articles/article-layout-preview/` demonstrates subsection navigation, long headings, and repeated or closely spaced citations. It is available in development only. Run `node scripts/check-article-reader.mjs` against the development server for the browser interaction checks, plus `node scripts/check-article-layout.mjs` for all article layouts. Both accept `TEST_BASE_URL` and `PLAYWRIGHT_MODULE` when using a different server or an external Playwright installation.
+
 The `recommendations` map in `src/pages/articles/[...id].astro` selects the current articles' “Read next” links. New articles default to other published articles in the same category, then newest first. Drafts are excluded.
 
 The official [shadcn Typeset](https://ui.shadcn.com/docs/typeset) stylesheet is vendored in `src/styles/typeset.css`, fetched from `https://ui.shadcn.com/typeset.css`. The `typeset-article` preset in `global.css` controls body size, line height, and spacing. Astro renders Markdown inside `typeset typeset-article`; no client-side Markdown renderer is needed.

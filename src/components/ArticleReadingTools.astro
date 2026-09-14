@@ -6,7 +6,7 @@ import { IconArrowUp } from '@tabler/icons-react';
 <div
   id="reading-progress"
   role="progressbar"
-  aria-label="Article reading progress"
+  aria-label="Approximate article reading position"
   aria-valuemin="0"
   aria-valuemax="100"
   aria-valuenow="0"
@@ -37,6 +37,20 @@ import { IconArrowUp } from '@tabler/icons-react';
   const progress = document.getElementById('reading-progress');
   const fill = progress?.firstElementChild;
   const backToTop = document.getElementById('back-to-top');
+  const page = article?.closest<HTMLElement>('.article-page--reader');
+  const contents = page?.querySelector<HTMLDetailsElement>(
+    '.article-page_contents'
+  );
+  const links = [
+    ...(contents?.querySelectorAll<HTMLAnchorElement>('[data-contents-link]') ??
+      []),
+  ];
+  const headings = links.map((link) =>
+    document.getElementById(decodeURIComponent(link.hash.slice(1)))
+  );
+  const rail = contents?.querySelector<HTMLElement>(
+    '.article-page_contents-track > span'
+  );
 
   if (
     article &&
@@ -47,8 +61,20 @@ import { IconArrowUp } from '@tabler/icons-react';
   ) {
     const end = document.getElementById('article-resources') ?? article;
     let pending = false;
+    let desktop = false;
+    let mobileOpen = contents?.open ?? false;
     const update = () => {
       pending = false;
+      const nextDesktop = contents
+        ? getComputedStyle(contents).position === 'sticky'
+        : false;
+      if (contents && nextDesktop !== desktop) {
+        if (nextDesktop) mobileOpen = contents.open;
+        contents.open = nextDesktop || mobileOpen;
+        const summary = contents.querySelector('summary');
+        if (summary) summary.tabIndex = nextDesktop ? -1 : 0;
+        desktop = nextDesktop;
+      }
       const bounds = article.getBoundingClientRect();
       const start = bounds.top + window.scrollY;
       const bottom = end.getBoundingClientRect().bottom;
@@ -65,6 +91,31 @@ import { IconArrowUp } from '@tabler/icons-react';
         String(Math.round(fraction * 100))
       );
       fill.style.transform = `scaleX(${fraction})`;
+      if (rail) rail.style.transform = `scaleY(${fraction})`;
+      // Use one reading line for both heading clicks and manual scrolling.
+      const readingLine =
+        parseFloat(getComputedStyle(document.documentElement).fontSize) * 4;
+      let active = -1;
+      headings.forEach((heading, index) => {
+        if (
+          heading &&
+          heading.getClientRects().length &&
+          heading.getBoundingClientRect().top <= readingLine + 1
+        )
+          active = index;
+      });
+      links.forEach((link, index) => {
+        if (index === active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+      const currentSection = links[active]?.closest('[data-contents-section]');
+      contents
+        ?.querySelectorAll('[data-contents-section]')
+        .forEach((section) => {
+          section.classList.toggle('is-active', section === currentSection);
+        });
+      page?.classList.add('has-reading-tools');
+      progress.classList.toggle('reading-progress--rail', desktop);
       backToTop.hidden = window.scrollY < window.innerHeight * 2;
     };
     const scheduleUpdate = () => {
@@ -75,6 +126,7 @@ import { IconArrowUp } from '@tabler/icons-react';
     };
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
+    contents?.addEventListener('focusout', scheduleUpdate);
     new ResizeObserver(scheduleUpdate).observe(document.body);
     backToTop.addEventListener('click', (event) => {
       event.preventDefault();

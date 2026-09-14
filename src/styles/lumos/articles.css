@@ -522,3 +522,246 @@
 .u-mb-8 {
   margin-bottom: calc(var(--spacing) * 8);
 }
+
+/* Individual articles can use the margins without widening other site pages. */
+.article-reader {
+  background: var(--background);
+}
+.article-reader > .container {
+  container: article-frame / inline-size;
+  max-width: calc(var(--container-3xl) + 34rem);
+}
+.article-page--reader {
+  --article-gap: var(--space-8);
+  --article-notes-width: 16rem;
+  --article-column: 1;
+}
+.article-page_reading,
+.article-page_contents-rail {
+  min-width: 0;
+}
+.article-page_contents-nav {
+  padding-bottom: var(--space-4);
+}
+.article-page_contents-children {
+  padding-inline-start: var(--space-5);
+}
+.article-page_contents-track {
+  display: none;
+}
+.article-page_contents-link[aria-current] {
+  color: var(--primary);
+  font-weight: var(--font-weight-semibold);
+}
+.article-page--reader #article-body {
+  position: relative;
+}
+.article-page--reader :is(h2[id], h3[id], [data-footnotes] li[id]) {
+  scroll-margin-block-start: 4rem;
+}
+.article-page--reader [data-footnotes] li:target {
+  outline: 2px solid var(--primary);
+  outline-offset: var(--space-2);
+  border-radius: var(--radius-small);
+}
+
+@container article-frame (min-width: 60rem) {
+  .article-page--reader.has-contents {
+    --article-column: 2;
+    display: grid;
+    grid-template-columns: 14rem minmax(0, var(--container-3xl));
+    column-gap: var(--article-gap);
+    max-width: calc(var(--container-3xl) + 16rem);
+  }
+  .article-page--reader.has-contents > * {
+    grid-column: var(--article-column);
+    min-width: 0;
+  }
+  .article-page--reader.has-contents > .article-page_reading {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: start;
+  }
+  .article-page_contents-rail {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: stretch;
+  }
+  .article-page_reading > article {
+    grid-column: var(--article-column);
+    grid-row: 1;
+  }
+  .article-page_contents {
+    position: sticky;
+    top: var(--space-8);
+    max-height: calc(100dvh - var(--space-8) * 2);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    margin: 0;
+    padding: var(--space-1) var(--space-2);
+    border: 0;
+    border-radius: 0;
+    background: var(--background);
+  }
+  .has-reading-tools .article-page_contents-toggle {
+    pointer-events: none;
+    min-height: 0;
+    padding-bottom: var(--space-5);
+    color: var(--muted-foreground);
+  }
+  .has-reading-tools .article-page_contents-toggle :is(svg) {
+    display: none;
+  }
+  .article-page_contents-nav {
+    position: relative;
+    padding: 0 0 0 var(--space-5);
+  }
+  .article-page_contents-track {
+    display: block;
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .article-page_contents-track > span {
+    display: block;
+    height: 100%;
+    background: var(--primary);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .article-page_contents-list > li {
+    position: relative;
+  }
+  .article-page_contents-list > li::before {
+    content: '';
+    position: absolute;
+    top: var(--space-5);
+    left: calc(-1 * var(--space-5) - 2px);
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--primary);
+    background: var(--background);
+  }
+  .article-page_contents-list > .is-active::before {
+    background: var(--primary);
+  }
+  .article-page_contents-link {
+    display: flex;
+    padding-block: var(--space-2);
+    text-decoration: none;
+    color: var(--muted-foreground);
+    line-height: var(--leading-snug);
+  }
+  .article-page_contents-link:hover,
+  .article-page_contents-list > .is-active > a {
+    color: var(--foreground);
+    font-weight: var(--font-weight-semibold);
+  }
+  .article-page_contents-children {
+    padding-inline-start: var(--space-3);
+  }
+  .has-reading-tools
+    .article-page_contents-list
+    > li:not(.is-active):not(:focus-within)
+    > ul {
+    display: none;
+  }
+}
+
+@container article-frame (min-width: 78rem) {
+  .article-page--reader.has-margin-notes {
+    display: grid;
+    grid-template-columns: minmax(0, var(--container-3xl)) var(
+        --article-notes-width
+      );
+    column-gap: var(--article-gap);
+    max-width: calc(var(--container-3xl) + 18rem);
+  }
+  .article-page--reader.has-margin-notes.has-contents {
+    grid-template-columns: 14rem minmax(0, var(--container-3xl)) var(
+        --article-notes-width
+      );
+    max-width: none;
+  }
+  .article-page--reader.has-margin-notes > * {
+    grid-column: var(--article-column);
+    min-width: 0;
+  }
+  .article-page--reader.has-margin-notes > .article-page_reading {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: start;
+  }
+  .article-page--reader [data-margin-notes-heading] {
+    display: none;
+  }
+  .article-page--reader .article-margin-notes {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: calc(100% + var(--article-gap));
+    width: var(--article-notes-width);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--muted-foreground);
+  }
+  .article-margin-notes > ol {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+  }
+  .article-margin-notes > ol > li {
+    position: absolute;
+    inset-block-start: var(--note-top, 0px);
+    width: 100%;
+    margin: 0;
+    padding: var(--space-3) 0 0;
+    border-block-start: 1px solid var(--border);
+    overflow-wrap: anywhere;
+  }
+  .article-margin-notes > ol > li::marker {
+    color: var(--primary);
+    font-weight: var(--font-weight-semibold);
+  }
+  .article-margin-notes > ol > li > p:first-child {
+    display: inline;
+    margin: 0;
+  }
+  .article-margin-notes [data-footnote-backref] {
+    min-height: var(--control-height);
+  }
+}
+
+/* Keep one accessible progressbar; the contents track supplies its desktop visual. */
+.reading-progress--rail {
+  clip-path: inset(50%);
+}
+@media print {
+  .article-reader .article-page--reader,
+  .article-reader .article-page_reading {
+    display: block;
+    max-width: none;
+  }
+  .article-reader .article-page_contents-rail,
+  #reading-progress,
+  #back-to-top {
+    display: none;
+  }
+  .article-reader .article-page--reader #article-body {
+    min-height: 0 !important;
+  }
+  .article-reader .article-page--reader [data-margin-notes-heading] {
+    display: block;
+  }
+  .article-reader .article-margin-notes,
+  .article-reader .article-margin-notes > ol > li {
+    position: static;
+    width: auto;
+  }
+}

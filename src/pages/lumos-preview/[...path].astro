@@ -124,6 +124,35 @@ export function getStaticPaths() {
         </p>
       </section>
       <section class="article-page">
+        <h2 class="section-title">Desktop article reader</h2>
+        <p>
+          Article pages use a sticky contents rail from 60rem of available width
+          and a footnote margin from 78rem. Smaller layouts keep the native
+          contents disclosure and endnotes. Text sizing and printing restore the
+          single-column reading flow when needed.
+        </p>
+        <div class="flex-horizontal-wrap gap-3">
+          <a
+            class="control control-outline"
+            href={`${import.meta.env.BASE_URL}articles/article-layout-preview/`}
+          >
+            Subsections and repeated notes
+          </a>
+          <a
+            class="control control-outline"
+            href={`${import.meta.env.BASE_URL}articles/preparing-for-marriage/`}
+          >
+            Article with margin notes
+          </a>
+          <a
+            class="control control-outline"
+            href={`${import.meta.env.BASE_URL}articles/about-me/`}
+          >
+            Article without notes
+          </a>
+        </div>
+      </section>
+      <section class="article-page">
         <header class="article-page_header">
           <p class="article-page_category">Article spacing reference</p>
           <Heading tag="h2" class="page-title">
@@ -195,12 +224,13 @@ export function getStaticPaths() {
         <p>
           Mobile headers use a compact brand row with theme control and a native
           Menu disclosure; desktop navigation stays visible. The reading cover
-          starts one spacing step below the header. The homepage uses the cover-and-text reading layout with one title,
-          a primary PDF action and a secondary print action. Free-copy
-          eligibility and other editions expand into native swipeable shelves on
-          request. Compare the reading note, cover-and-text, and text-first
-          variants below. The welcome section uses a grid gap to keep heading
-          and paragraph spacing consistent without collapsed margins.
+          starts one spacing step below the header. The homepage uses the
+          cover-and-text reading layout with one title, a primary PDF action and
+          a secondary print action. Free-copy eligibility and other editions
+          expand into native swipeable shelves on request. Compare the reading
+          note, cover-and-text, and text-first variants below. The welcome
+          section uses a grid gap to keep heading and paragraph spacing
+          consistent without collapsed margins.
         </p>
         <a
           class="control control-outline"
