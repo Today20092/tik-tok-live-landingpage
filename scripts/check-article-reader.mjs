@@ -11,6 +11,22 @@ const { chromium } = createRequire(import.meta.url)(
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:4321';
 const browser = await chromium.launch();
 try {
+  const headerPage = await browser.newPage();
+  for (const width of [390, 1280, 1440, 1920]) {
+    await headerPage.setViewportSize({ width, height: 960 });
+    let expected;
+    for (const path of ['', 'articles/', 'articles/about-me/', 'articles/preparing-for-marriage/']) {
+      await headerPage.goto(`${base}/${path}`);
+      await headerPage.evaluate(() => document.fonts.ready);
+      const bounds = await headerPage.locator('.site-header_row').evaluate((el) => {
+        const { x, width } = el.getBoundingClientRect();
+        return { x, width };
+      });
+      expected ??= bounds;
+      assert.deepEqual(bounds, expected, `Header width stays consistent on ${path} at ${width}px`);
+    }
+  }
+  await headerPage.close();
   const page = await browser.newPage({
     viewport: { width: 1440, height: 960 },
     reducedMotion: 'reduce',
@@ -37,12 +53,12 @@ try {
       };
     });
     assert.ok(
-      Math.abs(boxes.row.left - boxes.article.left) < 1,
-      'Header and article share a left edge'
+      boxes.row.left <= boxes.article.left + 1,
+      'Article fits within the shared header left edge'
     );
     assert.ok(
-      Math.abs(boxes.row.right - boxes.article.right) < 1,
-      'Header and article share a right edge'
+      boxes.row.right >= boxes.article.right - 1,
+      'Article fits within the shared header right edge'
     );
     assert.ok(
       boxes.contents.top >= boxes.header.bottom,

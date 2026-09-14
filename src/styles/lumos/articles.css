@@ -528,14 +528,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  max-width: none;
-  padding: var(--space-4) 0 0;
   background: var(--background);
-}
-.site-shell--article.has-desktop-reader > .site-header .site-header_row {
-  width: var(--article-reader-width);
-  max-width: var(--site-width);
-  margin-inline: auto;
 }
 .site-shell--article.has-desktop-reader .article-page--reader {
   --article-anchor-offset: calc(var(--article-header-height) + var(--space-4));
