@@ -11,7 +11,7 @@ const articles = readdirSync(new URL('../src/content/articles/', import.meta.url
   .filter(file => /\.mdx?$/.test(file)).map(file => file.replace(/\.mdx?$/, ''));
 const browser = await chromium.launch();
 try {
-  for (const width of [320, 390, 768, 1280]) {
+  for (const width of [320, 390, 768, 1280, 1440]) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     for (const article of articles) {
       await page.goto(`${process.env.TEST_BASE_URL || 'http://127.0.0.1:4322'}/articles/${article}/`);
@@ -36,7 +36,7 @@ try {
             for (const el of document.querySelectorAll('.article-page :is(h1,h2,h3,h4,h5,h6,p)')) {
               if (getComputedStyle(el, '::before').content !== 'none' || getComputedStyle(el, '::after').content !== 'none') errors.push(`trimmed ${el.className || el.tagName}`);
             }
-            const blocks = [...document.querySelector('#article-body').children].filter(el => el.getBoundingClientRect().height > 0);
+            const blocks = [...document.querySelector('#article-body').children].filter(el => el.getBoundingClientRect().height > 0 && getComputedStyle(el).position !== 'absolute');
             blocks.slice(1).forEach((el, index) => {
               if (el.getBoundingClientRect().top < blocks[index].getBoundingClientRect().bottom - 1) errors.push(`overlapping ${el.tagName}`);
             });

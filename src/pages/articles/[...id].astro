@@ -5,6 +5,7 @@ import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import { buttonVariants } from '@/components/ui/button';
 import ArticleReadingTools from '@/components/ArticleReadingTools.astro';
+import ArticleMarginNotes from '@/components/ArticleMarginNotes.astro';
 import ArticleExtras from '@/components/ArticleExtras.astro';
 import ArticleList from '@/components/ArticleList.astro';
 import { readingTime } from '@/lib/reading-time';
@@ -29,7 +30,21 @@ interface Props {
 }
 const { article } = Astro.props;
 const { Content, headings } = await render(article);
-const sections = headings.filter((heading) => heading.depth === 2);
+const sections = headings.filter(
+  (heading) => heading.depth === 2 && heading.slug !== 'footnote-label'
+);
+const contents = sections.map((heading) => {
+  const start = headings.indexOf(heading) + 1;
+  const next = headings.findIndex(
+    (item, index) => index >= start && item.depth === 2
+  );
+  return {
+    ...heading,
+    children: headings
+      .slice(start, next < 0 ? undefined : next)
+      .filter((item) => item.depth === 3),
+  };
+});
 const published = await getCollection('articles', ({ data }) => !data.draft);
 const recommendations: Record<string, string[]> = {
   '80000-hours': ['why-i-started', 'about-me'],
@@ -66,6 +81,7 @@ const pageTitle =
   imageAlt={article.data.cover?.alt}
 >
   <ArticleReadingTools />
+  <ArticleMarginNotes />
   <ArticleExtras />
   <Section
     tag="main"
@@ -74,9 +90,14 @@ const pageTitle =
     gap="0"
     data-pagefind-body={!article.data.draft ? '' : undefined}
     data-pagefind-filter="Type:Articles"
-    class="page-section"
+    class="page-section article-reader"
   >
-    <div class="article-page">
+    <div
+      class:list={[
+        'article-page article-page--reader',
+        { 'has-contents': sections.length >= 2 },
+      ]}
+    >
       <nav aria-label="Breadcrumb" class="article-page_breadcrumb">
         <a
           data-pagefind-ignore
@@ -141,32 +162,61 @@ const pageTitle =
         />
       )}
       {sections.length >= 2 && (
-        <details data-pagefind-ignore class="group article-page_contents">
-          <summary class="article-page_contents-toggle">
-            <IconList size={18} aria-hidden="true" />
-            <span id="article-contents-title">On this page</span>
-            <IconChevronDown
-              size={16}
-              className="article-page_contents-chevron"
-              aria-hidden="true"
-            />
-          </summary>
-          <nav aria-labelledby="article-contents-title" class="u-pb-4">
-            <ul>
-              {sections.map(({ slug, text }) => (
-                <li>
-                  <a href={`#${slug}`} class="article-page_contents-link">
-                    {text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </details>
+        <div class="article-page_contents-rail">
+          <details data-pagefind-ignore class="group article-page_contents">
+            <summary class="article-page_contents-toggle">
+              <IconList size={18} aria-hidden="true" />
+              <span id="article-contents-title">On this page</span>
+              <IconChevronDown
+                size={16}
+                className="article-page_contents-chevron"
+                aria-hidden="true"
+              />
+            </summary>
+            <nav
+              aria-labelledby="article-contents-title"
+              class="article-page_contents-nav"
+            >
+              <div class="article-page_contents-track" aria-hidden="true">
+                <span />
+              </div>
+              <ul class="article-page_contents-list">
+                {contents.map(({ slug, text, children }) => (
+                  <li data-contents-section={slug}>
+                    <a
+                      href={`#${slug}`}
+                      data-contents-link
+                      class="article-page_contents-link"
+                    >
+                      {text}
+                    </a>
+                    {children.length > 0 && (
+                      <ul class="article-page_contents-children">
+                        {children.map((child) => (
+                          <li>
+                            <a
+                              href={`#${child.slug}`}
+                              data-contents-link
+                              class="article-page_contents-link"
+                            >
+                              {child.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </details>
+        </div>
       )}
-      <article id="article-body" class="typeset typeset-article min-width-0">
-        <Content />
-      </article>
+      <div class="article-page_reading">
+        <article id="article-body" class="typeset typeset-article min-width-0">
+          <Content />
+        </article>
+      </div>
       <footer data-pagefind-ignore class="article-page_footer">
         {article.id === 'why-i-started' && (
           <section
