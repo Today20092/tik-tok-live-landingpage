@@ -1,0 +1,119 @@
+---
+title: Wanting marriage and trusting Allah with the outcome
+description: My ongoing struggle with wanting marriage, releasing a specific outcome, and remembering Allah while I take the appropriate steps.
+date: 2026-09-15
+category: Marriage
+draft: false
+---
+
+Sometimes I've tried to stop myself from wanting something because I didn't want to be disappointed. If I don't desire anything, then I can't be let down. That was the way I was thinking.
+
+For me, this is about marriage. Sometimes it's about wanting to marry a specific person. The desire is still there, and honestly, it still affects me.
+
+What I'm learning is that trusting Allah doesn't mean I have to pretend I don't want it. I can ask for it, ask for what is best for me, and take the appropriate steps. What I have to release is the demand that it happen exactly the way I imagine. That is what I'm trying to understand through istikhara, the prayer for guidance in a decision.[^istikhara]
+
+## What I brought with me from manifestation
+
+Before Islam, I was heavily into manifestation. I read things like *The Secret*, Neville Goddard, and *Breaking the Habit of Being Yourself* by Joe Dispenza. What I took from that world was the idea that if you believed something hard enough, thought about it enough, it would happen.
+
+That promise is part of what I now question. *The Secret's* own explanation of affirmations says that thoughts and beliefs attract particular outcomes.[^secret] For me, that created a false hope that I could control what happened through my thoughts.
+
+But I also learned things from those books that I still value. They encouraged me to pay attention to the present moment, recognize my blessings, write them down, and practice gratitude. I don't want to pretend that none of that helped me.
+
+Looking back as a Muslim, I attribute those blessings to Allah. When I think about the language I encountered about the universe, a greater power, or universal consciousness, I now think about the Creator. That is my interpretation of what I encountered. I cannot speak for what those authors privately believe or why they chose their words.
+
+The change for me is that gratitude and belief cannot be a way of demanding a particular result. In the Quran, Allah promises increase in response to gratitude, but that verse does not specify the particular outcome I want.[^gratitude] I can be grateful for what I have without treating that gratitude as a transaction for marriage to one person.
+
+That is where I keep coming back to istikhara. I want something, but I don't know everything about it. Allah knows what I do not know.[^istikhara]
+
+## Wanting something and asking for what is best
+
+I've been reading *Riyad as-Salihin*, often translated as *Gardens of the Righteous*, by Imam an-Nawawi. We've also been reading it live on TikTok. It's a book I recommend, and the supplications I've been reading have given me a lot to think about.
+
+The Prophet Muhammad, peace be upon him, asked Allah for steadfastness in religion.[^hearts] He asked for forgiveness and well-being in his religion, his worldly life, and his family.[^afiyah] Another narration records him asking Allah to strengthen Islam through whichever of Abu Jahl or Umar ibn al-Khattab was more beloved to Him.[^umar]
+
+Reading those supplications makes me question why I was trying so hard not to want anything. I can bring what I want to Allah. The question is how I pursue it and whether I'm willing to ask for what is best, even when I don't know what that will be.
+
+The istikhara supplication asks Allah to make the matter possible and bless it if it is good for the person's religion, livelihood, and outcome. If it is harmful, it asks Allah to turn the matter away from the person and the person away from it, then grant goodness wherever it is and contentment with it.[^istikhara]
+
+That second part is hard for me. I might want something really badly. I might already be attached to the outcome.
+
+In a verse whose immediate context is fighting, the Quran explains that we can dislike something good for us or like something bad for us, while Allah knows and we do not.[^knowledge] When I read that, I think about how little I know about the future I'm asking for.
+
+The account of Moses and his companion in Surah al-Kahf also comes to mind. Moses did not initially understand the actions he witnessed. Later, his companion explained the reasons behind them.[^kahf] I take that as a reminder of the limits of my understanding. I cannot use it to claim I know why a particular thing happened to me.
+
+For me, trusting Allah means trusting His wisdom even when things do not happen the way I expected. I don't know whether the desire will be fulfilled, whether my attachment will change, or whether something different will become good for me. That uncertainty is part of what I'm struggling with.
+
+## Taking the appropriate steps toward marriage
+
+I've written about [preparing for marriage when the culture makes it difficult](https://islam.ayoubabed.xyz/articles/preparing-for-marriage/). Part of that preparation is thinking about what I can give another person and what kind of spouse I'm becoming.
+
+Here, my concern is how to pursue the desire without exceeding Islamic boundaries. I want to ask Allah to open an appropriate way toward marriage, and then act within those limits.
+
+There is a distinction worth making about communication. In an answer about a Muslim matrimonial website, Ustadha Shazia Ahmad says that purposeful marriage discussion by message or email can take place without a chaperone. She recommends a chaperone, straightforward conversation, and involving parents as things progress.[^communication]
+
+Her answer was checked and approved by Shaykh Faraz Rabbani. SeekersGuidance's biography reports that she studied Islamic subjects in Damascus, completed a master's degree in Arabic at the University of Texas at Austin, and continued studying fiqh and Arabic in Amman. Those reported studies and the named review give me a basis for citing her guidance. I'm presenting an attributed scholarly answer, not claiming that every scholar agrees on every situation.[^communication]
+
+So I shouldn't describe every private message as forbidden. My concern is getting emotionally close through an ongoing private relationship while the actual steps toward marriage remain unclear. Shaykh Faraz Rabbani likewise distinguishes purposeful, restrained communication for a genuine marriage decision from open-ended contact.[^purposeful]
+
+Sometimes things don't go the way you hope. Parents may not accept, or other things may not work out. It can feel as though the door is closed. Maybe something is delayed, but I don't know that simply because I still want it. I want to keep asking Allah for guidance without deciding in advance what the answer has to be.
+
+## Remembering Allah while the longing remains
+
+There is a narration in *Riyad as-Salihin* that has stayed with me. The Prophet Muhammad, peace be upon him, compared someone remembering their Lord and someone not remembering Him to the living and the dead.[^remembrance]
+
+For me, that is a reminder to remember Allah throughout this process and throughout my day. I don't want my attention to be consumed by what happened in the past or what might happen in the future.
+
+When I talk about being present, I mean ordinary things like paying attention while walking, noticing my breathing, and recognizing what is around me. I also mean making dhikr, remembering Allah, and thanking Him for what He has given me. Those are the practices I want to describe from my own life.
+
+Honestly, going outside helps me. Sometimes it's riding my bike. Sometimes it's a walk, looking at the clouds, the sky, or the sunset. Listening to Quran and noticing the world around me helps me look beyond the one thing I'm worried about. It reminds me to notice the blessings already in my life, including the people around me.
+
+That does not mean the longing disappears. It hasn't disappeared for me. I haven't forgotten what I want.
+
+I can continue making dua while I'm still struggling. The Prophet taught that supplication is worship.[^dua] I ask Allah for afiyah, well-being and protection, and for sakinah, tranquility in my heart.[^afiyah][^sakinah] I hope this struggle brings me closer to Him and strengthens my faith.
+
+The Quran speaks about being tested through fear and loss.[^tests] When I read that, I think about the different fears people carry: marriage, work, their parents, their children, and what the future might hold. Those are the connections I make in my own reflection.
+
+I also don't want to turn disappointment into a judgment about someone's faith. The Quran warns against despairing of Allah's mercy.[^mercy] But believing that a particular marriage might not happen is different from concluding that Allah has no mercy for you. Scholarly explanations of despair make distinctions that matter when I'm trying to understand what I'm feeling.[^despair]
+
+I'm still learning how to live with a desire without making my trust depend on receiving exactly what I asked for. I can ask for marriage, prepare myself, and pursue it in an appropriate way. I can also ask Allah to guide me away from what is harmful and make me content with what is good.[^istikhara]
+
+The desire is still there. My prayer is that it brings me closer to Allah, and that I keep remembering Him while I wait and while I act.
+
+May Allah keep our hearts firm upon His religion.[^hearts]
+
+## References
+
+Quran references and paraphrases were checked against *The Qur'an*, translated by M. A. S. Abdel Haleem. The links select his translation on Quran.com. Hadith references below identify their collections and any separately listed grading used here.
+
+[^istikhara]: [Sahih al-Bukhari 1166](https://sunnah.com/bukhari:1166), Jabir's narration of the prayer and supplication of istikhara. The Prophet instructs someone considering a matter to pray two voluntary rakahs and make the supplication, naming the matter.
+
+[^secret]: [The Secret, "What are Affirmations?"](https://www.thesecret.tv/affirmations/). This is the publisher's statement of its teaching, cited to identify the claim rather than endorse it. The observations about the other books are my personal experience.
+
+[^gratitude]: [Quran 14:7](https://quran.com/14/7?translations=85), in Moses' reminder to his people.
+
+[^hearts]: [Jami at-Tirmidhi 3522](https://sunnah.com/tirmidhi:3522), Umm Salamah's report of the supplication for a steadfast heart. Graded hasan by Darussalam on the linked source.
+
+[^afiyah]: [Sunan Abi Dawud 5074](https://sunnah.com/abudawud:5074), morning and evening supplication for forgiveness and afiyah across religious and worldly affairs. Graded sahih by Al-Albani on the linked source.
+
+[^umar]: [Jami at-Tirmidhi 3681](https://sunnah.com/tirmidhi:3681). Graded hasan by Darussalam on the linked source. The narration names Abu Jahl, not Abu Lahab.
+
+[^knowledge]: [Quran 2:216](https://quran.com/2/216?translations=85). Its opening concerns fighting; the application to my uncertainty about marriage is a personal reflection.
+
+[^kahf]: [Quran 18:78-82](https://quran.com/18/78-82?translations=85), the explanations at the end of the account.
+
+[^communication]: [Ustadha Shazia Ahmad, "Chatting on a Muslim matrimonial website," SeekersGuidance](https://seekersguidance.org/answers/living-religion/chatting-on-a-muslim-matrimonial-website/). The answer, reviewer credit, and author biography appear on the same page. Her qualifications are reported by that institution, not independently verified here.
+
+[^purposeful]: [Shaykh Faraz Rabbani, "Is It Permissible to Keep Contact With a Prospective Spouse Until He Is Financially Ready?" SeekersGuidance](https://seekersguidance.org/answers/hanafi-fiqh/is-it-permissible-to-keep-contact-with-a-prospective-spouse-until-he-is-financially-ready/). This answer is presented within the site's Hanafi guidance.
+
+[^remembrance]: [Riyad as-Salihin 1434](https://sunnah.com/riyadussalihin:1434), compiled by Imam an-Nawawi; the person-focused narration is in [Sahih al-Bukhari 6407](https://sunnah.com/bukhari:6407). This paragraph paraphrases the narration.
+
+[^dua]: [Jami at-Tirmidhi 2969](https://sunnah.com/tirmidhi:2969), on supplication as worship. Graded sahih by Darussalam on the linked source.
+
+[^sakinah]: [Quran 48:4](https://quran.com/48/4?translations=85), describing tranquility sent into believers' hearts. Sakinah and afiyah have related but distinct meanings.
+
+[^tests]: [Quran 2:155](https://quran.com/2/155?translations=85).
+
+[^mercy]: [Quran 12:87](https://quran.com/12/87?translations=85), where Jacob tells his sons to continue searching and not despair of Allah's mercy.
+
+[^despair]: [IslamQA, "Is despairing of the mercy of Allah regarded as disbelief?"](https://islamqa.info/en/answers/174619), distinguishes forms of despair and their underlying beliefs. [SeekersGuidance, "How Do I Cope With Deep Sadness When No One Believes My Pain?"](https://seekersguidance.org/answers/islamic-belief/how-do-i-cope-with-deep-sadness-when-no-one-believes-my-pain/), by Shaykh Faraz Rabbani, addresses sadness without treating it as religious failure.
