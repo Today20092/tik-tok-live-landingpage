@@ -1,4 +1,46 @@
 {
+  "bukhari-1166-contentment": {
+    "reference": "Sahih al-Bukhari 1166",
+    "url": "https://sunnah.com/bukhari:1166",
+    "narrator": "Jabir ibn Abdullah",
+    "translation": "And ordain for me whatever is good for me, And make me satisfied with it",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-09-15"
+  },
+  "riyad-1434": {
+    "reference": "Riyad as-Salihin 1434",
+    "url": "https://sunnah.com/riyadussalihin:1434",
+    "narrator": "Abu Musa Al-Ash'ari",
+    "translation": "The similitude of one who remembers his Rubb and one who does not remember Him, is like that of the living and the dead.",
+    "translationSource": "Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Recorded in Sahih al-Bukhari 6407",
+      "url": "https://sunnah.com/bukhari:6407"
+    },
+    "checkedOn": "2026-09-15"
+  },
+  "tirmidhi-3522-steadfastness": {
+    "reference": "Jami at-Tirmidhi 3522",
+    "url": "https://sunnah.com/tirmidhi:3522",
+    "narrator": "Umm Salamah, reported by Shahr bin Hawshab",
+    "translation": "O Changer of the hearts, make my heart firm upon Your religion",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Hasan · Good",
+      "attributedTo": "Darussalam",
+      "url": "https://sunnah.com/tirmidhi:3522"
+    },
+    "checkedOn": "2026-09-15"
+  },
   "bukhari-5066": {
     "reference": "Sahih al-Bukhari 5066",
     "url": "https://sunnah.com/bukhari:5066",
