@@ -22,6 +22,8 @@ Use one component per ayah. All reader-facing Quran references—including prose
 
 For a partial passage, set `excerpt: true` in its data record and keep the Arabic and English excerpts aligned. The component labels it as an excerpt and links to the full verse.
 
+To preserve an existing translation while adding another, use a distinct data key such as `61:2-abdel-haleem` and set `reference: "61:2"` in that record. Pass the data key to the component: `<QuranVerse verse="61:2-abdel-haleem" />`. The optional `reference` supplies the displayed ayah and Quran.com destination; existing records default to their key. Keep the verified translator attribution with each version.
+
 The article's English layout stays left-to-right. shadcn's Direction provider is appropriate if we later add interactive controls in Arabic. It does not supply Quran text or a Quran font.
 
 Run `pnpm check`, `pnpm lint`, `pnpm build`, and `pnpm test:quran`. Inspect a narrow mobile preview for Arabic shaping, diacritics, line spacing, and overflow before publishing new passages.

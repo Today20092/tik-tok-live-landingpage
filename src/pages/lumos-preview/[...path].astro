@@ -6,6 +6,7 @@ import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
 import AmazonBookCard from '@/components/AmazonBookCard.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
+import ArticleLink from '@/components/ArticleLink.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
 import { IconLink } from '@tabler/icons-react';
 import chartImage from '../../assets/80000-hours-income-life-satisfaction.png';
@@ -29,6 +30,15 @@ export function getStaticPaths() {
   <body>
     <Section>
       <QuoteStylePreview />
+      <section class="article-page typeset typeset-article">
+        <h2>Related article cards</h2>
+        <p>
+          Inline recommendations reuse resource-card styling and the article's
+          current title, description, and reading time.
+        </p>
+        <ArticleLink article="preparing-for-marriage" />
+        <ArticleLink article="arrogance-and-trusting-allah" />
+      </section>
       <section class="article-page typeset typeset-article">
         <h2>Article book recommendation and footnotes</h2>
         <AmazonBookCard
@@ -128,8 +138,8 @@ export function getStaticPaths() {
         <p>
           Article pages use a sticky contents rail from 60rem of available width
           and a footnote margin from 78rem. All pages share one header width;
-          article headers stay sticky with the contents rail just below. Heading and
-          footnote jumps clear the header. Smaller layouts keep the native
+          article headers stay sticky with the contents rail just below. Heading
+          and footnote jumps clear the header. Smaller layouts keep the native
           contents disclosure and endnotes. Text sizing and printing restore the
           single-column reading flow when needed.
         </p>

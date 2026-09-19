@@ -1,0 +1,38 @@
+---
+import { getEntry } from 'astro:content';
+import { IconArrowRight, IconBook2 } from '@tabler/icons-react';
+import { readingTime } from '@/lib/reading-time';
+
+interface Props {
+  article: string;
+}
+
+const { article: id } = Astro.props;
+const article = await getEntry('articles', id);
+if (!article) {
+  throw new Error(`ArticleLink: article "${id}" does not exist.`);
+}
+const visible = import.meta.env.DEV || !article.data.draft;
+---
+
+{visible && (
+  <aside data-not-typeset class="u-mt-6 u-mb-6" aria-label="Related article">
+    <a
+      href={`${import.meta.env.BASE_URL}articles/${article.id}/`}
+      class="resource-card"
+    >
+      <IconBook2 size={24} strokeWidth={1.5} aria-hidden="true" />
+      <span class="resource-card_content">
+        <span class="resource-card_title">{article.data.title}</span>
+        <span class="resource-card_description">
+          {article.data.description}
+        </span>
+        <span class="resource-card_description">
+          {article.data.draft ? 'Draft preview' : 'Read article'} · About{' '}
+          {readingTime(article.body)} min read
+        </span>
+      </span>
+      <IconArrowRight size={20} aria-hidden="true" />
+    </a>
+  </aside>
+)}

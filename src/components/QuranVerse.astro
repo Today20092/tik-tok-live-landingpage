@@ -12,9 +12,11 @@ if (!Object.hasOwn(verses, verse)) {
     `Quran verse ${verse} has no checked text in src/data/quran-verses.json.`
   );
 }
-const { arabic, translation, translator } = verses[verse];
+const entry = verses[verse];
+const { arabic, translation, translator } = entry;
+const reference = 'reference' in entry ? entry.reference : verse;
 const excerpt = 'excerpt' in verses[verse] && verses[verse].excerpt;
-const source = `https://quran.com/${verse.replace(':', '/')}${translator === 'M. A. S. Abdel Haleem' ? '?translations=85' : ''}`;
+const source = `https://quran.com/${reference.replace(':', '/')}${translator === 'M. A. S. Abdel Haleem' ? '?translations=85' : ''}`;
 ---
 
 <figure
@@ -33,7 +35,7 @@ const source = `https://quran.com/${verse.replace(':', '/')}${translator === 'M.
   </blockquote>
   <figcaption class="quran-verse_figcaption">
     <a href={source} class="quran-verse_a">
-      Quran {verse}
+      Quran {reference}
       {excerpt ? ' (excerpt)' : ''} · Read on Quran.com
     </a>
     <span>Translation by {translator}</span>

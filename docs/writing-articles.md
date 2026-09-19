@@ -37,6 +37,7 @@ Use `.mdx` when an article needs components. Import them from `@/components/`; k
 | Displayed Quran passage                        | `QuranVerse.astro`     | [Quran passages](quran-in-articles.md): verified data, Abdel Haleem translation, attribution and excerpt labels.                                       |
 | Displayed hadith                               | `HadithQuote.astro`    | [Hadith quotations](hadith-in-articles.md): verified narration, grading and source details.                                                            |
 | Clearly separated personal reflection          | `Reflection.astro`     | Put the author's reflection in its default slot; do not present it as scripture.                                                                       |
+| Related article mentioned in the body          | `ArticleLink.astro`    | Pass an existing collection ID with `article="preparing-for-marriage"`; see the linking guide below.                                                   |
 | Recommended book with an Amazon affiliate link | `AmazonBookCard.astro` | Supply the author's link, title, author and a unique page-local `id`. The component includes the adjacent disclosure and shared resource-card styling. |
 
 ```mdx
@@ -46,6 +47,8 @@ import Reflection from '@/components/Reflection.astro';
 import AmazonBookCard from '@/components/AmazonBookCard.astro';
 
 <QuranVerse verse="28:24" />
+{/* Use an edition-specific key when preserving another existing translation. */}
+<QuranVerse verse="61:2-abdel-haleem" />
 <HadithQuote hadith="bukhari-5066" showArabic={false} />
 <Reflection>
   <p>My personal reflection goes here.</p>
@@ -73,6 +76,20 @@ The renderer supplies footnote numbering and return links. Keep these native lin
 Keep card disclosure text inside its component, outside prose styling with `data-not-typeset`. This prevents MDX-generated nested paragraphs and inconsistent spacing. Reuse the card without adding sales language or unverified price claims.
 
 ## Typography and UI
+
+### Linking another article in the body
+
+Use a related-article card when a paragraph refers readers to another one of Ayoub's articles. Keep brief references as ordinary links when a card would interrupt the reading.
+
+```mdx
+import ArticleLink from '@/components/ArticleLink.astro';
+
+<ArticleLink article="preparing-for-marriage" />
+```
+
+`ArticleLink.astro` resolves the collection ID and uses the current title, description, and reading time. It reuses the shared resource-card styles and opens in the same tab. Missing IDs fail with a descriptive error. Draft targets appear with a draft label in development and are omitted in production, so they cannot create public links to unavailable pages. Use existing IDs only; add future references once the target draft exists. Keep the card separate from surrounding prose so hiding a draft card does not leave an incomplete sentence. No disclosure is needed for these internal links.
+
+The development reference at `/lumos-preview/` demonstrates a published target and a draft target. Run `node scripts/check-article-links.mjs` with the development server running to verify both, including the new article quotations.
 
 Article pages and cards show an estimated reading time at 200 words per minute, including stored Quran and hadith quotations. Article headings get copy-link controls, and unlinked images open in a shadcn image viewer. Images already inside links keep their destinations.
 

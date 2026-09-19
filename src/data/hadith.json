@@ -1,4 +1,32 @@
 {
+  "mishkat-2175-friday": {
+    "reference": "Mishkat al-Masabih 2175",
+    "url": "https://sunnah.com/mishkat:2175",
+    "narrator": "Abu Sa'id al-Khudri",
+    "translation": "If anyone recites sūra al-Kahf (Qur’ān, 18) on Friday, light will shine brightly for him till the next Friday.",
+    "translationSource": "Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Hasan · Good",
+      "attributedTo": "Al-Albani, as recorded with Mishkat al-Masabih 2175",
+      "url": "https://sunnah.com/mishkat:2175"
+    },
+    "checkedOn": "2026-09-19"
+  },
+  "muslim-91a-pride": {
+    "reference": "Sahih Muslim 91a",
+    "url": "https://sunnah.com/muslim:91a",
+    "narrator": "Abdullah ibn Mas'ud",
+    "translation": "Pride is disdaining the truth (out of self-conceit) and contempt for the people.",
+    "translationSource": "Abdul Hamid Siddiqui, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam Muslim in his Sahih collection",
+      "url": "https://sunnah.com/muslim/about"
+    },
+    "checkedOn": "2026-09-19"
+  },
   "bukhari-1166-contentment": {
     "reference": "Sahih al-Bukhari 1166",
     "url": "https://sunnah.com/bukhari:1166",
