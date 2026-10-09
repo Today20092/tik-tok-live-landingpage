@@ -4,6 +4,7 @@ import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
 import AmazonBookCard from '@/components/AmazonBookCard.astro';
+import SupportCard from '@/components/SupportCard.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
 import ArticleLink from '@/components/ArticleLink.astro';
@@ -30,6 +31,10 @@ export function getStaticPaths() {
   <body>
     <Section>
       <QuoteStylePreview />
+      <section aria-label="Support components">
+        <SupportCard compact />
+        <SupportCard />
+      </section>
       <section class="article-page typeset typeset-article">
         <h2>Related article cards</h2>
         <p>

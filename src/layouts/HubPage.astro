@@ -5,6 +5,7 @@ import PocketHub from '@/components/PocketHub.astro';
 import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
 import SharePage from '@/components/SharePage.astro';
+import SupportCard from '@/components/SupportCard.astro';
 interface Props {
   variant?: 'flow' | 'pocket' | 'journal' | 'focus';
   title?: string;
@@ -162,6 +163,7 @@ const structuredData = {
           <VariantHub variant={variant} />
         )}
       </div>
+      {isArticle && <div class="page-width"><SupportCard /></div>}
       {!noindex && (
         <SharePage
           title={title}

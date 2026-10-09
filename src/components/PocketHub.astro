@@ -14,6 +14,7 @@ import hoursCover from '../assets/books/80000-hours-paperback.jpg';
 import ArticleList from './ArticleList.astro';
 import LearningVideos from './LearningVideos.astro';
 import ReadingResources from './ReadingResources.astro';
+import SupportCard from './SupportCard.astro';
 interface Props { readingLayout?: 'note' | 'split' | 'minimal' }
 const { readingLayout = 'split' } = Astro.props;
 const articles = (
@@ -57,7 +58,9 @@ const secondary = button;
     >
       <div id="read">
         <slot name="books">
-          <ReadingResources layout={readingLayout} />
+          <ReadingResources layout={readingLayout}>
+            <SupportCard slot="support" compact />
+          </ReadingResources>
         </slot>
       </div>
       <section id="start-here" aria-labelledby="start-title" class="live-help">
@@ -207,6 +210,7 @@ const secondary = button;
           })}
         </div>
       </section>
+      <SupportCard />
     </main>
   </div>
 </div>

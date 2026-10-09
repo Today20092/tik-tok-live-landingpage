@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const support = (await getCollection('links')).find(({ data }) => data.variant === 'support');
+if (!support) throw new Error('The Ko-fi support resource is required.');
+---
+
+{compact ? (
+  <a href={support.data.url} class="control control-ghost support-link" data-pagefind-ignore>
+    Support me on Ko-fi <span aria-hidden="true">↗</span>
+  </a>
+) : (
+  <section class="support-card" aria-label="Support my Quran readings" data-pagefind-ignore>
+    <h2 class="section-title">Support my Quran readings</h2>
+    <p>Your support helps me dedicate more time to these readings and keep them going more consistently. You can contribute once or monthly on Ko-fi. All resources remain freely available.</p>
+    <a href={support.data.url} class="control control-primary">
+      Support me on Ko-fi <span aria-hidden="true">↗</span>
+    </a>
+  </section>
+)}
+
+<style>
+  @layer components {
+    .support-link { justify-self: start; white-space: normal; }
+    .support-card {
+      margin-block: var(--space-8);
+      padding: var(--space-6);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-main);
+    }
+    .support-card h2 { font-size: var(--text-2xl); }
+    .support-card p { margin-block: 0 var(--space-5); max-width: 65ch; }
+    .support-card a { white-space: normal; }
+  }
+</style>
