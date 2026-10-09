@@ -19,8 +19,7 @@ const groups = [
     { title: 'The Clear Quran', image: clearCover, note: 'Non-Muslims in the USA. One free copy per order.', label: 'Request a copy', url: resource('Mail') },
     { title: 'The Quran Project', image: projectCover, note: 'Free for non-Muslims. Check delivery eligibility and postage.', label: 'Check eligibility', url: resource('PackageOpen') },
   ] },
-  { title: 'Earlier readings & other editions', books: [
-    { title: 'The Clear Quran', image: clearCover, note: 'English + Arabic. My earlier live edition; spiral binding was added locally.', label: 'View print edition', url: resource('Book') },
+  { title: 'Other Quran editions', books: [
     { title: 'The Quran · Abdel Haleem', image: haleemCover, note: 'English paperback. The translation I normally quote in articles.', label: 'View paperback', url: 'https://amzn.to/4dxs7C8' },
     { title: 'The Quran · Parallel text', image: parallelCover, note: 'Arabic + English hardcover. Translated by M. A. S. Abdel Haleem.', label: 'View hardcover', url: 'https://amzn.to/4xS97GV' },
   ] },
@@ -28,20 +27,40 @@ const groups = [
 ---
 
 <section id="books" class:list={['reading-resources', `reading-resources--${layout}`]} aria-labelledby="reading-title">
+  <h1 id="reading-title" class="page-title">Books I read on live</h1>
+  <p class="page-intro">Reading along or looking for the book from a session? I read from both of these books.</p>
+  <p class="reading-caption">Swipe or scroll to find your book.</p>
+  <reading-shelf>
+  <div class="reading-carousel reading-carousel-pair reading-live-books" tabindex="0" role="region" aria-label="Books I read on live">
   <div class="reading-feature">
     <div class="reading-cover"><Image src={cover} alt="Red cover of Riyad as-Salihin" width={240} loading="eager" /></div>
     <div class="reading-copy">
-      <p class="reading-label">Reading on TikTok Live</p>
-      <h1 id="reading-title">Meadows of the Righteous</h1>
+      <p class="reading-label">Hadith collection</p>
+      <h2>Meadows of the Righteous</h2>
       <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
       <p>Hadith and Quran passages on faith, character, and everyday life.</p>
       <div class="reading-actions">
         <a class="control control-primary" href={resource('Scroll')}>Download free PDF ↗</a>
         <a class="control control-outline" href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated">My print edition ↗</a>
       </div>
-      <slot name="support" />
     </div>
   </div>
+  <div class="reading-feature">
+    <div class="reading-cover"><Image src={clearCover} alt="The Clear Quran cover illustration" width={240} loading="eager" /></div>
+    <div class="reading-copy">
+      <p class="reading-label">Quran · Arabic + English</p>
+      <h2>The Clear Quran</h2>
+      <p class="reading-subtitle">Parallel Arabic and English text</p>
+      <p>The edition I also read on live. The spiral binding on my copy was added locally; it does not come that way.</p>
+      <div class="reading-actions">
+        <a class="control control-primary" href={resource('Book')}>My Arabic + English edition ↗</a>
+        <a class="control control-outline" href={resource('BookOpen')}>Read the Quran online ↗</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </reading-shelf>
+  <slot name="support" />
   <div id="copies" class="reading-links">
     <a href={resource('BookOpen')}>Read the Quran online <span aria-hidden="true">↗</span></a>
     <p>Free English translation and audio on Quran.com.</p>
@@ -49,7 +68,7 @@ const groups = [
       <summary>{group.title}</summary>
       <div class="reading-expanded">
         <reading-shelf>
-        <div class:list={['reading-carousel', { 'reading-carousel-pair': i === 0 }]} tabindex="0" role="region" aria-label={group.title}>
+        <div class:list={['reading-carousel', 'reading-carousel-pair']} tabindex="0" role="region" aria-label={group.title}>
           {group.books.map((book) => <article class="reading-book">
             <div class="reading-book-cover"><Image src={book.image} alt={`${book.title} cover illustration`} width={400} loading="lazy" /></div>
             <h3>{book.title}</h3>
@@ -76,7 +95,7 @@ const groups = [
       };
       carousel.addEventListener('scroll', update, { passive: true });
       const revealFocusedCard = (event: FocusEvent) => {
-        if (event.target instanceof Element) event.target.closest('.reading-book')?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'instant' });
+        if (event.target instanceof Element) event.target.closest('.reading-book, .reading-feature')?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'instant' });
       };
       carousel.addEventListener('focusin', revealFocusedCard);
       const observer = new ResizeObserver(update);
@@ -97,12 +116,28 @@ const groups = [
 <style>
   @layer components {
     .reading-resources { margin-block: 0 var(--space-8); }
+    .reading-live-books { margin-block: var(--space-4); }
+    .reading-resources .reading-live-books .reading-feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: subgrid;
+      grid-row: span 4;
+      gap: var(--space-3);
+      padding: 0;
+      min-width: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      align-content: start;
+    }
+    .reading-live-books .reading-cover { grid-row: 1; }
+    .reading-live-books .reading-copy { grid-row: span 3; align-content: start; }
+    .reading-live-books .reading-cover img { height: 8rem; }
     .reading-feature { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
     .reading-cover { display: grid; place-items: center; padding: var(--space-5); }
     .reading-cover img { width: auto; height: 8rem; max-width: 100%; object-fit: contain; filter: drop-shadow(3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)); }
     .reading-copy { display: grid; gap: var(--space-2); min-width: 0; align-content: center; }
     .reading-copy > *, .reading-links p { margin: 0; }
-    .reading-copy h1 { font-family: var(--font-serif); font-size: var(--text-3xl); line-height: var(--leading-tight); text-wrap: balance; }
+    .reading-copy h2 { font-family: var(--font-serif); font-size: var(--text-2xl); line-height: var(--leading-tight); text-wrap: balance; }
     .reading-label { color: var(--primary); font-size: var(--text-small); font-weight: 600; }
     .reading-subtitle, .reading-caption { color: var(--muted-foreground); font-size: var(--text-small); }
     .reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-2); }

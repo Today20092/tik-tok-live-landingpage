@@ -1,5 +1,7 @@
 /* Site values override the pinned Lumos defaults in the base layer. */
 :root {
+  --support-accent: #ff6433;
+  --support-foreground: #202020;
   --font-sans: 'Source Sans 3 Variable', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, serif;
   --font-heading: var(--font-serif);

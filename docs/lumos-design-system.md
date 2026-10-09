@@ -4,6 +4,8 @@ This branch uses Lumos for Astro 0.0.3, pinned to upstream commit `1a8e1777ff072
 
 Use shared tokens for color, spacing, type, widths, corners, and controls. Compose the Lumos Section and Heading components and the site's shared resource-card/control patterns. Keep page-specific layout in named component styles inside the components layer. Add a reusable variant when the same treatment appears in multiple places; document intentional exceptions in the reference page.
 
+Ko-fi support controls use the shared `--support-accent` orange and `--support-foreground` dark text tokens in both themes. The compact and full SupportCard variants appear on `/lumos-preview/`; the accent distinguishes support from green resource actions.
+
 The stylesheet order is `base`, `patterns`, `components`, `utilities`. Site tokens override upstream defaults in the base layer. Utilities are small per-instance overrides. Content, quotations, Pagefind, and existing React behavior retain their own implementations.
 
 Default to the warm off-white light palette, matching master. Dark mode is an explicit, remembered choice through the theme control; do not select it automatically from the operating system.
