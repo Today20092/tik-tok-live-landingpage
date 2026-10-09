@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import cover from '../assets/books/riyad-as-salihin.webp';
 import clearCover from '../assets/books/clear-quran-generated.png';
+import clearLiveCover from '../assets/books/clear-quran-arabic-english.png';
 import projectCover from '../assets/books/quran-project-generated.png';
 import haleemCover from '../assets/books/abdel-haleem-paperback-generated.png';
 import parallelCover from '../assets/books/abdel-haleem-hardcover-generated.png';
@@ -46,7 +47,11 @@ const groups = [
     </div>
   </div>
   <div class="reading-feature">
-    <div class="reading-cover"><Image src={clearCover} alt="The Clear Quran cover illustration" width={240} loading="eager" /></div>
+    <div class="reading-cover">
+      <span class="clear-live-cover">
+        <Image src={clearLiveCover} alt="Burgundy and gold cover of The Clear Quran with Arabic Text" width={832} loading="eager" />
+      </span>
+    </div>
     <div class="reading-copy">
       <p class="reading-label">Quran · Arabic + English</p>
       <h2>The Clear Quran</h2>
@@ -132,6 +137,9 @@ const groups = [
     .reading-live-books .reading-cover { grid-row: 1; }
     .reading-live-books .reading-copy { grid-row: span 3; align-content: start; }
     .reading-live-books .reading-cover img { height: 8rem; }
+    /* The bookstore photo includes white margins around the actual cover. */
+    .clear-live-cover { display: block; position: relative; height: 8rem; aspect-ratio: 633 / 891; overflow: hidden; }
+    .reading-live-books .clear-live-cover img { position: absolute; max-width: none; width: 131.44%; height: 140.07%; left: -15.8%; top: -20.09%; filter: none; }
     .reading-feature { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
     .reading-cover { display: grid; place-items: center; padding: var(--space-5); }
     .reading-cover img { width: auto; height: 8rem; max-width: 100%; object-fit: contain; filter: drop-shadow(3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)); }
