@@ -1,24 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
 import kofiCup from '../assets/kofi-cup.png';
-interface Props { compact?: boolean }
-const { compact = false } = Astro.props;
+interface Props { compact?: boolean; floating?: boolean }
+const { compact = false, floating = false } = Astro.props;
 const support = (await getCollection('links')).find(({ data }) => data.variant === 'support');
 if (!support) throw new Error('The Ko-fi support resource is required.');
 ---
 
-{compact ? (
-  <a href={support.data.url} class="control support-button support-link" data-pagefind-ignore>
+{compact || floating ? (
+  <a href={support.data.url} class:list={['control', 'support-button', 'support-link', { 'support-floating': floating }]} data-pagefind-ignore>
     <img src={kofiCup.src} width="24" height="19" alt="" aria-hidden="true" class="support-icon" />
-    <span class="support-label">Support me on Ko-fi</span> <span aria-hidden="true">↗</span>
+    <span class="support-label">{floating ? 'Support monthly' : 'Support monthly on Ko-fi'}</span> {!floating && <span aria-hidden="true">↗</span>}
   </a>
 ) : (
-  <section class="support-card" aria-label="Support my Quran readings" data-pagefind-ignore>
-    <h2 class="section-title">Support my Quran readings</h2>
-    <p>Your support helps me dedicate more time to these readings and keep them going more consistently. You can contribute once or monthly on Ko-fi. All resources remain freely available.</p>
+  <section class="support-card" aria-label="Support my work" data-pagefind-ignore>
+    <h2 class="section-title">Help me keep sharing this work</h2>
+    <p>I share Quran readings in English, conversations about Islam, and filmmaking and editing education through Alpha Bravo Media. Monthly support helps me make more time for this work alongside earning a living.</p>
+    <p>$3 a month helps. If you comfortably give more, that helps too. Please only contribute what fits your circumstances. Everyone is welcome, and the readings and resources remain freely available.</p>
+    <p class="support-goal">My first goal: find 10 monthly supporters.</p>
     <a href={support.data.url} class="control support-button">
       <img src={kofiCup.src} width="24" height="19" alt="" aria-hidden="true" class="support-icon" />
-      <span class="support-label">Support me on Ko-fi</span> <span aria-hidden="true">↗</span>
+      <span class="support-label">Support monthly on Ko-fi</span> <span aria-hidden="true">↗</span>
     </a>
   </section>
 )}
@@ -36,6 +38,14 @@ if (!support) throw new Error('The Ko-fi support resource is required.');
     }
     .support-button:hover { background: color-mix(in srgb, var(--support-accent) 90%, var(--support-foreground)); }
     .support-link { justify-self: start; white-space: normal; }
+    .support-floating {
+      font-size: var(--text-small);
+      gap: var(--space-1);
+      padding-inline: var(--space-3);
+      border-radius: var(--radius-main);
+    }
+    .support-floating .support-icon { width: 20px; }
+    .support-goal { font-weight: 600; }
     .support-card {
       margin-block: var(--space-8);
       padding: var(--space-6);

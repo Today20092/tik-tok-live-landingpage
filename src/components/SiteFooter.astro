@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import SupportCard from './SupportCard.astro';
 const base = import.meta.env.BASE_URL;
 const support = (await getCollection('links')).find(({ data }) => data.variant === 'support')?.data;
 ---
@@ -33,7 +34,7 @@ const support = (await getCollection('links')).find(({ data }) => data.variant =
       </a>
     </nav>
     <div class="site-footer_information">
-      {support && <a href={support.url} class="site-footer_about"><span>Support my work on Ko-fi</span> <span aria-hidden="true">↗</span></a>}
+      {support && <a href={support.url} class="site-footer_about"><span>Support monthly on Ko-fi</span> <span aria-hidden="true">↗</span></a>}
       <a
         href="https://go.alphabravomedia.co/islam-about-ayoub"
         class="site-footer_about"
@@ -58,3 +59,18 @@ const support = (await getCollection('links')).find(({ data }) => data.variant =
     </div>
   </div>
 </footer>
+{support && <div class="support-dock" data-pagefind-ignore><SupportCard floating /></div>}
+
+<style>
+  @layer components {
+    .site-footer { padding-bottom: calc(var(--space-8) + 5rem + env(safe-area-inset-bottom)); }
+    .support-dock {
+      position: fixed;
+      right: max(var(--space-3), env(safe-area-inset-right));
+      bottom: max(var(--space-3), env(safe-area-inset-bottom));
+      z-index: 10;
+      max-width: calc(100% - var(--space-3) * 2);
+    }
+    :global(html) { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+  }
+</style>

@@ -1,4 +1,4 @@
-/* global document, window, getComputedStyle, localStorage */
+/* global document, window, getComputedStyle, localStorage, requestAnimationFrame */
 import assert from 'node:assert/strict';
 import console from 'node:console';
 import process from 'node:process';
@@ -64,14 +64,40 @@ try {
         await page.goto(base + route, { waitUntil: 'networkidle' });
         await page.evaluate(() => document.fonts.ready);
         await fits(page, `${width}/${theme}${route}`);
+        const actual = await fingerprint(page);
+        expected ??= actual;
+        assert.deepEqual(actual, expected, `${route}: shared shell drift`);
+        const supportDock = page.locator('.support-dock');
+        assert.equal(await supportDock.count(), 1, `${route}: one monthly support dock`);
+        assert.ok(await supportDock.evaluate(el => getComputedStyle(el).backgroundColor === 'rgba(0, 0, 0, 0)' && getComputedStyle(el).borderTopWidth === '0px'), 'Floating wrapper has no bottom bar');
+        const supportLink = supportDock.getByRole('link', { name: 'Support monthly', exact: false });
+        assert.equal(await supportLink.count(), 1, `${route}: monthly invitation`);
+        assert.equal(await supportLink.getAttribute('href'), 'https://go.alphabravomedia.co/islam-kofi');
+        for (const size of ['100%', '200%']) {
+          await page.goto(base + route, { waitUntil: 'networkidle' });
+          await page.evaluate(() => document.fonts.ready);
+          await page.evaluate(size => document.documentElement.style.fontSize = size, size);
+          await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+          await fits(page, `${width}/${theme}${route} ${size}`);
+          const { dockBox, linkBox } = await supportDock.evaluate(el => ({
+            dockBox: el.getBoundingClientRect().toJSON(),
+            linkBox: el.querySelector('a').getBoundingClientRect().toJSON(),
+          }));
+          assert.ok(linkBox.x >= 0 && linkBox.x + linkBox.width <= width + 1, 'Support link fits viewport');
+          assert.ok(dockBox.width < width && dockBox.x > 0, 'Support wrapper stays in the corner');
+          if (size === '100%') assert.ok(linkBox.width < 170, 'Floating support button stays compact');
+          assert.ok(linkBox.height >= 44 && linkBox.y >= dockBox.y && linkBox.y + linkBox.height <= 901, `${route} ${width}/${theme} ${size}: support touch target ${JSON.stringify({ dockBox, linkBox })}`);
+          await supportLink.focus();
+          assert.ok(await supportLink.evaluate(el => el === document.activeElement && getComputedStyle(el).outlineStyle !== 'none'), 'Support link has visible keyboard focus');
+          await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+          const footerBox = await page.locator('.site-footer_content').boundingBox();
+          assert.ok(footerBox.y + footerBox.height <= dockBox.y, 'Footer content clears support dock');
+        }
         assert.equal(
           await page.locator('h1').count(),
           1,
           `${route}: one main heading`
         );
-        const actual = await fingerprint(page);
-        expected ??= actual;
-        assert.deepEqual(actual, expected, `${route}: shared shell drift`);
         const variant = page.locator('[data-design]');
         if (await variant.count()) assert.equal(await variant.evaluate(e => getComputedStyle(e).color), actual.color, `${route}: alternate layout follows the selected theme`);
         assert.ok(
@@ -98,7 +124,7 @@ try {
       assert.deepEqual(errors, [], 'No browser errors');
       await page.close();
       console.log(
-        `${width}px ${theme}: nine routes, shared shell, initial theme, touch targets, overflow, regression probe passed`
+        `${width}px ${theme}: nine routes, monthly support dock at 100%/200%, shared shell, initial theme, touch targets, overflow, regression probe passed`
       );
     }
   }

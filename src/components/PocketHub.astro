@@ -58,9 +58,7 @@ const secondary = button;
     >
       <div id="read">
         <slot name="books">
-          <ReadingResources layout={readingLayout}>
-            <SupportCard slot="support" compact />
-          </ReadingResources>
+          <ReadingResources layout={readingLayout} />
         </slot>
       </div>
       <section id="start-here" aria-labelledby="start-title" class="live-help">

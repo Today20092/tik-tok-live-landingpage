@@ -4,7 +4,7 @@ This branch uses Lumos for Astro 0.0.3, pinned to upstream commit `1a8e1777ff072
 
 Use shared tokens for color, spacing, type, widths, corners, and controls. Compose the Lumos Section and Heading components and the site's shared resource-card/control patterns. Keep page-specific layout in named component styles inside the components layer. Add a reusable variant when the same treatment appears in multiple places; document intentional exceptions in the reference page.
 
-Ko-fi support controls use the shared `--support-accent` orange and `--support-foreground` dark text tokens in both themes. The compact and full SupportCard variants appear on `/lumos-preview/`; the accent distinguishes support from green resource actions.
+Ko-fi support controls use the shared `--support-accent` orange and `--support-foreground` dark text tokens in both themes. The compact, floating, and full SupportCard variants appear on `/lumos-preview/`; the accent distinguishes support from green resource actions. SiteFooter floats the smaller button in the bottom-right corner, with safe-area offsets and footer clearance. Its wrapper has no background or border; preserve the 44px minimum touch target and text wrapping at enlarged sizes. Keep the monthly invitation voluntary; the first goal is 10 monthly supporters, with no unverified progress count.
 
 The stylesheet order is `base`, `patterns`, `components`, `utilities`. Site tokens override upstream defaults in the base layer. Utilities are small per-instance overrides. Content, quotations, Pagefind, and existing React behavior retain their own implementations.
 
