@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import kofiCup from '../assets/kofi-cup.png';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 const support = (await getCollection('links')).find(({ data }) => data.variant === 'support');
@@ -8,21 +9,26 @@ if (!support) throw new Error('The Ko-fi support resource is required.');
 
 {compact ? (
   <a href={support.data.url} class="control support-button support-link" data-pagefind-ignore>
-    Support me on Ko-fi <span aria-hidden="true">↗</span>
+    <img src={kofiCup.src} width="24" height="19" alt="" aria-hidden="true" class="support-icon" />
+    <span class="support-label">Support me on Ko-fi</span> <span aria-hidden="true">↗</span>
   </a>
 ) : (
   <section class="support-card" aria-label="Support my Quran readings" data-pagefind-ignore>
     <h2 class="section-title">Support my Quran readings</h2>
     <p>Your support helps me dedicate more time to these readings and keep them going more consistently. You can contribute once or monthly on Ko-fi. All resources remain freely available.</p>
     <a href={support.data.url} class="control support-button">
-      Support me on Ko-fi <span aria-hidden="true">↗</span>
+      <img src={kofiCup.src} width="24" height="19" alt="" aria-hidden="true" class="support-icon" />
+      <span class="support-label">Support me on Ko-fi</span> <span aria-hidden="true">↗</span>
     </a>
   </section>
 )}
 
 <style>
   @layer components {
+    .support-icon { width: 24px; height: auto; flex: none; }
+    .support-label { min-width: 0; overflow-wrap: anywhere; }
     .support-button {
+      max-width: 100%;
       background: var(--support-accent);
       color: var(--support-foreground);
       border-color: var(--support-accent);
