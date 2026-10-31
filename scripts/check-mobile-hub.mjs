@@ -38,8 +38,10 @@ for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
     assert.ok(!html.includes('role="tab"'));
     assert.ok(html.includes('Read the Quran online'));
     assert.ok(html.includes('The Clear Quran'));
-    assert.ok(html.includes('Non-Muslims in the USA. One free copy per order.'));
-    assert.ok(html.includes('Download free PDF'));
+    assert.ok(
+      html.includes('For non-Muslims in the USA. One free copy per order.')
+    );
+    assert.ok(html.includes('Free PDF'));
     assert.ok(html.includes('https://amzn.to/4xXs8Yo'));
   } else {
     assert.ok(html.includes('Request The Clear Quran'));

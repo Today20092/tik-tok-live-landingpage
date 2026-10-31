@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Local scratch files
 .scratch/
+
+# Local design-review captures and session state
+.impeccable/

@@ -5,15 +5,20 @@ import Heading from '@/components/lumos/Heading.astro';
 import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
 import AmazonBookCard from '@/components/AmazonBookCard.astro';
 import SupportCard from '@/components/SupportCard.astro';
+import ReadingResources from '@/components/ReadingResources.astro';
+import LearningVideos from '@/components/LearningVideos.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
 import ArticleLink from '@/components/ArticleLink.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
-import { IconLink } from '@tabler/icons-react';
+import { IconCopy } from '@tabler/icons-react';
 import chartImage from '../../assets/80000-hours-income-life-satisfaction.png';
 const articles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 2);
+const videos = (await getCollection('links'))
+  .filter(({ data }) => data.youtube)
+  .map(({ data }) => data);
 export function getStaticPaths() {
   return import.meta.env.DEV || import.meta.env.LUMOS_PREVIEW === '1'
     ? [{ params: { path: undefined } }]
@@ -31,6 +36,11 @@ export function getStaticPaths() {
   <body>
     <Section>
       <QuoteStylePreview />
+      <ReadingResources />
+      <section aria-label="Learning playlist cards">
+        <h3>Learning playlists</h3>
+        <LearningVideos videos={videos} />
+      </section>
       <section aria-label="Support components">
         <SupportCard compact />
         <SupportCard floating />
@@ -186,16 +196,18 @@ export function getStaticPaths() {
           <h2 class="article-section-heading">
             <span>Article heading with a section link</span>
             <a
-              class="control control-ghost control-icon"
+              class="control control-outline section-copy-link"
               href="#"
-              aria-label="Link to section"
+              aria-label="Copy link to section"
             >
-              <IconLink aria-hidden="true" />
+              <IconCopy aria-hidden="true" />{' '}
+              <span data-section-copy-label>Copy link</span>
             </a>
           </h2>
           <p>
-            Section headings use full line boxes so the link stays beside the
-            text.
+            Copy controls stay beside section headings. Mobile uses an
+            icon-sized control with an accessible copy label; desktop also shows
+            the text label.
           </p>
           <p>
             Paragraphs and quotation text use the same full line boxes, with

@@ -12,10 +12,18 @@ const base = import.meta.env.BASE_URL;
   path="search/"
   noindex
 >
-  <Section tag="main" class="page-section" paddingTop="medium" paddingBottom="small" gap="0">
+  <Section
+    tag="main"
+    class="page-section"
+    paddingTop="medium"
+    paddingBottom="small"
+    gap="0"
+  >
     <div>
       <header class="u-pb-7">
-        <Heading tag="h1" class="page-title">Search the site</Heading>
+        <Heading tag="h1" class="page-title">
+          Search the site
+        </Heading>
         <p class="search_p">
           Find words and phrases in articles and reading resources.
         </p>
@@ -40,6 +48,7 @@ const base = import.meta.env.BASE_URL;
             id="search"
             class="search_search"
             aria-label="Site search"
+            hidden
           >
             <pagefind-config
               bundle-path={`${base}pagefind/`}
@@ -57,6 +66,7 @@ const base = import.meta.env.BASE_URL;
             id="search-status"
             role="status"
             class="search_search-status"
+            hidden
           >
             Loading search…
           </p>
@@ -70,57 +80,83 @@ const base = import.meta.env.BASE_URL;
             </p>
           </noscript>
           <script is:inline>
+            document.getElementById('search-status').hidden = false;
             window.addEventListener('DOMContentLoaded', () => {
               const status = document.getElementById('search-status');
               if (!window.PagefindComponents) {
                 status.textContent =
-                  'Search could not load. Please reload or browse the articles above.';
+                  'Search could not load. Reload this page or use the browsing links below.';
                 return;
               }
-              const search =
-                window.PagefindComponents.getInstanceManager().getInstance(
-                  'default'
-                );
-              const input = document.getElementById('site-search-input');
-              let debounce;
-              const runSearch = () => {
-                window.clearTimeout(debounce);
-                debounce = window.setTimeout(
-                  () => search.triggerSearch(input.value),
-                  150
-                );
-              };
-              input.addEventListener('input', (event) => {
-                if (!event.isComposing) runSearch();
-              });
-              input.addEventListener('compositionend', runSearch);
-              input.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' && !event.isComposing) {
+              try {
+                const search =
+                  window.PagefindComponents.getInstanceManager().getInstance(
+                    'default'
+                  );
+                const input = document.getElementById('site-search-input');
+                let debounce;
+                const runSearch = () => {
                   window.clearTimeout(debounce);
-                  search.triggerSearch(input.value);
-                }
-              });
-              search.on('search', (term) => {
-                if (input.value !== term) input.value = term;
-                input.dispatchEvent(new Event('search-sync'));
-                const url = new URL(window.location.href);
-                if (term) url.searchParams.set('q', term);
-                else url.searchParams.delete('q');
-                window.history.replaceState(null, '', url);
-              });
-              status.hidden = true;
-              search.triggerSearch(
-                new URLSearchParams(window.location.search).get('q') || ''
-              );
+                  debounce = window.setTimeout(
+                    () => search.triggerSearch(input.value),
+                    150
+                  );
+                };
+                input.addEventListener('input', (event) => {
+                  if (!event.isComposing) runSearch();
+                });
+                input.addEventListener('compositionend', runSearch);
+                input.addEventListener('keydown', (event) => {
+                  if (event.key === 'Enter' && !event.isComposing) {
+                    window.clearTimeout(debounce);
+                    search.triggerSearch(input.value);
+                  }
+                });
+                search.on('search', (term) => {
+                  if (input.value !== term) input.value = term;
+                  input.dispatchEvent(new Event('search-sync'));
+                  const url = new URL(window.location.href);
+                  if (term) url.searchParams.set('q', term);
+                  else url.searchParams.delete('q');
+                  window.history.replaceState(null, '', url);
+                });
+                status.hidden = true;
+                document.getElementById('search').hidden = false;
+                search.triggerSearch(
+                  new URLSearchParams(window.location.search).get('q') || ''
+                );
+              } catch {
+                document.getElementById('search').hidden = true;
+                status.hidden = false;
+                status.textContent =
+                  'Search could not start. Reload this page or use the browsing links below.';
+              }
             });
           </script>
         </>
       )}
+      <nav class="search-browse" aria-label="Browse without searching">
+        <a href={`${base}articles/`} class="control control-outline">
+          Browse articles
+        </a>
+        <a href={base} class="control control-ghost">
+          Books & resources
+        </a>
+      </nav>
     </div>
   </Section>
 </HubPage>
 
 <style>
+  @layer components {
+    .search-browse {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-6);
+    }
+  }
+
   #search {
     --pf-text: var(--foreground);
     --pf-mark: var(--foreground);

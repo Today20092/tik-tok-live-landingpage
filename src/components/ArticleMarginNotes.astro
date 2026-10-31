@@ -17,7 +17,9 @@
     const heading =
       previous instanceof HTMLElement &&
       previous.tagName === 'H2' &&
-      /^(references|footnotes|notes)$/i.test(previous.textContent?.trim() ?? '')
+      /^(references|footnotes|notes)$/i.test(
+        (previous.dataset.sectionTitle ?? previous.textContent)?.trim() ?? ''
+      )
         ? previous
         : null;
     // Keep the native document and IDs intact. Only its visual placement changes.

@@ -7,7 +7,7 @@ const pages = [
   ['index.html', '/', 'page'],
   ['articles/index.html', '/articles/', 'page'],
   ['articles/why-i-started/index.html', '/articles/', 'location'],
-  ['articles/about-me/index.html', '/articles/', 'location'],
+  ['articles/about-me/index.html', '/articles/about-me/', 'page'],
   ['search/index.html', '/search/', 'page'],
 ];
 for (const [path, activeHref, activeKind] of pages) {
@@ -27,16 +27,32 @@ for (const [path, activeHref, activeKind] of pages) {
   const anchors = [...nav.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)];
   assert.deepEqual(
     anchors.map((a) => a[2].trim()),
-    ['Links', 'Articles', 'About', 'Search']
+    ['Books &amp; resources', 'Articles', 'About Ayoub', 'Search']
   );
   assert.deepEqual(
     anchors.map((a) => a[1].match(/href="([^"]+)"/)?.[1]),
-    ['/', '/articles/', '/articles/why-i-started/', '/search/']
+    ['/', '/articles/', '/articles/about-me/', '/search/']
   );
   const active = anchors.filter((a) => a[1].includes('aria-current='));
   assert.equal(active.length, 1, `${path}: one active section`);
   assert.ok(active[0][1].includes(`href="${activeHref}"`));
   assert.ok(active[0][1].includes(`aria-current="${activeKind}"`));
+  const mobile = header.match(
+    /<nav\b[^>]*aria-label="Mobile site navigation"[^>]*>([\s\S]*?)<\/nav>/
+  )?.[1];
+  assert.ok(mobile, `${path}: mobile navigation`);
+  const mobileAnchors = [...mobile.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)];
+  assert.deepEqual(
+    mobileAnchors.map((a) => [
+      a[1].match(/href="([^"]+)"/)?.[1],
+      a[1].match(/aria-current="([^"]+)"/)?.[1],
+    ]),
+    anchors.map((a) => [
+      a[1].match(/href="([^"]+)"/)?.[1],
+      a[1].match(/aria-current="([^"]+)"/)?.[1],
+    ]),
+    `${path}: mobile and desktop orientation agree`
+  );
   assert.ok(html.includes('data-site-footer'), `${path}: shared footer`);
   assert.ok(
     html.includes('id="main-content"'),

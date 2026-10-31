@@ -30,14 +30,17 @@ for (const page of pages) {
 const hub = pages.find((page) => page.url === '/');
 assert.match(
   hub.content,
-  /English Free translation/,
-  'Card labels need word boundaries'
+  /The Clear Quran For non-Muslims in the USA/,
+  'Visible resource titles and eligibility need word boundaries'
 );
 assert.ok(
   !hub.content.includes('About me'),
   'Article teasers must not duplicate article results'
 );
-assert.ok(!pages.some((page) => page.url === '/articles/welcome/'), 'Removed example must stay out of search');
+assert.ok(
+  !pages.some((page) => page.url === '/articles/welcome/'),
+  'Removed example must stay out of search'
+);
 const article = pages.find((page) => page.url === '/articles/about-me/');
 assert.ok(
   article.content.includes('Growing up with questions'),

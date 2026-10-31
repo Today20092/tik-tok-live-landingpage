@@ -1,7 +1,7 @@
 /* global document, getComputedStyle, requestAnimationFrame, window */
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 import process from 'node:process';
 import console from 'node:console';
 
@@ -15,15 +15,26 @@ try {
   for (const width of [390, 1280, 1440, 1920]) {
     await headerPage.setViewportSize({ width, height: 960 });
     let expected;
-    for (const path of ['', 'articles/', 'articles/about-me/', 'articles/preparing-for-marriage/']) {
+    for (const path of [
+      '',
+      'articles/',
+      'articles/about-me/',
+      'articles/preparing-for-marriage/',
+    ]) {
       await headerPage.goto(`${base}/${path}`);
       await headerPage.evaluate(() => document.fonts.ready);
-      const bounds = await headerPage.locator('.site-header_row').evaluate((el) => {
-        const { x, width } = el.getBoundingClientRect();
-        return { x, width };
-      });
+      const bounds = await headerPage
+        .locator('.site-header_row')
+        .evaluate((el) => {
+          const { x, width } = el.getBoundingClientRect();
+          return { x, width };
+        });
       expected ??= bounds;
-      assert.deepEqual(bounds, expected, `Header width stays consistent on ${path} at ${width}px`);
+      assert.deepEqual(
+        bounds,
+        expected,
+        `Header width stays consistent on ${path} at ${width}px`
+      );
     }
   }
   await headerPage.close();
@@ -138,6 +149,13 @@ try {
   await checkTargetClearance(`#${await reference.getAttribute('id')}`);
 
   const checkNotes = async (margin) => {
+    await page.waitForFunction((expected) => {
+      const footnotes = document.querySelector('[data-footnotes]');
+      return (
+        footnotes &&
+        (getComputedStyle(footnotes).position === 'absolute') === expected
+      );
+    }, margin);
     await page.evaluate(
       () =>
         new Promise((resolve) =>
@@ -300,6 +318,56 @@ try {
     }),
     'Back-to-top remains fixed within the viewport'
   );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => window.scrollTo(0, window.innerHeight * 3));
+  const shortcut = page.getByRole('link', { name: 'Contents', exact: true });
+  await shortcut.waitFor({ state: 'visible' });
+  await page.screenshot({
+    path: fileURLToPath(
+      new URL(
+        '../.impeccable/review/reader-contents-mobile-dark.png',
+        import.meta.url
+      )
+    ),
+  });
+  await shortcut.focus();
+  await page.keyboard.press('Enter');
+  assert.equal(
+    await page.locator('#article-contents').evaluate((el) => el.open),
+    true,
+    'Mobile shortcut opens existing contents'
+  );
+  assert.equal(
+    await page.evaluate(
+      () =>
+        document.activeElement ===
+        document.querySelector('#article-contents > summary')
+    ),
+    true,
+    'Contents shortcut moves keyboard focus'
+  );
+  await contents.getByRole('link').first().click();
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = '200%';
+    window.scrollTo(0, window.innerHeight * 3);
+  });
+  await shortcut.waitFor({ state: 'visible' });
+  assert.equal(
+    await page.locator('.reading-navigation').evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return (
+        r.left >= 0 &&
+        r.right <= window.innerWidth &&
+        r.top >= 0 &&
+        r.bottom <= window.innerHeight
+      );
+    }),
+    true,
+    'Mobile article navigation fits with enlarged text'
+  );
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = '';
+  });
   for (const path of ['', 'articles/']) {
     await page.goto(`${base}/${path}`);
     assert.equal(

@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import { IconArrowUpRight, IconPlayerPlay } from '@tabler/icons-react';
 import type { CollectionEntry } from 'astro:content';
-import Recommendation from './Recommendation';
 interface Props {
   videos: CollectionEntry<'links'>['data'][];
 }
@@ -18,20 +17,15 @@ const orderedVideos = [...videos].sort((a, b) => order(a) - order(b));
 
 <div data-learning-videos class="learning-videos_div">
   {orderedVideos.map((link) => {
-    const featured = link.youtube?.includes('PL9821');
+    const stories = link.youtube?.includes('PL9821');
     const biography = link.youtube?.includes('PLlZaz');
-    const thumbnail = featured
+    const thumbnail = stories
       ? 'IQjzErJlpJ0'
       : biography
         ? 'sQMC7fkjmOA'
         : link.youtube;
     return (
-      <article
-        class:list={[
-          'learning-videos_article',
-          featured ? 'learning-videos_article-2' : 'learning-videos_article-3',
-        ]}
-      >
+      <article class="learning-videos_article">
         <a
           href={link.url}
           aria-label={`Watch ${link.title.replaceAll('—', '-')}`}
@@ -44,11 +38,7 @@ const orderedVideos = [...videos].sort((a, b) => order(a) - order(b));
             height={360}
             widths={[160, 320, 480]}
             quality={70}
-            sizes={
-              featured
-                ? '(min-width: 1024px) 468px, (min-width: 640px) 45vw, 90vw'
-                : '(min-width: 640px) 256px, 36vw'
-            }
+            sizes="(min-width: 1024px) 440px, (min-width: 640px) 42vw, 85vw"
             loading="lazy"
             class="learning-videos_image"
           />
@@ -59,49 +49,46 @@ const orderedVideos = [...videos].sort((a, b) => order(a) - order(b));
           </span>
         </a>
         <div class="min-width-0">
-          {featured && <p class="learning-videos_p">Ayoub recommends</p>}
-          <h3
-            class:list={[
-              'learning-videos_h3',
-              featured ? 'u-text-2xl' : 'learning-videos_h3-2',
-            ]}
-          >
+          <h4 class="learning-videos_h3">
             <a href={link.url} class="learning-videos_a-2">
-              {link.title.replaceAll('—', '-')}
+              {stories
+                ? 'Stories of the Prophets'
+                : biography
+                  ? 'The Life of Prophet Muhammad'
+                  : link.title.replaceAll('—', '-')}
             </a>
-          </h3>
-          {featured && (
-            <div class="u-mt-3">
-              <Recommendation
-                client:load
-                preview="I highly recommend this playlist. Mufti Menk is a great storyteller"
-                paragraphs={[
-                  'His stories of the prophets, from Adam to Muhammad, peace be upon them, are some of the most inspiring to listen to.',
-                  'There are so many lessons about Islam, handling difficulties, and keeping faith. You can simply listen along.',
-                  "This isn't a full biography of Prophet Muhammad, peace be upon him. For a fuller account of his life, I recommend the playlist below.",
-                ]}
-              />
-            </div>
-          )}
-          <a href={link.url} class="learning-videos_a-3">
-            {link.youtube?.startsWith('videoseries')
-              ? 'Watch playlist'
-              : 'Watch video'}{' '}
-            <IconArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          </h4>
+          <p class="learning-videos_meta">
+            {stories
+              ? 'Mufti Menk · Playlist'
+              : biography
+                ? 'Biography · Playlist'
+                : 'Video'}
+          </p>
         </div>
-        {biography && (
-          <div class="u-col-span-full">
-            <Recommendation
-              client:load
-              preview="I also highly recommend this playlist for a more detailed look at the life of Prophet Muhammad, peace be upon him"
-              paragraphs={[
-                'It explores his childhood as an orphan, his family, the first revelation, how people treated him, and his journey from Mecca to Medina.',
-                'The AI visuals are imagined scenes, not real footage. They help you picture life without the electricity, running taps, and air conditioning we take for granted today. For me, that context brings a deeper respect and understanding of who he was and what he lived through.',
-              ]}
-            />
-          </div>
-        )}
+        <div class="learning-videos_description">
+          <p>
+            {stories
+              ? 'Stories of the prophets, from Adam to Muhammad, peace be upon them. A broad introduction rather than a full biography.'
+              : biography
+                ? 'A fuller account of Prophet Muhammad’s life, from his childhood and the first revelation to his journey from Mecca to Medina.'
+                : link.description}
+          </p>
+          {biography && (
+            <p class="learning-videos_note">
+              AI-generated visuals depict imagined scenes, not real footage.
+            </p>
+          )}
+        </div>
+        <a
+          href={link.url}
+          class="control control-outline learning-videos_watch"
+        >
+          {link.youtube?.startsWith('videoseries')
+            ? 'Watch playlist on YouTube'
+            : 'Watch video on YouTube'}{' '}
+          <IconArrowUpRight size={16} aria-hidden="true" />
+        </a>
       </article>
     );
   })}

@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { IconChevronDown } from '@tabler/icons-react';
 import cover from '../assets/books/riyad-as-salihin.webp';
-import clearCover from '../assets/books/clear-quran-generated.png';
 import clearLiveCover from '../assets/books/clear-quran-arabic-english.png';
-import projectCover from '../assets/books/quran-project-generated.png';
 import haleemCover from '../assets/books/abdel-haleem-paperback-generated.png';
 import parallelCover from '../assets/books/abdel-haleem-hardcover-generated.png';
-interface Props { layout?: 'note' | 'split' | 'minimal' }
+interface Props {
+  layout?: 'note' | 'split' | 'minimal';
+}
 const { layout = 'split' } = Astro.props;
 const links = (await getCollection('links')).map(({ data }) => data);
 function resource(icon: string) {
@@ -15,113 +16,194 @@ function resource(icon: string) {
   if (!link) throw new Error(`Missing reading resource: ${icon}`);
   return link.url;
 }
-const groups = [
-  { title: 'Free printed Qurans', books: [
-    { title: 'The Clear Quran', image: clearCover, note: 'Non-Muslims in the USA. One free copy per order.', label: 'Request a copy', url: resource('Mail') },
-    { title: 'The Quran Project', image: projectCover, note: 'Free for non-Muslims. Check delivery eligibility and postage.', label: 'Check eligibility', url: resource('PackageOpen') },
-  ] },
-  { title: 'Other Quran editions', books: [
-    { title: 'The Quran · Abdel Haleem', image: haleemCover, note: 'English paperback. The translation I normally quote in articles.', label: 'View paperback', url: 'https://amzn.to/4dxs7C8' },
-    { title: 'The Quran · Parallel text', image: parallelCover, note: 'Arabic + English hardcover. Translated by M. A. S. Abdel Haleem.', label: 'View hardcover', url: 'https://amzn.to/4xS97GV' },
-  ] },
+const freeCopies = [
+  {
+    title: 'The Clear Quran',
+    note: 'For non-Muslims in the USA. One free copy per order.',
+    label: 'Request a free copy',
+    url: resource('Mail'),
+  },
+  {
+    title: 'The Quran Project',
+    note: 'Free for non-Muslims. Check delivery eligibility and postage.',
+    label: 'Check eligibility',
+    url: resource('PackageOpen'),
+  },
+];
+const paidEditions = [
+  {
+    title: 'The Quran · Abdel Haleem',
+    image: haleemCover,
+    note: 'English paperback. The translation I normally quote in articles.',
+    label: 'View paperback',
+    url: 'https://amzn.to/4dxs7C8',
+  },
+  {
+    title: 'The Quran · Parallel text',
+    image: parallelCover,
+    note: 'Arabic + English hardcover. Translated by M. A. S. Abdel Haleem.',
+    label: 'View hardcover',
+    url: 'https://amzn.to/4xS97GV',
+  },
 ];
 ---
 
-<section id="books" class:list={['reading-resources', `reading-resources--${layout}`]} aria-labelledby="reading-title">
-  <h1 id="reading-title" class="page-title">Books I read on live</h1>
-  <p class="page-intro">Reading along or looking for the book from a session? I read from both of these books.</p>
-  <p class="reading-caption">Swipe or scroll to find your book.</p>
-  <reading-shelf>
-  <div class="reading-carousel reading-carousel-pair reading-live-books" tabindex="0" role="region" aria-label="Books I read on live">
-  <div class="reading-feature">
-    <div class="reading-cover"><Image src={cover} alt="Red cover of Riyad as-Salihin" width={240} loading="eager" /></div>
-    <div class="reading-copy">
-      <p class="reading-label">Hadith collection</p>
-      <h2>Meadows of the Righteous</h2>
-      <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
-      <p>Hadith and Quran passages on faith, character, and everyday life.</p>
+<section
+  id="books"
+  class:list={['reading-resources', `reading-resources--${layout}`]}
+  aria-labelledby="reading-title"
+>
+  <h1 id="reading-title" class="page-title">
+    Books I read on live
+  </h1>
+  <p class="page-intro">
+    Find your book below. No purchase or prior knowledge needed to join.
+  </p>
+  <div class="reading-live-books">
+    <div class="reading-feature">
+      <div class="reading-cover">
+        <span class="live-book-cover hadith-live-cover">
+          <Image
+            src={cover}
+            alt="Red cover of Riyad as-Salihin"
+            width={400}
+            loading="eager"
+          />
+        </span>
+      </div>
+      <div class="reading-copy">
+        <h2>Meadows of the Righteous</h2>
+        <p class="reading-label">Hadith collection</p>
+        <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
+        <p>
+          Reports of what Prophet Muhammad said and did, with Quran passages.
+        </p>
+      </div>
       <div class="reading-actions">
-        <a class="control control-primary" href={resource('Scroll')}>Download free PDF ↗</a>
-        <a class="control control-outline" href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated">My print edition ↗</a>
+        <a class="control control-primary" href={resource('Scroll')}>
+          Free PDF ↗
+        </a>
+        <a
+          class="control control-outline"
+          href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated"
+        >
+          My print edition ↗
+        </a>
+      </div>
+    </div>
+    <div class="reading-feature">
+      <div class="reading-cover">
+        <span class="live-book-cover clear-live-cover">
+          <Image
+            src={clearLiveCover}
+            alt="Burgundy and gold cover of The Clear Quran with Arabic Text"
+            width={832}
+            loading="eager"
+          />
+        </span>
+      </div>
+      <div class="reading-copy">
+        <h2>The Clear Quran</h2>
+        <p class="reading-label">Quran · Arabic + English</p>
+        <p>Spiral binding added locally; not included with this edition.</p>
+      </div>
+      <div class="reading-actions">
+        <a class="control control-primary" href={resource('Book')}>
+          Find this edition ↗
+        </a>
       </div>
     </div>
   </div>
-  <div class="reading-feature">
-    <div class="reading-cover">
-      <span class="clear-live-cover">
-        <Image src={clearLiveCover} alt="Burgundy and gold cover of The Clear Quran with Arabic Text" width={832} loading="eager" />
-      </span>
-    </div>
-    <div class="reading-copy">
-      <p class="reading-label">Quran · Arabic + English</p>
-      <h2>The Clear Quran</h2>
-      <p class="reading-subtitle">Parallel Arabic and English text</p>
-      <p>The edition I also read on live. The spiral binding on my copy was added locally; it does not come that way.</p>
-      <div class="reading-actions">
-        <a class="control control-primary" href={resource('Book')}>My Arabic + English edition ↗</a>
-        <a class="control control-outline" href={resource('BookOpen')}>Read the Quran online ↗</a>
-      </div>
-    </div>
-  </div>
-  </div>
-  </reading-shelf>
   <slot name="support" />
-  <div id="copies" class="reading-links">
-    <a href={resource('BookOpen')}>Read the Quran online <span aria-hidden="true">↗</span></a>
-    <p>Free English translation and audio on Quran.com.</p>
-    {groups.map((group, i) => <details>
-      <summary>{group.title}</summary>
-      <div class="reading-expanded">
-        <reading-shelf>
-        <div class:list={['reading-carousel', 'reading-carousel-pair']} tabindex="0" role="region" aria-label={group.title}>
-          {group.books.map((book) => <article class="reading-book">
-            <div class="reading-book-cover"><Image src={book.image} alt={`${book.title} cover illustration`} width={400} loading="lazy" /></div>
-            <h3>{book.title}</h3>
-            <p>{book.note}</p>
-            <a class="control control-outline" href={book.url} rel={book.url.includes('amzn.to') ? 'sponsored' : undefined}>{book.label} ↗</a>
-          </article>)}
-        </div>
-        </reading-shelf>
-        {i === 1 && <p class="reading-caption">Paid editions. Amazon links are affiliate links; I earn from qualifying purchases.</p>}
+  <section
+    id="copies"
+    class="reading-links"
+    aria-labelledby="quran-resources-title"
+  >
+    <h2 id="quran-resources-title" class="section-title">
+      Quran resources
+    </h2>
+    <a class="resource-card resource-card-primary" href={resource('BookOpen')}>
+      <span class="resource-card_content">
+        <span class="resource-card_title">Read the Quran online</span>{' '}
+        <span class="resource-card_description">
+          Free English translation and audio on Quran.com.
+        </span>{' '}
+        <span class="resource-card_action">
+          Start reading <span aria-hidden="true">↗</span>
+        </span>
+      </span>
+    </a>
+    <section class="reading-free-copies" aria-labelledby="free-copies-title">
+      <h3 id="free-copies-title">Free printed copies</h3>
+      <div class="resource-grid">
+        {freeCopies.map((book) => (
+          <a class="resource-card" href={book.url}>
+            <span class="resource-card_content">
+              <span class="resource-card_title">{book.title}</span>{' '}
+              <span class="resource-card_description">{book.note}</span>{' '}
+              <span class="resource-card_action">
+                {book.label} <span aria-hidden="true">↗</span>
+              </span>
+            </span>
+          </a>
+        ))}
       </div>
-    </details>)}
-  </div>
+    </section>
+    <details>
+      <summary class="resource-card">
+        <span class="resource-card_content">
+          <span class="resource-card_title">Other Quran editions</span>{' '}
+          <span class="resource-card_description">
+            Browse paid English and Arabic–English editions.
+          </span>
+        </span>
+        <IconChevronDown size={20} aria-hidden="true" />
+      </summary>
+      <div class="reading-expanded">
+        <div class="reading-editions-grid">
+          {paidEditions.map((book) => (
+            <article class="reading-book">
+              <div class="reading-book-cover">
+                <Image
+                  src={book.image}
+                  alt={`${book.title} cover illustration`}
+                  width={400}
+                  loading="lazy"
+                />
+              </div>
+              <h3>{book.title}</h3>
+              <p>{book.note}</p>
+              <a
+                class="control control-outline"
+                href={book.url}
+                rel={book.url.includes('amzn.to') ? 'sponsored' : undefined}
+              >
+                {book.label} ↗
+              </a>
+            </article>
+          ))}
+        </div>
+        <p class="reading-caption">
+          Paid editions. Amazon links are affiliate links; I earn from
+          qualifying purchases.
+        </p>
+      </div>
+    </details>
+  </section>
 </section>
-
-<script>
-  class ReadingShelf extends HTMLElement {
-    connectedCallback() {
-      const carousel = this.querySelector<HTMLElement>('.reading-carousel');
-      if (!carousel) return;
-      const update = () => {
-        const inset = parseFloat(getComputedStyle(carousel).paddingInlineStart) + 1;
-        this.toggleAttribute('data-more-left', carousel.scrollLeft > inset);
-        this.toggleAttribute('data-more-right', carousel.scrollWidth - carousel.clientWidth - carousel.scrollLeft > inset);
-      };
-      carousel.addEventListener('scroll', update, { passive: true });
-      const revealFocusedCard = (event: FocusEvent) => {
-        if (event.target instanceof Element) event.target.closest('.reading-book, .reading-feature')?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'instant' });
-      };
-      carousel.addEventListener('focusin', revealFocusedCard);
-      const observer = new ResizeObserver(update);
-      observer.observe(carousel);
-      this.cleanup = () => {
-        carousel.removeEventListener('scroll', update);
-        carousel.removeEventListener('focusin', revealFocusedCard);
-        observer.disconnect();
-      };
-      update();
-    }
-    cleanup?: () => void;
-    disconnectedCallback() { this.cleanup?.(); }
-  }
-  if (!customElements.get('reading-shelf')) customElements.define('reading-shelf', ReadingShelf);
-</script>
 
 <style>
   @layer components {
-    .reading-resources { margin-block: 0 var(--space-8); }
-    .reading-live-books { margin-block: var(--space-4); }
+    .reading-resources {
+      margin-block: 0 var(--space-8);
+    }
+    .reading-live-books {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+      margin-block: var(--space-4);
+    }
     .reading-resources .reading-live-books .reading-feature {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -134,62 +216,337 @@ const groups = [
       scroll-snap-stop: always;
       align-content: start;
     }
-    .reading-live-books .reading-cover { grid-row: 1; }
-    .reading-live-books .reading-copy { grid-row: span 3; align-content: start; }
-    .reading-live-books .reading-cover img { height: 8rem; }
+    .reading-live-books .reading-cover {
+      grid-row: 1;
+    }
+    .reading-live-books .reading-copy {
+      grid-row: span 2;
+      align-content: start;
+    }
+    .reading-live-books .reading-cover img {
+      height: 8rem;
+    }
     /* The bookstore photo includes white margins around the actual cover. */
-    .clear-live-cover { display: block; position: relative; height: 8rem; aspect-ratio: 633 / 891; overflow: hidden; }
-    .reading-resources .reading-live-books .clear-live-cover img { position: absolute; max-width: none; width: 131.44%; height: 140.07%; left: -15.8%; top: -20.09%; filter: none; }
-    .reading-feature { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); }
-    .reading-cover { display: grid; place-items: center; padding: var(--space-5); }
-    .reading-cover img { width: auto; height: 8rem; max-width: 100%; object-fit: contain; filter: drop-shadow(3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)); }
-    .reading-copy { display: grid; gap: var(--space-2); min-width: 0; align-content: center; }
-    .reading-copy > *, .reading-links p { margin: 0; }
-    .reading-copy h2 { font-family: var(--font-serif); font-size: var(--text-2xl); line-height: var(--leading-tight); text-wrap: balance; }
-    .reading-label { color: var(--primary); font-size: var(--text-small); font-weight: 600; }
-    .reading-subtitle, .reading-caption { color: var(--muted-foreground); font-size: var(--text-small); }
-    .reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-2); }
-    .reading-actions a { min-height: var(--control-height); display: inline-flex; align-items: center; white-space: normal; }
-    .reading-actions a:not(.control), .reading-expanded a { text-decoration: underline; text-underline-offset: .2em; }
-    .reading-links { margin-top: var(--space-6); }
-    .reading-links > a { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); min-height: var(--control-height); font-weight: 600; }
-    .reading-links > p { color: var(--muted-foreground); margin-bottom: var(--space-4); }
-    .reading-links details { border-top: 1px solid var(--border); }
-    .reading-links summary { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); min-height: var(--control-height); padding-block: var(--space-3); cursor: pointer; }
-    .reading-links summary::after { content: '+'; flex-shrink: 0; }
-    .reading-links details[open] summary::after { content: '−'; }
-    .reading-expanded { display: grid; gap: var(--space-4); padding-block: var(--space-2) var(--space-5); color: var(--muted-foreground); }
-    .reading-expanded a { color: var(--foreground); }
-    reading-shelf { display: block; position: relative; min-width: 0; }
-    reading-shelf::before, reading-shelf::after { content: ''; position: absolute; z-index: 1; top: 0; bottom: var(--space-4); width: var(--space-8); pointer-events: none; opacity: 0; }
-    reading-shelf::before { left: 0; background: linear-gradient(to right, var(--background), transparent); }
-    reading-shelf::after { right: 0; background: linear-gradient(to left, var(--background), transparent); }
-    reading-shelf[data-more-left]::before, reading-shelf[data-more-right]::after { opacity: 1; }
-    .reading-carousel { display: grid; grid-auto-flow: column; grid-template-columns: repeat(3, minmax(16rem, var(--book-width, 44%))); grid-template-rows: 14rem auto 1fr auto; gap: var(--space-3) var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; padding: var(--space-2) var(--space-2) var(--space-4); scrollbar-color: var(--border) transparent; }
-    .reading-carousel-pair { grid-template-columns: repeat(2, minmax(16rem, var(--book-width, 44%))); }
-    .reading-carousel { scroll-padding-inline: var(--space-2); }
-    .reading-book { scroll-snap-stop: always; }
-    .reading-carousel:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
-    .reading-book { display: grid; grid-template-rows: subgrid; grid-row: span 4; min-width: 0; scroll-snap-align: start; color: var(--foreground); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-main); overflow: hidden; }
-    .reading-book > :not(.reading-book-cover) { margin-inline: var(--space-4); }
-    .reading-book-cover { display: grid; place-items: center; padding: var(--space-4); min-height: 0; }
-    .reading-book-cover img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
-    .reading-book h3 { font-size: var(--text-lg); line-height: var(--leading-tight); }
-    .reading-book p { font-size: var(--text-small); color: var(--muted-foreground); }
-    .reading-book a { margin-block: var(--space-2) var(--space-4); white-space: normal; text-decoration: none; align-self: stretch; }
-    .reading-resources--split .reading-feature { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr); background: transparent; border: 0; padding: 0; }
-    .reading-resources--split .reading-cover { background: var(--secondary); border-radius: var(--radius-main); }
-    .reading-resources--split .reading-cover img { height: 11rem; }
-    .reading-resources--minimal .reading-feature { border: 0; border-block: 1px solid var(--border); background: transparent; border-radius: 0; padding-inline: 0; }
-    .reading-resources--minimal .reading-cover { display: none; }
-    .reading-resources--minimal .reading-actions .control { background: transparent; color: var(--primary); padding-inline: 0; text-decoration: underline; text-underline-offset: .2em; }
+    .live-book-cover {
+      display: block;
+      position: relative;
+      height: 8rem;
+      overflow: hidden;
+    }
+    .clear-live-cover {
+      aspect-ratio: 633 / 891;
+    }
+    .hadith-live-cover {
+      aspect-ratio: 632 / 946;
+    }
+    /* Remove the source artwork's empty margins, preserving the cover ratio. */
+    .reading-resources .reading-live-books .hadith-live-cover img {
+      position: absolute;
+      max-width: none;
+      width: 170.89%;
+      height: 114.16%;
+      left: -32.91%;
+      top: -5.07%;
+      filter: none;
+    }
+    .reading-resources .reading-live-books .clear-live-cover img {
+      position: absolute;
+      max-width: none;
+      width: 131.44%;
+      height: 140.07%;
+      left: -15.8%;
+      top: -20.09%;
+      filter: none;
+    }
+    .reading-feature {
+      display: grid;
+      gap: var(--space-5);
+      padding: var(--space-6);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-main);
+    }
+    .reading-cover {
+      display: grid;
+      place-items: center;
+      padding: var(--space-5);
+    }
+    .reading-cover img {
+      width: auto;
+      height: 8rem;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(
+        3px 5px 4px color-mix(in srgb, var(--foreground) 14%, transparent)
+      );
+    }
+    .reading-copy {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2);
+      min-width: 0;
+      align-content: center;
+    }
+    .reading-copy > *,
+    .reading-links p {
+      margin: 0;
+    }
+    .reading-copy h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      line-height: var(--leading-tight);
+      text-wrap: balance;
+    }
+    .reading-label {
+      color: var(--primary);
+      font-size: var(--text-small);
+      font-weight: 600;
+    }
+    .reading-subtitle,
+    .reading-caption {
+      color: var(--muted-foreground);
+      font-size: var(--text-small);
+    }
+    .reading-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      padding-top: var(--space-2);
+    }
+    .reading-actions a {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      min-height: var(--control-height);
+      display: inline-flex;
+      align-items: center;
+      white-space: normal;
+    }
+    .reading-actions a:not(.control),
+    .reading-expanded a {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+    .reading-links {
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+    .reading-links > h2 {
+      margin: 0 0 var(--space-4);
+    }
+    .reading-links details {
+      margin-top: var(--space-3);
+    }
+    .reading-free-copies {
+      display: grid;
+      gap: var(--space-3);
+      margin-block: var(--space-6);
+    }
+    .reading-free-copies h3 {
+      margin: 0;
+      font: 600 var(--text-lg)/var(--leading-tight) var(--font-sans);
+    }
+    .reading-links summary {
+      list-style: none;
+      cursor: pointer;
+    }
+    .reading-links summary::marker {
+      content: '';
+    }
+    .reading-links summary::-webkit-details-marker {
+      display: none;
+    }
+    .reading-links details[open] summary :global(svg) {
+      transform: rotate(180deg);
+    }
+    .reading-expanded {
+      display: grid;
+      gap: var(--space-4);
+      padding-block: var(--space-2) var(--space-5);
+      color: var(--muted-foreground);
+    }
+    .reading-expanded a {
+      color: var(--foreground);
+    }
+    .reading-editions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 12rem auto 1fr auto;
+      gap: var(--space-3) var(--space-4);
+    }
+    .reading-book {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 4;
+      min-width: 0;
+      color: var(--foreground);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-main);
+      overflow: hidden;
+    }
+    .reading-book > :not(.reading-book-cover) {
+      margin-inline: var(--space-4);
+    }
+    .reading-book-cover {
+      display: grid;
+      place-items: center;
+      padding: var(--space-4);
+      min-height: 0;
+    }
+    .reading-book-cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: contain;
+    }
+    .reading-book h3 {
+      font-size: var(--text-lg);
+      line-height: var(--leading-tight);
+    }
+    .reading-book p {
+      font-size: var(--text-small);
+      color: var(--muted-foreground);
+    }
+    .reading-book a {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      margin-block: var(--space-2) var(--space-4);
+      white-space: normal;
+      text-decoration: none;
+      align-self: stretch;
+    }
+    .reading-resources--split .reading-feature {
+      grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr);
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+    .reading-resources--split .reading-cover {
+      background: var(--secondary);
+      border-radius: var(--radius-main);
+    }
+    .reading-resources--split .reading-cover img {
+      height: 11rem;
+    }
+    .reading-resources--minimal .reading-feature {
+      border: 0;
+      border-block: 1px solid var(--border);
+      background: transparent;
+      border-radius: 0;
+      padding-inline: 0;
+    }
+    .reading-resources--minimal .reading-cover {
+      display: none;
+    }
+    .reading-resources--minimal .reading-actions .control {
+      background: transparent;
+      color: var(--primary);
+      padding-inline: 0;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
     @media (width < 40rem) {
-      .reading-carousel { --book-width: 82%; }
-      .reading-feature { padding: var(--space-5); gap: var(--space-3); }
-      .reading-cover { padding: var(--space-3); }
-      .reading-resources--split .reading-feature { grid-template-columns: minmax(0, 1fr); }
-      .reading-resources--split .reading-cover { padding: var(--space-6); }
-      .reading-resources--split .reading-cover img { height: 8rem; }
+      .reading-live-books {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .reading-resources .reading-live-books .reading-feature {
+        grid-template-columns: minmax(0, min(4.5rem, 20%)) minmax(0, 1fr);
+        grid-template-rows: auto;
+        grid-row: auto;
+        column-gap: var(--space-4);
+        row-gap: var(--space-3);
+        padding-bottom: var(--space-5);
+        border-radius: 0;
+      }
+      .reading-resources .reading-live-books .reading-cover {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        align-self: start;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+      }
+      .reading-live-books .reading-copy {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .reading-live-books .reading-copy > p {
+        font-size: var(--text-small);
+      }
+      .reading-live-books .reading-actions {
+        grid-column: 2;
+        padding-top: 0;
+        gap: var(--space-2);
+      }
+      .reading-live-books .reading-actions .control {
+        font-size: var(--text-small);
+      }
+      .reading-live-books .reading-copy h2 {
+        font-size: var(--text-xl);
+      }
+      .reading-resources .reading-live-books .reading-cover > img {
+        height: 5rem;
+      }
+      .reading-live-books .live-book-cover {
+        height: 6rem;
+        max-width: 100%;
+      }
+      .reading-resources--minimal .reading-live-books .reading-feature {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .reading-resources--minimal .reading-live-books .reading-copy {
+        grid-column: 1;
+      }
+      .reading-resources--minimal .reading-live-books .reading-actions {
+        grid-column: 1;
+      }
+      .reading-editions-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+      }
+      .reading-book {
+        grid-template-columns: minmax(0, min(4.5rem, 20%)) minmax(0, 1fr);
+        grid-template-rows: auto auto auto;
+        grid-row: auto;
+        gap: var(--space-2) var(--space-4);
+        padding: var(--space-4);
+      }
+      .reading-book-cover {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        height: 6rem;
+        padding: 0;
+        align-self: start;
+      }
+      .reading-book > :not(.reading-book-cover) {
+        grid-column: 2;
+        margin: 0;
+      }
+      .reading-book a {
+        justify-self: start;
+        align-self: start;
+      }
+      .reading-feature {
+        padding: var(--space-5);
+        gap: var(--space-3);
+      }
+      .reading-cover {
+        padding: var(--space-3);
+      }
+      .reading-resources--split .reading-feature {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .reading-resources--split .reading-cover {
+        padding: var(--space-2);
+      }
+      .reading-resources--split .reading-cover img {
+        height: 8rem;
+      }
     }
   }
 </style>

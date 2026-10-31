@@ -21,22 +21,7 @@
   }
 }
 .article-list_entry {
-  display: grid;
-  gap: calc(var(--spacing) * 2);
-  @media (width >= 40rem) {
-    grid-template-columns: 8rem 1fr;
-  }
-  @media (width >= 40rem) {
-    gap: calc(var(--spacing) * 6);
-  }
-}
-.article-list_date {
-  font-size: var(--text-xs);
-  line-height: var(--text-xs--line-height);
-  color: var(--muted-foreground);
-  @media (width >= 40rem) {
-    padding-top: var(--spacing);
-  }
+  display: block;
 }
 .article-list_heading {
   margin-block: 0;
@@ -122,10 +107,14 @@
   line-height: var(--leading-relaxed);
   color: var(--muted-foreground);
 }
-.article-list_reading-time {
-  margin-top: calc(var(--spacing) * 2);
-  font-size: var(--text-xs);
-  line-height: var(--text-xs--line-height);
+.article-list_metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-small);
+  line-height: var(--leading-relaxed);
   color: var(--muted-foreground);
 }
 .quran-verse_figure,
@@ -782,6 +771,8 @@
   }
   .article-reader .article-page_contents-rail,
   #reading-progress,
+  .reading-navigation,
+  .section-copy-link,
   #back-to-top {
     display: none;
   }

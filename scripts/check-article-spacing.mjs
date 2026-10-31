@@ -36,7 +36,7 @@ try {
               const description = element.querySelector(
                 '.article-list_description'
               );
-              const time = element.querySelector('.article-list_reading-time');
+              const time = element.querySelector('.article-list_metadata');
               return {
                 top: parseFloat(getComputedStyle(title).marginTop),
                 description:
@@ -64,9 +64,13 @@ try {
             );
           }
           assert.ok(
-            await page.evaluate(
-              () => [...document.querySelectorAll('.article-list, .article-list *')]
-                .every((element) => element.getBoundingClientRect().right <= innerWidth + 1)
+            await page.evaluate(() =>
+              [
+                ...document.querySelectorAll('.article-list, .article-list *'),
+              ].every(
+                (element) =>
+                  element.getBoundingClientRect().right <= innerWidth + 1
+              )
             ),
             `${route}: article list overflow`
           );

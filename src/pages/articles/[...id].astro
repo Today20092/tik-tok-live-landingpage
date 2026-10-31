@@ -118,7 +118,9 @@ const pageTitle =
             Draft preview · Not included in the published site
           </p>
         )}
-        <p class="article-page_category">{article.data.category}</p>
+        {article.id !== 'about-me' && (
+          <p class="article-page_category">{article.data.category}</p>
+        )}
         <Heading
           tag="h1"
           id="article-top"
@@ -128,15 +130,18 @@ const pageTitle =
         >
           {article.data.title}
         </Heading>
-        <p class="article-page_description">{article.data.description}</p>
+        {article.id !== 'about-me' && (
+          <p class="article-page_description">{article.data.description}</p>
+        )}
         <p class="article-page_byline">
-          <a
-            href={`${base}articles/why-i-started/`}
-            class="article-page_author"
-          >
-            Ayoub
-          </a>{' '}
-          ·{' '}
+          {article.id !== 'about-me' && (
+            <>
+              <a href={`${base}articles/about-me/`} class="article-page_author">
+                Ayoub
+              </a>{' '}
+              ·{' '}
+            </>
+          )}
           <time datetime={article.data.date.toISOString()}>
             {article.data.date.toLocaleDateString('en-US', {
               year: 'numeric',
@@ -163,7 +168,11 @@ const pageTitle =
       )}
       {sections.length >= 2 && (
         <div class="article-page_contents-rail">
-          <details data-pagefind-ignore class="group article-page_contents">
+          <details
+            id="article-contents"
+            data-pagefind-ignore
+            class="group article-page_contents"
+          >
             <summary class="article-page_contents-toggle">
               <IconList size={18} aria-hidden="true" />
               <span id="article-contents-title">On this page</span>

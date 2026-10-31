@@ -1,6 +1,6 @@
 ---
 import { buttonVariants } from '@/components/ui/button';
-import { IconLink } from '@tabler/icons-react';
+import { IconCopy, IconCheck } from '@tabler/icons-react';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
 ---
 
@@ -8,12 +8,14 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
   <a
     data-pagefind-ignore
     class={buttonVariants({
-      variant: 'ghost',
-      size: 'icon',
+      variant: 'outline',
+      size: 'sm',
       className: 'section-copy-link',
     })}
   >
-    <IconLink aria-hidden="true" />
+    <IconCopy className="section-copy-idle" aria-hidden="true" />
+    <IconCheck className="section-copy-check" aria-hidden="true" />
+    <span data-section-copy-label>Copy link</span>
   </a>
 </template>
 <p
@@ -39,6 +41,7 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
           true
         ) as HTMLAnchorElement;
         const label = heading.textContent ?? 'section';
+        heading.dataset.sectionTitle = label;
         const url = new URL(
           document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
             ?.href ?? window.location.href
@@ -47,7 +50,9 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
         link.href = url.href;
         link.setAttribute('aria-label', `Copy link to ${label}`);
         link.title = `Copy link to ${label}`;
-        const icon = link.firstElementChild!;
+        const copyLabel = link.querySelector<HTMLElement>(
+          '[data-section-copy-label]'
+        )!;
         link.addEventListener('click', async (event) => {
           if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
             return;
@@ -57,12 +62,17 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
             await navigator.clipboard.writeText(url.href);
             status.textContent = `Link to ${label} copied.`;
             link.title = 'Link copied';
-            link.textContent = '✓';
+            copyLabel.textContent = 'Copied';
+            link.dataset.copied = '';
             window.setTimeout(() => {
-              link.replaceChildren(icon);
+              copyLabel.textContent = 'Copy link';
+              delete link.dataset.copied;
               link.title = `Copy link to ${label}`;
             }, 2000);
           } catch {
+            delete link.dataset.copied;
+            copyLabel.textContent = 'Copy link';
+            link.title = `Copy link to ${label}`;
             window.location.hash = heading.id;
             status.textContent =
               'Copy this section’s address from your browser address bar.';

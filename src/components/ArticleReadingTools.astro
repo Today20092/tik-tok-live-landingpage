@@ -1,6 +1,6 @@
 ---
 import { buttonVariants } from '@/components/ui/button';
-import { IconArrowUp } from '@tabler/icons-react';
+import { IconArrowUp, IconList } from '@tabler/icons-react';
 ---
 
 <div
@@ -16,20 +16,35 @@ import { IconArrowUp } from '@tabler/icons-react';
 >
   <div class="reading-progress_fill" style="transform: scaleX(0)"></div>
 </div>
-<a
-  id="back-to-top"
-  href="#article-top"
+<nav
+  class="reading-navigation"
+  aria-label="Article navigation"
   data-pagefind-ignore
   hidden
-  class={buttonVariants({
-    variant: 'outline',
-    size: 'lg',
-    className: 'reading-back-to-top',
-  })}
 >
-  <IconArrowUp data-icon="inline-start" aria-hidden="true" />
-  Back to top
-</a>
+  <a
+    id="show-contents"
+    href="#article-contents"
+    class="control control-outline"
+    hidden
+  >
+    <IconList size={18} aria-hidden="true" /> Contents
+  </a>
+  <a
+    id="back-to-top"
+    href="#article-top"
+    data-pagefind-ignore
+    hidden
+    class={buttonVariants({
+      variant: 'outline',
+      size: 'lg',
+      className: 'reading-back-to-top',
+    })}
+  >
+    <IconArrowUp data-icon="inline-start" aria-hidden="true" />
+    Back to top
+  </a>
+</nav>
 
 <script>
   const article = document.getElementById('article-body');
@@ -37,6 +52,7 @@ import { IconArrowUp } from '@tabler/icons-react';
   const progress = document.getElementById('reading-progress');
   const fill = progress?.firstElementChild;
   const backToTop = document.getElementById('back-to-top');
+  const showContents = document.getElementById('show-contents');
   const page = article?.closest<HTMLElement>('.article-page--reader');
   const shell = page?.closest<HTMLElement>('.site-shell--article');
   const siteHeader = shell?.querySelector<HTMLElement>('[data-site-header]');
@@ -133,6 +149,10 @@ import { IconArrowUp } from '@tabler/icons-react';
       page?.classList.add('has-reading-tools');
       progress.classList.toggle('reading-progress--rail', desktop);
       backToTop.hidden = window.scrollY < window.innerHeight * 2;
+      backToTop.closest<HTMLElement>('.reading-navigation')!.hidden =
+        backToTop.hidden;
+      if (showContents)
+        showContents.hidden = desktop || !contents || backToTop.hidden;
     };
     const scheduleUpdate = () => {
       if (!pending) {
@@ -154,6 +174,14 @@ import { IconArrowUp } from '@tabler/icons-react';
           ? 'instant'
           : 'smooth',
       });
+    });
+    showContents?.addEventListener('click', (event) => {
+      if (!contents) return;
+      event.preventDefault();
+      contents.open = true;
+      mobileOpen = true;
+      contents.querySelector('summary')?.focus({ preventScroll: true });
+      contents.scrollIntoView({ block: 'start', behavior: 'instant' });
     });
     update();
   }
