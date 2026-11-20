@@ -720,7 +720,10 @@
     grid-template-columns: subgrid;
     align-items: start;
   }
-  .article-page--reader [data-margin-notes-heading] {
+  .article-page--reader :is(
+      [data-margin-notes-heading],
+      .article-section-heading:has(> [data-margin-notes-heading])
+    ) {
     display: none;
   }
   .article-page--reader .article-margin-notes {
@@ -788,6 +791,11 @@
   }
   .article-reader .article-page--reader [data-margin-notes-heading] {
     display: block;
+  }
+  .article-reader
+    .article-page--reader
+    .article-section-heading:has(> [data-margin-notes-heading]) {
+    display: grid;
   }
   .article-reader .article-margin-notes,
   .article-reader .article-margin-notes > ol > li {

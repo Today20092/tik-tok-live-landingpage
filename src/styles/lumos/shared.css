@@ -254,6 +254,22 @@ html:has(.contents-sheet[open]) {
   align-items: center;
   column-gap: var(--space-2);
 }
+/* The row carries the heading's flow spacing so the control centers on the text. */
+.article-section-heading > * {
+  margin: 0;
+}
+.article-section-heading > :is(h2, h3, h4) {
+  min-width: 0;
+}
+.typeset > .article-section-heading:not(:first-child) {
+  margin-block-start: var(--typeset-flow);
+}
+.typeset > .article-section-heading:has(> h2):not(:first-child) {
+  margin-block-start: calc(var(--typeset-flow) * 1.4);
+}
+.typeset > .article-section-heading + * {
+  margin-block-start: 1em;
+}
 /* Text-trimming pseudo-elements must not occupy heading grid cells. */
 .article-section-heading::before,
 .article-section-heading::after {

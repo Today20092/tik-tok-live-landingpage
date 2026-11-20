@@ -13,7 +13,10 @@
     const anchors = notes.map((note) =>
       references.find((ref) => ref.hash === `#${note.id}`)
     );
-    const previous = footnotes.previousElementSibling;
+    // The heading may already sit in its copy-link row.
+    const previous =
+      footnotes.previousElementSibling?.querySelector(':scope > h2') ??
+      footnotes.previousElementSibling;
     const heading =
       previous instanceof HTMLElement &&
       previous.tagName === 'H2' &&
