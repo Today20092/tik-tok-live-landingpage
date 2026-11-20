@@ -190,6 +190,14 @@
       height: 44px;
       transform: translate(-50%, -50%);
     }
+    /* Adjacent refs (e.g. 5 13): no sideways expansion, plus a gap, so taps never hit the neighbour. */
+    &:where(sup:has(> a[data-footnote-ref]) + sup:has(> a[data-footnote-ref])) {
+      margin-inline-start: 0.25em;
+    }
+    &:where(sup:has(+ sup > a[data-footnote-ref]) > a[data-footnote-ref])::after,
+    &:where(sup + sup > a[data-footnote-ref])::after {
+      width: 100%;
+    }
 
     /* Lists. */
     &:where(ul) {

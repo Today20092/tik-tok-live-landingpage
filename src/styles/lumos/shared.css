@@ -229,14 +229,21 @@
   padding-bottom: max(var(--space-5), env(safe-area-inset-bottom));
   border-width: 1px 0 0;
   border-radius: var(--radius-main) var(--radius-main) 0 0;
+  overflow: hidden;
   &[open] {
+    display: flex;
+    flex-direction: column;
     gap: 0;
+  }
+  & > nav {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }
 .contents-sheet_header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: space-between;

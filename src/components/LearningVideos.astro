@@ -24,6 +24,14 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
       : biography
         ? 'sQMC7fkjmOA'
         : link.youtube;
+    const title = stories
+      ? 'Stories of the Prophets'
+      : biography
+        ? 'The Life of Prophet Muhammad'
+        : link.title.replaceAll('—', '-');
+    const action = link.youtube?.startsWith('videoseries')
+      ? 'Watch playlist on YouTube'
+      : 'Watch video on YouTube';
     return (
       <article class="learning-videos_article">
         <div class="learning-videos_a">
@@ -50,11 +58,7 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
         </div>
         <div class="min-width-0">
           <h4 class="learning-videos_h3">
-            {stories
-              ? 'Stories of the Prophets'
-              : biography
-                ? 'The Life of Prophet Muhammad'
-                : link.title.replaceAll('—', '-')}
+            {title}
           </h4>
           <p class="learning-videos_meta">
             {stories
@@ -81,10 +85,9 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
         <a
           href={link.url}
           class="control control-outline learning-videos_watch"
+          aria-label={`${action}: ${title}`}
         >
-          {link.youtube?.startsWith('videoseries')
-            ? 'Watch playlist on YouTube'
-            : 'Watch video on YouTube'}{' '}
+          {action}{' '}
           <IconArrowUpRight size={16} aria-hidden="true" />
         </a>
       </article>
