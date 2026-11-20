@@ -31,6 +31,12 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
     '#section-link-template'
   );
   const status = document.getElementById('section-copy-status');
+  let lastMessage = '';
+  // VoiceOver skips a repeated identical message; vary it invisibly.
+  const announce = (message: string) => {
+    lastMessage = lastMessage === message ? `${message}\u00A0` : message;
+    status!.textContent = lastMessage;
+  };
   if (template && status) {
     document
       .querySelectorAll<HTMLElement>(
@@ -53,18 +59,19 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
         const copyLabel = link.querySelector<HTMLElement>(
           '[data-section-copy-label]'
         )!;
+        let resetTimer = 0;
         link.addEventListener('click', async (event) => {
           if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
             return;
           event.preventDefault();
-          status.textContent = '';
+          window.clearTimeout(resetTimer);
           try {
             await navigator.clipboard.writeText(url.href);
-            status.textContent = `Link to ${label} copied.`;
+            announce(`Link to ${label} copied.`);
             link.title = 'Link copied';
             copyLabel.textContent = 'Copied';
             link.dataset.copied = '';
-            window.setTimeout(() => {
+            resetTimer = window.setTimeout(() => {
               copyLabel.textContent = 'Copy link';
               delete link.dataset.copied;
               link.title = `Copy link to ${label}`;
@@ -74,8 +81,9 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
             copyLabel.textContent = 'Copy link';
             link.title = `Copy link to ${label}`;
             window.location.hash = heading.id;
-            status.textContent =
-              'Copy this section’s address from your browser address bar.';
+            announce(
+              'Copy this section’s address from your browser address bar.'
+            );
           }
         });
         const text = document.createElement('span');

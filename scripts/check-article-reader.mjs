@@ -128,8 +128,7 @@ try {
         ?.textContent.trim() === 'Start preparing yourself'
   );
   assert.ok(
-    Number(await page.getByRole('progressbar').getAttribute('aria-valuenow')) >
-      0
+    (await page.getByRole('progressbar').evaluate((el) => el.value)) > 0
   );
   await checkHeader(true);
   await checkTargetClearance('#start-preparing-yourself');

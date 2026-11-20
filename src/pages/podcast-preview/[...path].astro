@@ -1,6 +1,15 @@
 ---
 import HubPage from '@/layouts/HubPage.astro';
-import { IconArrowLeft, IconArrowRight, IconBrandYoutube, IconListNumbers, IconNotes, IconFileText, IconBooks, IconInfoCircle } from '@tabler/icons-react';
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconBrandYoutube,
+  IconListNumbers,
+  IconNotes,
+  IconFileText,
+  IconBooks,
+  IconInfoCircle,
+} from '@tabler/icons-react';
 // Keep the example available in development only until real episodes are ready.
 export function getStaticPaths() {
   return import.meta.env.DEV ? [{ params: { path: undefined } }] : [];
@@ -11,25 +20,49 @@ const sectionLink = 'path_sectionlink';
 const headingLink = 'path_headinglink';
 ---
 
-<HubPage title="Podcast preview | Islam with Ayoub" path="podcast-preview/" noindex>
+<HubPage
+  title="Podcast preview | Islam with Ayoub"
+  path="podcast-preview/"
+  noindex
+>
   <main class="path_main">
     <div class="path_div">
-      <a href={base} class={focusLink}><IconArrowLeft size={18} /> Back to links</a>
+      <a href={base} class={focusLink}>
+        <IconArrowLeft size={18} aria-hidden="true" /> Back to links
+      </a>
       <div class="path_div-2">
-        Design preview. The episode title, outline, and transcript below are examples. The video is an existing upload, not a released podcast episode.
+        Design preview. The episode title, outline, and transcript below are
+        examples. The video is an existing upload, not a released podcast
+        episode.
       </div>
 
       <section aria-labelledby="homepage-example" class="u-mt-10">
-        <h2 id="homepage-example" class="path_homepage-example">On your homepage</h2>
-        <p class="path_p">A compact section below your main reading links would introduce the latest episode.</p>
+        <h2 id="homepage-example" class="path_homepage-example">
+          On your homepage
+        </h2>
+        <p class="path_p">
+          A compact section below your main reading links would introduce the
+          latest episode.
+        </p>
         <a href="#episode" class="path_a">
-          <IconBrandYoutube size={36} strokeWidth={1.5} className="path_iconbrandyoutube" aria-hidden="true" />
+          <IconBrandYoutube
+            size={36}
+            strokeWidth={1.5}
+            className="path_iconbrandyoutube"
+            aria-hidden="true"
+          />
           <span class="path_span">
             <span class="path_span-2">The podcast with Ayoub</span>
             <span class="path_span-3">Making time to understand Islam</span>
-            <span class="path_span-4">Watch the episode, read the notes, or follow the transcript.</span>
+            <span class="path_span-4">
+              Watch the episode, read the notes, or follow the transcript.
+            </span>
           </span>
-          <IconArrowRight size={20} className="flex-noshrink" aria-hidden="true" />
+          <IconArrowRight
+            size={20}
+            className="flex-noshrink"
+            aria-hidden="true"
+          />
         </a>
       </section>
 
@@ -37,7 +70,10 @@ const headingLink = 'path_headinglink';
         <header>
           <p class="path_p-2">Example episode page</p>
           <h1 class="path_h1">Making time to understand Islam</h1>
-          <p class="path_p-3">A conversation about reading the Quran, asking questions, and putting what we learn into practice.</p>
+          <p class="path_p-3">
+            A conversation about reading the Quran, asking questions, and
+            putting what we learn into practice.
+          </p>
           <p class="path_p-4">With Ayoub · Sample episode</p>
         </header>
 
@@ -52,23 +88,67 @@ const headingLink = 'path_headinglink';
             allowfullscreen
             class="path_iframe"
           ></iframe>
-          <figcaption class="path_figcaption">Player demonstration using your existing video, “How Ayoub Uses AI During TikTok Live.” The sample notes below do not describe this video.</figcaption>
+          <figcaption class="path_figcaption">
+            Player demonstration using your existing video, “How Ayoub Uses AI
+            During TikTok Live.” The sample notes below do not describe this
+            video.
+          </figcaption>
         </figure>
-        <a href="https://go.alphabravomedia.co/islam-ai-tutorial" class={`${focusLink} u-mt-2`}><IconBrandYoutube size={20} /> Open the demo video on YouTube</a>
+        <a
+          href="https://go.alphabravomedia.co/islam-ai-tutorial"
+          class={`${focusLink} u-mt-2`}
+        >
+          <IconBrandYoutube size={20} aria-hidden="true" /> Open the demo video
+          on YouTube
+        </a>
 
         <nav aria-labelledby="contents-title" class="path_nav">
-          <h2 id="contents-title" class="path_contents-title">On this page</h2>
+          <h2 id="contents-title" class="path_contents-title">
+            On this page
+          </h2>
           <ul>
-            <li><a href="#outline" class={sectionLink}><IconListNumbers aria-hidden="true" />Episode outline</a></li>
-            <li><a href="#notes" class={sectionLink}><IconNotes aria-hidden="true" />My notes</a></li>
-            <li><a href="#transcript" class={sectionLink}><IconFileText aria-hidden="true" />Transcript</a></li>
-            <li><a href="#resources" class={sectionLink}><IconBooks aria-hidden="true" />Reading alongside the episode</a></li>
-            <li><a href="#ai-disclaimer" class={sectionLink}><IconInfoCircle aria-hidden="true" />AI disclaimer</a></li>
+            <li>
+              <a href="#outline" class={sectionLink}>
+                <IconListNumbers aria-hidden="true" />
+                Episode outline
+              </a>
+            </li>
+            <li>
+              <a href="#notes" class={sectionLink}>
+                <IconNotes aria-hidden="true" />
+                My notes
+              </a>
+            </li>
+            <li>
+              <a href="#transcript" class={sectionLink}>
+                <IconFileText aria-hidden="true" />
+                Transcript
+              </a>
+            </li>
+            <li>
+              <a href="#resources" class={sectionLink}>
+                <IconBooks aria-hidden="true" />
+                Reading alongside the episode
+              </a>
+            </li>
+            <li>
+              <a href="#ai-disclaimer" class={sectionLink}>
+                <IconInfoCircle aria-hidden="true" />
+                AI disclaimer
+              </a>
+            </li>
           </ul>
         </nav>
 
         <section id="outline" class="path_outline">
-          <h2 class="path_h2"><a href="#outline" class={headingLink}>Episode outline <span aria-hidden="true" class="text-muted">#</span></a></h2>
+          <h2 class="path_h2">
+            <a href="#outline" class={headingLink}>
+              Episode outline{' '}
+              <span aria-hidden="true" class="text-muted">
+                #
+              </span>
+            </a>
+          </h2>
           <p class="path_p">Sample topics for a future conversation.</p>
           <ol class="path_ol">
             <li>Why I want to start this podcast</li>
@@ -80,62 +160,156 @@ const headingLink = 'path_headinglink';
         </section>
 
         <section id="notes" class="path_notes">
-          <h2 class="path_h2"><a href="#notes" class={headingLink}>My notes <span aria-hidden="true" class="text-muted">#</span></a></h2>
+          <h2 class="path_h2">
+            <a href="#notes" class={headingLink}>
+              My notes{' '}
+              <span aria-hidden="true" class="text-muted">
+                #
+              </span>
+            </a>
+          </h2>
           <div class="path_div-3">
-            <p>Example host note: I want this podcast to give us more time for the questions that come up during the live. Some topics need a longer conversation and a place to collect the reading afterwards.</p>
-            <p>For this first conversation, I'd like to ask: what makes it easier for us to keep learning, even when life is busy?</p>
+            <p>
+              Example host note: I want this podcast to give us more time for
+              the questions that come up during the live. Some topics need a
+              longer conversation and a place to collect the reading afterwards.
+            </p>
+            <p>
+              For this first conversation, I'd like to ask: what makes it easier
+              for us to keep learning, even when life is busy?
+            </p>
           </div>
         </section>
 
         <section id="transcript" class="path_notes">
-          <h2 class="path_h2"><a href="#transcript" class={headingLink}>Transcript <span aria-hidden="true" class="text-muted">#</span></a></h2>
-          <a href="#ai-disclaimer" class={focusLink}>How AI was used in this content</a>
+          <h2 class="path_h2">
+            <a href="#transcript" class={headingLink}>
+              Transcript{' '}
+              <span aria-hidden="true" class="text-muted">
+                #
+              </span>
+            </a>
+          </h2>
+          <a href="#ai-disclaimer" class={focusLink}>
+            How AI was used in this content
+          </a>
           <details class="path_details">
-            <summary class="path_summary">Read a sample transcript excerpt</summary>
+            <summary class="path_summary">
+              Read a sample transcript excerpt
+            </summary>
             <div class="path_div-4">
-              <p class="path_p-2">Illustrative text only. This is not a transcript of the video above.</p>
-              <p><strong>Ayoub:</strong> Assalamu alaikum, and welcome. I wanted to make a space where we can take our time with the questions we discuss during the live.</p>
-              <p><strong>Ayoub:</strong> Today, let's start with something simple. How do we make time to read, ask questions, and think about what we're learning?</p>
+              <p class="path_p-2">
+                Illustrative text only. This is not a transcript of the video
+                above.
+              </p>
+              <p>
+                <strong>Ayoub:</strong> Assalamu alaikum, and welcome. I wanted
+                to make a space where we can take our time with the questions we
+                discuss during the live.
+              </p>
+              <p>
+                <strong>Ayoub:</strong> Today, let's start with something
+                simple. How do we make time to read, ask questions, and think
+                about what we're learning?
+              </p>
             </div>
           </details>
         </section>
 
         <section id="resources" class="path_notes">
-          <h2 class="path_h2"><a href="#resources" class={headingLink}>Reading alongside the episode <span aria-hidden="true" class="text-muted">#</span></a></h2>
-          <p class="path_p-5">Example resources. Each published episode can include its own references here.</p>
+          <h2 class="path_h2">
+            <a href="#resources" class={headingLink}>
+              Reading alongside the episode{' '}
+              <span aria-hidden="true" class="text-muted">
+                #
+              </span>
+            </a>
+          </h2>
+          <p class="path_p-5">
+            Example resources. Each published episode can include its own
+            references here.
+          </p>
           <div class="path_div-5">
-            <a href="https://go.alphabravomedia.co/islam-quran" class={focusLink}>Read the Quran on Quran.com <IconArrowRight size={16} /></a>
-            <a href="https://go.alphabravomedia.co/islam-riyad-pdf" class={focusLink}>Riyad as-Salihin PDF <IconArrowRight size={16} /></a>
+            <a
+              href="https://go.alphabravomedia.co/islam-quran"
+              class={focusLink}
+            >
+              Read the Quran on Quran.com{' '}
+              <IconArrowRight size={16} aria-hidden="true" />
+            </a>
+            <a
+              href="https://go.alphabravomedia.co/islam-riyad-pdf"
+              class={focusLink}
+            >
+              Riyad as-Salihin PDF{' '}
+              <IconArrowRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </section>
-        <section id="ai-disclaimer" aria-labelledby="ai-disclaimer-title" class="path_ai-disclaimer">
-          <h2 id="ai-disclaimer-title" class="path_h2"><a href="#ai-disclaimer" class={headingLink}>AI disclaimer <span aria-hidden="true" class="text-muted">#</span></a></h2>
+        <section
+          id="ai-disclaimer"
+          aria-labelledby="ai-disclaimer-title"
+          class="path_ai-disclaimer"
+        >
+          <h2 id="ai-disclaimer-title" class="path_h2">
+            <a href="#ai-disclaimer" class={headingLink}>
+              AI disclaimer{' '}
+              <span aria-hidden="true" class="text-muted">
+                #
+              </span>
+            </a>
+          </h2>
           <p class="path_p-5">
-            I want you to know where AI has helped create or edit the content that accompanies each episode. I'll document what was changed, which tools I used, and what I personally reviewed. The views I express in the podcast are my own.
+            I want you to know where AI has helped create or edit the content
+            that accompanies each episode. I'll document what was changed, which
+            tools I used, and what I personally reviewed. The views I express in
+            the podcast are my own.
           </p>
-          <p class="path_p-6">Example disclosure format, to be completed for each episode.</p>
+          <p class="path_p-6">
+            Example disclosure format, to be completed for each episode.
+          </p>
           <dl class="path_dl">
             <div>
               <dt class="weight-semibold">Transcript</dt>
-              <dd class="path_dd">Record whether Whisper was used for transcription, which tool cleaned up grammar or punctuation, and whether the text was checked against the recording. Note any edits beyond those corrections.</dd>
+              <dd class="path_dd">
+                Record whether Whisper was used for transcription, which tool
+                cleaned up grammar or punctuation, and whether the text was
+                checked against the recording. Note any edits beyond those
+                corrections.
+              </dd>
             </div>
             <div>
               <dt class="weight-semibold">Thumbnail</dt>
-              <dd class="path_dd">State whether AI generated or edited any part of the thumbnail, name the tool, and describe the changes.</dd>
+              <dd class="path_dd">
+                State whether AI generated or edited any part of the thumbnail,
+                name the tool, and describe the changes.
+              </dd>
             </div>
             <div>
               <dt class="weight-semibold">Description, outline, and notes</dt>
-              <dd class="path_dd">List any AI drafting, summarizing, or rewriting, alongside the tool used and what I reviewed myself.</dd>
+              <dd class="path_dd">
+                List any AI drafting, summarizing, or rewriting, alongside the
+                tool used and what I reviewed myself.
+              </dd>
             </div>
             <div>
               <dt class="weight-semibold">Other episode content</dt>
-              <dd class="path_dd">Document any other AI use, including research assistance, generated images, audio, or video. If no AI was used for an item, say so explicitly.</dd>
+              <dd class="path_dd">
+                Document any other AI use, including research assistance,
+                generated images, audio, or video. If no AI was used for an
+                item, say so explicitly.
+              </dd>
             </div>
           </dl>
-          <p class="path_p-7">These are template prompts, not disclosures about the demonstration video above.</p>
+          <p class="path_p-7">
+            These are template prompts, not disclosures about the demonstration
+            video above.
+          </p>
         </section>
         <footer class="path_footer">
-          <a href={base} class={focusLink}><IconArrowLeft size={18} /> Back to Ayoub's links</a>
+          <a href={base} class={focusLink}>
+            <IconArrowLeft size={18} aria-hidden="true" /> Back to Ayoub's links
+          </a>
         </footer>
       </article>
     </div>

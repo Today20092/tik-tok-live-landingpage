@@ -57,6 +57,8 @@ html {
 body {
   margin: 0;
   background: var(--background);
+  /* Match fallback fonts' x-height to the web fonts to limit swap shifts. */
+  font-size-adjust: from-font;
 }
 
 /* Keep the geometric identity in the margins, away from reading text. */

@@ -71,13 +71,11 @@ try {
           : Math.abs(liveBoxes[2].y - liveBoxes[0].y) < 1,
         true
       );
-      await page
-        .locator('#join')
-        .screenshot({
-          path: fileURLToPath(
-            new URL(`live-actions-${width}-${theme}.png`, captures)
-          ),
-        });
+      await page.locator('#join').screenshot({
+        path: fileURLToPath(
+          new URL(`live-actions-${width}-${theme}.png`, captures)
+        ),
+      });
       for (const action of await liveActions.all()) {
         await action.focus();
         assert.equal(
@@ -333,7 +331,7 @@ try {
         });
       }
       await page.goto(base + '/articles/about-me/');
-      if (width < 640) await page.locator('.site-header_menu summary').click();
+      if (width < 640) await page.locator('.site-header_menu button').click();
       const nav = page.getByRole('navigation', {
         name: width < 640 ? 'Mobile site navigation' : 'Site',
         exact: true,

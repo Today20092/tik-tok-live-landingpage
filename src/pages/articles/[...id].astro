@@ -108,7 +108,7 @@ const pageTitle =
             className: 'u-min-h-11',
           })}
         >
-          <IconArrowLeft data-icon="inline-start" />
+          <IconArrowLeft data-icon="inline-start" aria-hidden="true" />
           All articles
         </a>
       </nav>
@@ -163,6 +163,7 @@ const pageTitle =
           alt={article.data.cover.alt}
           width="1200"
           height="675"
+          fetchpriority="high"
           class="article-page_cover"
         />
       )}
