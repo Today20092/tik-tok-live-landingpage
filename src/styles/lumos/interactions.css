@@ -37,7 +37,7 @@
   max-width: calc(100% - var(--space-5) * 2);
   pointer-events: none;
 }
-.reading-navigation > a {
+.reading-navigation > :is(a, button) {
   pointer-events: auto;
   white-space: normal;
   min-height: var(--control-height);

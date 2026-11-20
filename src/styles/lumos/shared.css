@@ -219,6 +219,35 @@
 .article-image-viewer_dialogcontent {
   --dialog-width: 72rem;
 }
+/* Mobile article contents: a bottom sheet over the reader's current place. */
+.contents-sheet {
+  inset: auto 0 0;
+  width: 100%;
+  margin: 0;
+  max-height: 85dvh;
+  padding-top: 0;
+  padding-bottom: max(var(--space-5), env(safe-area-inset-bottom));
+  border-width: 1px 0 0;
+  border-radius: var(--radius-main) var(--radius-main) 0 0;
+  &[open] {
+    gap: 0;
+  }
+}
+.contents-sheet_header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  background: var(--popover);
+}
+/* iOS Safari ignores overscroll-behavior on the backdrop; root overflow keeps the scroll offset. */
+html:has(.contents-sheet[open]) {
+  overflow: hidden;
+}
 .article-section-heading {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
