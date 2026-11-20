@@ -171,8 +171,7 @@
   min-height: calc(var(--spacing) * 11);
   align-items: center;
   gap: var(--spacing);
-  font-size: var(--text-xs);
-  line-height: var(--text-xs--line-height);
+  font-size: var(--text-small);
   font-weight: var(--font-weight-medium);
 }
 .pocket-hub_more {
