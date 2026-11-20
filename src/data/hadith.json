@@ -186,5 +186,125 @@
       "url": "https://sunnah.com/muslim/about"
     },
     "checkedOn": "2026-09-11"
+  },
+  "muslim-2735c-impatience": {
+    "reference": "Sahih Muslim 2735c",
+    "url": "https://sunnah.com/muslim:2735c",
+    "narrator": "Abu Huraira",
+    "arabic": "لاَ يَزَالُ يُسْتَجَابُ لِلْعَبْدِ مَا لَمْ يَدْعُ بِإِثْمٍ أَوْ قَطِيعَةِ رَحِمٍ مَا لَمْ يَسْتَعْجِلْ. قِيلَ يَا رَسُولَ اللَّهِ مَا الاِسْتِعْجَالُ قَالَ يَقُولُ قَدْ دَعَوْتُ وَقَدْ دَعَوْتُ فَلَمْ أَرَ يَسْتَجِيبُ لِي فَيَسْتَحْسِرُ عِنْدَ ذَلِكَ وَيَدَعُ الدُّعَاءَ",
+    "translation": "The supplication of the servant is granted in case he does not supplicate for sin or for severing the ties of blood, or he does not become impatient. It was said: Allah's Messenger, what does:\" If he does not grow impatient\" imply? He said: That he should say like this: I supplicated and I supplicated but I did not find it being responded. and [then] he becomes frustrated and abandons supplication.",
+    "translationSource": "Abdul Hamid Siddiqui, via Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam Muslim in his Sahih collection",
+      "url": "https://sunnah.com/muslim/about"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "adab-710-three-outcomes": {
+    "reference": "Al-Adab Al-Mufrad 710",
+    "url": "https://sunnah.com/adab:710",
+    "narrator": "Abu Sa'id al-Khudri",
+    "arabic": "مَا مِنْ مُسْلِمٍ يَدْعُو، لَيْسَ بِإِثْمٍ وَلاَ بِقَطِيعَةِ رَحِمٍ، إِلاَّ أَعْطَاهُ إِحْدَى ثَلاَثٍ: إِمَّا أَنْ يُعَجِّلَ لَهُ دَعْوَتَهُ، وَإِمَّا أَنْ يَدَّخِرَهَا لَهُ فِي الْآخِرَةِ، وَإِمَّا أَنْ يَدْفَعَ عَنْهُ مِنَ السُّوءِ مِثْلَهَا، قَالَ: إِذًا نُكْثِرُ، قَالَ: اللَّهُ أَكْثَرُ.",
+    "translation": "\"No Muslim makes supplication - unless he is someone who has cut off his relatives - but that he is given one of three things: either his supplication is answered quickly, or it is stored up for him in the Next World, or an evil equal to it is averted from him.\" It was said, \"Then many supplications will be made.\" He replied, \"Allah has more still to give.\"",
+    "translationSource": "Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Al-Albani, Sahih al-Adab al-Mufrad, as listed by Dorar.net",
+      "url": "https://dorar.net/hadith/search?q=%D8%A5%D9%85%D8%A7+%D8%A3%D9%86+%D9%8A%D8%B9%D8%AC%D9%84+%D9%84%D9%87+%D8%AF%D8%B9%D9%88%D8%AA%D9%87"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "abudawud-1479-worship": {
+    "reference": "Sunan Abi Dawud 1479",
+    "url": "https://sunnah.com/abudawud:1479",
+    "narrator": "An-Nu'man ibn Bashir",
+    "arabic": "الدُّعَاءُ هُوَ الْعِبَادَةُ",
+    "translation": "Supplication (du'a') is itself the worship.",
+    "translationSource": "Ahmad Hasan, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Al-Albani, as recorded with Sunan Abi Dawud 1479",
+      "url": "https://sunnah.com/abudawud:1479"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "bukhari-1303-ibrahim": {
+    "reference": "Sahih al-Bukhari 1303",
+    "url": "https://sunnah.com/bukhari:1303",
+    "narrator": "Anas ibn Malik",
+    "arabic": "إِنَّ الْعَيْنَ تَدْمَعُ، وَالْقَلْبَ يَحْزَنُ، وَلاَ نَقُولُ إِلاَّ مَا يَرْضَى رَبُّنَا، وَإِنَّا بِفِرَاقِكَ يَا إِبْرَاهِيمُ لَمَحْزُونُونَ",
+    "translation": "The eyes are shedding tears and the heart is grieved, and we will not say except what pleases our Lord, O Ibrahim! Indeed we are grieved by your separation.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "bukhari-7405-good-opinion": {
+    "reference": "Sahih al-Bukhari 7405",
+    "url": "https://sunnah.com/bukhari:7405",
+    "narrator": "Abu Huraira",
+    "arabic": "يَقُولُ اللَّهُ تَعَالَى أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي",
+    "translation": "Allah says: 'I am just as My slave thinks I am, (i.e. I am able to do for him what he thinks I can do for him) and I am with him if He remembers Me.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": true,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "muslim-35b-branches": {
+    "reference": "Sahih Muslim 35b",
+    "url": "https://sunnah.com/muslim:35b",
+    "narrator": "Abu Huraira",
+    "arabic": "الإِيمَانُ بِضْعٌ وَسَبْعُونَ أَوْ بِضْعٌ وَسِتُّونَ شُعْبَةً فَأَفْضَلُهَا قَوْلُ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَدْنَاهَا إِمَاطَةُ الأَذَى عَنِ الطَّرِيقِ وَالْحَيَاءُ شُعْبَةٌ مِنَ الإِيمَانِ",
+    "translation": "Faith has over seventy branches or over sixty branches, the most excellent of which is the declaration that there is no god but Allah, and the humblest of which is the, removal of what is injurious from the path: and modesty is a branch of faith.",
+    "translationSource": "Abdul Hamid Siddiqui, via Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam Muslim in his Sahih collection",
+      "url": "https://sunnah.com/muslim/about"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "bukhari-2472-branch": {
+    "reference": "Sahih al-Bukhari 2472",
+    "url": "https://sunnah.com/bukhari:2472",
+    "narrator": "Abu Huraira",
+    "arabic": "بَيْنَمَا رَجُلٌ يَمْشِي بِطَرِيقٍ، وَجَدَ غُصْنَ شَوْكٍ فَأَخَذَهُ، فَشَكَرَ اللَّهُ لَهُ، فَغَفَرَ لَهُ",
+    "translation": "While a man was on the way, he found a thorny branch of a tree there on the way and removed it. Allah thanked him for that deed and forgave him.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-11-20"
+  },
+  "bukhari-6464-consistent": {
+    "reference": "Sahih al-Bukhari 6464",
+    "url": "https://sunnah.com/bukhari:6464",
+    "narrator": "Aisha",
+    "arabic": "سَدِّدُوا وَقَارِبُوا، وَاعْلَمُوا أَنْ لَنْ يُدْخِلَ أَحَدَكُمْ عَمَلُهُ الْجَنَّةَ، وَأَنَّ أَحَبَّ الأَعْمَالِ أَدْوَمُهَا إِلَى اللَّهِ، وَإِنْ قَلَّ",
+    "translation": "Do good deeds properly, sincerely and moderately and know that your deeds will not make you enter Paradise, and that the most beloved deed to Allah is the most regular and constant even if it were little.",
+    "translationSource": "Dr. M. Muhsin Khan, via Sunnah.com",
+    "excerpt": false,
+    "grade": {
+      "text": "Sahih · Authentic",
+      "attributedTo": "Included by Imam al-Bukhari in his Sahih collection",
+      "url": "https://sunnah.com/bukhari/about"
+    },
+    "checkedOn": "2026-11-20"
   }
 }
