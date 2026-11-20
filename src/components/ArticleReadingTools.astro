@@ -172,10 +172,11 @@ import { IconArrowUp, IconList, IconX } from '@tabler/icons-react';
       backToTop.hidden = window.scrollY < window.innerHeight * 2;
       const dock = backToTop.closest<HTMLElement>('.reading-navigation')!;
       dock.hidden = backToTop.hidden;
-      // Keep focused controls clear of the floating dock, including when it wraps.
-      document.documentElement.style.scrollPaddingBlockEnd = dock.hidden
-        ? ''
-        : `${dock.offsetHeight + rootSize * 2.5}px`;
+      // Keep focused controls and the page end clear of the dock, even when it wraps.
+      document.documentElement.style.setProperty(
+        '--reading-dock-space',
+        dock.hidden ? '' : `${dock.offsetHeight + rootSize * 2.5}px`
+      );
       if (showContents)
         showContents.hidden = desktop || !contents || backToTop.hidden;
     };

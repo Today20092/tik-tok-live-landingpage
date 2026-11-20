@@ -25,6 +25,12 @@
 .reading-progress::-moz-progress-bar {
   background-color: var(--primary);
 }
+html {
+  scroll-padding-block-end: var(--reading-dock-space, 0px);
+}
+body {
+  padding-block-end: var(--reading-dock-space, 0px);
+}
 .reading-navigation {
   position: fixed;
   right: calc(var(--spacing) * 5);
