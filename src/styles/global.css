@@ -100,6 +100,10 @@ summary:focus-visible {
   outline: 3px solid var(--ring);
   outline-offset: 4px;
 }
+/* The contents sheet list scrolls; an inset ring is not clipped by its edges. */
+.contents-sheet nav a:focus-visible {
+  outline-offset: -3px;
+}
 summary::-webkit-details-marker {
   display: none;
 }
