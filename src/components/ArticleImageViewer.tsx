@@ -2,21 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { IconX, IconZoomIn, IconZoomOut } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 
 export default function ArticleImageViewer() {
   const [image, setImage] = useState<{ src: string; alt: string } | null>(null);
   const [zoomed, setZoomed] = useState(false);
   const [point, setPoint] = useState({ x: 50, y: 50 });
   const pointerStart = useRef({ x: 0, y: 0 });
-  const opener = useRef<HTMLButtonElement | null>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (image && !dialog.current?.open) dialog.current?.showModal();
+  }, [image]);
   useEffect(() => {
     const cleanup: (() => void)[] = [];
     document
@@ -36,7 +31,6 @@ export default function ArticleImageViewer() {
         img.before(trigger);
         trigger.append(img);
         const open = () => {
-          opener.current = trigger;
           setZoomed(false);
           setPoint({ x: 50, y: 50 });
           setImage({ src: img.currentSrc || img.src, alt: img.alt });
@@ -51,130 +45,147 @@ export default function ArticleImageViewer() {
   }, []);
 
   return (
-    <Dialog
-      open={Boolean(image)}
-      onOpenChange={(open) => {
-        if (!open) setImage(null);
+    <dialog
+      ref={dialog}
+      id="article-image-viewer"
+      data-pagefind-ignore
+      aria-labelledby="article-image-viewer-title"
+      aria-describedby="article-image-viewer-description"
+      className="dialog_content article-image-viewer_dialogcontent"
+      {...({ closedby: 'any' } as object)}
+      onClose={() => setImage(null)}
+      onClick={(event) => {
+        // shortcut: backdrop-click fallback for browsers without closedby; drop once Safari ships it.
+        if (
+          'closedBy' in HTMLDialogElement.prototype ||
+          event.target !== event.currentTarget
+        )
+          return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        )
+          event.currentTarget.close();
       }}
     >
-      <DialogContent
-        id="article-image-viewer"
-        data-pagefind-ignore
-        showCloseButton={false}
-        className="article-image-viewer_dialogcontent"
-        onCloseAutoFocus={(event) => {
-          event.preventDefault();
-          opener.current?.focus({ preventScroll: true });
-        }}
-      >
-        <div className="article-image-viewer_header">
-          <DialogHeader>
-            <DialogTitle>Enlarged image</DialogTitle>
-            <DialogDescription>
-              Tap the image to zoom. Move your pointer or drag to explore; tap
-              again to zoom out.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogClose asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="article-image-viewer_close"
-              aria-label="Close enlarged image"
-            >
-              <IconX aria-hidden="true" />
-            </Button>
-          </DialogClose>
+      <div className="article-image-viewer_header">
+        <div className="dialog_div">
+          <h2
+            id="article-image-viewer-title"
+            className="dialog_dialogprimitive-title"
+          >
+            Enlarged image
+          </h2>
+          <p
+            id="article-image-viewer-description"
+            className="dialog_dialogprimitive-description"
+          >
+            Tap the image to zoom. Move your pointer or drag to explore; tap
+            again to zoom out.
+          </p>
         </div>
-        <div className="article-image-viewer_canvas">
-          {image && (
-            <button
-              type="button"
-              aria-label={zoomed ? 'Zoom out of image' : 'Zoom into image'}
-              aria-pressed={zoomed}
-              className={cn(
-                'article-image-viewer_zoom',
-                zoomed
-                  ? 'article-image-viewer_zoom-active'
-                  : 'article-image-viewer_zoom-idle'
+        <Button
+          variant="outline"
+          size="icon"
+          className="article-image-viewer_close"
+          aria-label="Close enlarged image"
+          onClick={() => dialog.current?.close()}
+        >
+          <IconX aria-hidden="true" />
+        </Button>
+      </div>
+      <div className="article-image-viewer_canvas">
+        {image && (
+          <button
+            type="button"
+            aria-label={zoomed ? 'Zoom out of image' : 'Zoom into image'}
+            aria-pressed={zoomed}
+            className={cn(
+              'article-image-viewer_zoom',
+              zoomed
+                ? 'article-image-viewer_zoom-active'
+                : 'article-image-viewer_zoom-idle'
+            )}
+            onClick={(event) => {
+              if (event.detail === 0) setZoomed(!zoomed);
+            }}
+            onPointerDown={(event) => {
+              pointerStart.current = { x: event.clientX, y: event.clientY };
+              event.currentTarget.setPointerCapture(event.pointerId);
+            }}
+            onPointerMove={(event) => {
+              if (!zoomed) return;
+              const rect = event.currentTarget.getBoundingClientRect();
+              setPoint({
+                x: Math.max(
+                  0,
+                  Math.min(
+                    100,
+                    ((event.clientX - rect.left) / rect.width) * 100
+                  )
+                ),
+                y: Math.max(
+                  0,
+                  Math.min(
+                    100,
+                    ((event.clientY - rect.top) / rect.height) * 100
+                  )
+                ),
+              });
+            }}
+            onPointerUp={(event) => {
+              if (
+                Math.hypot(
+                  event.clientX - pointerStart.current.x,
+                  event.clientY - pointerStart.current.y
+                ) > 8
+              )
+                return;
+              const rect = event.currentTarget.getBoundingClientRect();
+              setPoint({
+                x: ((event.clientX - rect.left) / rect.width) * 100,
+                y: ((event.clientY - rect.top) / rect.height) * 100,
+              });
+              setZoomed(!zoomed);
+            }}
+            onKeyDown={(event) => {
+              const delta = {
+                ArrowLeft: [-10, 0],
+                ArrowRight: [10, 0],
+                ArrowUp: [0, -10],
+                ArrowDown: [0, 10],
+              }[event.key];
+              if (!zoomed || !delta) return;
+              event.preventDefault();
+              setPoint((p) => ({
+                x: Math.max(0, Math.min(100, p.x + delta[0])),
+                y: Math.max(0, Math.min(100, p.y + delta[1])),
+              }));
+            }}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              draggable={false}
+              className="article-image-viewer_image"
+              style={{
+                transform: zoomed ? 'scale(2.5)' : 'scale(1)',
+                transformOrigin: `${point.x}% ${point.y}%`,
+              }}
+            />
+            <span aria-hidden="true" className="article-image-viewer_zoom-icon">
+              {zoomed ? (
+                <IconZoomOut size={20} aria-hidden="true" />
+              ) : (
+                <IconZoomIn size={20} aria-hidden="true" />
               )}
-              onClick={(event) => {
-                if (event.detail === 0) setZoomed(!zoomed);
-              }}
-              onPointerDown={(event) => {
-                pointerStart.current = { x: event.clientX, y: event.clientY };
-                event.currentTarget.setPointerCapture(event.pointerId);
-              }}
-              onPointerMove={(event) => {
-                if (!zoomed) return;
-                const rect = event.currentTarget.getBoundingClientRect();
-                setPoint({
-                  x: Math.max(
-                    0,
-                    Math.min(
-                      100,
-                      ((event.clientX - rect.left) / rect.width) * 100
-                    )
-                  ),
-                  y: Math.max(
-                    0,
-                    Math.min(
-                      100,
-                      ((event.clientY - rect.top) / rect.height) * 100
-                    )
-                  ),
-                });
-              }}
-              onPointerUp={(event) => {
-                if (
-                  Math.hypot(
-                    event.clientX - pointerStart.current.x,
-                    event.clientY - pointerStart.current.y
-                  ) > 8
-                )
-                  return;
-                const rect = event.currentTarget.getBoundingClientRect();
-                setPoint({
-                  x: ((event.clientX - rect.left) / rect.width) * 100,
-                  y: ((event.clientY - rect.top) / rect.height) * 100,
-                });
-                setZoomed(!zoomed);
-              }}
-              onKeyDown={(event) => {
-                const delta = {
-                  ArrowLeft: [-10, 0],
-                  ArrowRight: [10, 0],
-                  ArrowUp: [0, -10],
-                  ArrowDown: [0, 10],
-                }[event.key];
-                if (!zoomed || !delta) return;
-                event.preventDefault();
-                setPoint((p) => ({
-                  x: Math.max(0, Math.min(100, p.x + delta[0])),
-                  y: Math.max(0, Math.min(100, p.y + delta[1])),
-                }));
-              }}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                draggable={false}
-                className="article-image-viewer_image"
-                style={{
-                  transform: zoomed ? 'scale(2.5)' : 'scale(1)',
-                  transformOrigin: `${point.x}% ${point.y}%`,
-                }}
-              />
-              <span
-                aria-hidden="true"
-                className="article-image-viewer_zoom-icon"
-              >
-                {zoomed ? <IconZoomOut size={20} /> : <IconZoomIn size={20} />}
-              </span>
-            </button>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+            </span>
+          </button>
+        )}
+      </div>
+    </dialog>
   );
 }

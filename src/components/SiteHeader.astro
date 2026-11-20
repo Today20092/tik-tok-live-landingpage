@@ -62,9 +62,16 @@ const links = [
     </nav>
     <div class="site-header_tools">
       <ThemeControl />
-      <details class="site-header_menu">
-        <summary class="control control-outline">Menu</summary>
-        <nav aria-label="Mobile site navigation">
+      <div class="site-header_menu">
+        <button
+          type="button"
+          class="control control-outline"
+          popovertarget="site-menu"
+          aria-controls="site-menu"
+        >
+          Menu
+        </button>
+        <nav id="site-menu" popover aria-label="Mobile site navigation">
           {links.map(({ label, path, active }) => (
             <a
               href={`${base}${path}`}
@@ -84,10 +91,29 @@ const links = [
             </a>
           ))}
         </nav>
-      </details>
+      </div>
     </div>
   </div>
 </header>
+<script>
+  const menu = document.getElementById('site-menu');
+  const button = document.querySelector('[popovertarget="site-menu"]');
+  if (menu && button && Object.hasOwn(HTMLElement.prototype, 'popover')) {
+    // The top-layer menu is fixed to the viewport; open it just below its button.
+    menu.addEventListener('beforetoggle', () => {
+      menu.style.top = `${button.getBoundingClientRect().bottom + 4}px`;
+    });
+  } else if (menu && button) {
+    // Fallback without the Popover API: toggle the menu with hidden.
+    menu.removeAttribute('popover');
+    menu.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+    button.addEventListener('click', () => {
+      menu.hidden = !menu.hidden;
+      button.setAttribute('aria-expanded', String(!menu.hidden));
+    });
+  }
+</script>
 <style>
   @layer components {
     .site-header_row {
@@ -126,28 +152,28 @@ const links = [
       .site-header_menu {
         display: block;
       }
-      .site-header_menu summary {
-        cursor: pointer;
-        list-style: none;
-      }
-      .site-header_menu summary::marker {
-        content: '';
-      }
-      .site-header_menu summary::-webkit-details-marker {
-        display: none;
-      }
       .site-header_menu nav {
         position: absolute;
-        top: 100%;
-        right: 0;
+        inset: 100% 0 auto auto;
+        margin: 0;
         z-index: 20;
-        display: grid;
         width: 12rem;
         max-width: 100%;
+        color: inherit;
         padding: var(--space-2);
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: var(--radius-main);
+        &:is(:popover-open, :not([popover])) {
+          display: grid;
+        }
+      }
+      .site-header_menu nav:popover-open {
+        position: fixed;
+        inset: auto var(--space-4) auto auto;
+        max-width: calc(100% - 2 * var(--space-4));
+        max-height: 80dvh;
+        overflow-y: auto;
       }
     }
   }

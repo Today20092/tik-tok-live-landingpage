@@ -12,7 +12,7 @@ const order = (video: Props['videos'][number]) =>
     : video.youtube?.includes('PLlZaz')
       ? 1
       : 2;
-const orderedVideos = [...videos].sort((a, b) => order(a) - order(b));
+const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
 ---
 
 <div data-learning-videos class="learning-videos_div">
@@ -44,7 +44,11 @@ const orderedVideos = [...videos].sort((a, b) => order(a) - order(b));
           />
           <span class="learning-videos_span" aria-hidden="true">
             <span class="learning-videos_span-2">
-              <IconPlayerPlay size={22} fill="currentColor" />
+              <IconPlayerPlay
+                size={22}
+                fill="currentColor"
+                aria-hidden="true"
+              />
             </span>
           </span>
         </a>

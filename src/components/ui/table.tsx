@@ -1,9 +1,20 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-function Table({ className, ...props }: React.ComponentProps<'table'>) {
+function Table({
+  className,
+  label,
+  ...props
+}: React.ComponentProps<'table'> & { label: string }) {
   return (
-    <div data-slot="table-container" className="table_div">
+    // Focusable named region so keyboard users can scroll a wide table.
+    <div
+      data-slot="table-container"
+      className="table_div"
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+    >
       <table
         data-slot="table"
         className={cn('table_table', className)}

@@ -190,22 +190,13 @@
 .control[aria-invalid='true'] {
   border-color: var(--destructive);
 }
-.dialog_overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background: rgb(0 0 0 / 0.35);
-  backdrop-filter: blur(4px);
-}
 .dialog_content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  z-index: 50;
-  display: grid;
-  gap: var(--space-4);
+  /* Native modal <dialog>: the UA centers it with inset 0 and margin auto. */
+  inset: 0;
+  margin: auto;
   width: min(var(--dialog-width, 32rem), calc(100% - 2rem));
+  max-width: none;
+  height: fit-content;
   max-height: 90dvh;
   padding: var(--space-4);
   background: var(--popover);
@@ -213,6 +204,17 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-main);
   font-size: var(--text-small);
+  overscroll-behavior: contain;
+  &[open] {
+    display: grid;
+    gap: var(--space-4);
+  }
+  &::backdrop {
+    background: rgb(0 0 0 / 0.35);
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
 }
 .article-image-viewer_dialogcontent {
   --dialog-width: 72rem;

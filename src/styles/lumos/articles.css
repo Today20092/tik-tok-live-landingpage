@@ -615,7 +615,6 @@
     top: var(--article-contents-offset);
     max-height: calc(100dvh - var(--article-contents-offset) - var(--space-8));
     overflow-y: auto;
-    scrollbar-width: thin;
     margin: 0;
     padding: var(--space-1) var(--space-2);
     border: 0;
@@ -756,7 +755,7 @@
   }
 }
 
-/* Keep one accessible progressbar; the contents track supplies its desktop visual. */
+/* Keep one accessible progress element; the contents track supplies its desktop visual. */
 .reading-progress--rail {
   clip-path: inset(50%);
 }

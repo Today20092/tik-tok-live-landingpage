@@ -58,13 +58,18 @@ const button = 'control control-outline';
         text: section.dataset.description!,
         url: section.dataset.url!,
       };
+      // VoiceOver skips a repeated identical message; vary it invisibly.
+      const announce = (message: string) => {
+        status.textContent =
+          status.textContent === message ? `${message}\u00A0` : message;
+      };
       const copy = async () => {
         try {
           await navigator.clipboard.writeText(data.url);
-          status.textContent = 'Link copied.';
+          announce('Link copied.');
           fallback.hidden = true;
         } catch {
-          status.textContent = 'Select and copy the address below.';
+          announce('Select and copy the address below.');
           fallback.hidden = false;
           fallback.querySelector('input')!.select();
         }

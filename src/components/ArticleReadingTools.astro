@@ -3,19 +3,15 @@ import { buttonVariants } from '@/components/ui/button';
 import { IconArrowUp, IconList } from '@tabler/icons-react';
 ---
 
-<div
+<progress
   id="reading-progress"
-  role="progressbar"
   aria-label="Approximate article reading position"
-  aria-valuemin="0"
-  aria-valuemax="100"
-  aria-valuenow="0"
+  max="100"
+  value="0"
   data-pagefind-ignore
   hidden
   class="reading-progress"
->
-  <div class="reading-progress_fill" style="transform: scaleX(0)"></div>
-</div>
+></progress>
 <nav
   class="reading-navigation"
   aria-label="Article navigation"
@@ -49,8 +45,8 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
 <script>
   const article = document.getElementById('article-body');
   const title = document.getElementById('article-top');
-  const progress = document.getElementById('reading-progress');
-  const fill = progress?.firstElementChild;
+  const progress =
+    document.querySelector<HTMLProgressElement>('#reading-progress');
   const backToTop = document.getElementById('back-to-top');
   const showContents = document.getElementById('show-contents');
   const page = article?.closest<HTMLElement>('.article-page--reader');
@@ -70,13 +66,7 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
     '.article-page_contents-track > span'
   );
 
-  if (
-    article &&
-    title &&
-    progress &&
-    fill instanceof HTMLElement &&
-    backToTop
-  ) {
+  if (article && title && progress && backToTop) {
     const end = document.getElementById('article-resources') ?? article;
     let pending = false;
     let desktop = false;
@@ -117,11 +107,7 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
             ? 1
             : 0;
       progress.hidden = false;
-      progress.setAttribute(
-        'aria-valuenow',
-        String(Math.round(fraction * 100))
-      );
-      fill.style.transform = `scaleX(${fraction})`;
+      progress.value = Math.round(fraction * 100);
       if (rail) rail.style.transform = `scaleY(${fraction})`;
       // Use one reading line for both heading clicks and manual scrolling.
       const readingLine = parseFloat(

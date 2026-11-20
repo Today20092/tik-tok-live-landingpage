@@ -15,22 +15,28 @@ import { IconSun, IconMoon } from '@tabler/icons-react';
   const control = document.querySelector<HTMLButtonElement>(
     '[data-theme-control]'
   );
-  const updateLabel = () =>
+  const apply = (dark: boolean) => {
+    document.documentElement.classList.toggle('dark', dark);
+    document
+      .querySelector('meta[name="color-scheme"]')
+      ?.setAttribute('content', dark ? 'dark' : 'light');
     control?.setAttribute(
       'aria-label',
-      document.documentElement.classList.contains('dark')
-        ? 'Switch to light theme'
-        : 'Switch to dark theme'
+      dark ? 'Switch to light theme' : 'Switch to dark theme'
     );
-  updateLabel();
+  };
+  apply(document.documentElement.classList.contains('dark'));
   control?.addEventListener('click', () => {
-    const dark = document.documentElement.classList.toggle('dark');
-    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    const dark = !document.documentElement.classList.contains('dark');
+    apply(dark);
     try {
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     } catch {
       /* Theme still works when storage is unavailable. */
     }
-    updateLabel();
+  });
+  // Keep other open tabs in step with the remembered choice.
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'theme') apply(event.newValue === 'dark');
   });
 </script>

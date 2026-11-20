@@ -1,4 +1,10 @@
 .reading-progress {
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: 0;
+  color: var(--primary);
+  accent-color: var(--primary);
   pointer-events: none;
   position: fixed;
   inset-inline: 0px;
@@ -10,9 +16,13 @@
     background-color: color-mix(in oklab, var(--primary) 15%, transparent);
   }
 }
-.reading-progress_fill {
-  height: 100%;
-  transform-origin: 0;
+.reading-progress::-webkit-progress-bar {
+  background: transparent;
+}
+.reading-progress::-webkit-progress-value {
+  background-color: var(--primary);
+}
+.reading-progress::-moz-progress-bar {
   background-color: var(--primary);
 }
 .reading-navigation {
@@ -254,37 +264,10 @@
     }
   }
 }
-.dialog_button {
-  position: absolute;
-  top: calc(var(--spacing) * 2);
-  right: calc(var(--spacing) * 2);
-}
 .dialog_div {
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
-}
-.dialog_div-2 {
-  margin-inline: calc(var(--spacing) * -4);
-  margin-bottom: calc(var(--spacing) * -4);
-  display: flex;
-  flex-direction: column-reverse;
-  gap: calc(var(--spacing) * 2);
-  border-bottom-right-radius: calc(var(--radius) + 4px);
-  border-bottom-left-radius: calc(var(--radius) + 4px);
-  border-top-style: solid;
-  border-top-width: 1px;
-  background-color: var(--muted);
-  @supports (color: color-mix(in lab, red, red)) {
-    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
-  }
-  padding: calc(var(--spacing) * 4);
-  @media (width >= 40rem) {
-    flex-direction: row;
-  }
-  @media (width >= 40rem) {
-    justify-content: flex-end;
-  }
 }
 .dialog_dialogprimitive-title {
   font-family: var(--font-serif);

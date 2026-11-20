@@ -79,7 +79,7 @@ Do not split purely for architectural neatness. Split after measuring a meaningf
 - Keep Content Layer schemas. Astro schemas validate content shape and generate TypeScript types, which is exactly useful for public links and eligibility wording ([Astro content schemas](https://docs.astro.build/en/guides/content-collections/#defining-the-collection-schema)). Follow the repository rule to import `z` from `astro/zod` when the content config is next touched.
 - Keep SEO metadata explicit in the page. For a single route, a reusable SEO component is more indirection than value.
 - Prefer Astro's built-in `astro:assets` `Image` or `Picture` for local editorial images moved under `src/`; it infers dimensions, requires alt text, and can emit optimized WebP/AVIF and responsive sources without an image plugin ([Astro images](https://docs.astro.build/en/guides/images/)). Images rendered deep inside a React island can be passed in as Astro-generated children if needed.
-- Keep accessibility at the semantic-component level. If a future fullscreen viewer needs robust focus trapping, escape handling, and restored focus, that is the point where one shadcn Dialog is justified. The shadcn composition rules require a Dialog title for accessibility ([shadcn Dialog composition](https://ui.shadcn.com/docs/components/dialog)).
+- Keep accessibility at the semantic-component level. The article image viewer uses a native modal `<dialog>` (`showModal()`), which provides focus containment, Escape handling, and focus restoration without a dialog library. Give it an accessible name with `aria-labelledby`.
 
 ## Cloudflare Pages implications
 

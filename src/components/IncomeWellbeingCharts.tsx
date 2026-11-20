@@ -78,7 +78,7 @@ export default function IncomeWellbeingCharts() {
         <summary className="income-wellbeing-charts_summary">
           Values and source notes
         </summary>
-        <Table>
+        <Table label="Chart values">
           <TableCaption>
             Approximate chart values. A dash means no estimate was plotted at
             that income.
