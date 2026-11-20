@@ -358,6 +358,8 @@
 }
 .article-page_header {
   display: grid;
+  /* minmax(0, …) lets long title words wrap instead of widening the track */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   padding-top: calc(var(--spacing) * 6);
   padding-bottom: calc(var(--spacing) * 8);
