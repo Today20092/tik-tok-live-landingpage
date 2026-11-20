@@ -170,8 +170,12 @@ import { IconArrowUp, IconList, IconX } from '@tabler/icons-react';
       page?.classList.add('has-reading-tools');
       progress.classList.toggle('reading-progress--rail', desktop);
       backToTop.hidden = window.scrollY < window.innerHeight * 2;
-      backToTop.closest<HTMLElement>('.reading-navigation')!.hidden =
-        backToTop.hidden;
+      const dock = backToTop.closest<HTMLElement>('.reading-navigation')!;
+      dock.hidden = backToTop.hidden;
+      // Keep focused controls clear of the floating dock, including when it wraps.
+      document.documentElement.style.scrollPaddingBlockEnd = dock.hidden
+        ? ''
+        : `${dock.offsetHeight + rootSize * 2.5}px`;
       if (showContents)
         showContents.hidden = desktop || !contents || backToTop.hidden;
     };
