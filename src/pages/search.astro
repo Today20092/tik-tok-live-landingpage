@@ -176,6 +176,11 @@ const base = import.meta.env.BASE_URL;
     --pf-border: var(--input);
   }
 
+  /* The article title anchor only repeats the result title. */
+  #search :global(.pf-heading-chip:has(> a[href$='#article-top'])) {
+    display: none;
+  }
+
   /* Override Pagefind's mobile centering under the narrow filter trigger. */
   @media (max-width: 640px) {
     #search :global(.pf-dropdown-menu) {

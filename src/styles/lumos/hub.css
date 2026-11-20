@@ -236,6 +236,7 @@
   }
 }
 .learning-videos_article {
+  position: relative;
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 4;
@@ -313,18 +314,12 @@
   white-space: normal;
   align-self: end;
 }
-.learning-videos_a-2 {
-  text-underline-offset: 4px;
-  &:hover {
-    @media (hover: hover) {
-      color: var(--primary);
-    }
-  }
-  &:hover {
-    @media (hover: hover) {
-      text-decoration-line: underline;
-    }
-  }
+/* One link per playlist; its hit area covers the whole card. */
+.learning-videos_watch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-small);
 }
 .min-width-0 {
   min-width: 0px;
