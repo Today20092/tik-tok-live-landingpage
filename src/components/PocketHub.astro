@@ -1,5 +1,6 @@
 ---
 import {
+  IconArrowRight,
   IconArrowUpRight as ArrowUpRight,
   IconBook as BookOpen,
   IconPencil as PencilLine,
@@ -76,7 +77,7 @@ const secondary = 'resource-card';
               Articles & understanding
             </h2>
             <a href={`${base}articles/`} class="pocket-hub_a-3">
-              View all <ArrowUpRight size={14} />
+              View all <IconArrowRight size={14} aria-hidden="true" />
             </a>
           </div>
           <ArticleList articles={articles.slice(0, 3)} heading="h3" />

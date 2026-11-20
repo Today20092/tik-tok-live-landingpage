@@ -51,7 +51,9 @@ try {
       .querySelector('.article-page')
       ?.classList.contains('has-reading-tools')
   );
-  const contents = page.getByRole('navigation', { name: 'On this page' });
+  const contents = page
+    .locator('#article-contents')
+    .getByRole('navigation', { name: 'On this page' });
   const checkHeader = async (scrolled = false) => {
     const boxes = await page.evaluate(() => {
       const rect = (selector) =>
@@ -218,7 +220,7 @@ try {
     false,
     'Mobile contents starts collapsed'
   );
-  await page.getByText('On this page', { exact: true }).click();
+  await page.locator('#article-contents-title').click();
   assert.equal(await contents.isVisible(), true);
   await page.setViewportSize({ width: 1440, height: 960 });
   await page.evaluate(() => {
@@ -319,7 +321,7 @@ try {
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => window.scrollTo(0, window.innerHeight * 3));
-  const shortcut = page.getByRole('link', { name: 'Contents', exact: true });
+  const shortcut = page.getByRole('button', { name: 'Contents', exact: true });
   await shortcut.waitFor({ state: 'visible' });
   await page.screenshot({
     path: fileURLToPath(
@@ -329,23 +331,52 @@ try {
       )
     ),
   });
+  const sheet = page.locator('#contents-sheet');
+  const scrollBefore = await page.evaluate(() => window.scrollY);
   await shortcut.focus();
   await page.keyboard.press('Enter');
   assert.equal(
-    await page.locator('#article-contents').evaluate((el) => el.open),
+    await sheet.evaluate((el) => el.open),
     true,
-    'Mobile shortcut opens existing contents'
+    'Mobile shortcut opens the contents sheet'
   );
   assert.equal(
+    await sheet.evaluate((el) => el.contains(document.activeElement)),
+    true,
+    'Contents sheet takes keyboard focus'
+  );
+  assert.equal(
+    await page.evaluate(() => window.scrollY),
+    scrollBefore,
+    'Opening the contents sheet keeps the reading position'
+  );
+  await page.keyboard.press('Escape');
+  assert.equal(
     await page.evaluate(
-      () =>
-        document.activeElement ===
-        document.querySelector('#article-contents > summary')
+      () => document.activeElement === document.querySelector('#show-contents')
     ),
     true,
-    'Contents shortcut moves keyboard focus'
+    'Closing the contents sheet returns focus to Contents'
   );
-  await contents.getByRole('link').first().click();
+  assert.equal(
+    await page.evaluate(() => window.scrollY),
+    scrollBefore,
+    'Closing the contents sheet keeps the reading position'
+  );
+  await shortcut.click();
+  const target = sheet.getByRole('link').first();
+  const hash = await target.evaluate((el) => el.hash);
+  await target.click();
+  assert.equal(
+    await sheet.evaluate((el) => el.open),
+    false,
+    'Choosing a section closes the sheet'
+  );
+  assert.equal(
+    await page.evaluate(() => window.location.hash),
+    hash,
+    'Choosing a section navigates to it'
+  );
   await page.evaluate(() => {
     document.documentElement.style.fontSize = '200%';
     window.scrollTo(0, window.innerHeight * 3);

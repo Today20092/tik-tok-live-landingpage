@@ -24,13 +24,17 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
       : biography
         ? 'sQMC7fkjmOA'
         : link.youtube;
+    const title = stories
+      ? 'Stories of the Prophets'
+      : biography
+        ? 'The Life of Prophet Muhammad'
+        : link.title.replaceAll('—', '-');
+    const action = link.youtube?.startsWith('videoseries')
+      ? 'Watch playlist on YouTube'
+      : 'Watch video on YouTube';
     return (
       <article class="learning-videos_article">
-        <a
-          href={link.url}
-          aria-label={`Watch ${link.title.replaceAll('—', '-')}`}
-          class="group learning-videos_a"
-        >
+        <div class="learning-videos_a">
           <Image
             src={`https://i.ytimg.com/vi/${thumbnail}/hqdefault.jpg`}
             alt=""
@@ -51,16 +55,10 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
               />
             </span>
           </span>
-        </a>
+        </div>
         <div class="min-width-0">
           <h4 class="learning-videos_h3">
-            <a href={link.url} class="learning-videos_a-2">
-              {stories
-                ? 'Stories of the Prophets'
-                : biography
-                  ? 'The Life of Prophet Muhammad'
-                  : link.title.replaceAll('—', '-')}
-            </a>
+            {title}
           </h4>
           <p class="learning-videos_meta">
             {stories
@@ -87,10 +85,9 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
         <a
           href={link.url}
           class="control control-outline learning-videos_watch"
+          aria-label={`${action}: ${title}`}
         >
-          {link.youtube?.startsWith('videoseries')
-            ? 'Watch playlist on YouTube'
-            : 'Watch video on YouTube'}{' '}
+          {action}{' '}
           <IconArrowUpRight size={16} aria-hidden="true" />
         </a>
       </article>

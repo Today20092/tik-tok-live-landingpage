@@ -182,6 +182,8 @@
   --font-weight-normal: 400;
   --tracking-normal: 0em;
   --container-3xl: 48rem;
+  /* Article body measure: about 70-75 characters of 18px Source Sans 3. */
+  --article-measure: 40rem;
   --container-6xl: 72rem;
   --color-stone-900: oklch(21.6% 0.006 56.043);
   --container-sm: 24rem;

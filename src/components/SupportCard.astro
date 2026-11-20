@@ -38,6 +38,13 @@ if (!support) throw new Error('The Ko-fi support resource is required.');
     }
     .support-button:hover { background: color-mix(in srgb, var(--support-accent) 90%, var(--support-foreground)); }
     .support-link { justify-self: start; white-space: normal; }
+    /* Article footers stay quiet: outline only, accent kept on the border. */
+    .support-link:not(.support-floating) {
+      background: transparent;
+      color: var(--foreground);
+      font-weight: 500;
+    }
+    .support-link:not(.support-floating):hover { background: var(--secondary); }
     .support-floating {
       font-size: var(--text-small);
       gap: var(--space-1);

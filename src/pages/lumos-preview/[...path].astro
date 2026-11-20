@@ -193,8 +193,8 @@ export function getStaticPaths() {
           <p class="article-page_byline">Ayoub · About 8 min read</p>
         </header>
         <div class="typeset typeset-article">
-          <h2 class="article-section-heading">
-            <span>Article heading with a section link</span>
+          <div class="article-section-heading">
+            <h2>Article heading with a section link</h2>
             <a
               class="control control-outline section-copy-link"
               href="#"
@@ -203,7 +203,7 @@ export function getStaticPaths() {
               <IconCopy aria-hidden="true" />{' '}
               <span data-section-copy-label>Copy link</span>
             </a>
-          </h2>
+          </div>
           <p>
             Copy controls stay beside section headings. Mobile uses an
             icon-sized control with an accessible copy label; desktop also shows

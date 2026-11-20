@@ -45,7 +45,7 @@
   color: var(--muted-foreground);
 }
 .text-caption {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.3333;
 }
 .text-small {
@@ -144,7 +144,7 @@
   }
 }
 .control-outline {
-  border-color: var(--border);
+  border-color: var(--input);
   background: var(--background);
   color: var(--foreground);
   &:hover {
@@ -171,7 +171,7 @@
   padding: var(--space-2);
 }
 .control-small {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
 }
 .control-link {
   color: var(--primary);
@@ -219,11 +219,63 @@
 .article-image-viewer_dialogcontent {
   --dialog-width: 72rem;
 }
+/* Mobile article contents: a bottom sheet over the reader's current place. */
+.contents-sheet {
+  inset: auto 0 0;
+  width: 100%;
+  margin: 0;
+  max-height: 85dvh;
+  padding-top: 0;
+  padding-bottom: max(var(--space-5), env(safe-area-inset-bottom));
+  border-width: 1px 0 0;
+  border-radius: var(--radius-main) var(--radius-main) 0 0;
+  overflow: hidden;
+  &[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  & > nav {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+.contents-sheet_header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  background: var(--popover);
+}
+/* iOS Safari ignores overscroll-behavior on the backdrop; root overflow keeps the scroll offset. */
+html:has(.contents-sheet[open]) {
+  overflow: hidden;
+}
 .article-section-heading {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   column-gap: var(--space-2);
+}
+/* The row carries the heading's flow spacing so the control centers on the text. */
+.article-section-heading > * {
+  margin: 0;
+}
+.article-section-heading > :is(h2, h3, h4) {
+  min-width: 0;
+}
+.typeset > .article-section-heading:not(:first-child) {
+  margin-block-start: var(--typeset-flow);
+}
+.typeset > .article-section-heading:has(> h2):not(:first-child) {
+  margin-block-start: calc(var(--typeset-flow) * 1.4);
+}
+.typeset > .article-section-heading + * {
+  margin-block-start: 1em;
 }
 /* Text-trimming pseudo-elements must not occupy heading grid cells. */
 .article-section-heading::before,
@@ -274,7 +326,7 @@
 .resource-card_title {
   display: block;
   font-weight: 600;
-  font-size: var(--text-small);
+  font-size: var(--text-main);
   line-height: 1.4;
 }
 .resource-card_description {

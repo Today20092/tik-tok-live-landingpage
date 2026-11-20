@@ -1,6 +1,6 @@
 ---
 import { buttonVariants } from '@/components/ui/button';
-import { IconArrowUp, IconList } from '@tabler/icons-react';
+import { IconArrowUp, IconList, IconX } from '@tabler/icons-react';
 ---
 
 <progress
@@ -18,14 +18,15 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
   data-pagefind-ignore
   hidden
 >
-  <a
+  <button
     id="show-contents"
-    href="#article-contents"
+    type="button"
+    aria-haspopup="dialog"
     class="control control-outline"
     hidden
   >
     <IconList size={18} aria-hidden="true" /> Contents
-  </a>
+  </button>
   <a
     id="back-to-top"
     href="#article-top"
@@ -41,6 +42,28 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
     Back to top
   </a>
 </nav>
+<dialog
+  id="contents-sheet"
+  aria-labelledby="contents-sheet-title"
+  closedby="any"
+  data-pagefind-ignore
+  class="dialog_content contents-sheet"
+>
+  <div class="contents-sheet_header">
+    <h2 id="contents-sheet-title" class="dialog_dialogprimitive-title">
+      On this page
+    </h2>
+    <form method="dialog">
+      <button
+        aria-label="Close contents"
+        class={buttonVariants({ variant: 'outline', size: 'icon' })}
+      >
+        <IconX aria-hidden="true" />
+      </button>
+    </form>
+  </div>
+  <nav aria-labelledby="contents-sheet-title"></nav>
+</dialog>
 
 <script>
   const article = document.getElementById('article-body');
@@ -62,6 +85,16 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
   const headings = links.map((link) =>
     document.getElementById(decodeURIComponent(link.hash.slice(1)))
   );
+  const sheet = document.querySelector<HTMLDialogElement>('#contents-sheet');
+  // Clone the rendered contents so the sheet never needs its own list.
+  const sheetList = contents
+    ?.querySelector('.article-page_contents-list')
+    ?.cloneNode(true);
+  if (sheet && sheetList) sheet.querySelector('nav')?.append(sheetList);
+  const sheetLinks = [
+    ...(sheet?.querySelectorAll<HTMLAnchorElement>('[data-contents-link]') ??
+      []),
+  ];
   const rail = contents?.querySelector<HTMLElement>(
     '.article-page_contents-track > span'
   );
@@ -123,8 +156,10 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
           active = index;
       });
       links.forEach((link, index) => {
-        if (index === active) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
+        for (const item of [link, sheetLinks[index]]) {
+          if (index === active) item?.setAttribute('aria-current', 'location');
+          else item?.removeAttribute('aria-current');
+        }
       });
       const currentSection = links[active]?.closest('[data-contents-section]');
       contents
@@ -135,8 +170,13 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
       page?.classList.add('has-reading-tools');
       progress.classList.toggle('reading-progress--rail', desktop);
       backToTop.hidden = window.scrollY < window.innerHeight * 2;
-      backToTop.closest<HTMLElement>('.reading-navigation')!.hidden =
-        backToTop.hidden;
+      const dock = backToTop.closest<HTMLElement>('.reading-navigation')!;
+      dock.hidden = backToTop.hidden;
+      // Keep focused controls and the page end clear of the dock, even when it wraps.
+      document.documentElement.style.setProperty(
+        '--reading-dock-space',
+        dock.hidden ? '' : `${dock.offsetHeight + rootSize * 2.5}px`
+      );
       if (showContents)
         showContents.hidden = desktop || !contents || backToTop.hidden;
     };
@@ -161,13 +201,27 @@ import { IconArrowUp, IconList } from '@tabler/icons-react';
           : 'smooth',
       });
     });
-    showContents?.addEventListener('click', (event) => {
-      if (!contents) return;
-      event.preventDefault();
-      contents.open = true;
-      mobileOpen = true;
-      contents.querySelector('summary')?.focus({ preventScroll: true });
-      contents.scrollIntoView({ block: 'start', behavior: 'instant' });
+    showContents?.addEventListener('click', () => sheet?.showModal());
+    sheet?.addEventListener('click', (event) => {
+      // Close, then let the browser follow the fragment like the in-page list.
+      if ((event.target as Element).closest('a')) return sheet.close('link');
+      // shortcut: backdrop-click fallback for browsers without closedby; drop once Safari ships it.
+      if ('closedBy' in HTMLDialogElement.prototype || event.target !== sheet)
+        return;
+      const rect = sheet.getBoundingClientRect();
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      )
+        sheet.close();
+    });
+    sheet?.addEventListener('close', () => {
+      // Safari does not focus a tapped button, so native focus return can miss it.
+      if (sheet.returnValue !== 'link')
+        showContents?.focus({ preventScroll: true });
+      sheet.returnValue = '';
     });
     update();
   }

@@ -25,6 +25,12 @@
 .reading-progress::-moz-progress-bar {
   background-color: var(--primary);
 }
+html {
+  scroll-padding-block-end: var(--reading-dock-space, 0px);
+}
+body {
+  padding-block-end: var(--reading-dock-space, 0px);
+}
 .reading-navigation {
   position: fixed;
   right: calc(var(--spacing) * 5);
@@ -37,13 +43,11 @@
   max-width: calc(100% - var(--space-5) * 2);
   pointer-events: none;
 }
-.reading-navigation > a {
+.reading-navigation > :is(a, button) {
   pointer-events: auto;
   white-space: normal;
   min-height: var(--control-height);
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 3px 3px 0 var(--paper-shadow);
 }
 .section-copy-link {
   min-height: var(--control-height);
