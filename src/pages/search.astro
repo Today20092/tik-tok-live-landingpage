@@ -176,9 +176,10 @@ const base = import.meta.env.BASE_URL;
     --pf-border: var(--input);
   }
 
-  /* The article title anchor only repeats the result title. */
+  /* The article title anchor only repeats the result title. Pagefind boosts its
+     selectors to three-ID specificity, so this override needs !important. */
   #search :global(.pf-heading-chip:has(> a[href$='#article-top'])) {
-    display: none;
+    display: none !important;
   }
 
   /* Override Pagefind's mobile centering under the narrow filter trigger. */
