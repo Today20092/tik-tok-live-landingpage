@@ -34,7 +34,13 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
       : 'Watch video on YouTube';
     return (
       <article class="learning-videos_article">
-        <div class="learning-videos_a">
+        <!-- Duplicate pointer target for the watch button below; hidden from keyboard and screen readers. -->
+        <a
+          href={link.url}
+          tabindex="-1"
+          aria-hidden="true"
+          class="learning-videos_a"
+        >
           <Image
             src={`https://i.ytimg.com/vi/${thumbnail}/hqdefault.jpg`}
             alt=""
@@ -55,7 +61,7 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
               />
             </span>
           </span>
-        </div>
+        </a>
         <div class="min-width-0">
           <h4 class="learning-videos_h3">
             {title}

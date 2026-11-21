@@ -91,7 +91,7 @@ import ArticleLink from '@/components/ArticleLink.astro';
 
 The development reference at `/lumos-preview/` demonstrates a published target and a draft target. Run `node scripts/check-article-links.mjs` with the development server running to verify both, including the new article quotations.
 
-Article pages and cards show an estimated reading time at 200 words per minute, including stored Quran and hadith quotations. Article headings get copy-link controls, and unlinked images open in a shadcn image viewer. Images already inside links keep their destinations.
+Article pages and cards show an estimated reading time at 200 words per minute, including stored Quran and hadith quotations. Article `h2` headings get copy-link controls, and unlinked images open in a shadcn image viewer. Images already inside links keep their destinations.
 
 Individual articles with at least two main headings have a sticky contents rail when the available container is at least 60rem wide. It starts beside the article's breadcrumb and header, then stays below the sticky site header with a 1rem gap while reading. Every page shares the same header and divider width, capped at the full three-column article width, regardless of its contents or margin notes. Heading and footnote jumps clear the measured header height. Smaller layouts retain the normal site header, horizontal progress bar, and collapsible contents. The rail highlights the current heading and always lists level-three headings, indented and lighter than their sections; its vertical track shows approximate reading position. The article column is capped at the shared `--article-measure` token (about 70-75 characters per line), and the header and footer share that column.
 
@@ -99,7 +99,7 @@ Individual articles with at least two main headings have a sticky contents rail 
 
 The draft `/articles/article-layout-preview/` demonstrates subsection navigation, long headings, and repeated or closely spaced citations. It is available in development only. Run `node scripts/check-article-reader.mjs` against the development server for the browser interaction checks, plus `node scripts/check-article-layout.mjs` for all article layouts. Both accept `TEST_BASE_URL` and `PLAYWRIGHT_MODULE` when using a different server or an external Playwright installation.
 
-The `recommendations` map in `src/pages/articles/[...id].astro` selects the current articles' “Read next” links. New articles default to other published articles in the same category, then newest first. Drafts are excluded.
+Set `related:` in frontmatter (a list of article ids) to choose an article's “Read next” links. Without it, articles default to other published articles in the same category, then newest first. Drafts are excluded. Set `resources:` (a list of `label` and `url`) to show a “Resources mentioned” list after the article. The `category` label links to that category's group on the articles index.
 
 The official [shadcn Typeset](https://ui.shadcn.com/docs/typeset) stylesheet is vendored in `src/styles/typeset.css`, fetched from `https://ui.shadcn.com/typeset.css`. The `typeset-article` preset in `global.css` controls body size, line height, and spacing. Astro renders Markdown inside `typeset typeset-article`; no client-side Markdown renderer is needed.
 

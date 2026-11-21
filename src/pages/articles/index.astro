@@ -5,10 +5,13 @@ import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import ArticleList from '@/components/ArticleList.astro';
 import { IconSearch } from '@tabler/icons-react';
+import { categorySlug } from '@/lib/category';
 const base = import.meta.env.BASE_URL;
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Newest-first input keeps both the category order and each group newest first.
+const groups = Map.groupBy(articles, (article) => article.data.category);
 ---
 
 <HubPage
@@ -36,7 +39,18 @@ const articles = (
       </a>
     </header>
     {articles.length ? (
-      <ArticleList articles={articles} />
+      [...groups].map(([category, entries]) => (
+        <section
+          id={categorySlug(category)}
+          aria-labelledby={`${categorySlug(category)}-title`}
+          class="article-index-group"
+        >
+          <h2 id={`${categorySlug(category)}-title`} class="section-title">
+            {category}
+          </h2>
+          <ArticleList articles={entries} heading="h3" />
+        </section>
+      ))
     ) : (
       <p class="index_p-2">
         No articles published yet. You can find reading links and recordings on{' '}
@@ -53,6 +67,24 @@ const articles = (
   @layer components {
     .article-index-search {
       margin-top: var(--space-5);
+    }
+    .article-index-group {
+      scroll-margin-top: var(--space-5);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+    .article-index-group + .article-index-group {
+      margin-top: var(--space-8);
+    }
+    .article-index-group > h2 {
+      margin: 0 0 var(--space-4);
+      font-size: var(--text-2xl);
+      line-height: var(--leading-tight);
+    }
+    /* Titles sit one step below their category heading. */
+    .article-index-group :global(.article-list_heading) {
+      font-size: var(--text-xl);
+      line-height: var(--leading-tight);
     }
   }
 </style>
