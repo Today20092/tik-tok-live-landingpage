@@ -40,7 +40,7 @@ const linksCollection = defineCollection({
     url: z.string().url(),
     youtube: z.string().optional(),
     variant: z
-      .enum(['default', 'featured', 'charity', 'stream-pick', 'support'])
+      .enum(['default', 'featured', 'stream-pick', 'support'])
       .optional(),
   }),
 });
@@ -72,6 +72,12 @@ export const collections = {
       category: z.string().default('Articles'),
       draft: z.boolean().default(true),
       cover: z.object({ src: z.string(), alt: z.string().min(1) }).optional(),
+      // Article ids for "Read next"; omitted means same category, then newest.
+      related: z.array(z.string()).optional(),
+      // Links listed under "Resources mentioned" after the article.
+      resources: z
+        .array(z.object({ label: z.string().min(1), url: z.url() }))
+        .optional(),
     }),
   }),
   site: siteCollection,

@@ -1,13 +1,11 @@
 ---
 import '../styles/global.css';
-import VariantHub from '@/components/VariantHub.astro';
 import PocketHub from '@/components/PocketHub.astro';
 import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
 import SharePage from '@/components/SharePage.astro';
 import SupportCard from '@/components/SupportCard.astro';
 interface Props {
-  variant?: 'flow' | 'pocket' | 'journal' | 'focus';
   title?: string;
   description?: string;
   path?: string;
@@ -17,7 +15,6 @@ interface Props {
   imageAlt?: string;
 }
 const {
-  variant = 'pocket',
   title = 'Islam with Ayoub | Quran readings & resources',
   path = '',
   noindex = false,
@@ -158,10 +155,8 @@ const structuredData = {
       <div id="main-content" tabindex="-1" class="site-main">
         {Astro.slots.has('default') ? (
           <slot />
-        ) : variant === 'pocket' ? (
-          <PocketHub />
         ) : (
-          <VariantHub variant={variant} />
+          <PocketHub />
         )}
       </div>
       {isArticle && (
@@ -176,7 +171,7 @@ const structuredData = {
           url={canonicalUrl}
         />
       )}
-      <SiteFooter />
+      <SiteFooter showSupport={!isArticle} />
     </div>
   </body>
 </html>

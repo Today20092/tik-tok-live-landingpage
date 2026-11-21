@@ -55,10 +55,6 @@ const base = import.meta.env.BASE_URL;
               base-url={base}
             ></pagefind-config>
             <SearchInput client:load />
-            <pagefind-filter-dropdown
-              filter="Type"
-              label="Content type"
-            ></pagefind-filter-dropdown>
             <pagefind-summary></pagefind-summary>
             <pagefind-results></pagefind-results>
           </div>
@@ -170,10 +166,6 @@ const base = import.meta.env.BASE_URL;
     --pf-input-height: calc(var(--control-height) + var(--space-1));
     --pf-result-title-font-size: 18px;
     --pf-result-excerpt-font-size: 14px;
-  }
-
-  #search :global(pagefind-filter-dropdown) {
-    --pf-border: var(--input);
   }
 
   /* The article title anchor only repeats the result title. Pagefind boosts its

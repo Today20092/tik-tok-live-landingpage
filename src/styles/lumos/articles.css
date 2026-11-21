@@ -378,6 +378,11 @@
   line-height: var(--text-sm--line-height);
   color: var(--muted-foreground);
 }
+.article-page_category a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-underline-offset: 0.2em;
+}
 .article-page_description {
   margin-top: calc(var(--spacing) * 4);
   font-size: var(--text-lg);
@@ -463,8 +468,8 @@
 }
 .article-page_resources-title {
   margin-block: 0;
-  font-size: var(--text-lg);
-  line-height: var(--text-lg--line-height);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
   font-weight: var(--font-weight-semibold);
 }
 .article-page_resources {
@@ -499,6 +504,11 @@
   font-size: var(--text-xl);
   line-height: var(--text-xl--line-height);
   font-weight: var(--font-weight-semibold);
+}
+/* Read-next titles sit one step below their heading. */
+.article-page_footer .article-list_heading {
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
 }
 .u-min-h-11 {
   min-height: calc(var(--spacing) * 11);

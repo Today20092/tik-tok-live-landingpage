@@ -40,7 +40,8 @@ import ArticleImageViewer from '@/components/ArticleImageViewer';
   if (template && status) {
     document
       .querySelectorAll<HTMLElement>(
-        '#article-body :is(h2, h3, h4)[id]:not(#footnote-label)'
+        // Main sections only; a link on every subheading is noise.
+        '#article-body h2[id]:not(#footnote-label)'
       )
       .forEach((heading) => {
         const link = template.content.firstElementChild!.cloneNode(

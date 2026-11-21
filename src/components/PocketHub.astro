@@ -1,17 +1,11 @@
 ---
 import {
   IconArrowRight,
-  IconArrowUpRight as ArrowUpRight,
-  IconBook as BookOpen,
-  IconPencil as PencilLine,
-  IconCompass as Compass,
   IconBrandTiktok,
   IconBrandTwitch,
   IconBrandYoutube,
 } from '@tabler/icons-react';
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
-import hoursCover from '../assets/books/80000-hours-paperback.jpg';
 import ArticleList from './ArticleList.astro';
 import LearningVideos from './LearningVideos.astro';
 import ReadingResources from './ReadingResources.astro';
@@ -30,24 +24,6 @@ const introduction = links.find((link) => link.icon === 'PencilLine');
 if (!introduction)
   throw new Error('The beginner introduction resource is required.');
 const videos = links.filter((link) => link.youtube);
-const resources = links.filter(
-  (link) =>
-    !link.variant &&
-    !link.youtube &&
-    !['Scroll', 'PencilLine'].includes(link.icon)
-);
-const resourceLabels: Record<
-  string,
-  { title?: string; description?: string; Icon: typeof BookOpen }
-> = {
-  PencilLine: {
-    Icon: PencilLine,
-  },
-  Compass: {
-    Icon: Compass,
-  },
-};
-const secondary = 'resource-card';
 ---
 
 <div data-pocket-hub class="pocket-hub">
@@ -58,13 +34,31 @@ const secondary = 'resource-card';
     <main
       class="pocket-hub_main"
       data-pagefind-body={Astro.url.pathname === base ? '' : undefined}
-      data-pagefind-filter="Type:Resources"
     >
       <div id="read">
         <slot name="books">
           <ReadingResources layout={readingLayout} />
         </slot>
       </div>
+      <section class="hub-section" aria-labelledby="start-title">
+        <h2 id="start-title" class="pocket-hub_copies-title">
+          New to Islam?
+        </h2>
+        <a href={introduction.url} class="resource-card">
+          <span class="resource-card_content">
+            <span class="resource-card_title">
+              Start here: why Islam isn't a new religion
+            </span>{' '}
+            <span class="resource-card_description">
+              The diagram I share on live, introducing how Islam connects with
+              earlier prophets.
+            </span>{' '}
+            <span class="resource-card_action">
+              Open the diagram <span aria-hidden="true">↗</span>
+            </span>
+          </span>
+        </a>
+      </section>
       {articles.length > 0 && (
         <section
           id="articles"
@@ -87,37 +81,23 @@ const secondary = 'resource-card';
         <h2 id="more-learning-title" class="pocket-hub_copies-title">
           More ways to learn
         </h2>
-        <a href={introduction.url} class={secondary}>
-          <span class="resource-card_content">
-            <span class="resource-card_title">
-              Start here: why Islam isn't a new religion
-            </span>{' '}
-            <span class="resource-card_description">
-              The diagram I share on live, introducing how Islam connects with
-              earlier prophets.
-            </span>{' '}
-            <span class="resource-card_action">
-              Open the diagram <span aria-hidden="true">↗</span>
-            </span>
-          </span>
-        </a>
         <section id="join" class="learning-group" aria-labelledby="join-title">
           <h3 id="join-title" class="learning-group-title">
             Live sessions & recordings
           </h3>
           <div class="live-help">
-            <p>Follow on TikTok for future lives, or catch up on YouTube.</p>
+            <p>Catch up on past lives on YouTube, or follow for future ones.</p>
             <nav aria-label="Ayoub's social profiles" class="live-session-nav">
+              <a href={youtube} class="control control-primary">
+                <IconBrandYoutube size={18} aria-hidden="true" /> Watch
+                recordings on YouTube
+              </a>
               <a
                 href="https://go.alphabravomedia.co/islam-tiktok"
-                class="control control-primary"
+                class="control control-outline"
               >
                 <IconBrandTiktok size={18} aria-hidden="true" /> Follow on
                 TikTok
-              </a>
-              <a href={youtube} class="control control-outline">
-                <IconBrandYoutube size={18} aria-hidden="true" /> Watch
-                recordings on YouTube
               </a>
               <a
                 href="https://go.alphabravomedia.co/islam-twitch"
@@ -139,76 +119,6 @@ const secondary = 'resource-card';
           </h3>
           <div class="live-help">
             <LearningVideos videos={videos} />
-          </div>
-        </section>
-        <section id="more" class="learning-group" aria-labelledby="more-title">
-          <h3 id="more-title" class="learning-group-title">
-            Career guidance & other resources
-          </h3>
-          <div class="pocket-hub_div-4">
-            <article class="career-book">
-              <div class="career-book_cover">
-                <Image
-                  src={hoursCover}
-                  alt="80,000 Hours by Benjamin Todd cover"
-                  width={240}
-                  loading="lazy"
-                />
-              </div>
-              <div>
-                <h4>80,000 Hours</h4>
-                <p class="text-small">Benjamin Todd</p>
-                <p>A guide to finding a fulfilling career that does good.</p>
-                <p>
-                  <a href={`${base}articles/80000-hours/`}>
-                    Why I recommend reading it before choosing a major
-                  </a>
-                </p>
-                <div class="live-intro_nav">
-                  <a
-                    class="control control-outline"
-                    href="https://80000hours.org/career-guide/"
-                  >
-                    Read free online ↗
-                  </a>
-                  <a
-                    class="control control-outline"
-                    href="https://amzn.to/4xXs8Yo"
-                    rel="sponsored"
-                  >
-                    Buy paperback ↗
-                  </a>
-                </div>
-                <p class="text-small">
-                  Paid paperback. Amazon affiliate link; I earn from qualifying
-                  purchases.
-                </p>
-              </div>
-            </article>
-            {resources
-              .filter((link) => link.icon !== 'Compass')
-              .map((link) => {
-                const label = resourceLabels[link.icon];
-                const Icon = label?.Icon ?? BookOpen;
-                return (
-                  <a href={link.url} class={secondary}>
-                    <Icon
-                      size={22}
-                      strokeWidth={1.5}
-                      className="flex-noshrink"
-                    />
-                    <span class="resource-card_content">
-                      <span class="pocket-hub_span-7">
-                        {label?.title ?? link.title}
-                      </span>{' '}
-                      <span class="resource-card_description">
-                        {label?.description ?? link.description}
-                      </span>{' '}
-                    </span>
-                    <ArrowUpRight size={17} className="flex-noshrink" />
-                  </a>
-                );
-              })}
           </div>
         </section>
       </section>
@@ -233,22 +143,17 @@ const secondary = 'resource-card';
     .hub-section > .live-help {
       margin-block: 0;
     }
-    .career-book {
-      display: grid;
-      grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
-      gap: var(--space-4);
-      padding-block: var(--space-4);
-    }
     .pocket-hub_copies-title,
-    .pocket-hub_articles-title {
+    .pocket-hub_articles-title,
+    .pocket-hub :global(.reading-links > .section-title) {
       font-family: var(--font-serif);
       font-size: var(--text-2xl);
       line-height: var(--leading-tight);
       padding-inline: 0;
     }
+    /* Item titles sit one step below their section heading. */
     .pocket-hub :global(.article-list_heading),
     .pocket-hub :global(.learning-videos_h3),
-    .career-book h4,
     .pocket-hub :global(.reading-book h3) {
       font-size: var(--text-xl);
       line-height: var(--leading-tight);
@@ -274,12 +179,6 @@ const secondary = 'resource-card';
     .learning-group .live-help {
       margin-block: 0;
     }
-    .career-book {
-      padding-bottom: 0;
-    }
-    .career-book > div > p:last-child {
-      margin-bottom: 0;
-    }
     :global(.site-main:has([data-pocket-hub]) + .share-page) {
       margin-top: var(--space-4);
     }
@@ -292,38 +191,6 @@ const secondary = 'resource-card';
     .pocket-hub :global(h4) {
       overflow-wrap: anywhere;
     }
-    .career-book_cover {
-      display: grid;
-      place-items: center;
-      align-self: start;
-      padding: var(--space-3);
-      background: var(--secondary);
-      border-radius: var(--radius-main);
-    }
-    .career-book_cover img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
-    .career-book h4 {
-      margin: 0;
-    }
-    .career-book p {
-      margin-block: var(--space-2);
-    }
-    .career-book .text-small {
-      color: var(--muted-foreground);
-    }
-    @media (width < 30rem) {
-      .career-book {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .career-book_cover img {
-        width: auto;
-        max-width: 100%;
-        height: 10rem;
-      }
-    }
     .live-intro_title {
       margin-top: 0;
       font-family: var(--font-serif);
@@ -335,15 +202,6 @@ const secondary = 'resource-card';
       max-width: 60ch;
       margin-top: var(--space-3);
       color: var(--muted-foreground);
-    }
-    .live-intro_nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      margin-block: var(--space-4);
-    }
-    .live-intro_nav a {
-      white-space: normal;
     }
     .live-session-nav {
       display: grid;

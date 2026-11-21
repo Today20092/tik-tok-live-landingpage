@@ -5,7 +5,6 @@ import { readFile, stat } from 'node:fs/promises';
 
 const dist = new URL('../dist/', import.meta.url);
 const readPage = (path) => readFile(new URL(path, dist), 'utf8');
-const canonical = 'https://islam.ayoubabed.xyz/';
 const headers = await readPage('_headers');
 assert.ok(
   headers.includes("'wasm-unsafe-eval'"),
@@ -16,29 +15,15 @@ assert.ok(
   'Pagefind requires CSP permission for its worker'
 );
 
-for (const page of ['journal/index.html', 'focus/index.html']) {
-  const html = await readPage(page);
-  const courtyard = html.match(
-    /<img\b[^>]*src="([^"]*\/_astro\/courtyard\.[^"]+\.webp)"[^>]*>/
-  )?.[0];
-  assert.ok(courtyard, `${page} must use an optimized courtyard image`);
-  const asset = courtyard.match(/src="([^"]+)"/)[1];
-  assert.ok(
-    (await stat(new URL(`.${asset}`, dist))).size < 1024 * 1024,
-    'courtyard image must stay below 1 MB'
+const redirects = await readPage('_redirects');
+for (const path of ['pocket', 'journal', 'focus']) {
+  await assert.rejects(
+    stat(new URL(`${path}/index.html`, dist)),
+    `${path}/ was retired and must not be built`
   );
   assert.ok(
-    !html.includes('courtyard.png'),
-    `${page} still references courtyard.png`
-  );
-  assert.ok(
-    courtyard.includes('fetchpriority="high"') &&
-      courtyard.includes('loading="eager"'),
-    `${page} courtyard hero must have high fetch priority`
-  );
-  assert.ok(
-    html.includes(`rel="canonical" href="${canonical}"`),
-    `${page} must keep the homepage canonical`
+    redirects.includes(`/${path}/ /  301`),
+    `/${path}/ must redirect to the homepage`
   );
 }
 
