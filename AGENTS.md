@@ -94,3 +94,7 @@ Use the default five triage roles. Before assigning triage status, read `docs/ag
 ### Domain docs
 
 Use a single-context layout. Before exploring domain concepts or proposing architectural changes, read `docs/agents/domain.md`.
+
+## Git workflow
+
+For branches, worktrees, pull requests or merging, read [the Git workflow](docs/branch-workflow.md).
