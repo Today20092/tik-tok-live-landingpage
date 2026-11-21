@@ -10,49 +10,35 @@ const links = JSON.parse(
     'utf8'
   )
 );
-for (const variant of ['', 'pocket/', 'journal/', 'focus/']) {
-  const html = readFileSync(
-    new URL(`../dist/${variant}index.html`, import.meta.url),
-    'utf8'
-  );
-  for (const link of links.filter((item) => item.variant !== 'charity')) {
-    if ((variant === '' || variant === 'pocket/') && link.icon === 'Compass') {
-      assert.ok(html.includes('href="https://80000hours.org/career-guide/"'));
-      assert.ok(html.includes('href="https://amzn.to/4xXs8Yo"'));
-      continue;
-    }
-    assert.ok(
-      html.includes(`href="${link.url.replaceAll('&', '&amp;')}"`),
-      `Missing resource: ${link.title}`
-    );
-  }
+const html = readFileSync(
+  new URL('../dist/index.html', import.meta.url),
+  'utf8'
+);
+for (const link of links) {
   assert.ok(
-    !html.includes('Choose a design edition'),
-    'The comparison UI must not distract visitors'
+    html.includes(`href="${link.url.replaceAll('&', '&amp;')}"`),
+    `Missing resource: ${link.title}`
   );
-  for (const id of ['read', 'copies', 'watch', 'more']) {
-    assert.ok(html.includes(`id="${id}"`), `Missing navigation target: ${id}`);
-  }
-  if (variant === '' || variant === 'pocket/') {
-    assert.ok(!html.includes('aria-label="Compare layouts"'));
-    assert.ok(!html.includes('role="tab"'));
-    assert.ok(html.includes('Read the Quran online'));
-    assert.ok(html.includes('The Clear Quran'));
-    assert.ok(
-      html.includes('For non-Muslims in the USA. One free copy per order.')
-    );
-    assert.ok(html.includes('Free PDF'));
-    assert.ok(html.includes('https://amzn.to/4xXs8Yo'));
-  } else {
-    assert.ok(html.includes('Request The Clear Quran'));
-    assert.ok(html.includes('Request The Quran Project'));
-    assert.ok(html.includes('USA only. One English copy'));
-  }
+}
+for (const id of ['read', 'copies', 'join', 'watch']) {
+  assert.ok(html.includes(`id="${id}"`), `Missing navigation target: ${id}`);
+}
+assert.ok(!html.includes('aria-label="Compare layouts"'));
+assert.ok(!html.includes('role="tab"'));
+assert.ok(html.includes('Read the Quran online'));
+assert.ok(html.includes('The Clear Quran'));
+assert.ok(
+  html.includes('For non-Muslims in the USA. One free copy per order.')
+);
+assert.ok(html.includes('Free PDF'));
+assert.ok(html.includes('Free for non-Muslims'));
+assert.ok(html.includes('rel="canonical" href="https://islam.ayoubabed.xyz/"'));
+assert.ok(html.includes('application/ld+json'));
+for (const retired of ['pocket', 'journal', 'focus']) {
   assert.ok(
-    html.includes('rel="canonical" href="https://islam.ayoubabed.xyz/"')
+    !existsSync(new URL(`../dist/${retired}/index.html`, import.meta.url)),
+    `${retired}/ was retired and must not be built`
   );
-  assert.ok(html.includes('application/ld+json'));
-  assert.ok(html.includes('Free for non-Muslims'));
 }
 assert.ok(
   !existsSync(
@@ -76,5 +62,5 @@ assert.ok(
   'Articles need their own canonical URL'
 );
 console.log(
-  'All four layouts preserve resource links, navigation targets, eligibility, and SEO.'
+  'The hub preserves resource links, navigation targets, eligibility, and SEO.'
 );

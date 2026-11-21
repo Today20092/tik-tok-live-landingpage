@@ -47,8 +47,9 @@ assert.ok(
   'Full article text must be indexed'
 );
 assert.equal(article.meta.title, 'About me');
-assert.deepEqual(article.filters.Type, ['Articles']);
-assert.deepEqual(hub.filters.Type, ['Resources']);
+// The content-type filter was removed; only the hub is a resource page.
+assert.equal(article.filters.Type, undefined);
+assert.equal(hub.filters.Type, undefined);
 console.log(
-  `Search index checked: ${pages.length} published pages, body text, filters, and exclusions.`
+  `Search index checked: ${pages.length} published pages, body text and exclusions.`
 );
