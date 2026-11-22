@@ -1,4 +1,4 @@
-/* global document */
+/* global document, URL */
 import assert from 'node:assert/strict';
 import console from 'node:console';
 import { createRequire } from 'node:module';
@@ -17,13 +17,17 @@ try {
   page.on('pageerror', (error) => errors.push(error));
   const popup = page.locator('#link-preview:popover-open');
   for (const [path, selector, title] of [
-    ['/', 'a[data-preview]', 'Meadows of the Righteous'],
-    ['/', 'a.learning-videos_watch', 'Stories of the Prophets'],
-    ['/articles/preparing-for-marriage/', 'a[data-footnote-ref]', 'Note 1'],
-    ['/articles/preparing-for-marriage/', 'a.article-page_author', null],
-    ['/start/', '.start-hero_jumps a', 'What Muslims believe'],
-    ['/printables/', 'a[href="/start/"]', 'Getting to Know Islam'],
-    ['/start/', '#print + p a', 'Getting to Know Islam'],
+    [
+      '/articles/preparing-for-marriage/',
+      'a[data-footnote-ref]:has(+ .link-preview-trigger)',
+      null,
+    ],
+    [
+      '/articles/why-i-started/',
+      '#article-body a[href="https://quran.com/51/56"]',
+      'Qur’an 51:56',
+    ],
+    ['/start/', 'a[data-footnote-ref]', 'Note 1'],
   ]) {
     await page.goto(base + path);
     const link = page.locator(selector).first();
@@ -40,11 +44,67 @@ try {
     await popup.waitFor({ state: 'hidden' });
   }
 
+  for (const path of ['/', '/articles/', '/search/', '/printables/']) {
+    await page.goto(base + path);
+    assert.equal(
+      await page.locator('#link-preview, .link-preview-trigger').count(),
+      0,
+      path
+    );
+  }
+
+  await page.goto(base + '/articles/preparing-for-marriage/');
+  await page
+    .locator('a[data-footnote-ref] + .link-preview-trigger')
+    .first()
+    .waitFor({ timeout: 5000 });
+  assert.equal(
+    await page
+      .locator('a[data-footnote-ref]')
+      .first()
+      .locator('xpath=following-sibling::*[1][self::button]')
+      .count(),
+    0
+  );
+
+  await page.goto(base + '/articles/why-i-started/');
+  await page
+    .locator('a[href="https://quran.com/51/56"] + .link-preview-trigger')
+    .first()
+    .waitFor({ timeout: 5000 });
+  for (const selector of [
+    '.article-page_author',
+    '[data-contents-link]',
+    '.resource-card',
+    '[data-quran-verse] a',
+    '[data-hadith] a',
+    'a[href="https://quran.com/61/2-3"]',
+    '[data-footnotes] a',
+  ]) {
+    assert.equal(
+      await page.locator(`${selector} + .link-preview-trigger`).count(),
+      0,
+      selector
+    );
+  }
+
   await page.goto(base + '/start/');
-  await page.locator('.start-hero_jumps a').first().focus();
-  await popup.waitFor();
+  const note = page.locator('a[data-footnote-ref]').first();
+  await note.focus();
+  await popup.waitFor({ timeout: 5000 });
   await page.keyboard.press('Enter');
-  assert.match(page.url(), /#what-muslims-believe$/);
+  assert.equal(
+    new URL(page.url()).hash,
+    await note.evaluate((link) => link.hash)
+  );
+  assert.equal(
+    await page
+      .locator(
+        '.start-hero_jumps .link-preview-trigger, [data-contents-link] + .link-preview-trigger'
+      )
+      .count(),
+    0
+  );
 
   const touch = await browser.newPage({
     viewport: { width: 390, height: 820 },
@@ -53,7 +113,7 @@ try {
   });
   await touch.goto(base + '/start/');
   const trigger = touch
-    .locator('.start-hero_jumps .link-preview-trigger')
+    .locator('a[data-footnote-ref] + .link-preview-trigger')
     .first();
   await trigger.tap();
   await touch.locator('#link-preview:popover-open').waitFor();

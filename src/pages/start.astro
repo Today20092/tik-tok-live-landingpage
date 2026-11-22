@@ -16,26 +16,10 @@ import '@fontsource/amiri-quran/arabic-400.css';
 const { contents } = groupContents(getHeadings());
 // The reader's likely reasons for scanning the pamphlet's QR code.
 const jumps = [
-  [
-    'what-muslims-believe',
-    'What Muslims believe',
-    'One God, the prophets, and the Qur’an.',
-  ],
-  [
-    'questions-people-ask',
-    'Questions people ask',
-    'Common questions about God, Muhammad, Islamic practice, and everyday life.',
-  ],
-  [
-    'visiting-a-mosque',
-    'Visiting a mosque',
-    'Plan a visit, find out what to wear, and learn what to expect during prayer.',
-  ],
-  [
-    'becoming-muslim',
-    'Becoming Muslim',
-    'What the declaration of faith means, how to say it, and where to start afterward.',
-  ],
+  ['what-muslims-believe', 'What Muslims believe'],
+  ['questions-people-ask', 'Questions people ask'],
+  ['visiting-a-mosque', 'Visiting a mosque'],
+  ['becoming-muslim', 'Becoming Muslim'],
 ];
 ---
 
@@ -80,13 +64,9 @@ const jumps = [
         </p>
         <nav aria-label="Jump to a section">
           <ul class="start-hero_jumps">
-            {jumps.map(([slug, label, preview]) => (
+            {jumps.map(([slug, label]) => (
               <li>
-                <a
-                  href={`#${slug}`}
-                  data-preview-title={label}
-                  data-preview={preview}
-                >
+                <a href={`#${slug}`}>
                   {label}
                   <IconArrowDown size={18} aria-hidden="true" />
                 </a>

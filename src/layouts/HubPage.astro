@@ -175,6 +175,6 @@ const structuredData = {
       )}
       <SiteFooter showSupport={!isArticle} />
     </div>
-    <LinkPreviews />
+    {(isArticle || path === 'start/') && <LinkPreviews />}
   </body>
 </html>

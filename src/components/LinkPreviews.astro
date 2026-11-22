@@ -1,20 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
-import { readingTime } from '@/lib/reading-time';
 import verses from '@/data/quran-verses.json';
 import hadith from '@/data/hadith.json';
 
-const base = import.meta.env.BASE_URL;
-const articles = await getCollection('articles', ({ data }) => !data.draft);
 const entries = Object.fromEntries([
-  ...articles.map((article) => [
-    `${base}articles/${article.id}/`,
-    [
-      article.data.title,
-      article.data.description,
-      `About ${readingTime(article.body)} min read`,
-    ],
-  ]),
   ...Object.entries(verses).flatMap(([key, verse]) =>
     verse.translator === 'M. A. S. Abdel Haleem'
       ? [
@@ -37,20 +25,6 @@ const entries = Object.fromEntries([
       `${entry.translationSource}${'excerpt' in entry && entry.excerpt ? ' · Excerpt' : ''}`,
     ],
   ]),
-  [
-    `${base}start/`,
-    [
-      'Getting to Know Islam',
-      'A guide to Muslim beliefs, common questions, visiting a mosque, and becoming Muslim.',
-    ],
-  ],
-  [
-    `${base}printables/`,
-    [
-      'Getting to Know Islam',
-      'See both sides of the trifold and get files for home printing or a print shop.',
-    ],
-  ],
 ]);
 ---
 
@@ -98,11 +72,6 @@ const entries = Object.fromEntries([
 
     function preview(link: HTMLAnchorElement): string[] | undefined {
       const url = new URL(link.href);
-      if (link.dataset.preview)
-        return [
-          link.dataset.previewTitle ?? link.textContent?.trim() ?? '',
-          link.dataset.preview,
-        ];
       if (link.hasAttribute('data-footnote-ref')) {
         const note = document
           .getElementById(decodeURIComponent(url.hash.slice(1)))
@@ -111,91 +80,26 @@ const entries = Object.fromEntries([
         note
           .querySelectorAll('[data-footnote-backref]')
           .forEach((back) => back.remove());
-        return [
-          `Note ${link.textContent?.trim()}`,
-          note.textContent?.trim() ?? '',
-        ];
-      }
-      if (link.matches('[data-contents-link], .start-hero_jumps a')) {
-        const jump = [
-          ...document.querySelectorAll<HTMLAnchorElement>(
-            '.start-hero_jumps a'
-          ),
-        ].find((candidate) => candidate.hash === url.hash);
-        if (jump?.dataset.preview)
-          return [jump.dataset.previewTitle ?? '', jump.dataset.preview];
-        const heading = document.getElementById(
-          decodeURIComponent(url.hash.slice(1))
-        );
-        let next =
-          heading?.closest('.article-section-heading')?.nextElementSibling ??
-          heading?.nextElementSibling;
-        while (next && !next.matches('p, h2, h3, h4, .article-section-heading'))
-          next = next.nextElementSibling;
-        if (next?.matches('p')) {
-          const paragraph = next.cloneNode(true);
-          if (!(paragraph instanceof HTMLElement)) return;
-          paragraph
-            .querySelectorAll('[data-footnote-ref]')
-            .forEach((note) => note.remove());
-          const copy = paragraph.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-          return [
-            link.textContent?.trim() ?? '',
-            copy.length > 230
-              ? `${copy.slice(0, 230).replace(/\s+\S*$/, '')}…`
-              : copy,
-          ];
+        const copy = note.textContent?.trim() ?? '';
+        const sources = note.querySelectorAll('a[href]');
+        if (sources.length === 1) {
+          sources[0].remove();
+          if (!/[\p{L}\p{N}]/u.test(note.textContent ?? '')) return;
         }
+        return [`Note ${link.textContent?.trim()}`, copy];
+      }
+      if (
+        !link.closest('#article-body') ||
+        link.closest('[data-quran-verse], [data-hadith], [data-footnotes]')
+      )
         return;
-      }
       if (
         url.hostname === 'quran.com' &&
-        (!url.searchParams.has('translations') ||
-          url.searchParams.get('translations') === '85')
-      ) {
-        const entry = entries[url.origin + url.pathname];
-        if (entry) return entry;
-      }
-      if (
-        url.hostname === 'quran.com' &&
-        /^\/\d+(?:\/\d+(?:-\d+)?)?\/?$/.test(url.pathname)
-      ) {
-        const reference = url.pathname
-          .replace(/^\/|\/$/g, '')
-          .replace('/', ':');
-        return [
-          `Qur’an ${reference}`,
-          reference === '19'
-            ? 'Surah Maryam includes accounts of Mary and Jesus.'
-            : 'Read the Arabic and translation on Quran.com.',
-        ];
-      }
-      if (
-        url.hostname === 'sunnah.com' &&
-        /^\/[a-z-]+:\d+[a-z]?\/?$/.test(url.pathname)
-      ) {
-        return (
-          entries[url.origin + url.pathname] ?? [
-            link.textContent?.trim() || url.pathname.slice(1),
-            'Read the narration and collection details on Sunnah.com.',
-          ]
-        );
-      }
-      if (
-        url.origin === location.origin &&
-        link.closest(
-          '#article-body, .article-page_author, .article-page_resources, main'
-        )
-      ) {
-        const path = url.pathname.replace(/\/?$/, '/');
-        if (
-          link.closest(
-            '#article-body, .article-page_author, .article-page_resources, .pocket-hub'
-          ) ||
-          /\/(start|printables)\/$/.test(path)
-        )
-          return entries[path];
-      }
+        url.searchParams.has('translations') &&
+        url.searchParams.get('translations') !== '85'
+      )
+        return;
+      return entries[url.origin + url.pathname.replace(/\/$/, '')];
     }
 
     function hide() {
@@ -212,8 +116,6 @@ const entries = Object.fromEntries([
       meta.textContent = content[2] ?? '';
       close.hidden = !opened;
       popup.toggleAttribute('aria-hidden', !opened);
-      const parent = source.closest('dialog[open]') ?? document.body;
-      if (popup.parentElement !== parent) parent.append(popup);
       if (!popup.matches(':popover-open')) popup.showPopover();
       const bounds = source.getBoundingClientRect();
       const width = popup.offsetWidth;
@@ -224,15 +126,15 @@ const entries = Object.fromEntries([
       if (opened) close.focus();
     }
 
-    function initialize(root: ParentNode) {
-      root.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
-        if (
-          link.getAttribute('aria-hidden') === 'true' ||
-          link.nextElementSibling?.matches('button.link-preview-trigger')
-        )
-          return;
+    const previews = new WeakMap<HTMLAnchorElement, string[]>();
+    document
+      .querySelectorAll<HTMLAnchorElement>(
+        'a[data-footnote-ref][href], #article-body a[href^="https://quran.com/"], #article-body a[href^="https://sunnah.com/"]'
+      )
+      .forEach((link) => {
         const content = preview(link);
         if (!content?.[1]) return;
+        previews.set(link, content);
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'link-preview-trigger';
@@ -252,14 +154,6 @@ const entries = Object.fromEntries([
         });
         link.after(button);
       });
-    }
-
-    initialize(document);
-    document.addEventListener('focusin', (event) => {
-      const dialog =
-        event.target instanceof Element ? event.target.closest('dialog') : null;
-      if (dialog) initialize(dialog);
-    });
 
     function schedule(event: Event) {
       const link =
@@ -270,11 +164,12 @@ const entries = Object.fromEntries([
       if (
         event instanceof PointerEvent &&
         (event.pointerType === 'touch' ||
+          !matchMedia('(any-hover: hover)').matches ||
           link.contains(event.relatedTarget as Node))
       )
         return;
-      const content = preview(link);
-      if (!content?.[1]) return;
+      const content = previews.get(link);
+      if (!content) return;
       clearTimeout(timer);
       timer = window.setTimeout(() => show(link, content, false), 400);
     }
@@ -369,28 +264,6 @@ const entries = Object.fromEntries([
       background: transparent;
       cursor: pointer;
       vertical-align: middle;
-    }
-
-    .learning-videos_actions,
-    .start-hero_jumps li {
-      display: flex;
-      align-items: center;
-      gap: var(--space-1);
-    }
-
-    .start-hero_jumps li > a {
-      flex: 1 1 min(12rem, 100%);
-      min-inline-size: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .learning-videos_actions,
-    .start-hero_jumps li {
-      flex-wrap: wrap;
-    }
-
-    .start-hero_jumps .link-preview-trigger {
-      margin-inline-start: auto;
     }
 
     @media (pointer: coarse) {
