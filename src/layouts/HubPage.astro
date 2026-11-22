@@ -14,6 +14,8 @@ interface Props {
   publishedTime?: string;
   image?: string;
   imageAlt?: string;
+  /** The page shows its own Ko-fi link, so the footer omits it. */
+  inlineSupport?: boolean;
 }
 const {
   title = 'Islam with Ayoub | Quran readings & resources',
@@ -173,7 +175,7 @@ const structuredData = {
           url={canonicalUrl}
         />
       )}
-      <SiteFooter showSupport={!isArticle} />
+      <SiteFooter showSupport={!isArticle && !Astro.props.inlineSupport} />
     </div>
     {(isArticle || path === 'start/') && <LinkPreviews />}
   </body>

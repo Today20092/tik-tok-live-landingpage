@@ -3,6 +3,7 @@ import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import PrintItem from '@/components/PrintItem.astro';
+import SupportCard from '@/components/SupportCard.astro';
 
 const base = import.meta.env.BASE_URL;
 const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
@@ -13,6 +14,7 @@ const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookma
   title="Free Islamic printables | Islam with Ayoub"
   description="Download free Islamic outreach materials, starting with Getting to Know Islam. Print at home on U.S. Letter paper or order folded copies from a print shop."
   path="printables/"
+  inlineSupport
 >
   <Section
     tag="main"
@@ -163,6 +165,15 @@ const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookma
           has front and back pages with a 0.05 inch bleed.
         </p>
       </PrintItem>
+
+      <section aria-labelledby="support-dawah">
+        <h2 id="support-dawah">Support the dawah work</h2>
+        <p>
+          These materials stay free. If they helped you share Islam, you can
+          support the time and printing costs behind them.
+        </p>
+        <SupportCard compact />
+      </section>
     </div>
   </Section>
 </HubPage>
