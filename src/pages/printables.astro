@@ -1,0 +1,136 @@
+---
+import HubPage from '@/layouts/HubPage.astro';
+import Section from '@/components/lumos/Section.astro';
+import Heading from '@/components/lumos/Heading.astro';
+
+const base = import.meta.env.BASE_URL;
+const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
+---
+
+<HubPage
+  title="Free Islamic printables | Islam with Ayoub"
+  description="Download free Islamic outreach materials, starting with Getting to Know Islam. Print at home on U.S. Letter paper or order folded copies from a print shop."
+  path="printables/"
+>
+  <Section
+    tag="main"
+    paddingTop="small"
+    paddingBottom="small"
+    gap="0"
+    class="page-section"
+  >
+    <Heading tag="h1" class="page-title">
+      Free Islamic printables
+    </Heading>
+    <div class="typeset">
+      <section aria-labelledby="getting-to-know-islam">
+        <h2 id="getting-to-know-islam">Getting to Know Islam</h2>
+        <p>
+          An English trifold introducing Islamic beliefs and practices.{' '}
+          <a href={`${base}start/`}>Read the online companion</a>.
+        </p>
+
+        <h3>Preview the trifold</h3>
+        <figure>
+          <a
+            href={`${artwork}-outside.jpg`}
+            aria-label="Open full-size outside preview"
+          >
+            <img
+              src={`${artwork}-outside.jpg`}
+              width="1584"
+              height="1224"
+              alt="Outside panels showing Muslims in the United States, common questions, and the front cover."
+            />
+          </a>
+          <figcaption>Outside of the trifold</figcaption>
+        </figure>
+        <figure>
+          <a
+            href={`${artwork}-inside.jpg`}
+            aria-label="Open full-size inside preview"
+          >
+            <img
+              src={`${artwork}-inside.jpg`}
+              width="1584"
+              height="1224"
+              loading="lazy"
+              alt="Inside panels showing what Muslims believe, the Five Pillars, and Jesus and Mary in Islam."
+            />
+          </a>
+          <figcaption>Inside of the trifold</figcaption>
+        </figure>
+
+        <h3>Print at home</h3>
+        <p>
+          <a href={`${artwork}-us-letter.pdf`} download>
+            Download the U.S. Letter PDF
+          </a>
+        </p>
+        <ol>
+          <li>
+            Use U.S. Letter paper (8.5 × 11 inches), landscape orientation, and
+            color. Print on both sides and flip on the short edge.
+          </li>
+          <li>
+            Print one test copy at Actual Size (100%). If your printer clips
+            artwork at the edges, select Fit to printable area.
+          </li>
+          <li>
+            Fold along the panel boundaries. Tuck the narrower panel in first,
+            then fold the cover over it.
+          </li>
+        </ol>
+
+        <h3>Order from a print shop</h3>
+        <p>
+          I used{' '}
+          <a href="https://www.55printing.com/brochure-printing/">
+            55printing’s brochure printing service
+          </a>{' '}
+          for the first run. You can also take these files to a local print
+          shop.
+        </p>
+        <ul>
+          <li>
+            <a href={`${artwork}-outside.pdf`} download>
+              Download the outside PDF (Front)
+            </a>
+          </li>
+          <li>
+            <a href={`${artwork}-inside.pdf`} download>
+              Download the inside PDF (Back)
+            </a>
+          </li>
+        </ul>
+        <p>
+          Choose 8.5 × 11 inches flat, Tri-Fold, 100 lb. Gloss Book (5 pt.), and
+          Full Color Both Sides. Request a digital PDF proof and check the trim,
+          folds, and panel order before approving. Check your printing and
+          shipping total at checkout.
+        </p>
+
+        <h3>Usage rights</h3>
+        <p>
+          <strong>Free to share. Not for resale.</strong>
+        </p>
+        <p>
+          © 2026 Ayoub Abedrabbo. You may download, print, and share unchanged
+          copies of <em>Getting to Know Islam</em> free of charge. Keep the
+          existing credits intact. You may pay a print shop to produce copies
+          for free distribution. Do not sell copies or distribute modified
+          versions without permission. Third-party material remains subject to
+          its own terms.
+        </p>
+        <p>
+          Iftar photo by{' '}
+          <a href="https://unsplash.com/photos/a-person-eating-a-meal-with-many-dishes-on-table-j70UasSzZEQ">
+            Cemrecan Yurtman
+          </a>
+          , used under the{' '}
+          <a href="https://unsplash.com/license">Unsplash License</a>.
+        </p>
+      </section>
+    </div>
+  </Section>
+</HubPage>
