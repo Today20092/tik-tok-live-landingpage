@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230pt" height="245pt" viewBox="0 0 230 245" role="img">
+  <title>Interlocking open arches</title>
+  <desc>Layered green and ochre arches frame a terracotta sun and a small leaf.</desc>
+  <path fill="#DEE7D8" d="M0 245V122C0 85 28 53 69 28C110 53 138 85 138 122V245Z"/>
+  <path fill="#A76038" d="M230 245H98V123C98 93 121 68 164 44C207 68 230 93 230 123Z"/>
+  <path fill="#E7C2A6" d="M217 245H113V126C113 104 130 82 165 61C200 82 217 104 217 126Z"/>
+  <path fill="#244A3E" d="M9 245V105C9 66 43 31 99 0C155 31 189 66 189 105V245Z"/>
+  <path fill="#3C6654" d="M22 245V108C22 77 50 45 99 16C148 45 176 77 176 108V245Z"/>
+  <path fill="#F8F5EC" d="M42 245V111C42 86 62 61 99 38C136 61 156 86 156 111V245Z"/>
+  <circle cx="99" cy="111" r="18" fill="#A76038"/>
+  <path fill="#DEE7D8" d="M42 205C62 184 96 178 122 192C135 199 147 202 156 199V245H42Z"/>
+  <path fill="#ADC1A9" d="M42 218C69 217 93 198 114 200C131 202 141 206 156 216V245H42Z"/>
+  <path fill="#244A3E" d="M98 245C97 224 96 201 99 183C101 167 106 157 114 153C115 171 110 182 101 188C101 207 102 223 103 245Z"/>
+  <path fill="#244A3E" d="M99 215C96 200 87 191 75 190C77 205 84 213 99 215Z"/>
+  <path fill="#244A3E" d="M101 227C102 216 109 207 122 204C121 217 114 224 101 227Z"/>
+</svg>
