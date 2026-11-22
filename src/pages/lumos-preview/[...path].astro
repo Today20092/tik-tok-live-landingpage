@@ -9,6 +9,7 @@ import ReadingResources from '@/components/ReadingResources.astro';
 import LearningVideos from '@/components/LearningVideos.astro';
 import { getCollection } from 'astro:content';
 import ArticleList from '@/components/ArticleList.astro';
+import LinkPreviews from '@/components/LinkPreviews.astro';
 import ArticleLink from '@/components/ArticleLink.astro';
 import ArticleImageViewer from '@/components/ArticleImageViewer';
 import { IconCopy } from '@tabler/icons-react';
@@ -276,5 +277,6 @@ export function getStaticPaths() {
         </a>
       </section>
     </Section>
+    <LinkPreviews />
   </body>
 </html>

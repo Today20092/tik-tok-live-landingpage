@@ -38,6 +38,7 @@ Use `.mdx` when an article needs components. Import them from `@/components/`; k
 | Displayed hadith                               | `HadithQuote.astro`    | [Hadith quotations](hadith-in-articles.md): verified narration, grading and source details.                                                            |
 | Clearly separated personal reflection          | `Reflection.astro`     | Put the author's reflection in its default slot; do not present it as scripture.                                                                       |
 | Related article mentioned in the body          | `ArticleLink.astro`    | Pass an existing collection ID with `article="preparing-for-marriage"`; see the linking guide below.                                                   |
+| Contextual link preview                        | `LinkPreviews.astro`   | The shared layout enhances article links, citations, footnotes, and contents entries automatically. Keep the underlying Markdown or HTML link.          |
 | Recommended book with an Amazon affiliate link | `AmazonBookCard.astro` | Supply the author's link, title, author and a unique page-local `id`. The component includes the adjacent disclosure and shared resource-card styling. |
 
 ```mdx

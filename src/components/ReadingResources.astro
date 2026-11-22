@@ -81,12 +81,19 @@ const paidEditions = [
         </p>
       </div>
       <div class="reading-actions">
-        <a class="control control-primary" href={resource('Scroll')}>
+        <a
+          class="control control-primary"
+          href={resource('Scroll')}
+          data-preview-title="Meadows of the Righteous"
+          data-preview="Free PDF of Riyad as-Salihin, Imam an-Nawawi’s collection of hadith."
+        >
           Free PDF ↗
         </a>
         <a
           class="control control-outline"
           href="https://turath.co.uk/products/riyad-as-salihin-abridged-and-annotated"
+          data-preview-title="Meadows of the Righteous"
+          data-preview="The abridged and annotated print edition used on live, available through Turath Publishing."
         >
           My print edition ↗
         </a>
@@ -110,7 +117,12 @@ const paidEditions = [
         <p>Spiral binding added locally; not included with this edition.</p>
       </div>
       <div class="reading-actions">
-        <a class="control control-outline" href={resource('Book')}>
+        <a
+          class="control control-outline"
+          href={resource('Book')}
+          data-preview-title="The Clear Quran"
+          data-preview="Parallel Arabic and English text. Opens the Furqaan Bookstore listing for the print edition."
+        >
           Buy the print edition ↗
         </a>
       </div>
@@ -125,7 +137,12 @@ const paidEditions = [
     <h2 id="quran-resources-title" class="section-title">
       Quran resources
     </h2>
-    <a class="resource-card resource-card-primary" href={resource('BookOpen')}>
+    <a
+      class="resource-card resource-card-primary"
+      href={resource('BookOpen')}
+      data-preview-title="Quran.com"
+      data-preview="Read by chapter or verse with Arabic, English translation, and recitation audio."
+    >
       <span class="resource-card_content">
         <span class="resource-card_title">Read the Quran online</span>{' '}
         <span class="resource-card_description">
@@ -140,7 +157,12 @@ const paidEditions = [
       <h3 id="free-copies-title">Free printed copies</h3>
       <div class="resource-grid">
         {freeCopies.map((book) => (
-          <a class="resource-card" href={book.url}>
+          <a
+            class="resource-card"
+            href={book.url}
+            data-preview-title={book.title}
+            data-preview={`${book.note} Opens the provider’s request page.`}
+          >
             <span class="resource-card_content">
               <span class="resource-card_title">{book.title}</span>{' '}
               <span class="resource-card_description">{book.note}</span>{' '}
@@ -179,6 +201,8 @@ const paidEditions = [
               <a
                 class="control control-outline"
                 href={book.url}
+                data-preview-title={book.title}
+                data-preview={`${book.note} Opens the Amazon listing.`}
                 rel={book.url.includes('amzn.to') ? 'sponsored' : undefined}
               >
                 {book.label} ↗

@@ -5,6 +5,7 @@ import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
 import SharePage from '@/components/SharePage.astro';
 import SupportCard from '@/components/SupportCard.astro';
+import LinkPreviews from '@/components/LinkPreviews.astro';
 interface Props {
   title?: string;
   description?: string;
@@ -174,5 +175,6 @@ const structuredData = {
       )}
       <SiteFooter showSupport={!isArticle} />
     </div>
+    <LinkPreviews />
   </body>
 </html>
