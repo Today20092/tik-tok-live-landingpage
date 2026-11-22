@@ -20,6 +20,10 @@ import { IconSun, IconMoon } from '@tabler/icons-react';
     document
       .querySelector('meta[name="color-scheme"]')
       ?.setAttribute('content', dark ? 'dark' : 'light');
+    // Browser chrome follows the page background (light: primary, dark: ink).
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', dark ? '#11191b' : '#335966');
     control?.setAttribute(
       'aria-label',
       dark ? 'Switch to light theme' : 'Switch to dark theme'
