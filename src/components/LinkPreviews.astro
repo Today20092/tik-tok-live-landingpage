@@ -379,13 +379,18 @@ const entries = Object.fromEntries([
     }
 
     .start-hero_jumps li > a {
-      flex: 1;
+      flex: 1 1 min(12rem, 100%);
       min-inline-size: 0;
       overflow-wrap: anywhere;
     }
 
-    .learning-videos_actions {
+    .learning-videos_actions,
+    .start-hero_jumps li {
       flex-wrap: wrap;
+    }
+
+    .start-hero_jumps .link-preview-trigger {
+      margin-inline-start: auto;
     }
 
     @media (pointer: coarse) {
