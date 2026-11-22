@@ -1,4 +1,5 @@
 ---
+import { statSync } from 'node:fs';
 import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
@@ -8,11 +9,38 @@ import SupportCard from '@/components/SupportCard.astro';
 const base = import.meta.env.BASE_URL;
 const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
 const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookmark`;
+const postcardDir = 'downloads/getting-to-know-islam-postcards';
+const kb = (file: string) =>
+  `${Math.round(statSync(`public/${postcardDir}/${file}`).size / 1024)} KB`;
+const postcards = Object.entries({
+  god: 'Who do Muslims worship?',
+  muhammad: 'Who was Muhammad?',
+  quran: 'What is the Qur’an, and where should I start?',
+  hadith: 'How is hadith different from the Qur’an?',
+  jesus: 'What do Muslims believe about Jesus?',
+  'angels-jinn': 'What are angels and jinn?',
+  judgment: 'What happens on the Day of Judgment?',
+  ramadan: 'Why do Muslims fast during Ramadan?',
+  hajj: 'Why do Muslims go to Mecca for hajj?',
+  hijab: 'Why do some Muslim women wear hijab?',
+  sharia: 'What does Sharia mean in everyday life?',
+  'other-faiths': 'What does Islam teach about people of other faiths?',
+  'forced-conversion': 'Can someone be forced to become Muslim?',
+  civilians: 'What does Islam teach about harming civilians?',
+  'muslim-communities': 'Where do Muslims live?',
+  'muslims-in-the-us': 'Who are Muslim Americans?',
+}).map(([slug, question]) => ({
+  question,
+  pdf: `${base}${postcardDir}/postcard-${slug}.pdf`,
+  thumb: `${base}${postcardDir}/postcard-${slug}.jpg`,
+  size: kb(`postcard-${slug}.pdf`),
+}));
+const pack = 'getting-to-know-islam-postcards.zip';
 ---
 
 <HubPage
   title="Free Islamic printables | Islam with Ayoub"
-  description="Download free Islamic outreach materials, starting with Getting to Know Islam. Print at home on U.S. Letter paper or order folded copies from a print shop."
+  description="Download free Islamic outreach materials, including the Getting to Know Islam pamphlet and postcards. Print at home on U.S. Letter paper or order folded copies from a print shop."
   path="printables/"
   inlineSupport
 >
@@ -166,6 +194,44 @@ const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookma
         </p>
       </PrintItem>
 
+      <section aria-labelledby="getting-to-know-islam-postcards">
+        <h2 id="getting-to-know-islam-postcards">
+          Getting to Know Islam postcards
+        </h2>
+        <p>
+          Sixteen postcards, each with a common question on the front and a
+          short answer on the back. They are print-ready 4 × 6 inch postcards
+          with a 0.05 inch bleed (each PDF page is 4.1 × 6.1 inches), made for
+          printing at a print shop.
+        </p>
+        <div class="print-actions" data-not-typeset>
+          <a
+            href={`${base}${postcardDir}/${pack}`}
+            download
+            class="control control-outline"
+          >
+            Download all 16 postcards (ZIP, {kb(pack)})
+          </a>
+        </div>
+        <ul class="postcard-list" data-not-typeset>
+          {postcards.map((card) => (
+            <li>
+              <img
+                src={card.thumb}
+                width="296"
+                height="440"
+                loading="lazy"
+                alt=""
+              />
+              <a href={card.pdf} download>
+                {card.question}
+              </a>
+              <span>PDF, {card.size}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section aria-labelledby="support-dawah">
         <h2 id="support-dawah">Support the dawah work</h2>
         <p>
@@ -177,3 +243,27 @@ const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookma
     </div>
   </Section>
 </HubPage>
+
+<style>
+  .postcard-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+    gap: var(--space-5) var(--space-4);
+    margin-block: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+  .postcard-list li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .postcard-list img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .print-actions {
+    margin-block: var(--space-4);
+  }
+</style>
