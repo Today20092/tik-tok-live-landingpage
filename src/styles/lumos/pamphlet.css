@@ -1,0 +1,471 @@
+/* /start takes the pamphlet's print palette in light mode: deep green on ivory.
+   Dark mode already uses the site's deep-green theme. */
+html:not(.dark):has(.start-page) {
+  --background: #f8f5ec;
+  --primary: #244a3e;
+  --primary-foreground: #f8f5ec;
+  --ring: #244a3e;
+  --accent: #eef2ec;
+  --muted: #f1eee3;
+  --border: #c7d2c6;
+  --pattern-color: #4a6f60;
+}
+
+/* Pamphlet-style opening: cover arches, title, one-line welcome, task jumps. */
+.start-hero {
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-8);
+}
+.start-hero_art {
+  width: 4.75rem;
+  height: auto;
+}
+.start-hero_arch,
+.start-hero_sprout {
+  fill: var(--primary);
+}
+.start-hero_sprout {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.start-hero_back {
+  fill: color-mix(in oklab, var(--highlight) 55%, var(--background));
+}
+.start-hero_inner {
+  fill: var(--background);
+}
+.start-hero_hill {
+  fill: color-mix(in oklab, var(--primary) 28%, var(--background));
+}
+.start-hero_sun {
+  fill: var(--highlight);
+}
+.start-hero_rule {
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--highlight);
+}
+.start-hero_title {
+  font-size: clamp(2.25rem, 1.6rem + 3vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--primary);
+  text-wrap: balance;
+}
+.start-hero_lede {
+  max-width: 34rem;
+  color: var(--muted-foreground);
+  font-size: var(--text-lg, 1.125rem);
+  line-height: 1.55;
+}
+.start-hero_jumps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.start-hero_jumps a {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3.25rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease-out,
+    border-color 150ms ease-out;
+}
+.start-hero_jumps a:hover {
+  border-color: var(--primary);
+  background: var(--accent);
+}
+.start-hero_jumps svg {
+  flex: none;
+}
+
+/* Keep subsection headings closer to the text they introduce. */
+.start-page .typeset {
+  --typeset-flow: 1.45em;
+}
+
+.start-page .typeset h3 {
+  margin-block-start: var(--space-8);
+}
+
+.start-page .typeset h3 + p {
+  margin-block-start: var(--space-3);
+}
+
+.start-page .typeset > :is(ul, ol) > li + li {
+  margin-block-start: var(--space-3);
+}
+
+/* Question groups read as quiet labels above their disclosures. */
+.start-page .typeset h3 + .pamphlet-faq {
+  margin-top: var(--space-2);
+}
+.typeset .pamphlet-faq + .pamphlet-faq {
+  margin-top: 0;
+}
+
+/* Explainer figures on the pamphlet companion article (PamphletFigure.astro).
+   Deep green comes from --primary; terracotta (--highlight) marks shapes only. */
+.pamphlet-figure {
+  margin: var(--space-8) 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--card-foreground);
+  font-size: var(--text-main);
+  line-height: 1.5;
+}
+.pamphlet-figure ol,
+.pamphlet-figure ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pamphlet-figure strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+.pamphlet-figure a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.pamphlet-figure figcaption {
+  margin-top: var(--space-4);
+  color: var(--muted-foreground);
+  font-size: var(--text-small);
+}
+.pamphlet-figure_source,
+.pamphlet-figure_label {
+  margin: 0 0 var(--space-3);
+  color: var(--primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg, 1.125rem);
+}
+.pamphlet-figure_label {
+  margin-top: var(--space-5);
+  font-size: var(--text-main);
+}
+.pamphlet-figure_label:first-child {
+  margin-top: 0;
+}
+.pamphlet-figure_message {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+}
+.pamphlet-figure_message a {
+  font-size: var(--text-small);
+}
+
+/* Vertical spine with markers: prophets, timelines. */
+.pamphlet-steps,
+.pamphlet-timeline {
+  display: grid;
+  gap: var(--space-3);
+}
+.pamphlet-steps li,
+.pamphlet-timeline li {
+  position: relative;
+  display: grid;
+  gap: 0 var(--space-4);
+  padding-left: var(--space-7);
+}
+.pamphlet-steps li {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
+}
+.pamphlet-timeline li {
+  grid-template-columns: minmax(0, 1fr);
+}
+.pamphlet-steps li::before,
+.pamphlet-timeline li::before {
+  content: '';
+  position: absolute;
+  top: 0.45em;
+  left: 0.3rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.pamphlet-steps li:not(:last-child)::after,
+.pamphlet-timeline li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.2em;
+  bottom: calc(-1 * var(--space-3) - 0.45em);
+  left: calc(0.65rem - 1px);
+  border-left: 2px solid var(--border);
+}
+.pamphlet-steps .is-last::before,
+.pamphlet-timeline .is-future::before {
+  background: var(--highlight);
+}
+.pamphlet-timeline .is-future::before {
+  background: transparent;
+  border: 2px dashed var(--highlight);
+}
+.pamphlet-timeline span,
+.pamphlet-grid span,
+.pamphlet-pillars span {
+  color: var(--muted-foreground);
+}
+
+/* Six articles: two columns on wider screens. */
+.pamphlet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--space-3);
+}
+.pamphlet-grid li,
+.pamphlet-columns > li {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--muted);
+  border-radius: var(--radius-md);
+}
+
+/* Five Pillars rows with numbered markers. */
+.pamphlet-pillars {
+  display: grid;
+  gap: var(--space-4);
+  counter-reset: pillar;
+}
+.pamphlet-pillars li {
+  position: relative;
+  display: grid;
+  gap: var(--space-1);
+  padding-left: var(--space-8);
+  counter-increment: pillar;
+}
+.pamphlet-pillars li::before {
+  content: counter(pillar);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+.pamphlet-sky {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin-inline: auto;
+}
+
+.pamphlet-sky_arc,
+.pamphlet-sky_horizon {
+  fill: none;
+  stroke-width: 2;
+}
+
+.pamphlet-sky_arc {
+  stroke: var(--highlight);
+}
+
+.pamphlet-sky_horizon {
+  stroke: var(--border);
+  stroke-dasharray: 4 4;
+}
+
+.pamphlet-sky_sun,
+.pamphlet-day_marker {
+  fill: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.pamphlet-sky text {
+  fill: var(--primary-foreground);
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.pamphlet-figure .pamphlet-day {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+  gap: var(--space-2);
+}
+
+.pamphlet-day li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 var(--space-2);
+  align-content: start;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--muted);
+  font-size: var(--text-small);
+}
+
+.pamphlet-day_marker {
+  display: grid;
+  grid-row: span 2;
+  place-items: center;
+  align-self: start;
+  min-width: 1.4em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* Purpose of life: three columns that stack on phones. */
+.pamphlet-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: var(--space-3);
+}
+.pamphlet-columns ul {
+  display: grid;
+  gap: 0.15rem;
+  color: var(--muted-foreground);
+}
+
+/* Stats and bar charts. */
+.pamphlet-stat p {
+  margin: 0;
+}
+.pamphlet-stat_number {
+  color: var(--primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl, 1.875rem);
+  line-height: 1.15;
+}
+.pamphlet-dots {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 0.3rem;
+  max-width: 22rem;
+  margin-top: var(--space-4);
+}
+.pamphlet-dots span {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--border);
+}
+.pamphlet-dots .is-marked {
+  background: var(--highlight);
+}
+.pamphlet-bars {
+  display: grid;
+  gap: var(--space-2);
+}
+.pamphlet-bars li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.2rem var(--space-3);
+  align-items: center;
+}
+.pamphlet-bars_track {
+  grid-column: 1;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--muted);
+}
+.pamphlet-bars_track span {
+  display: block;
+  width: var(--bar);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+}
+.pamphlet-bars_label {
+  grid-column: 1 / -1;
+}
+.pamphlet-bars_value {
+  grid-column: 2;
+  grid-row: 2;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Shahada card and FAQ disclosures on the same page. */
+.pamphlet-shahada {
+  margin: var(--space-8) 0;
+  padding: var(--space-8) var(--space-5);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--highlight);
+  border-radius: var(--radius);
+  background: var(--accent);
+  text-align: center;
+}
+.pamphlet-shahada .quotation_arabic {
+  /* Amiri Quran sets small on its body; this reads as a display line. */
+  font-size: clamp(2.5rem, 2rem + 3vw, 3.25rem);
+  line-height: 1.9;
+  text-align: center;
+}
+.pamphlet-shahada p {
+  margin: 0 0 var(--space-3);
+}
+.pamphlet-shahada p:last-child {
+  margin-bottom: 0;
+}
+.pamphlet-faq {
+  border-top: 1px solid var(--border);
+}
+.pamphlet-faq:last-of-type {
+  border-bottom: 1px solid var(--border);
+}
+.pamphlet-faq summary {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: var(--space-3) 0;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.pamphlet-faq summary::after {
+  content: '+';
+  flex: none;
+  color: var(--primary);
+  font-size: 1.25em;
+  line-height: 1;
+}
+.pamphlet-faq[open] summary::after {
+  content: '−';
+}
+.start-page .typeset .pamphlet-faq > summary + p {
+  margin-block-start: var(--space-1);
+}
+
+.start-page .typeset .pamphlet-faq > p:last-child {
+  margin-block-end: var(--space-5);
+}

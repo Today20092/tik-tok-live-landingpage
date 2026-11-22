@@ -93,6 +93,8 @@
   --paper-edge: #a7b2ad;
   --support-hover: #f0ebe0;
   --pattern-color: #527d84;
+  /* Pamphlet terracotta: decorative marks only (4.4:1 on the light ground). */
+  --highlight: #a76038;
 }
 
 .dark,
@@ -121,6 +123,7 @@
   --paper-edge: #3d5056;
   --support-hover: #1f2b2e;
   --pattern-color: #6f9aa3;
+  --highlight: #e3a27c;
 }
 
 :root,

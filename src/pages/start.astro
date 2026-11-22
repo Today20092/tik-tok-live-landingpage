@@ -1,0 +1,108 @@
+---
+// Companion page for the printed "Getting to Know Islam" pamphlet. The QR code
+// prints go.ayoubabed.xyz/islam, which points here. Content: start/StartContent.mdx.
+import HubPage from '@/layouts/HubPage.astro';
+import Section from '@/components/lumos/Section.astro';
+import Heading from '@/components/lumos/Heading.astro';
+import ArticleReadingTools from '@/components/ArticleReadingTools.astro';
+import ArticleMarginNotes from '@/components/ArticleMarginNotes.astro';
+import ArticleContents from '@/components/ArticleContents.astro';
+import StartContent, { getHeadings } from '@/components/start/StartContent.mdx';
+import { groupContents } from '@/lib/contents';
+import { IconArrowDown } from '@tabler/icons-react';
+// The shahada uses the shared Arabic face; articles load it via QuranVerse.
+import '@fontsource/amiri-quran/arabic-400.css';
+
+const { contents } = groupContents(getHeadings());
+// The reader's likely reasons for scanning the pamphlet's QR code.
+const jumps = [
+  ['what-muslims-believe', 'What Muslims believe'],
+  ['questions-people-ask', 'Questions people ask'],
+  ['visiting-a-mosque', 'Visiting a mosque'],
+  ['becoming-muslim', 'Becoming Muslim'],
+];
+---
+
+<HubPage
+  title="Getting to Know Islam | Islam with Ayoub"
+  description="The companion to the printed pamphlet. What Muslims believe and practice, Muslims in the U.S. and worldwide, common questions, visiting a mosque, and how to become Muslim."
+  path="start/"
+>
+  <ArticleReadingTools />
+  <ArticleMarginNotes />
+  <Section
+    tag="main"
+    paddingTop="small"
+    paddingBottom="small"
+    gap="0"
+    data-pagefind-body=""
+    class="page-section article-reader"
+  >
+    <div class="article-page article-page--reader has-contents start-page">
+      <header class="article-page_header start-hero">
+        <svg
+          class="start-hero_art"
+          viewBox="0 0 104 120"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <!-- Simplified from the pamphlet cover: arch, sun, sprout. -->
+          <path
+            class="start-hero_back"
+            d="M28 120V50Q28 24 58 8Q88 24 88 50v70h-11V53Q77 34 58 22Q39 34 39 53v67Z"
+          />
+          <path
+            class="start-hero_arch"
+            d="M10 120V50Q10 24 42 6Q74 24 74 50v70H63V53Q63 34 42 20Q21 34 21 53v67Z"
+          />
+          <path
+            class="start-hero_inner"
+            d="M21 120V53Q21 34 42 20Q63 34 63 53v67Z"
+          />
+          <path
+            class="start-hero_hill"
+            d="M21 120V101Q33 92 44 98Q54 91 63 99v21Z"
+          />
+          <circle class="start-hero_sun" cx="42" cy="58" r="8" />
+          <path
+            class="start-hero_sprout"
+            d="M42 120V84M42 96q-9-2-10-10q9 1 10 10M42 90q8-3 9-11q-8 2-9 11"
+          />
+        </svg>
+        <span class="start-hero_rule" aria-hidden="true"></span>
+        <Heading
+          tag="h1"
+          id="article-top"
+          tabindex="-1"
+          data-pagefind-meta="title"
+          class="page-title start-hero_title"
+        >
+          Getting to Know Islam
+        </Heading>
+        <p class="start-hero_lede">
+          If you found this page through the pamphlet, start with whatever
+          interests you. Learn what Muslims believe, what happens at a mosque,
+          or what it means to become Muslim.
+        </p>
+        <nav aria-label="Jump to a section">
+          <ul class="start-hero_jumps">
+            {jumps.map(([slug, label]) => (
+              <li>
+                <a href={`#${slug}`}>
+                  {label}
+                  <IconArrowDown size={18} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+      <ArticleContents sections={contents} />
+      <div class="article-page_reading">
+        <article id="article-body" class="typeset typeset-article min-width-0">
+          <StartContent />
+        </article>
+      </div>
+    </div>
+  </Section>
+</HubPage>
