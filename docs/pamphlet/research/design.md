@@ -1,0 +1,80 @@
+# Trifold design research
+
+Start with dark text on white or a warm ivory tint, a Source Serif 4 cover title, Atkinson Hyperlegible Next at 12 pt or larger, and one original vector illustration on the cover. This gives the reader a clear entry point when picking up the folded handout. The [working copy](../islam-pamphlet-copy.md) already supplies a title, a plain-language subtitle, and headings that can guide reading through the folds.
+
+## Typography and whitespace
+
+| Element | First-proof setting |
+| --- | --- |
+| Cover title | 30–34 pt Source Serif 4 Regular, 32–36 pt leading, on two or three short lines |
+| Cover subtitle | 14–15 pt Regular, 18–20 pt leading |
+| Panel headings | 17–19 pt Bold, 20–23 pt leading |
+| Body, Pillars, and Q&A | 12–13 pt Regular, 15–17 pt leading. Try 12.5/16 first. Use Bold for short labels and questions. |
+| Printed source link | 12 pt minimum, dark and visibly underlined |
+
+These are project starting settings. The UK Disability Unit recommends at least 12 pt and suggests considering 14 pt for readers with sight loss. Try a 14 pt body proof if editorial cuts or a larger sheet make room. Point size alone cannot establish readability across fonts or print conditions. [UK Disability Unit accessible communication guidance](https://www.gov.uk/government/publications/inclusive-communication/accessible-communication-formats)
+
+- **Typeface.** Start with Atkinson Hyperlegible Next Regular, Bold, and Italic. Use Source Serif 4 for the cover title. Both families are installed in Windows. [Adobe Source Serif](https://github.com/adobe-fonts/source-serif). The Braille Institute supplies the family for low-vision legibility. Use the real italic for the handful of transliterated terms in the working copy. Check curly apostrophes, the en dash, and numerals in the exported file. Adobe's OFL-licensed Source Sans 3 is a fallback to compare at actual size if Atkinson poses an export or fit problem. [Braille Institute font downloads](https://www.brailleinstitute.org/freefont) · [Atkinson font sources and OFL](https://github.com/googlefonts/atkinson-hyperlegible-next) · [Adobe Source Sans 3](https://github.com/adobe-fonts/source-sans)
+- **Set paragraphs flush left with a ragged right edge.** Begin with ¼ inch of clearance from trim and each side of each fold, subject to the printer's dieline and tolerances. Use about 6–8 pt between paragraphs, 4–6 pt between list items, and 10–12 pt above internal headings with 4–6 pt below. Keep each question or Pillar label close to its answer. The CDC recommends grouping information by idea and leaving more space above headings than below. [CDC Clear Communication Index user guide](https://www.cdc.gov/ccindex/index.html)
+- **Fit the densest copy first.** The back in the working draft carries three Q&As. The layout below reserves space for the QR invitation. Test it and the Five Pillars at 12.5/16 before committing to the cover treatment. Keep a single predictable text column per panel. Let the longer interfaith heading wrap naturally. If the text overflows, remove decorative space and seek editorial cuts before reducing type or spacing. Reserve room for the short source URL as part of the composition.
+
+## Contrast and stock
+
+| Role | Proposed sRGB swatch | Contrast against paper swatch |
+| --- | --- | --- |
+| Background reference | Warm off-white #F8F5EC | — |
+| Body and links | Near-black #202722 | 14.0:1 |
+| Headings and cover artwork | Deep green #244A3E | 9.1:1 |
+| Small artwork accents | Terracotta #A76038 | 4.4:1. Use for decorative shapes. |
+
+The ratios use W3C's relative-luminance formula as a screen check. The printed result depends on ink, paper, finish, and lighting. Ask the printer to set small text in single-channel black where possible to reduce registration sensitivity. Keep the first run on the selected 55printing 100 lb. gloss book. Use warm ivory as a printed tint, and check glare and reverse-side show-through with a duplex proof on that stock. Keep body copy on solid paper and distinguish links by underlining as well as color. [W3C contrast guidance and formula](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) · [Adobe print color management and hard proofs](https://helpx.adobe.com/photoshop/using/proofing-colors.html)
+
+## Illustration and photography
+
+**Use an original cover vector.** Draw a simple arrangement of overlapping open arches in deep green with one small terracotta shape. Use broad forms and enough paper around them to preserve the title's prominence. Keep the artwork on the front panel, clear of the fold and subtitle. The paths should stay editable and reproduce cleanly at different sizes. Keep the Five Pillars typographic so the reader can find all five labels quickly. A single landmark, national motif, or clothing cue would narrow the impression of the diverse communities described in the flap copy. [Adobe on vector and raster reproduction](https://www.adobe.com/creativecloud/file-types/image/comparison/raster-vs-vector.html)
+
+**Use licensed photography if a later version has a documentary purpose.** An invited local mosque visit or community open house can show how readers might follow up. Verify the place and context, confirm permission for the intended print run and distribution, and check releases and any sensitive-use restrictions before associating identifiable people with a religion. Record the asset ID, license receipt, and any credit requirements. Ask the printer for its minimum effective image resolution at final crop. Adobe Stock, for example, addresses brochure use, editorial restrictions, and releases in its own licensing guidance. [Adobe Stock usage and licensing](https://helpx.adobe.com/stock/help/usage-licensing.html)
+
+**Use generated photography only as an illustration.** A generated scene cannot establish what happened at a specific mosque or event. If used, label it as an illustration where readers might infer documentary provenance. Inspect faces, hands, garments, gestures, architecture, and incidental text, and have someone familiar with Muslim practice review the scene. Save the generator and applicable terms with the asset. Adobe's Firefly FAQ illustrates how usage conditions can depend on the feature used. [Adobe Firefly FAQ](https://helpx.adobe.com/firefly/web/get-started/learn-the-basics/adobe-firefly-faq.html)
+
+## Panel layout for the existing DesignCraft file
+
+Use the outside and inside spreads in [DesignCraft master](../../design/islam-pamphlet.designcraft) and keep the printer's reference layer hidden for print export. Use the built-in fold guides and the cyan safe boxes in the official JPGs. Reserve roughly 0.20–0.25 in from trim and folds for text wherever space permits, then check the safe boxes at actual size. The saved document has 11 × 8.5 in trim and 11.125 × 8.625 in overall bleed. The word budgets below are layout targets to check in the first proof. [55printing fold-aware guidelines](https://www.55printing.com/tools-blog/guideline-templates-brochures-fold-aware.html)
+
+| Spread | Left | Center | Right |
+| --- | --- | --- | --- |
+| Outside | Fold-in flap. **Muslims in the United States.** Keep one concrete everyday example and the distinction between religion and ethnicity. Aim for 65–80 words. | Back. **Questions you may have.** Keep two short answers and reserve a distinct area for the QR and printed address. Aim for 55–70 words plus the invitation. | Cover. **Getting to Know Islam.** Set the title on two or three lines with a plain-language subtitle and one illustration. |
+| Inside | **What Muslims believe.** Use three short paragraphs on one God, scripture and Muhammad, and everyday ethics. Aim for 75–90 words. | **The Five Pillars.** Five stacked rows with bold plain-English labels and a brief explanation. Keep the same layout for each row and retain the key qualifications about fasting and pilgrimage. Aim for 75–90 words. | **Islam, Christianity, and Judaism.** Use Abraham as the opening and set Jesus and Mary off with a subheading. Preserve the differences in belief and aim for 75–90 words. |
+
+A Windows font-metric check at 12 pt Atkinson Hyperlegible Next and 225 pt column width estimated 13–18 body lines per content panel. Check final line breaks, heading wraps and QR clearance in the DesignCraft proof.
+
+The current [copy draft](../islam-pamphlet-copy.md) has about 113 words on the back before the QR invitation. Move the 2017 polling statistic and optional extended FAQs to the companion page, following the earlier editorial discussion. Keep the short explanation of justice and kindness. Encode the short link `go.ayoubabed.xyz/islam` in the QR, not the landing page's own URL. The short link redirects to the page on islam.ayoubabed.xyz, so the page can move without a reprint. Before printing, confirm that the short link reaches the live page. Print the same short address under the code and allow a four-module quiet zone. Start with a 1.15 in square including that zone, then scan the printed proof outdoors on iPhone and Android. [DENSO WAVE QR sizing and quiet zone](https://www.qrcode.com/en/howto/code.html/index.html)
+
+## Design references to borrow from
+
+- The Smithsonian Pocket Guide treats a folded handout and large-print edition as different reading formats. Borrow its approach of giving the physical handout a clear job and offering a more flexible reading format through the companion page. Its museum map serves a different reading task from this pamphlet. [Smithsonian pocket guide formats](https://www.si.edu/es/visit/maps)
+- The CDC's before-and-after layouts show how to replace long text blocks with clear entry points. Apply that principle to the Five Pillars and FAQ, where readers are most likely to scan for a particular answer. [CDC format and layout examples](https://www.cdc.gov/nceh/clearwriting/mod3/index.html)
+- The Met's geometric design exercises offer a source for building an original motif from a simple grid. Use a small, simplified motif as a divider or visual accent if it supports the composition. [The Met’s geometric design resource](https://resources.metmuseum.org/resources/metpublications/pdf/Islamic_Art_and_Geometric_Design_Activities_for_Learning.pdf)
+
+## Build and proof sequence
+
+1. Typeset the actual copy in DesignCraft at final size before commissioning any image. Use short paragraphs, consistent headings and one text column per panel. Check for overset text and revise copy before shrinking type. The CDC's before-and-after examples show how paragraph breaks, headings and white space clarify dense information. [CDC layout examples](https://www.cdc.gov/nceh/clearwriting/mod3/index.html)
+2. Draw the chosen cover illustration in VectorCraft, save the editable vector source and place an exported asset in DesignCraft. Keep shapes broad enough to read at roughly three inches and put the title above the image on a solid ground.
+3. Print both sides at 100 percent and fold the sheet. Ask a few readers new to the topic what the handout is about, which panel they open next, and how they would find more information. Check readability outdoors under sun and shade, ideally on the intended glossy stock. [CDC audience testing guidance](https://www.cdc.gov/ccindex/tool/how-to-use.html)
+4. Export with trim and bleed from the existing document, hide the printer guidelines, and review the vendor proof for fold order, gutter separation and edges. Keep the editable DesignCraft master with live text. If the printer requires outlines, apply that change to a separate print-output copy. Provide the companion page as readable HTML. [55printing template library](https://www.55printing.com/tools/download-guideline-templates/download-templates/brochures/)
+
+## Implemented grid and photo
+
+The DesignCraft file uses a 4 pt document baseline grid with text aligned to the Roman baseline. Body leading is 16 pt. Native guides mark each fold and the text columns, which sit 20 pt in from their panel edges. The Pillar markers align to their respective heading rows, and the border artwork repeats in stepped tints across both sides.
+
+The flap photo shows an iftar table in Gaziantep, Türkiye. Photograph by Cemrecan Yurtman, used under the [Unsplash License](https://unsplash.com/license). [Original photograph](https://unsplash.com/photos/a-person-eating-a-meal-with-many-dishes-on-table-j70UasSzZEQ)
+
+## Print fundamentals audit and proposed corrections
+
+- **Optical alignment.** The Pillar markers currently use a fixed offset from the frame top. In the next pass, center each marker's visible shape against the first heading line's visible letterforms. Use the font's cap-height midpoint as a starting point, then compare the mixed-case text and marker in the rendered proof. Keep the text baseline on the grid and adjust the artwork independently. Make the marker size and the gap to the heading consistent across all five rows. [Carbon icon alignment](https://carbon-website-git-data-viz.carbon-design-system.vercel.app/guidelines/icons/usage/)
+- **Grid and spacing.** Keep the 4 pt baseline grid and 16 pt body leading. The last build checked all 88 baselines in a live-text PDF export. Keep the fold-specific columns and 20 pt side insets. Align rules, images and text blocks to the same column edges. Use 4 pt spacing increments, with 4–8 pt within a heading-and-copy group and 12–16 pt between groups as first-proof targets. Keep the Pillar rows content-height. [Adobe baseline grids](https://helpx.adobe.com/indesign/desktop/layout-and-grid-tools/grids/use-a-baseline-grid.html) · [CDC layout guidance](https://www.cdc.gov/nceh/clearwriting/mod3/index.html)
+- **Legibility.** Keep 12.5 pt body copy and high-contrast backgrounds. In the design swatches, near-black on ivory is 14.01:1, deep green on ivory is 9.07:1 and deep green on pale sage is 8.73:1. Terracotta on ivory is 4.40:1, so reserve it for decoration. These are sRGB comparisons. Check actual contrast and glare on the glossy stock. Keep the pattern out of reading areas and leave the QR quiet zone clear. [UKAAF clear print guidance](https://www.ukaaf.org/wp-content/uploads/2024/12/G003-UKAAF-Creating-clear-print-and-large-print-documents-v4.pdf) · [W3C contrast formula](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- **Vector and raster.** Keep the cover paths, pattern, markers and QR as vector art and the master text editable. The print PDF contains one raster image, the CMYK iftar photo, at 586 effective ppi. It exceeds the printer's 300 ppi recommendation at its current size. Keep the JPEG as a review image and send a printer-approved PDF. Check fine vector lines and the lightest tints on the proof. [Adobe bitmap guidance](https://helpx.adobe.com/illustrator/desktop/add-and-import-files/import-other-file-types/bitmap-images-in-illustrator.html) · [55printing print checklist](https://www.55printing.com/preparing-documents-for-print-file-checklist.html)
+- **Prepress.** The current PDF has 11 × 8.5 in trim and 11.125 × 8.625 in total bleed area. The product guide matches those dimensions, while 55printing’s general checklist gives 0.125 in bleed guidance. Confirm the product-specific bleed, PDF format and fold overlay in the vendor proof. Review CMYK separations and small black text, then trim and fold at actual size, inspect in sun and shade, and scan the physical QR. [55printing fold guide](https://www.55printing.com/tools-blog/guideline-templates-brochures-fold-aware.html) · [Adobe overprinting guidance](https://helpx.adobe.com/indesign/desktop/print/color-output-and-separations/about-overprinting.html)
+
+The optical alignment pass centered each 10 pt Pillar marker on the visible ink bounds of its heading and checked the final render at 288 ppi. It also aligned rules and artwork to the text columns, set interior section gaps by line count, and increased the photo caption to 12.5 pt. The renewed export passed PDF/X-1a validation, and both pages use a single-channel Black separation for body text. The printer proof and physical stock check are pending.

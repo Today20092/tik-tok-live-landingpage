@@ -7,6 +7,7 @@
 @import './lumos/search.css' layer(components);
 @import './lumos/variants.css' layer(components);
 @import './lumos/shared.css' layer(components);
+@import './lumos/pamphlet.css' layer(components);
 
 :root {
   --color-background: var(--background);

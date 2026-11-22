@@ -1,0 +1,67 @@
+---
+// Sticky "On this page" rail shared by articles and the /start page.
+// ArticleReadingTools reads its ids and data attributes.
+import { IconList, IconChevronDown } from '@tabler/icons-react';
+import type { groupContents } from '@/lib/contents';
+
+interface Props {
+  sections: ReturnType<typeof groupContents>['contents'];
+}
+const { sections } = Astro.props;
+---
+
+{sections.length >= 2 && (
+  <div class="article-page_contents-rail">
+    <details
+      id="article-contents"
+      data-pagefind-ignore
+      class="group article-page_contents"
+    >
+      <summary class="article-page_contents-toggle">
+        <IconList size={18} aria-hidden="true" />
+        <span id="article-contents-title">On this page</span>
+        <IconChevronDown
+          size={16}
+          className="article-page_contents-chevron"
+          aria-hidden="true"
+        />
+      </summary>
+      <nav
+        aria-labelledby="article-contents-title"
+        class="article-page_contents-nav"
+      >
+        <div class="article-page_contents-track" aria-hidden="true">
+          <span />
+        </div>
+        <ul class="article-page_contents-list">
+          {sections.map(({ slug, text, children }) => (
+            <li data-contents-section={slug}>
+              <a
+                href={`#${slug}`}
+                data-contents-link
+                class="article-page_contents-link"
+              >
+                {text}
+              </a>
+              {children.length > 0 && (
+                <ul class="article-page_contents-children">
+                  {children.map((child) => (
+                    <li>
+                      <a
+                        href={`#${child.slug}`}
+                        data-contents-link
+                        class="article-page_contents-link"
+                      >
+                        {child.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+)}
