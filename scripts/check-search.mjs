@@ -15,7 +15,9 @@ const pages = readdirSync(fragments)
 assert.ok(pages.length >= 2, 'The hub and published article must be indexed');
 for (const page of pages) {
   assert.ok(
-    page.url === '/' || page.url.startsWith('/articles/'),
+    page.url === '/' ||
+      page.url === '/start/' ||
+      page.url.startsWith('/articles/'),
     `Unexpected indexed page: ${page.url}`
   );
   assert.ok(
