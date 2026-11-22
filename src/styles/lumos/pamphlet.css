@@ -21,28 +21,6 @@ html:not(.dark):has(.start-page) {
   width: 4.75rem;
   height: auto;
 }
-.start-hero_arch,
-.start-hero_sprout {
-  fill: var(--primary);
-}
-.start-hero_sprout {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-.start-hero_back {
-  fill: color-mix(in oklab, var(--highlight) 55%, var(--background));
-}
-.start-hero_inner {
-  fill: var(--background);
-}
-.start-hero_hill {
-  fill: color-mix(in oklab, var(--primary) 28%, var(--background));
-}
-.start-hero_sun {
-  fill: var(--highlight);
-}
 .start-hero_rule {
   display: block;
   width: 2.5rem;
