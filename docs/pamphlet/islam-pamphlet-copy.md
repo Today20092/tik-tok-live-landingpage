@@ -12,7 +12,7 @@ Prepared by Ayoub Abedrabbo (small line under the cover art).
 
 ## 2. Fold-in flap · Muslims in the United States
 
-About 1 in 100 U.S. adults identifies as Muslim, according to Pew Research Center's 2023–24 Religious Landscape Study.
+About 1% of U.S. adults identify as Muslim, according to Pew Research Center's 2023–24 Religious Landscape Study.
 
 **Graphic: 1 in 100.** A grid of 100 dots, one in terracotta.
 
@@ -26,7 +26,7 @@ U.S. Muslims come from many racial and ethnic backgrounds. Some were born here. 
 
 ## 3. Inside left · What Muslims believe
 
-**Six articles of faith.** Muslims believe in (Sahih Muslim 8):
+**Six articles of faith.** Core Muslim beliefs (Sahih Muslim 8):
 
 **Graphic: icon grid.** One God (eight-point star): Allah: Arabic for God · Angels (rays of light): God’s unseen servants · Scriptures (open book): From Torah to Qur’an · Prophets (path of milestones): From Adam to Muhammad · The Last Day (scales): Judgment after death · Divine decree (pen): All within God’s will.
 
@@ -43,7 +43,7 @@ U.S. Muslims come from many racial and ethnic backgrounds. Some were born here. 
 Each Pillar has an icon: a raised index finger, a prayer mat, a hand under a coin, a crescent and star, and the Kaaba.
 
 - **Declaration of faith (*shahada*).** Affirm belief in one God and in Muhammad as God's messenger.
-- **Prayer (*salat*).** Pray five times a day, after a ritual washing called *wudu* (5:6).
+- **Prayer (*salat*).** Pray five times a day after a ritual washing called *wudu* (5:6).
   **Graphic: the sun through the day.** Fajr · Dawn, Dhuhr · Midday, Asr · Afternoon, Maghrib · Sunset, Isha · Night.
 - **Giving (*zakat*).** Muslims with savings above a set amount give 2.5% a year, mainly to people in need (9:60).
 - **Fasting (*sawm*).** During Ramadan, Muslims who are able go without food and drink from dawn to sunset.
@@ -63,13 +63,13 @@ Muslims love and honor Jesus, called *Isa* in Arabic. The Qur’an tells much of
 - **Raised up to God** (4:158).
 - **Will return to earth** (43:61). A sign that the Last Hour is near.
 
-**How Muslims see Jesus.** (Moss box.) A great prophet and the Messiah, but human, not God or the Son of God (4:171). Muslims believe God raised him up and he was not crucified (4:157–158).
+**How Muslims see Jesus.** (Moss box.) Jesus is a great prophet and the Messiah. He is human, not God or the Son of God (4:171). Muslims believe God raised him up and that he was not crucified (4:157–158).
 
 **Read about Jesus and Mary in Surah Maryam, chapter 19.**
 
 ## 6. Back · Questions you may have
 
-**Does Islam allow violence against innocent people?** No. The Qur’an says that whoever saves a life, “it will be as if they saved all of humanity” (5:32). It also says, “Let there be no compulsion in religion” (2:256), and calls for justice even toward enemies (5:8).
+**Does Islam allow violence against innocent people?** No. The Qur’an likens saving a life to saving all of humanity (5:32). It also says, “Let there be no compulsion in religion” (2:256), and calls for justice even toward enemies (5:8).
 
 **What is Sharia?** Sharia is guidance for all of life, from prayer to business. Muslims interpret it differently. The First Amendment protects religious freedom.
 
@@ -83,7 +83,7 @@ Muslims love and honor Jesus, called *Isa* in Arabic. The Qur’an tells much of
 - Fair treatment (4:19)
 - Seeking a divorce (2:229)
 
-**Explore more.** Read the Qur'an in English. Learn how to visit a mosque. (QR code and **go.ayoubabed.xyz/islam**.)
+**Explore more.** Read the Qur'an in English. Learn how to visit a mosque. (QR code: dark green rounded squares, error correction level L, 25 × 25 grid, 56 pt wide; art in `assets/vector/qr-code.svg`. URL printed below: **go.ayoubabed.xyz/islam**.)
 
 ## Source notes for the editor
 
