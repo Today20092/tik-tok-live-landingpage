@@ -3,8 +3,8 @@ import console from 'node:console';
 import { readFileSync } from 'node:fs';
 import { URL } from 'node:url';
 
-const source = readFileSync(
-  new URL('../src/components/PalettePreview.astro', import.meta.url),
+const css = readFileSync(
+  new URL('../src/styles/lumos/tokens.css', import.meta.url),
   'utf8'
 );
 const global = readFileSync(
@@ -24,13 +24,14 @@ const luminance = (color) =>
 const contrast = (a, b) =>
   (Math.max(luminance(a), luminance(b)) + 0.05) /
   (Math.min(luminance(a), luminance(b)) + 0.05);
+const light = tokens(css.match(/\.theme-light\s*\{([^}]+)\}/)[1]);
 const palettes = [
-  ['scholarly', tokens(global.match(/:root\s*\{([^}]+)\}/)[1])],
+  ['light', light],
+  // Dark inherits any token it does not override.
+  ['dark', { ...light, ...tokens(css.match(/\.theme-dark\s*\{([^}]+)\}/)[1]) }],
 ];
-const patternOpacity = Math.max(
-  ...[...source.matchAll(/--pattern-opacity:\s*([\d.]+)/g)].map((m) =>
-    Number(m[1])
-  )
+const patternOpacity = Number(
+  global.match(/\[data-site-shell\]::before\s*\{[^}]*opacity:\s*([\d.]+)/)[1]
 );
 assert.ok(patternOpacity > 0 && patternOpacity <= 1);
 for (const [name, colors] of palettes) {
@@ -42,15 +43,16 @@ for (const [name, colors] of palettes) {
     'accent',
     'support-hover',
   ]) {
-    const bg = rgb(colors[background] ?? '#fff1eb');
-    for (const foreground of ['foreground', 'muted-foreground']) {
-      // Bound pure black/white pixels at the strongest available pattern setting.
+    const bg = rgb(colors[background]);
+    const pattern = rgb(colors['pattern-color']);
+    for (const foreground of ['foreground', 'muted-foreground', 'primary']) {
+      // Include the background where the lattice pattern is painted over it.
       const backgrounds =
         background === 'background'
           ? [
               bg,
-              ...[0, 255].map((noise) =>
-                bg.map((v) => v * (1 - patternOpacity) + noise * patternOpacity)
+              bg.map(
+                (v, i) => v * (1 - patternOpacity) + pattern[i] * patternOpacity
               ),
             ]
           : [bg];
@@ -68,16 +70,14 @@ for (const [name, colors] of palettes) {
     contrast(rgb(colors['primary-foreground']), rgb(colors.primary)) >= 4.5,
     `${name} primary text`
   );
-  for (const surface of ['background', 'card', 'secondary', 'accent']) {
-    assert.ok(
-      contrast(rgb(colors.ring), rgb(colors[surface])) >= 3,
-      `${name} focus/${surface}`
-    );
+  for (const surface of ['background', 'card', 'secondary', 'accent', 'popover']) {
+    for (const token of ['ring', 'input']) {
+      assert.ok(
+        contrast(rgb(colors[token]), rgb(colors[surface])) >= 3,
+        `${name} ${token}/${surface}`
+      );
+    }
   }
-  assert.ok(
-    contrast(rgb(colors.input), rgb(colors.card)) >= 3,
-    `${name} control/card`
-  );
   console.log(
     `${name}: text minimum ${minimum.toFixed(2)}:1; primary, focus and control checks pass`
   );
