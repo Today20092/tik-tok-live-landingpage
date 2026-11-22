@@ -32,7 +32,7 @@ Default to the warm off-white light palette, matching master. Dark mode is an ex
 
 All routes now load the Lumos foundation and native component styles; there is no Tailwind compiler or utility runtime. `/lumos-preview/` demonstrates the shared tokens, headings, cards, and controls. It exists only during development or when explicitly building with `LUMOS_PREVIEW=1`; normal production builds exclude it.
 
-Link previews use the Cnippet Preview Card interaction with a native popover and Lumos tokens. Hover or focus a participating link to peek, or use its adjacent preview button to read the same information on demand. The development reference demonstrates resource links and footnotes. Run `node scripts/check-link-previews.mjs` against development or the built preview to exercise the shared interaction.
+Link previews use the Cnippet Preview Card interaction with a native popover and Lumos tokens. Hover or focus a participating link to peek, or use its adjacent preview button to read the same information on demand. Use previews for explanatory or multi-source footnotes and checked quotations linked in prose. A footnote that points to one source without commentary stays a plain marker. Cards, section jumps, and links with clear destination labels use direct navigation. The development reference demonstrates the footnote interaction. Run `node scripts/check-link-previews.mjs` against development or the built preview to exercise the shared interaction.
 
 Read the reference page before changing shared styles. Check both themes, narrow screens, enlarged text, focus, and the actual consuming pages. API upgrades require a reviewed diff against the pinned revision and fresh visual checks.
 
