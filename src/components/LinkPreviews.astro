@@ -1,0 +1,405 @@
+---
+import { getCollection } from 'astro:content';
+import { readingTime } from '@/lib/reading-time';
+import verses from '@/data/quran-verses.json';
+import hadith from '@/data/hadith.json';
+
+const base = import.meta.env.BASE_URL;
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const entries = Object.fromEntries([
+  ...articles.map((article) => [
+    `${base}articles/${article.id}/`,
+    [
+      article.data.title,
+      article.data.description,
+      `About ${readingTime(article.body)} min read`,
+    ],
+  ]),
+  ...Object.entries(verses).flatMap(([key, verse]) =>
+    verse.translator === 'M. A. S. Abdel Haleem'
+      ? [
+          [
+            `https://quran.com/${('reference' in verse ? verse.reference : key).replace(':', '/')}`,
+            [
+              `Qur’an ${'reference' in verse ? verse.reference : key}`,
+              verse.translation,
+              `${verse.translator}${'excerpt' in verse && verse.excerpt ? ' · Excerpt' : ''}`,
+            ],
+          ],
+        ]
+      : []
+  ),
+  ...Object.values(hadith).map((entry) => [
+    entry.url,
+    [
+      entry.reference,
+      entry.translation,
+      `${entry.translationSource}${'excerpt' in entry && entry.excerpt ? ' · Excerpt' : ''}`,
+    ],
+  ]),
+  [
+    `${base}start/`,
+    [
+      'Getting to Know Islam',
+      'A guide to Muslim beliefs, common questions, visiting a mosque, and becoming Muslim.',
+    ],
+  ],
+  [
+    `${base}printables/`,
+    [
+      'Getting to Know Islam',
+      'See both sides of the trifold and get files for home printing or a print shop.',
+    ],
+  ],
+]);
+---
+
+<div
+  id="link-preview"
+  popover
+  role="region"
+  aria-labelledby="link-preview-title"
+  data-pagefind-ignore
+>
+  <strong id="link-preview-title"></strong>
+  <p id="link-preview-body"></p>
+  <small id="link-preview-meta"></small>
+  <button
+    type="button"
+    class="control control-outline"
+    aria-describedby="link-preview-title link-preview-body link-preview-meta"
+    popovertarget="link-preview"
+    popovertargetaction="hide"
+  >
+    Close preview
+  </button>
+</div>
+<script
+  type="application/json"
+  id="link-preview-data"
+  is:inline
+  set:html={JSON.stringify(entries).replaceAll('<', '\\u003c')}
+/>
+<script>
+  const popup = document.querySelector<HTMLElement>('#link-preview');
+  const data = document.querySelector('#link-preview-data');
+  const title = popup?.querySelector('strong');
+  const body = popup?.querySelector('p');
+  const meta = popup?.querySelector('small');
+  const close = popup?.querySelector('button');
+
+  if (popup?.showPopover && data && title && body && meta && close) {
+    const entries: Record<string, string[]> = JSON.parse(
+      data.textContent ?? '{}'
+    );
+    let timer = 0;
+    let active: HTMLElement | undefined;
+    let explicit = false;
+
+    function preview(link: HTMLAnchorElement): string[] | undefined {
+      const url = new URL(link.href);
+      if (link.dataset.preview)
+        return [
+          link.dataset.previewTitle ?? link.textContent?.trim() ?? '',
+          link.dataset.preview,
+        ];
+      if (link.hasAttribute('data-footnote-ref')) {
+        const note = document
+          .getElementById(decodeURIComponent(url.hash.slice(1)))
+          ?.cloneNode(true);
+        if (!(note instanceof HTMLElement)) return;
+        note
+          .querySelectorAll('[data-footnote-backref]')
+          .forEach((back) => back.remove());
+        return [
+          `Note ${link.textContent?.trim()}`,
+          note.textContent?.trim() ?? '',
+        ];
+      }
+      if (link.matches('[data-contents-link], .start-hero_jumps a')) {
+        const jump = [
+          ...document.querySelectorAll<HTMLAnchorElement>(
+            '.start-hero_jumps a'
+          ),
+        ].find((candidate) => candidate.hash === url.hash);
+        if (jump?.dataset.preview)
+          return [jump.dataset.previewTitle ?? '', jump.dataset.preview];
+        const heading = document.getElementById(
+          decodeURIComponent(url.hash.slice(1))
+        );
+        let next =
+          heading?.closest('.article-section-heading')?.nextElementSibling ??
+          heading?.nextElementSibling;
+        while (next && !next.matches('p, h2, h3, h4, .article-section-heading'))
+          next = next.nextElementSibling;
+        if (next?.matches('p')) {
+          const paragraph = next.cloneNode(true);
+          if (!(paragraph instanceof HTMLElement)) return;
+          paragraph
+            .querySelectorAll('[data-footnote-ref]')
+            .forEach((note) => note.remove());
+          const copy = paragraph.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+          return [
+            link.textContent?.trim() ?? '',
+            copy.length > 230
+              ? `${copy.slice(0, 230).replace(/\s+\S*$/, '')}…`
+              : copy,
+          ];
+        }
+        return;
+      }
+      if (
+        url.hostname === 'quran.com' &&
+        (!url.searchParams.has('translations') ||
+          url.searchParams.get('translations') === '85')
+      ) {
+        const entry = entries[url.origin + url.pathname];
+        if (entry) return entry;
+      }
+      if (
+        url.hostname === 'quran.com' &&
+        /^\/\d+(?:\/\d+(?:-\d+)?)?\/?$/.test(url.pathname)
+      ) {
+        const reference = url.pathname
+          .replace(/^\/|\/$/g, '')
+          .replace('/', ':');
+        return [
+          `Qur’an ${reference}`,
+          reference === '19'
+            ? 'Surah Maryam includes accounts of Mary and Jesus.'
+            : 'Read the Arabic and translation on Quran.com.',
+        ];
+      }
+      if (
+        url.hostname === 'sunnah.com' &&
+        /^\/[a-z-]+:\d+[a-z]?\/?$/.test(url.pathname)
+      ) {
+        return (
+          entries[url.origin + url.pathname] ?? [
+            link.textContent?.trim() || url.pathname.slice(1),
+            'Read the narration and collection details on Sunnah.com.',
+          ]
+        );
+      }
+      if (
+        url.origin === location.origin &&
+        link.closest(
+          '#article-body, .article-page_author, .article-page_resources, main'
+        )
+      ) {
+        const path = url.pathname.replace(/\/?$/, '/');
+        if (
+          link.closest(
+            '#article-body, .article-page_author, .article-page_resources, .pocket-hub'
+          ) ||
+          /\/(start|printables)\/$/.test(path)
+        )
+          return entries[path];
+      }
+    }
+
+    function hide() {
+      clearTimeout(timer);
+      if (!explicit && popup?.matches(':popover-open')) popup.hidePopover();
+    }
+
+    function show(source: HTMLElement, content: string[], opened: boolean) {
+      if (!popup || !title || !body || !meta || !close) return;
+      active = source;
+      explicit = opened;
+      title.textContent = content[0];
+      body.textContent = content[1];
+      meta.textContent = content[2] ?? '';
+      close.hidden = !opened;
+      popup.toggleAttribute('aria-hidden', !opened);
+      const parent = source.closest('dialog[open]') ?? document.body;
+      if (popup.parentElement !== parent) parent.append(popup);
+      if (!popup.matches(':popover-open')) popup.showPopover();
+      const bounds = source.getBoundingClientRect();
+      const width = popup.offsetWidth;
+      const height = popup.offsetHeight;
+      const below = bounds.bottom + height + 8 <= innerHeight;
+      popup.style.left = `${Math.max(8, Math.min(bounds.left, innerWidth - width - 8))}px`;
+      popup.style.top = `${Math.max(8, Math.min(innerHeight - height - 8, below ? bounds.bottom - 1 : bounds.top - height + 1))}px`;
+      if (opened) close.focus();
+    }
+
+    function initialize(root: ParentNode) {
+      root.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+        if (
+          link.getAttribute('aria-hidden') === 'true' ||
+          link.nextElementSibling?.matches('button.link-preview-trigger')
+        )
+          return;
+        const content = preview(link);
+        if (!content?.[1]) return;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'link-preview-trigger';
+        button.textContent = 'ⓘ';
+        button.setAttribute('aria-label', `Preview: ${content[0]}`);
+        button.setAttribute('aria-controls', 'link-preview');
+        button.setAttribute('aria-expanded', 'false');
+        button.addEventListener('click', () => {
+          clearTimeout(timer);
+          if (explicit && active === button && popup?.matches(':popover-open'))
+            popup.hidePopover();
+          else {
+            active?.setAttribute('aria-expanded', 'false');
+            show(button, content, true);
+            button.setAttribute('aria-expanded', 'true');
+          }
+        });
+        link.after(button);
+      });
+    }
+
+    initialize(document);
+    document.addEventListener('focusin', (event) => {
+      const dialog =
+        event.target instanceof Element ? event.target.closest('dialog') : null;
+      if (dialog) initialize(dialog);
+    });
+
+    function schedule(event: Event) {
+      const link =
+        event.target instanceof Element
+          ? event.target.closest('a[href]')
+          : null;
+      if (explicit || !(link instanceof HTMLAnchorElement)) return;
+      if (
+        event instanceof PointerEvent &&
+        (event.pointerType === 'touch' ||
+          link.contains(event.relatedTarget as Node))
+      )
+        return;
+      const content = preview(link);
+      if (!content?.[1]) return;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => show(link, content, false), 400);
+    }
+
+    function scheduleHide(event: Event) {
+      const link =
+        event.target instanceof Element
+          ? event.target.closest('a[href]')
+          : null;
+      if (link && active !== link && popup?.matches(':popover-open')) return;
+      clearTimeout(timer);
+      timer = window.setTimeout(hide, 140);
+    }
+
+    document.addEventListener('pointerover', schedule);
+    document.addEventListener('focusin', schedule);
+    document.addEventListener('pointerout', (event) => {
+      const link =
+        event.target instanceof Element
+          ? event.target.closest('a[href]')
+          : null;
+      if (
+        link?.contains(event.relatedTarget as Node) ||
+        popup.contains(event.relatedTarget as Node)
+      )
+        return;
+      if (link) scheduleHide(event);
+    });
+    document.addEventListener('focusout', scheduleHide);
+    popup.addEventListener('pointerenter', () => clearTimeout(timer));
+    popup.addEventListener('pointerleave', hide);
+    popup.addEventListener('beforetoggle', (event) => {
+      if (event.newState !== 'closed') return;
+      clearTimeout(timer);
+      active?.setAttribute('aria-expanded', 'false');
+      const restore =
+        explicit && popup.contains(document.activeElement) ? active : undefined;
+      explicit = false;
+      if (restore) queueMicrotask(() => restore.focus());
+    });
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (popup.matches(':popover-open')) hide();
+      },
+      { passive: true }
+    );
+    window.addEventListener('resize', hide);
+  }
+</script>
+
+<style is:global>
+  @layer components {
+    #link-preview {
+      position: fixed;
+      inset: auto;
+      margin: 0;
+      box-sizing: border-box;
+      inline-size: min(24rem, calc(100vw - 16px));
+      max-block-size: calc(100dvh - 16px);
+      overflow: auto;
+      padding: var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-small);
+      background: var(--card);
+      color: var(--card-foreground);
+      box-shadow: 0 4px 20px #0003;
+      font: var(--text-main) / 1.45 var(--font-sans);
+      overflow-wrap: anywhere;
+    }
+
+    #link-preview p,
+    #link-preview button {
+      margin-block-start: var(--space-2);
+    }
+
+    #link-preview button[hidden] {
+      display: none;
+    }
+
+    .link-preview-trigger {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: 1.5em;
+      min-block-size: 1.5em;
+      margin-inline-start: var(--space-1);
+      border: 0;
+      border-radius: var(--radius-small);
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .learning-videos_actions,
+    .start-hero_jumps li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .start-hero_jumps li > a {
+      flex: 1;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .learning-videos_actions {
+      flex-wrap: wrap;
+    }
+
+    @media (pointer: coarse) {
+      .link-preview-trigger {
+        min-inline-size: var(--control-height);
+        min-block-size: var(--control-height);
+      }
+    }
+
+    @media print {
+      .link-preview-trigger,
+      #link-preview {
+        display: none;
+      }
+    }
+  }
+</style>

@@ -32,6 +32,8 @@ Default to the warm off-white light palette, matching master. Dark mode is an ex
 
 All routes now load the Lumos foundation and native component styles; there is no Tailwind compiler or utility runtime. `/lumos-preview/` demonstrates the shared tokens, headings, cards, and controls. It exists only during development or when explicitly building with `LUMOS_PREVIEW=1`; normal production builds exclude it.
 
+Link previews use the Cnippet Preview Card interaction with a native popover and Lumos tokens. Hover or focus a participating link to peek, or use its adjacent preview button to read the same information on demand. The development reference demonstrates resource links and footnotes. Run `node scripts/check-link-previews.mjs` against development or the built preview to exercise the shared interaction.
+
 Read the reference page before changing shared styles. Check both themes, narrow screens, enlarged text, focus, and the actual consuming pages. API upgrades require a reviewed diff against the pinned revision and fresh visual checks.
 
 Component styles preserve existing layouts and interactive behavior. The compact hub and alternate editorial layouts intentionally use different compositions; shared color, type families, control height, and focus tokens remain consistent. The image viewer and Arabic quotations have documented sizing exceptions in `shared.css`.

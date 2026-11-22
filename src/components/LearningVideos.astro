@@ -29,6 +29,11 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
       : biography
         ? 'The Life of Prophet Muhammad'
         : link.title.replaceAll('—', '-');
+    const preview = stories
+      ? 'Mufti Menk’s YouTube playlist. Start with Adam and follow the prophets in order.'
+      : biography
+        ? 'A YouTube biography playlist. Start with Muhammad’s early life, then follow the account through the first revelation and migration.'
+        : link.description;
     const action = link.youtube?.startsWith('videoseries')
       ? 'Watch playlist on YouTube'
       : 'Watch video on YouTube';
@@ -37,6 +42,8 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
         <!-- Duplicate pointer target for the watch button below; hidden from keyboard and screen readers. -->
         <a
           href={link.url}
+          data-preview={preview}
+          data-preview-title={title}
           tabindex="-1"
           aria-hidden="true"
           class="learning-videos_a"
@@ -63,9 +70,7 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
           </span>
         </a>
         <div class="min-width-0">
-          <h4 class="learning-videos_h3">
-            {title}
-          </h4>
+          <h4 class="learning-videos_h3">{title}</h4>
           <p class="learning-videos_meta">
             {stories
               ? 'Mufti Menk · Playlist'
@@ -88,14 +93,17 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
             </p>
           )}
         </div>
-        <a
-          href={link.url}
-          class="control control-outline learning-videos_watch"
-          aria-label={`${action}: ${title}`}
-        >
-          {action}{' '}
-          <IconArrowUpRight size={16} aria-hidden="true" />
-        </a>
+        <div class="learning-videos_actions">
+          <a
+            href={link.url}
+            class="control control-outline learning-videos_watch"
+            aria-label={`${action}: ${title}`}
+            data-preview={preview}
+            data-preview-title={title}
+          >
+            {action} <IconArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </div>
       </article>
     );
   })}
