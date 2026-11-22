@@ -80,7 +80,8 @@ const tall = previews.every((p) => p.height > p.width * 1.5);
   .print-previews figcaption {
     margin-top: var(--space-2);
   }
-  .print-actions {
+  /* Shared with the rest of /printables so every download row matches. */
+  :global(.print-actions) {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);

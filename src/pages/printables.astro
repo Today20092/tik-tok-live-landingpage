@@ -1,5 +1,6 @@
 ---
 import { statSync } from 'node:fs';
+import { IconRotate360 } from '@tabler/icons-react';
 import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
@@ -33,7 +34,7 @@ const postcards = Object.entries({
   question,
   pdf: `${base}${postcardDir}/postcard-${slug}.pdf`,
   thumb: `${base}${postcardDir}/postcard-${slug}.jpg`,
-  size: kb(`postcard-${slug}.pdf`),
+  back: `${base}${postcardDir}/postcard-${slug}-back.jpg`,
 }));
 const pack = 'getting-to-know-islam-postcards.zip';
 ---
@@ -109,25 +110,25 @@ const pack = 'getting-to-know-islam-postcards.zip';
 
           <h3>Order from a print shop</h3>
           <p>
-            I used{' '}
-            <a href="https://www.55printing.com/brochure-printing/">
-              55printing’s brochure printing service
-            </a>{' '}
-            for the first run. You can also take these files to a local print
-            shop.
+            Print shops need the outside and inside as separate files. I used
+            55printing for the first run; a local print shop works too.
           </p>
-          <ul>
-            <li>
-              <a href={`${artwork}-outside.pdf`} download>
-                Download the outside PDF (Front)
-              </a>
-            </li>
-            <li>
-              <a href={`${artwork}-inside.pdf`} download>
-                Download the inside PDF (Back)
-              </a>
-            </li>
-          </ul>
+          <div class="print-actions" data-not-typeset>
+            <a
+              href={`${artwork}-outside.pdf`}
+              download
+              class="control control-outline"
+            >
+              Download the outside PDF (front)
+            </a>
+            <a
+              href={`${artwork}-inside.pdf`}
+              download
+              class="control control-outline"
+            >
+              Download the inside PDF (back)
+            </a>
+          </div>
           <p>
             Request a digital PDF proof and check the trim, folds, and panel
             order before approving. Check your printing and shipping total at
@@ -202,7 +203,7 @@ const pack = 'getting-to-know-islam-postcards.zip';
           Sixteen postcards, each with a common question on the front and a
           short answer on the back. They are print-ready 4 × 6 inch postcards
           with a 0.05 inch bleed (each PDF page is 4.1 × 6.1 inches), made for
-          printing at a print shop.
+          printing at a print shop. Tap or swipe a card to see its back.
         </p>
         <div class="print-actions" data-not-typeset>
           <a
@@ -216,17 +217,41 @@ const pack = 'getting-to-know-islam-postcards.zip';
         <ul class="postcard-list" data-not-typeset>
           {postcards.map((card) => (
             <li>
-              <img
-                src={card.thumb}
-                width="296"
-                height="440"
-                loading="lazy"
-                alt=""
-              />
-              <a href={card.pdf} download>
-                {card.question}
+              <button
+                type="button"
+                class="postcard-flip"
+                aria-pressed="false"
+                aria-label={`Show the back: ${card.question}`}
+              >
+                <span class="postcard-inner">
+                  <img
+                    src={card.thumb}
+                    width="296"
+                    height="440"
+                    loading="lazy"
+                    alt=""
+                  />
+                  <img
+                    src={card.back}
+                    width="296"
+                    height="440"
+                    loading="lazy"
+                    alt=""
+                    class="postcard-back"
+                  />
+                </span>
+                <span class="postcard-hint" aria-hidden="true">
+                  <IconRotate360 />
+                </span>
+              </button>
+              <a
+                href={card.pdf}
+                download
+                class="control control-outline"
+                aria-label={`Download PDF: ${card.question}`}
+              >
+                Download PDF
               </a>
-              <span>PDF, {card.size}</span>
             </li>
           ))}
         </ul>
@@ -256,14 +281,166 @@ const pack = 'getting-to-know-islam-postcards.zip';
   .postcard-list li {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
-  .postcard-list img {
+  .postcard-list .control {
+    width: 100%;
+  }
+  .postcard-flip {
+    position: relative;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    perspective: 900px;
+    /* Vertical swipes still scroll the page; horizontal ones flip. */
+    touch-action: pan-y;
+    user-select: none;
+    scale: 1;
+    transition: scale 150ms ease-out;
+  }
+  .postcard-flip:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 4px;
+  }
+  .postcard-inner {
+    display: grid;
+    transform-style: preserve-3d;
+    rotate: y calc(var(--side, 0deg) + var(--drag, 0deg) + var(--hint, 0deg));
+    transition: rotate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  /* Spatial hints only when motion is welcome: a press dip, a hover tilt,
+     and the one-time peek. The corner badge carries the hint otherwise. */
+  @media (prefers-reduced-motion: no-preference) {
+    .postcard-flip:active {
+      scale: 0.98;
+    }
+    .postcard-flip.is-peeking .postcard-inner {
+      --hint: -55deg;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+    .postcard-flip:hover .postcard-inner {
+      --hint: -12deg;
+    }
+  }
+  .postcard-flip.is-dragging .postcard-inner {
+    transition: none;
+  }
+  .postcard-inner img {
+    grid-area: 1 / 1;
     display: block;
     width: 100%;
     height: auto;
+    backface-visibility: hidden;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+    -webkit-user-drag: none;
   }
-  .print-actions {
-    margin-block: var(--space-4);
+  .postcard-inner .postcard-back {
+    rotate: y 180deg;
+  }
+  /* Stays put while the card turns, so it shows on both sides. It sits on
+     the top corner, over the front's pattern and the back's blank margin. */
+  .postcard-hint {
+    position: absolute;
+    inset-block-start: calc(var(--space-2) * -1);
+    inset-inline-end: calc(var(--space-2) * -1);
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+    pointer-events: none;
+  }
+  .postcard-hint svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    rotate: 0deg;
+    transition: rotate 0.5s ease;
+  }
+  .postcard-flip[aria-pressed='true'] .postcard-hint svg {
+    rotate: 180deg;
   }
 </style>
+
+<script>
+  // Tap flips; a horizontal swipe turns the card with the finger and flips
+  // past a quarter of its width, otherwise it springs back.
+  for (const card of document.querySelectorAll<HTMLButtonElement>('.postcard-flip')) {
+    const question = card.getAttribute('aria-label')!.replace(/^Show the back: /, '');
+    let startX = 0;
+    let dx = 0;
+    let swiped = false;
+    let tracking = false;
+    // Running angle, so a card keeps turning the way it was swiped.
+    let angle = 0;
+
+    const flip = (direction = 1) => {
+      angle += 180 * direction;
+      card.style.setProperty('--side', `${angle}deg`);
+      const back = angle % 360 !== 0;
+      card.setAttribute('aria-pressed', String(back));
+      card.setAttribute('aria-label', `${back ? 'Show the front' : 'Show the back'}: ${question}`);
+    };
+
+    card.addEventListener('click', () => {
+      if (swiped) swiped = false;
+      else flip();
+    });
+    card.addEventListener('pointerdown', (e) => {
+      tracking = true;
+      startX = e.clientX;
+      dx = 0;
+    });
+    card.addEventListener('pointermove', (e) => {
+      if (!tracking) return;
+      dx = e.clientX - startX;
+      if (!card.classList.contains('is-dragging') && Math.abs(dx) > 8) {
+        card.classList.add('is-dragging');
+        card.setPointerCapture(e.pointerId);
+      }
+      if (card.classList.contains('is-dragging')) {
+        const turn = Math.max(-180, Math.min(180, (dx / card.offsetWidth) * 180));
+        card.style.setProperty('--drag', `${turn}deg`);
+      }
+    });
+    const end = () => {
+      if (!tracking) return;
+      tracking = false;
+      if (!card.classList.contains('is-dragging')) return;
+      card.classList.remove('is-dragging');
+      card.style.removeProperty('--drag');
+      swiped = true;
+      if (Math.abs(dx) > card.offsetWidth / 4) flip(Math.sign(dx));
+      // No click follows a cancelled pointer; reset so the next tap works.
+      setTimeout(() => (swiped = false), 0);
+    };
+    card.addEventListener('pointerup', end);
+    card.addEventListener('pointercancel', end);
+  }
+
+  // The first time the postcards come into view, the first row turns partway
+  // and settles back, showing that each card has a back.
+  const list = document.querySelector('.postcard-list');
+  if (list && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const seen = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        seen.disconnect();
+        const cards = [...list.querySelectorAll<HTMLElement>('.postcard-flip')];
+        const firstRow = cards.filter((c) => c.offsetTop === cards[0].offsetTop);
+        firstRow.forEach((card, i) => {
+          setTimeout(() => card.classList.add('is-peeking'), 400 + i * 150);
+          setTimeout(() => card.classList.remove('is-peeking'), 1000 + i * 150);
+        });
+      },
+      // Watch the first card: the whole list is taller than a phone screen.
+      { threshold: 0.7 }
+    );
+    seen.observe(list.querySelector('.postcard-flip')!);
+  }
+</script>
