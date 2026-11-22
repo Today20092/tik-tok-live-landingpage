@@ -40,35 +40,13 @@ const jumps = [
   >
     <div class="article-page article-page--reader has-contents start-page">
       <header class="article-page_header start-hero">
-        <svg
+        <img
           class="start-hero_art"
-          viewBox="0 0 104 120"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <!-- Simplified from the pamphlet cover: arch, sun, sprout. -->
-          <path
-            class="start-hero_back"
-            d="M28 120V50Q28 24 58 8Q88 24 88 50v70h-11V53Q77 34 58 22Q39 34 39 53v67Z"
-          />
-          <path
-            class="start-hero_arch"
-            d="M10 120V50Q10 24 42 6Q74 24 74 50v70H63V53Q63 34 42 20Q21 34 21 53v67Z"
-          />
-          <path
-            class="start-hero_inner"
-            d="M21 120V53Q21 34 42 20Q63 34 63 53v67Z"
-          />
-          <path
-            class="start-hero_hill"
-            d="M21 120V101Q33 92 44 98Q54 91 63 99v21Z"
-          />
-          <circle class="start-hero_sun" cx="42" cy="58" r="8" />
-          <path
-            class="start-hero_sprout"
-            d="M42 120V84M42 96q-9-2-10-10q9 1 10 10M42 90q8-3 9-11q-8 2-9 11"
-          />
-        </svg>
+          src={`${import.meta.env.BASE_URL}pamphlet-cover.svg`}
+          width="230"
+          height="245"
+          alt=""
+        />
         <span class="start-hero_rule" aria-hidden="true"></span>
         <Heading
           tag="h1"
