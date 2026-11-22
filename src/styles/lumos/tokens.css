@@ -98,26 +98,29 @@
 .dark,
 .theme-dark {
   color-scheme: dark;
-  --background: #14271f;
-  --foreground: #f1f5ed;
-  --card: #20392d;
-  --card-foreground: #f1f5ed;
-  --popover: #20392d;
-  --popover-foreground: #f1f5ed;
-  --primary: #c6dfbc;
-  --primary-foreground: #14271f;
-  --secondary: #2a4234;
-  --secondary-foreground: #f1f5ed;
-  --muted: #20392d;
-  --muted-foreground: #b7c9b5;
-  --accent: #2a4234;
-  --accent-foreground: #f1f5ed;
-  --border: #425b48;
-  --input: #8aa18a;
-  --ring: #c6dfbc;
+  /* Teal ink: the light palette inverted, warm ivory text on blue-teal night. */
+  --background: #11191b;
+  --foreground: #ece9e1;
+  --card: #1a2427;
+  --card-foreground: #ece9e1;
+  --popover: #1a2427;
+  --popover-foreground: #ece9e1;
+  --primary: #9cc6d2;
+  --primary-foreground: #11191b;
+  --secondary: #1f2b2e;
+  --secondary-foreground: #ece9e1;
+  --muted: #1a2427;
+  --muted-foreground: #b4b0a6;
+  --accent: #213236;
+  --accent-foreground: #ece9e1;
+  --border: #3d5056;
+  --input: #7f9095;
+  --ring: #9cc6d2;
   --destructive: #ffaca6;
-  --paper-shadow: #102219;
-  --paper-edge: #425b48;
+  --paper-shadow: #0b1113;
+  --paper-edge: #3d5056;
+  --support-hover: #1f2b2e;
+  --pattern-color: #6f9aa3;
 }
 
 :root,

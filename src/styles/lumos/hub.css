@@ -198,14 +198,7 @@
   color: var(--card-foreground);
   &:hover {
     @media (hover: hover) {
-      background-color: var(--support-hover, #fff1eb);
-    }
-  }
-  &:where(.dark, .dark *) {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--secondary);
-      }
+      background-color: var(--support-hover);
     }
   }
 }
