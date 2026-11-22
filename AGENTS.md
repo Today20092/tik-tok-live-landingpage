@@ -60,6 +60,13 @@ Do not invent contact details. Use the existing public social profiles unless th
 - Keep paraphrases and personal reflections in prose with inline source links. Select quotation blocks where the exact passage helps the reader follow the article.
 - Before delivery, verify each displayed quotation against its source, preserve the required attribution, and complete the relevant guide's checks and mobile preview.
 
+## Pamphlet
+
+- The printed pamphlet "Getting to Know Islam" (copy, research, print design, QR) lives in a separate T3 project at `C:\Users\User\.t3\projects\islam-pamphlet` (GitHub repo not yet published). Before any task touching the pamphlet, its copy or research, or the pamphlet landing page's content, read that project's `AGENTS.md` and `docs/`. It is the source of truth; [docs/pamphlet/](docs/pamphlet/README.md) holds snapshots.
+- The QR code and printed address are the short link `go.ayoubabed.xyz/islam`, which redirects to the landing page here. Never ask to print the page's own URL; if the page moves, update the short link, not the pamphlet.
+- The landing page is the standalone route `src/pages/start.astro` (`/start`), not an article. Its content is `src/components/start/StartContent.mdx` and its figures are in `PamphletFigure.astro`. Ayoub chose _The Clear Quran_ for its Qur'an quotations to match the print.
+- Do not edit the pamphlet project from this repo unless the user asks. Pamphlet edits follow that project's print workflow.
+
 ## Styling
 
 Before styling pages or components, changing shared styles, or upgrading Lumos, read [the shared design system](docs/lumos-design-system.md). This project uses a pinned adaptation of Lumos for Astro; follow its local structure and documented overrides when upstream examples differ.

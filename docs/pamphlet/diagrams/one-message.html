@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Message</title>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Source+Serif+4&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Swatches copied from the DesignCraft master */
+    :root {
+      --ivory: #f8f5ec; --green: #244a3e; --terracotta: #a76038;
+      --moss: #eef2ec; --rule: #c7d2c6; --ink: #000000; --muted: #4a5a52;
+    }
+    body {
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      background: var(--ivory); color: var(--ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 1rem;
+    }
+    .frame { width: 100%; max-width: 720px; }
+    .eyebrow { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+    h1 { font-family: 'Source Serif 4', serif; font-weight: 400; font-size: 2rem; color: var(--green); margin-bottom: 1.5rem; }
+    .panel { background: #fff; border: 1px solid var(--rule); padding: 48px; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    /* 1 unit = 1 pt at print size; shown at 3x on screen */
+    svg { width: 100%; min-width: 224px; max-width: 672px; display: block; margin: 0 auto; }
+    .note { margin-top: 1rem; font-size: .85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="frame">
+  <p class="eyebrow">Pamphlet diagram · draft</p>
+  <h1>One God, one message</h1>
+  <div class="panel">
+    <div class="diagram-container">
+      <svg viewBox="0 0 224 258" role="img" aria-labelledby="one-message-title one-message-desc" xmlns="http://www.w3.org/2000/svg">
+        <title id="one-message-title">One God, one message</title>
+        <desc id="one-message-desc">Muslims believe one God sent Abraham, Moses, David, Jesus and Muhammad with scriptures, all carrying the same message to worship God alone.</desc>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#244a3e"/>
+          </marker>
+        </defs>
+
+        <!-- spine (drawn first so markers sit on top) -->
+        <line x1="24" y1="20" x2="24" y2="182" stroke="#244a3e" stroke-width="1.25" marker-end="url(#arrow)"/>
+
+        <!-- source -->
+        <circle cx="24" cy="14" r="6" fill="#fff" stroke="#244a3e" stroke-width="1.5"/>
+        <circle cx="24" cy="14" r="2.5" fill="#244a3e"/>
+        <text x="38" y="18" font-size="11.5" font-weight="700" fill="#244a3e">One God</text>
+
+        <!-- column labels -->
+        <text x="38" y="42" font-size="7.5" letter-spacing="1" fill="#4a5a52">PROPHET</text>
+        <text x="132" y="42" font-size="7.5" letter-spacing="1" fill="#4a5a52">SCRIPTURE</text>
+        <line x1="38" y1="47" x2="224" y2="47" stroke="#c7d2c6" stroke-width=".75"/>
+
+        <!-- prophets, in order (not to time scale) -->
+        <g font-size="10.5">
+          <circle cx="24" cy="64" r="3.5" fill="#244a3e"/>
+          <text x="38" y="68" font-weight="700" fill="#244a3e">Abraham</text>
+          <text x="132" y="68" fill="#000">Scrolls</text>
+
+          <circle cx="24" cy="88" r="3.5" fill="#244a3e"/>
+          <text x="38" y="92" font-weight="700" fill="#244a3e">Moses</text>
+          <text x="132" y="92" fill="#000">Torah</text>
+
+          <circle cx="24" cy="112" r="3.5" fill="#244a3e"/>
+          <text x="38" y="116" font-weight="700" fill="#244a3e">David</text>
+          <text x="132" y="116" fill="#000">Psalms</text>
+
+          <circle cx="24" cy="136" r="3.5" fill="#244a3e"/>
+          <text x="38" y="140" font-weight="700" fill="#244a3e">Jesus</text>
+          <text x="132" y="140" fill="#000">Gospel</text>
+
+          <circle cx="24" cy="160" r="5" fill="#a76038"/>
+          <text x="38" y="164" font-weight="700" fill="#a76038">Muhammad</text>
+          <text x="132" y="164" font-weight="700" fill="#a76038">Qur’an</text>
+        </g>
+
+        <!-- the shared message -->
+        <rect x="0" y="184" width="224" height="72" rx="4" fill="#eef2ec" stroke="#c7d2c6" stroke-width=".75"/>
+        <text x="12" y="202" font-size="10.5" font-weight="700" fill="#244a3e">One message: worship God alone</text>
+        <text x="12" y="215" font-size="8.5" fill="#4a5a52">Qur’an 21:25</text>
+        <text x="12" y="232" font-size="9.5" font-style="italic" fill="#000">“We make no distinction</text>
+        <text x="12" y="245" font-size="9.5" font-style="italic" fill="#000">between any of them.” <tspan font-style="normal" font-size="8.5" fill="#4a5a52">Qur’an 2:136</tspan></text>
+      </svg>
+    </div>
+  </div>
+  <p class="note">Shown at 3× print size. At 100% it fits the 224 pt text column of the inside-right panel, about 258 pt tall.</p>
+</div>
+</body>
+</html>
