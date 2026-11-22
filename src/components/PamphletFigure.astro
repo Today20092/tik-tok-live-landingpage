@@ -1,0 +1,358 @@
+---
+// Explainer figures for the pamphlet companion page, adapted from the printed
+// "Getting to Know Islam" panels (docs/pamphlet/). Text stays real HTML so it
+// themes, wraps at enlarged sizes and reads in order for screen readers.
+interface Props {
+  name:
+    | 'prophets'
+    | 'articles'
+    | 'pillars'
+    | 'prayers'
+    | 'purpose'
+    | 'muhammad'
+    | 'jesus'
+    | 'us-share'
+    | 'regions';
+}
+const { name } = Astro.props;
+const q = (ref: string) =>
+  `https://quran.com/${ref.replace(':', '/')}?translations=85`;
+
+const prophets = [
+  ['Abraham', 'Scrolls'],
+  ['Moses', 'Torah'],
+  ['David', 'Psalms'],
+  ['Jesus', 'Gospel'],
+  ['Muhammad', 'Qur’an'],
+];
+const articles = [
+  ['One God', 'Allah is the Arabic word for God.'],
+  ['Angels', 'God’s unseen servants.'],
+  ['Scriptures', 'From the Torah to the Qur’an.'],
+  ['Prophets', 'From Adam to Muhammad.'],
+  ['The Last Day', 'Judgment after death.'],
+  ['Divine decree', "Everything happens within God's will."],
+];
+const pillars = [
+  [
+    'Declaration of faith',
+    'shahada',
+    'Testifying that only God deserves worship and that Muhammad is His messenger.',
+  ],
+  ['Prayer', 'salat', 'Five times a day, in a state of ritual purity.'],
+  [
+    'Giving',
+    'zakat',
+    'Giving a required share of qualifying wealth. For monetary savings held for a lunar year at or above the minimum, the rate is 2.5%.',
+  ],
+  [
+    'Fasting',
+    'sawm',
+    'During Ramadan, those who are able go without food and drink from dawn to sunset.',
+  ],
+  [
+    'Pilgrimage',
+    'hajj',
+    'Travel to Mecca once in a lifetime, for those physically and financially able.',
+  ],
+];
+const prayers = [
+  { name: 'Fajr', time: 'Dawn', x: 30, y: 88 },
+  { name: 'Dhuhr', time: 'Just after midday', x: 145, y: 22 },
+  { name: 'Asr', time: 'Afternoon', x: 213, y: 48 },
+  { name: 'Maghrib', time: 'Sunset', x: 255, y: 80 },
+  { name: 'Isha', time: 'Night', x: 301, y: 94 },
+];
+const purpose = [
+  ['For God', ['Prayer, fasting', 'Remembering God']],
+  ['For others', ['Mercy, justice', 'Honesty, charity']],
+  ['For yourself', ['Health, rest', 'Self-control']],
+];
+const muhammad = [
+  ['c. 570', 'Born in Mecca.'],
+  ['610', 'Receives the first revelation of the Qur’an, at about age 40.'],
+  ['622', 'Emigrates with his followers to Medina (the Hijra).'],
+  ['632', 'Leads the Farewell Pilgrimage and dies in Medina.'],
+];
+const jesus = [
+  [
+    'Mary, chosen over all women',
+    '3:42',
+    'The only woman named in the Qur’an.',
+  ],
+  ['Announced as the Messiah', '3:45', 'Called a Word from God.'],
+  ['Born to a virgin mother', '19:20', ''],
+  [
+    'Heals the blind and the leper',
+    '3:49',
+    'And raises the dead, by God’s will.',
+  ],
+  ['Given the Gospel (Injil)', '5:46', 'Guidance and light.'],
+  ['Raised up to God', '4:158', ''],
+  [
+    'Will return to earth',
+    '',
+    'The Prophet taught that Jesus will return as a just judge.',
+  ],
+];
+const usRace: [string, number][] = [
+  ['White', 30],
+  ['Asian', 30],
+  ['Black', 20],
+  ['Hispanic', 11],
+];
+const worldRegions: [string, number][] = [
+  ['Asia and the Pacific', 59],
+  ['Middle East and North Africa', 21],
+  ['Sub-Saharan Africa', 18],
+];
+---
+
+<figure
+  data-not-typeset
+  class:list={['pamphlet-figure', `pamphlet-figure--${name}`]}
+>
+  {name === 'prophets' && (
+    <>
+      <ol class="pamphlet-steps">
+        {prophets.map(([prophet, book], i) => (
+          <li class:list={{ 'is-last': i === prophets.length - 1 }}>
+            <strong>{prophet}</strong>
+            <span>{book}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="pamphlet-figure_message">
+        <strong>Worship God alone</strong>
+        <span>
+          The one message they all taught, <a href={q('21:25')}>Qur’an 21:25</a>
+        </span>
+      </p>
+      <figcaption>
+        Each name is paired with the scripture Muslims believe that prophet
+        received.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'articles' && (
+    <>
+      <ol class="pamphlet-grid">
+        {articles.map(([title, text]) => (
+          <li>
+            <strong>{title}</strong>
+            <span>{text}</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        The six articles of faith, from the hadith of Jibril{' '}
+        <a href="https://sunnah.com/muslim:8a">(Sahih Muslim 8a)</a> and{' '}
+        <a href={q('4:136')}>Qur’an 4:136</a>.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'pillars' && (
+    <>
+      <ol class="pamphlet-pillars">
+        {pillars.map(([title, term, text]) => (
+          <li>
+            <strong>
+              {title} (<i lang="ar-Latn">{term}</i>)
+            </strong>
+            <span>{text}</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        The Five Pillars, from{' '}
+        <a href="https://sunnah.com/bukhari:8">Sahih al-Bukhari 8</a>.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'prayers' && (
+    <>
+      <p id="prayers-title" class="pamphlet-figure_label">
+        The five daily prayers
+      </p>
+      <svg class="pamphlet-sky" viewBox="0 0 330 116" aria-hidden="true">
+        <path
+          class="pamphlet-sky_arc"
+          d="M30 88 46 80 Q145 -36 255 80 L301 94"
+        />
+        <path class="pamphlet-sky_horizon" d="M12 80H318" />
+        {prayers.map(({ x, y }, index) => (
+          <g>
+            <circle class="pamphlet-sky_sun" cx={x} cy={y} r="11" />
+            <text x={x} y={y} dy=".35em">
+              {index + 1}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <ol class="pamphlet-day" role="list" aria-labelledby="prayers-title">
+        {prayers.map(({ name: prayer, time }, index) => (
+          <li>
+            <span class="pamphlet-day_marker" aria-hidden="true">
+              {index + 1}
+            </span>
+            <strong lang="ar-Latn">{prayer}</strong>
+            <span>{time}</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        Prayer times follow the sun, so they change with the season and where
+        you live. <a href="https://sunnah.com/muslim:612a">Sahih Muslim 612a</a>
+        .
+      </figcaption>
+    </>
+  )}
+
+  {name === 'purpose' && (
+    <>
+      <p class="pamphlet-figure_source">
+        Worship includes all good done for God
+      </p>
+      <ul class="pamphlet-columns">
+        {purpose.map(([title, items]) => (
+          <li>
+            <strong>{title}</strong>
+            <ul>
+              {(items as string[]).map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      <p class="pamphlet-figure_message">
+        <strong>Everyone answers to God after death</strong>
+        <a href={q('99:7-8')}>Qur’an 99:7–8</a>
+      </p>
+      <figcaption>
+        Three areas of worship. A companion of the Prophet said that God, your
+        own self and your family each have a right over you, and the Prophet
+        agreed{' '}
+        <a href="https://sunnah.com/bukhari:1968">(Sahih al-Bukhari 1968)</a>.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'muhammad' && (
+    <>
+      <ol class="pamphlet-timeline">
+        {muhammad.map(([year, text]) => (
+          <li>
+            <strong>{year}</strong>
+            <span>{text}</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        Key dates in Muhammad’s life (CE), from{' '}
+        <a href="https://www.britannica.com/biography/Muhammad">
+          Encyclopaedia Britannica
+        </a>
+        .
+      </figcaption>
+    </>
+  )}
+
+  {name === 'jesus' && (
+    <>
+      <ol class="pamphlet-timeline pamphlet-timeline--events">
+        {jesus.map(([title, ref, text], i) => (
+          <li class:list={{ 'is-future': i === jesus.length - 1 }}>
+            <strong>
+              {title}{' '}
+              {ref ? (
+                <a href={q(ref)} aria-label={`Qur’an ${ref}`}>
+                  ({ref})
+                </a>
+              ) : (
+                <a href="https://sunnah.com/muslim:155a">(Sahih Muslim 155a)</a>
+              )}
+            </strong>
+            {text && <span>{text}</span>}
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        Jesus’ story in the Qur’an. The last step is still to come.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'us-share' && (
+    <>
+      <div class="pamphlet-stat">
+        <p class="pamphlet-stat_number">1.2%</p>
+        <p>of U.S. adults identify as Muslim, or about 1 in 100.</p>
+      </div>
+      <div
+        class="pamphlet-dots"
+        role="img"
+        aria-label="A grid of 100 dots with one highlighted: about 1 in 100 U.S. adults is Muslim."
+      >
+        {Array.from({ length: 100 }, (_, i) => (
+          <span class:list={{ 'is-marked': i === 0 }} />
+        ))}
+      </div>
+      <p class="pamphlet-figure_label">U.S. Muslims by race and ethnicity</p>
+      <ol class="pamphlet-bars">
+        {usRace.map(([group, share]) => (
+          <li style={`--bar: ${share}%`}>
+            <span class="pamphlet-bars_label">{group}</span>
+            <span class="pamphlet-bars_track" aria-hidden="true">
+              <span />
+            </span>
+            <span class="pamphlet-bars_value">{share}%</span>
+          </li>
+        ))}
+      </ol>
+      <figcaption>
+        No single group is a majority. The shares add up to less than 100%
+        because smaller groups and people of mixed background aren’t shown.
+        Source:{' '}
+        <a href="https://www.pewresearch.org/religion/2025/02/26/decline-of-christianity-in-the-us-has-slowed-may-have-leveled-off/">
+          Pew Research Center, Religious Landscape Study
+        </a>
+        , surveyed 2023–24, published February 2025.
+      </figcaption>
+    </>
+  )}
+
+  {name === 'regions' && (
+    <>
+      <p id="muslim-regions-title" class="pamphlet-figure_label">
+        Where the world's Muslims live
+      </p>
+      <ul
+        class="pamphlet-bars"
+        role="list"
+        aria-labelledby="muslim-regions-title"
+      >
+        {worldRegions.map(([region, share]) => (
+          <li style={`--bar: ${share}%`}>
+            <span class="pamphlet-bars_label">{region}</span>
+            <span class="pamphlet-bars_track" aria-hidden="true">
+              <span />
+            </span>
+            <span class="pamphlet-bars_value">{share}%</span>
+          </li>
+        ))}
+      </ul>
+      <figcaption>
+        Share of the world's Muslims in the three regions with the largest
+        Muslim populations in 2020. Shares are rounded.
+        <a href="https://www.pewresearch.org/religion/2025/06/09/muslim-population-change/">
+          Pew Research Center, June 2025
+        </a>
+        .
+      </figcaption>
+    </>
+  )}
+</figure>
