@@ -2,9 +2,11 @@
 import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
+import PrintItem from '@/components/PrintItem.astro';
 
 const base = import.meta.env.BASE_URL;
 const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
+const bookmark = `${base}downloads/read-the-quran-bookmark/read-the-quran-bookmark`;
 ---
 
 <HubPage
@@ -23,114 +25,144 @@ const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
       Free Islamic printables
     </Heading>
     <div class="typeset">
-      <section aria-labelledby="getting-to-know-islam">
-        <h2 id="getting-to-know-islam">Getting to Know Islam</h2>
+      <PrintItem
+        id="getting-to-know-islam"
+        title="Getting to Know Islam"
+        previews={[
+          {
+            src: `${artwork}-outside.jpg`,
+            width: 1584,
+            height: 1224,
+            alt: 'Outside panels showing Muslims in the United States, common questions, and the front cover.',
+            caption: 'Outside of the trifold',
+          },
+          {
+            src: `${artwork}-inside.jpg`,
+            width: 1584,
+            height: 1224,
+            alt: 'Inside panels showing what Muslims believe, the Five Pillars, and Jesus and Mary in Islam.',
+            caption: 'Inside of the trifold',
+          },
+        ]}
+        download={{
+          href: `${artwork}-us-letter.pdf`,
+          label: 'Download the U.S. Letter PDF',
+        }}
+        shop={{
+          href: 'https://www.55printing.com/brochure-printing/',
+          label: 'Order from 55printing',
+          order:
+            '8.5 × 11 inches flat, Tri-Fold, 100 lb. Gloss Book (5 pt.), Full Color Both Sides.',
+        }}
+      >
         <p>
           An English trifold introducing Islamic beliefs and practices.{' '}
           <a href={`${base}start/`}>Read the online companion</a>.
         </p>
 
-        <h3>Preview the trifold</h3>
-        <figure>
-          <a
-            href={`${artwork}-outside.jpg`}
-            aria-label="Open full-size outside preview"
-          >
-            <img
-              src={`${artwork}-outside.jpg`}
-              width="1584"
-              height="1224"
-              alt="Outside panels showing Muslims in the United States, common questions, and the front cover."
-            />
-          </a>
-          <figcaption>Outside of the trifold</figcaption>
-        </figure>
-        <figure>
-          <a
-            href={`${artwork}-inside.jpg`}
-            aria-label="Open full-size inside preview"
-          >
-            <img
-              src={`${artwork}-inside.jpg`}
-              width="1584"
-              height="1224"
-              loading="lazy"
-              alt="Inside panels showing what Muslims believe, the Five Pillars, and Jesus and Mary in Islam."
-            />
-          </a>
-          <figcaption>Inside of the trifold</figcaption>
-        </figure>
+        <Fragment slot="details">
+          <h3>Print at home</h3>
+          <ol>
+            <li>
+              Use U.S. Letter paper (8.5 × 11 inches), landscape orientation,
+              and color. Print on both sides and flip on the short edge.
+            </li>
+            <li>
+              Print one test copy at Actual Size (100%). If your printer clips
+              artwork at the edges, select Fit to printable area.
+            </li>
+            <li>
+              Fold along the panel boundaries. Tuck the narrower panel in first,
+              then fold the cover over it.
+            </li>
+          </ol>
 
-        <h3>Print at home</h3>
-        <p>
-          <a href={`${artwork}-us-letter.pdf`} download>
-            Download the U.S. Letter PDF
-          </a>
-        </p>
-        <ol>
-          <li>
-            Use U.S. Letter paper (8.5 × 11 inches), landscape orientation, and
-            color. Print on both sides and flip on the short edge.
-          </li>
-          <li>
-            Print one test copy at Actual Size (100%). If your printer clips
-            artwork at the edges, select Fit to printable area.
-          </li>
-          <li>
-            Fold along the panel boundaries. Tuck the narrower panel in first,
-            then fold the cover over it.
-          </li>
-        </ol>
+          <h3>Order from a print shop</h3>
+          <p>
+            I used{' '}
+            <a href="https://www.55printing.com/brochure-printing/">
+              55printing’s brochure printing service
+            </a>{' '}
+            for the first run. You can also take these files to a local print
+            shop.
+          </p>
+          <ul>
+            <li>
+              <a href={`${artwork}-outside.pdf`} download>
+                Download the outside PDF (Front)
+              </a>
+            </li>
+            <li>
+              <a href={`${artwork}-inside.pdf`} download>
+                Download the inside PDF (Back)
+              </a>
+            </li>
+          </ul>
+          <p>
+            Request a digital PDF proof and check the trim, folds, and panel
+            order before approving. Check your printing and shipping total at
+            checkout.
+          </p>
 
-        <h3>Order from a print shop</h3>
-        <p>
-          I used{' '}
-          <a href="https://www.55printing.com/brochure-printing/">
-            55printing’s brochure printing service
-          </a>{' '}
-          for the first run. You can also take these files to a local print
-          shop.
-        </p>
-        <ul>
-          <li>
-            <a href={`${artwork}-outside.pdf`} download>
-              Download the outside PDF (Front)
+          <h3>Usage rights</h3>
+          <p>
+            <strong>Free to share. Not for resale.</strong>
+          </p>
+          <p>
+            © 2026 Ayoub Abedrabbo. You may download, print, and share unchanged
+            copies of <em>Getting to Know Islam</em> free of charge. Keep the
+            existing credits intact. You may pay a print shop to produce copies
+            for free distribution. Do not sell copies or distribute modified
+            versions without permission. Third-party material remains subject to
+            its own terms.
+          </p>
+          <p>
+            Iftar photo by{' '}
+            <a href="https://unsplash.com/photos/a-person-eating-a-meal-with-many-dishes-on-table-j70UasSzZEQ">
+              Cemrecan Yurtman
             </a>
-          </li>
-          <li>
-            <a href={`${artwork}-inside.pdf`} download>
-              Download the inside PDF (Back)
-            </a>
-          </li>
-        </ul>
-        <p>
-          Choose 8.5 × 11 inches flat, Tri-Fold, 100 lb. Gloss Book (5 pt.), and
-          Full Color Both Sides. Request a digital PDF proof and check the trim,
-          folds, and panel order before approving. Check your printing and
-          shipping total at checkout.
-        </p>
+            , used under the{' '}
+            <a href="https://unsplash.com/license">Unsplash License</a>.
+          </p>
+        </Fragment>
+      </PrintItem>
 
-        <h3>Usage rights</h3>
+      <PrintItem
+        id="read-the-quran-bookmark"
+        title="Read the Qur’an bookmark"
+        previews={[
+          {
+            src: `${bookmark}-front.jpg`,
+            width: 288,
+            height: 1008,
+            alt: 'Bookmark front: an eight-point star strapwork headpiece on deep green.',
+            caption: 'Front of the bookmark',
+          },
+          {
+            src: `${bookmark}-back.jpg`,
+            width: 288,
+            height: 1008,
+            alt: 'Bookmark back: a Start here checklist of Al-Ikhlas (chapter 112, 4 verses), Al-Fatihah (chapter 1, 7 verses) and Maryam (chapter 19, 98 verses), with a QR code for go.ayoubabed.xyz/islam.',
+            caption: 'Back of the bookmark',
+          },
+        ]}
+        download={{
+          href: `${bookmark}-print.pdf`,
+          label: 'Download the print PDF',
+        }}
+        shop={{
+          href: 'https://www.55printing.com/bookmark-printing/',
+          label: 'Order from 55printing',
+          order:
+            '2 × 7 inches, Full Color Both Sides, 16 pt. Premium Matte or 14 pt. Uncoated. Matte stock reads without glare.',
+        }}
+      >
         <p>
-          <strong>Free to share. Not for resale.</strong>
+          A 2 × 7 inch bookmark with a short “Start here” reading list, shortest
+          chapter first, and a QR code to read the Qur’an in English. The PDF
+          has front and back pages with a 0.05 inch bleed.
         </p>
-        <p>
-          © 2026 Ayoub Abedrabbo. You may download, print, and share unchanged
-          copies of <em>Getting to Know Islam</em> free of charge. Keep the
-          existing credits intact. You may pay a print shop to produce copies
-          for free distribution. Do not sell copies or distribute modified
-          versions without permission. Third-party material remains subject to
-          its own terms.
-        </p>
-        <p>
-          Iftar photo by{' '}
-          <a href="https://unsplash.com/photos/a-person-eating-a-meal-with-many-dishes-on-table-j70UasSzZEQ">
-            Cemrecan Yurtman
-          </a>
-          , used under the{' '}
-          <a href="https://unsplash.com/license">Unsplash License</a>.
-        </p>
-      </section>
+      </PrintItem>
     </div>
   </Section>
 </HubPage>

@@ -1,0 +1,89 @@
+---
+// One printable on /printables: front/back previews, the print PDF and where
+// to order it. Add a new printable by adding another <PrintItem>.
+interface Preview {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+}
+interface Props {
+  id: string;
+  title: string;
+  previews: Preview[];
+  download: { href: string; label: string };
+  shop: { href: string; label: string; order: string };
+}
+const { id, title, previews, download, shop } = Astro.props;
+// Tall previews (bookmarks) get narrow columns so front and back sit side by side.
+const tall = previews.every((p) => p.height > p.width * 1.5);
+---
+
+<section aria-labelledby={id}>
+  <h2 id={id}>{title}</h2>
+  <slot />
+
+  <div class:list={['print-previews', { 'is-tall': tall }]} data-not-typeset>
+    {previews.map((p, i) => (
+      <figure>
+        <a
+          href={p.src}
+          aria-label={`Open full-size preview: ${p.caption.toLowerCase()}`}
+        >
+          <img
+            src={p.src}
+            width={p.width}
+            height={p.height}
+            loading={i ? 'lazy' : undefined}
+            alt={p.alt}
+          />
+        </a>
+        <figcaption>{p.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <div class="print-actions" data-not-typeset>
+    <a href={download.href} download class="control control-outline">
+      {download.label}
+    </a>
+    <a href={shop.href} class="control control-outline">
+      {shop.label}
+    </a>
+  </div>
+  <p>
+    <strong>What to order:</strong> {shop.order}
+  </p>
+
+  <slot name="details" />
+</section>
+
+<style>
+  .print-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-4);
+    margin-block: var(--space-5);
+  }
+  .print-previews.is-tall {
+    grid-template-columns: repeat(auto-fit, minmax(0, 11rem));
+  }
+  .print-previews figure {
+    margin: 0;
+  }
+  .print-previews img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .print-previews figcaption {
+    margin-top: var(--space-2);
+  }
+  .print-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block: var(--space-4);
+  }
+</style>
