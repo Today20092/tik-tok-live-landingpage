@@ -16,6 +16,20 @@ const support = (await getCollection('links')).find(
       </a>
       <p class="text-small">For anyone curious about the Quran.</p>
     </div>
+    <nav aria-label="Site pages" class="site-footer_socials">
+      {[
+        ['', 'Home'],
+        ['start/', 'Getting to know Islam'],
+        ['printables/', 'Printables'],
+        ['articles/', 'Articles'],
+        ['search/', 'Search'],
+        ['articles/about-me/', 'About Ayoub'],
+      ].map(([path, label]) => (
+        <a class="site-footer_link" href={`${base}${path}`}>
+          {label}
+        </a>
+      ))}
+    </nav>
     <nav aria-label="Ayoub's social profiles" class="site-footer_socials">
       <a
         class="site-footer_link"
@@ -43,9 +57,6 @@ const support = (await getCollection('links')).find(
           <span aria-hidden="true">↗</span>
         </a>
       )}
-      <a href={`${base}articles/about-me/`} class="site-footer_about">
-        About Ayoub
-      </a>
       <details class="group u-max-w-lg">
         <summary class="site-footer_disclosure">
           Site information & privacy
