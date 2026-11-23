@@ -9,7 +9,6 @@ import ArticleMarginNotes from '@/components/ArticleMarginNotes.astro';
 import ArticleContents from '@/components/ArticleContents.astro';
 import StartContent, { getHeadings } from '@/components/start/StartContent.mdx';
 import { groupContents } from '@/lib/contents';
-import LearningVideos from '@/components/LearningVideos.astro';
 import { getCollection } from 'astro:content';
 import { IconArrowDown } from '@tabler/icons-react';
 // The shahada uses the shared Arabic face; articles load it via QuranVerse.
@@ -83,27 +82,7 @@ const jumps = [
       <ArticleContents sections={contents} />
       <div class="article-page_reading">
         <article id="article-body" class="typeset typeset-article min-width-0">
-          <StartContent />
-          <section aria-labelledby="learn-more">
-            <h2 id="learn-more">Keep learning</h2>
-            <p>
-              Watch the stories of the prophets, or learn about the life of
-              Prophet Muhammad, peace be upon him.
-            </p>
-            <LearningVideos videos={videos} />
-          </section>
-          <section aria-labelledby="print">
-            <h2 id="print">Print copies to share</h2>
-            <p>
-              Download{' '}
-              <a
-                href={`${import.meta.env.BASE_URL}printables/#getting-to-know-islam`}
-              >
-                Getting to Know Islam
-              </a>{' '}
-              for home printing or find the files and settings for a print shop.
-            </p>
-          </section>
+          <StartContent videos={videos} />
         </article>
       </div>
     </div>
