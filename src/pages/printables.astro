@@ -6,6 +6,7 @@ import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
 import PrintItem from '@/components/PrintItem.astro';
 import SupportCard from '@/components/SupportCard.astro';
+import { postcardAnswers } from '@/content/printable-postcard-answers';
 
 const base = import.meta.env.BASE_URL;
 const artwork = `${base}downloads/getting-to-know-islam/getting-to-know-islam`;
@@ -30,18 +31,24 @@ const postcards = Object.entries({
   civilians: 'What does Islam teach about harming civilians?',
   'muslim-communities': 'Where do Muslims live?',
   'muslims-in-the-us': 'Who are Muslim Americans?',
-}).map(([slug, question]) => ({
-  question,
-  pdf: `${base}${postcardDir}/postcard-${slug}.pdf`,
-  thumb: `${base}${postcardDir}/postcard-${slug}.jpg`,
-  back: `${base}${postcardDir}/postcard-${slug}-back.jpg`,
-}));
+} satisfies Record<keyof typeof postcardAnswers, string>).map(
+  ([slug, question]) => ({
+    id: `postcard-${slug}`,
+    question,
+    answer: postcardAnswers[slug as keyof typeof postcardAnswers],
+    pdf: `${base}${postcardDir}/postcard-${slug}.pdf`,
+    thumb: `${base}${postcardDir}/postcard-${slug}.jpg`,
+    back: `${base}${postcardDir}/postcard-${slug}-back.jpg`,
+  })
+);
 const pack = 'getting-to-know-islam-postcards.zip';
 ---
 
 <HubPage
-  title="Free Islamic printables | Islam with Ayoub"
-  description="Download free Islamic outreach materials, including the Getting to Know Islam pamphlet and postcards. Print at home on U.S. Letter paper or order folded copies from a print shop."
+  title="Free Dawah Printables: Islamic Brochure & Postcards"
+  description="Download free English dawah PDFs: a U.S. Letter brochure explaining Islam, 16 Islamic outreach postcards, and a Qur’an reading bookmark."
+  image={`${artwork}-outside.jpg`}
+  imageAlt="Outside of the Getting to Know Islam trifold brochure, showing its cover and two informational panels."
   path="printables/"
   inlineSupport
 >
@@ -56,6 +63,11 @@ const pack = 'getting-to-know-islam-postcards.zip';
       Free Islamic printables
     </Heading>
     <div class="typeset">
+      <p>
+        Download free English PDFs for dawah tables and conversations about
+        Islam. Print the brochure at home on U.S. Letter paper, or take the
+        postcards and Qur’an bookmark files to a print shop.
+      </p>
       <PrintItem
         id="getting-to-know-islam"
         title="Getting to Know Islam"
@@ -77,7 +89,7 @@ const pack = 'getting-to-know-islam-postcards.zip';
         ]}
         download={{
           href: `${artwork}-us-letter.pdf`,
-          label: 'Download the U.S. Letter PDF',
+          label: 'Download the U.S. Letter brochure (PDF)',
         }}
         shop={{
           href: 'https://www.55printing.com/brochure-printing/',
@@ -179,7 +191,7 @@ const pack = 'getting-to-know-islam-postcards.zip';
         ]}
         download={{
           href: `${bookmark}-print.pdf`,
-          label: 'Download the print PDF',
+          label: 'Download the Qur’an bookmark (PDF)',
         }}
         shop={{
           href: 'https://www.55printing.com/bookmark-printing/',
@@ -216,7 +228,9 @@ const pack = 'getting-to-know-islam-postcards.zip';
         </div>
         <ul class="postcard-list" data-not-typeset>
           {postcards.map((card) => (
-            <li>
+            <li id={card.id}>
+              <h3>{card.question}</h3>
+              <p>{card.answer}</p>
               <button
                 type="button"
                 class="postcard-flip"
@@ -248,9 +262,9 @@ const pack = 'getting-to-know-islam-postcards.zip';
                 href={card.pdf}
                 download
                 class="control control-outline"
-                aria-label={`Download PDF: ${card.question}`}
+                aria-label={`Download postcard PDF: ${card.question}`}
               >
-                Download PDF
+                Download postcard PDF
               </a>
             </li>
           ))}
@@ -260,8 +274,8 @@ const pack = 'getting-to-know-islam-postcards.zip';
       <section aria-labelledby="printables-feedback">
         <h2 id="printables-feedback">Suggestions and requests</h2>
         <p>
-          Spotted a mistake, have a concern, or want a printable that isn't
-          here yet? Send me a message on{' '}
+          Spotted a mistake, have a concern, or want a printable that isn't here
+          yet? Send me a message on{' '}
           <a href="https://go.alphabravomedia.co/islam-tiktok">TikTok</a> and
           I'll fix or update the materials, in sha Allah.
         </p>
@@ -282,7 +296,7 @@ const pack = 'getting-to-know-islam-postcards.zip';
 <style>
   .postcard-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-5) var(--space-4);
     margin-block: var(--space-5);
     padding: 0;
@@ -292,6 +306,15 @@ const pack = 'getting-to-know-islam-postcards.zip';
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+    scroll-margin-block-start: var(--space-5);
+  }
+  .postcard-list h3,
+  .postcard-list p {
+    margin: 0;
+  }
+  .postcard-list h3 {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
   }
   .postcard-list .control {
     width: 100%;
@@ -299,6 +322,9 @@ const pack = 'getting-to-know-islam-postcards.zip';
   .postcard-flip {
     position: relative;
     display: block;
+    width: min(100%, 9rem);
+    align-self: center;
+    margin-block-start: auto;
     padding: 0;
     border: 0;
     background: none;
@@ -380,8 +406,12 @@ const pack = 'getting-to-know-islam-postcards.zip';
 <script>
   // Tap flips; a horizontal swipe turns the card with the finger and flips
   // past a quarter of its width, otherwise it springs back.
-  for (const card of document.querySelectorAll<HTMLButtonElement>('.postcard-flip')) {
-    const question = card.getAttribute('aria-label')!.replace(/^Show the back: /, '');
+  for (const card of document.querySelectorAll<HTMLButtonElement>(
+    '.postcard-flip'
+  )) {
+    const question = card
+      .getAttribute('aria-label')!
+      .replace(/^Show the back: /, '');
     let startX = 0;
     let dx = 0;
     let swiped = false;
@@ -394,7 +424,10 @@ const pack = 'getting-to-know-islam-postcards.zip';
       card.style.setProperty('--side', `${angle}deg`);
       const back = angle % 360 !== 0;
       card.setAttribute('aria-pressed', String(back));
-      card.setAttribute('aria-label', `${back ? 'Show the front' : 'Show the back'}: ${question}`);
+      card.setAttribute(
+        'aria-label',
+        `${back ? 'Show the front' : 'Show the back'}: ${question}`
+      );
     };
 
     card.addEventListener('click', () => {
@@ -414,7 +447,10 @@ const pack = 'getting-to-know-islam-postcards.zip';
         card.setPointerCapture(e.pointerId);
       }
       if (card.classList.contains('is-dragging')) {
-        const turn = Math.max(-180, Math.min(180, (dx / card.offsetWidth) * 180));
+        const turn = Math.max(
+          -180,
+          Math.min(180, (dx / card.offsetWidth) * 180)
+        );
         card.style.setProperty('--drag', `${turn}deg`);
       }
     });
@@ -442,7 +478,9 @@ const pack = 'getting-to-know-islam-postcards.zip';
         if (!entry.isIntersecting) return;
         seen.disconnect();
         const cards = [...list.querySelectorAll<HTMLElement>('.postcard-flip')];
-        const firstRow = cards.filter((c) => c.offsetTop === cards[0].offsetTop);
+        const firstRow = cards.filter(
+          (c) => c.offsetTop === cards[0].offsetTop
+        );
         firstRow.forEach((card, i) => {
           setTimeout(() => card.classList.add('is-peeking'), 400 + i * 150);
           setTimeout(() => card.classList.remove('is-peeking'), 1000 + i * 150);
