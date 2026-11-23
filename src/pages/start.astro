@@ -9,11 +9,16 @@ import ArticleMarginNotes from '@/components/ArticleMarginNotes.astro';
 import ArticleContents from '@/components/ArticleContents.astro';
 import StartContent, { getHeadings } from '@/components/start/StartContent.mdx';
 import { groupContents } from '@/lib/contents';
+import LearningVideos from '@/components/LearningVideos.astro';
+import { getCollection } from 'astro:content';
 import { IconArrowDown } from '@tabler/icons-react';
 // The shahada uses the shared Arabic face; articles load it via QuranVerse.
 import '@fontsource/amiri-quran/arabic-400.css';
 
 const { contents } = groupContents(getHeadings());
+const videos = (await getCollection('links'))
+  .map((entry) => entry.data)
+  .filter((link) => link.youtube?.startsWith('videoseries'));
 // The reader's likely reasons for scanning the pamphlet's QR code.
 const jumps = [
   ['what-muslims-believe', 'What Muslims believe'],
@@ -79,6 +84,14 @@ const jumps = [
       <div class="article-page_reading">
         <article id="article-body" class="typeset typeset-article min-width-0">
           <StartContent />
+          <section aria-labelledby="learn-more">
+            <h2 id="learn-more">Keep learning</h2>
+            <p>
+              Watch the stories of the prophets, or learn about the life of
+              Prophet Muhammad, peace be upon him.
+            </p>
+            <LearningVideos videos={videos} />
+          </section>
           <section aria-labelledby="print">
             <h2 id="print">Print copies to share</h2>
             <p>
