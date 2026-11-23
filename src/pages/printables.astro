@@ -1,6 +1,7 @@
 ---
 import { statSync } from 'node:fs';
-import { IconRotate360 } from '@tabler/icons-react';
+import { IconMaximize, IconRotate360 } from '@tabler/icons-react';
+import ArticleImageViewer from '@/components/ArticleImageViewer';
 import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
@@ -244,6 +245,18 @@ const pack = 'getting-to-know-islam-postcards.zip';
                   <IconRotate360 />
                 </span>
               </button>
+              <button
+                type="button"
+                class="postcard-enlarge"
+                data-viewer-src={card.thumb}
+                data-viewer-alt={`Front: ${card.question}`}
+                data-viewer-back={card.back}
+                data-viewer-back-alt={`Back: ${card.question}`}
+                aria-haspopup="dialog"
+                aria-label={`View both sides full screen: ${card.question}`}
+              >
+                <IconMaximize aria-hidden="true" />
+              </button>
               <a
                 href={card.pdf}
                 download
@@ -256,6 +269,7 @@ const pack = 'getting-to-know-islam-postcards.zip';
           ))}
         </ul>
       </section>
+      <ArticleImageViewer client:idle />
 
       <section aria-labelledby="printables-feedback">
         <h2 id="printables-feedback">Suggestions and requests</h2>
@@ -295,6 +309,35 @@ const pack = 'getting-to-know-islam-postcards.zip';
   }
   .postcard-list .control {
     width: 100%;
+  }
+  .postcard-list li {
+    position: relative;
+  }
+  /* Mirrors the flip hint in the opposite corner. */
+  .postcard-enlarge {
+    position: absolute;
+    inset-block-start: calc(var(--space-2) * -1);
+    inset-inline-start: calc(var(--space-2) * -1);
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+    cursor: zoom-in;
+  }
+  .postcard-enlarge:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .postcard-enlarge svg {
+    width: 1rem;
+    height: 1rem;
   }
   .postcard-flip {
     position: relative;

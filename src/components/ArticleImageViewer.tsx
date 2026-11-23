@@ -4,7 +4,11 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export default function ArticleImageViewer() {
-  const [image, setImage] = useState<{ src: string; alt: string } | null>(null);
+  const [image, setImage] = useState<{
+    src: string;
+    alt: string;
+    back?: { src: string; alt: string };
+  } | null>(null);
   const [zoomed, setZoomed] = useState(false);
   const [point, setPoint] = useState({ x: 50, y: 50 });
   const pointerStart = useRef({ x: 0, y: 0 });
@@ -41,6 +45,27 @@ export default function ArticleImageViewer() {
           trigger.replaceWith(img);
         });
       });
+    // Buttons elsewhere (e.g. postcards) open the viewer with data-viewer-src/-alt.
+    const openFromButton = (event: MouseEvent) => {
+      const button = (event.target as Element).closest<HTMLElement>(
+        '[data-viewer-src]'
+      );
+      if (!button) return;
+      setZoomed(false);
+      setPoint({ x: 50, y: 50 });
+      setImage({
+        src: button.dataset.viewerSrc!,
+        alt: button.dataset.viewerAlt ?? '',
+        back: button.dataset.viewerBack
+          ? {
+              src: button.dataset.viewerBack,
+              alt: button.dataset.viewerBackAlt ?? '',
+            }
+          : undefined,
+      });
+    };
+    document.addEventListener('click', openFromButton);
+    cleanup.push(() => document.removeEventListener('click', openFromButton));
     return () => cleanup.forEach((dispose) => dispose());
   }, []);
 
@@ -166,16 +191,37 @@ export default function ArticleImageViewer() {
               }));
             }}
           >
-            <img
-              src={image.src}
-              alt={image.alt}
-              draggable={false}
-              className="article-image-viewer_image"
-              style={{
-                transform: zoomed ? 'scale(2.5)' : 'scale(1)',
-                transformOrigin: `${point.x}% ${point.y}%`,
-              }}
-            />
+            {image.back ? (
+              // Two-sided items (postcards) show front and back together.
+              <span
+                className="article-image-viewer_pair"
+                style={{
+                  transform: zoomed ? 'scale(2.5)' : 'scale(1)',
+                  transformOrigin: `${point.x}% ${point.y}%`,
+                }}
+              >
+                {[image, image.back].map((side) => (
+                  <img
+                    key={side.src}
+                    src={side.src}
+                    alt={side.alt}
+                    draggable={false}
+                    className="article-image-viewer_image"
+                  />
+                ))}
+              </span>
+            ) : (
+              <img
+                src={image.src}
+                alt={image.alt}
+                draggable={false}
+                className="article-image-viewer_image"
+                style={{
+                  transform: zoomed ? 'scale(2.5)' : 'scale(1)',
+                  transformOrigin: `${point.x}% ${point.y}%`,
+                }}
+              />
+            )}
             <span aria-hidden="true" className="article-image-viewer_zoom-icon">
               {zoomed ? (
                 <IconZoomOut size={20} aria-hidden="true" />
