@@ -79,11 +79,11 @@ html:not(.dark):has(.start-page) {
   --typeset-flow: 1.45em;
 }
 
-.start-page .typeset h3 {
+.start-page .typeset h3:not(.not-typeset *) {
   margin-block-start: var(--space-8);
 }
 
-.start-page .typeset h3 + p {
+.start-page .typeset h3:not(.not-typeset *) + p {
   margin-block-start: var(--space-3);
 }
 
