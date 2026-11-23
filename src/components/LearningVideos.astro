@@ -4,8 +4,11 @@ import { IconArrowUpRight, IconPlayerPlay } from '@tabler/icons-react';
 import type { CollectionEntry } from 'astro:content';
 interface Props {
   videos: CollectionEntry<'links'>['data'][];
+  /** inline: quiet list rows for article pages; default: hub cards. */
+  variant?: 'cards' | 'inline';
 }
-const { videos } = Astro.props;
+const { videos, variant = 'cards' } = Astro.props;
+const inline = variant === 'inline';
 const order = (video: Props['videos'][number]) =>
   video.youtube?.includes('PL9821')
     ? 0
@@ -15,7 +18,10 @@ const order = (video: Props['videos'][number]) =>
 const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
 ---
 
-<div data-learning-videos class="learning-videos_div">
+<div
+  data-learning-videos
+  class:list={inline ? 'learning-videos_list not-typeset' : 'learning-videos_div'}
+>
   {orderedVideos.map((link) => {
     const stories = link.youtube?.includes('PL9821');
     const biography = link.youtube?.includes('PLlZaz');
@@ -32,6 +38,48 @@ const orderedVideos = videos.toSorted((a, b) => order(a) - order(b));
     const action = link.youtube?.startsWith('videoseries')
       ? 'Watch playlist on YouTube'
       : 'Watch video on YouTube';
+    if (inline)
+      return (
+        <article class="learning-videos_row">
+          <!-- Duplicate pointer target for the title link; hidden from keyboard and screen readers. -->
+          <a href={link.url} tabindex="-1" aria-hidden="true" class="learning-videos_thumb">
+            <Image
+              src={`https://i.ytimg.com/vi/${thumbnail}/mqdefault.jpg`}
+              alt=""
+              width={320}
+              height={180}
+              widths={[160, 320]}
+              quality={70}
+              sizes="120px"
+              loading="lazy"
+            />
+          </a>
+          <div class="learning-videos_body">
+            <h3 class="learning-videos_title">
+              <a href={link.url}>
+                {title}
+                <IconArrowUpRight size={16} aria-hidden="true" />
+                <span class="sr-only"> (YouTube playlist)</span>
+              </a>
+            </h3>
+            <p class="learning-videos_byline">
+              {stories ? 'Mufti Menk' : biography ? 'Animated biography' : 'Video'}
+            </p>
+            <p>
+              {stories
+                ? 'Stories of the prophets, from Adam to Muhammad, peace be upon them. A broad introduction rather than a full biography.'
+                : biography
+                  ? 'A fuller account of Prophet Muhammad’s life, from his childhood and the first revelation to his journey from Mecca to Medina.'
+                  : link.description}
+            </p>
+            {biography && (
+              <p class="learning-videos_byline">
+                AI-generated visuals depict imagined scenes, not real footage.
+              </p>
+            )}
+          </div>
+        </article>
+      );
     return (
       <article class="learning-videos_article">
         <!-- Duplicate pointer target for the watch button below; hidden from keyboard and screen readers. -->

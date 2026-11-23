@@ -314,6 +314,72 @@
   inset: 0;
   border-radius: var(--radius-small);
 }
+/* Inline variant: quiet list rows inside article pages such as /start. */
+.learning-videos_list {
+  margin-block-start: var(--space-4);
+  border-block: 1px solid var(--border);
+}
+.learning-videos_row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+  padding-block: var(--space-4);
+  @media (width >= 40rem) {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+  }
+  & + & {
+    border-top: 1px solid var(--border);
+  }
+}
+.learning-videos_thumb {
+  display: block;
+  aspect-ratio: var(--aspect-video);
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: var(--secondary);
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+  }
+}
+.learning-videos_body {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--muted-foreground);
+  font-size: var(--text-small);
+  line-height: var(--leading-relaxed);
+  & p {
+    margin: 0;
+  }
+}
+.learning-videos_title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  font-weight: var(--font-weight-semibold);
+  & a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, currentColor 30%, transparent);
+    text-underline-offset: 0.2em;
+    & svg {
+      display: inline;
+      vertical-align: -0.1em;
+      margin-inline-start: 0.15em;
+    }
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+}
+.learning-videos_byline {
+  font-size: var(--text-xs, 0.8125rem);
+}
 .min-width-0 {
   min-width: 0px;
 }
