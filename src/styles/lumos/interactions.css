@@ -147,6 +147,16 @@ body {
   max-width: 100%;
   object-fit: contain;
 }
+.article-image-viewer_pair {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  transition: transform 200ms ease-out;
+  & .article-image-viewer_image {
+    min-width: 0;
+    max-width: calc(50% - var(--space-3) / 2);
+  }
+}
 .article-image-viewer_zoom-icon {
   pointer-events: none;
   position: absolute;
