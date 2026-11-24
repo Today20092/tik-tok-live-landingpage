@@ -11,9 +11,10 @@ import LearningVideos from './LearningVideos.astro';
 import ReadingResources from './ReadingResources.astro';
 import SupportCard from './SupportCard.astro';
 interface Props {
+  welcome?: boolean;
   readingLayout?: 'note' | 'split' | 'minimal';
 }
-const { readingLayout = 'split' } = Astro.props;
+const { readingLayout = 'split', welcome = false } = Astro.props;
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -35,27 +36,59 @@ const videos = links.filter((link) => link.youtube);
       class="pocket-hub_main"
       data-pagefind-body={Astro.url.pathname === base ? '' : undefined}
     >
-      <div id="read">
+      {welcome && (
+        <>
+          <header class="home-welcome">
+            <h1 class="live-intro_title">Discover Islam with Ayoub</h1>
+            <p class="live-intro_description">
+              Explore what Islam teaches, put its guidance into practice in
+              everyday life, and share what you learn. Whatever brings you here,
+              you're welcome to start with the basics.
+            </p>
+            <a href={`${base}start/`} class="control control-primary">
+              Getting to know Islam{' '}
+              <IconArrowRight size={16} aria-hidden="true" />
+            </a>
+          </header>
+          <nav class="home-quick-links" aria-label="Quick access">
+            <a href="#books" class="control control-outline">
+              Books from the live
+            </a>
+            <a href={`${base}articles/`} class="control control-outline">
+              Articles
+            </a>
+            <a href={`${base}printables/`} class="control control-outline">
+              Printables
+            </a>
+            <a href="#support" class="control control-outline">
+              Support the work
+            </a>
+          </nav>
+        </>
+      )}
+      <div id="read" class:list={{ 'hub-section': welcome }}>
         <slot name="books">
-          <ReadingResources layout={readingLayout} />
+          <ReadingResources layout={readingLayout} nested={welcome} />
         </slot>
       </div>
       <section class="hub-section" aria-labelledby="start-title">
         <h2 id="start-title" class="pocket-hub_copies-title">
-          New to Islam?
+          {welcome ? 'Explore the basics' : 'New to Islam?'}
         </h2>
-        <a href={`${base}start/`} class="resource-card">
-          <span class="resource-card_content">
-            <span class="resource-card_title">Getting to know Islam</span>{' '}
-            <span class="resource-card_description">
-              A short guide to what Muslims believe and practice, and how to
-              take your first steps.
-            </span>{' '}
-            <span class="resource-card_action">
-              Read the guide <span aria-hidden="true">→</span>
+        {!welcome && (
+          <a href={`${base}start/`} class="resource-card">
+            <span class="resource-card_content">
+              <span class="resource-card_title">Getting to know Islam</span>{' '}
+              <span class="resource-card_description">
+                A short guide to what Muslims believe and practice, and how to
+                take your first steps.
+              </span>{' '}
+              <span class="resource-card_action">
+                Read the guide <span aria-hidden="true">→</span>
+              </span>
             </span>
-          </span>
-        </a>
+          </a>
+        )}
         <a href={introduction.url} class="resource-card">
           <span class="resource-card_content">
             <span class="resource-card_title">
@@ -80,7 +113,9 @@ const videos = links.filter((link) => link.youtube);
         >
           <div class="pocket-hub_div-5">
             <h2 id="articles-title" class="pocket-hub_articles-title">
-              Articles & understanding
+              {welcome
+                ? 'Articles for everyday life'
+                : 'Articles & understanding'}
             </h2>
             <a href={`${base}articles/`} class="pocket-hub_a-3">
               View all <IconArrowRight size={14} aria-hidden="true" />
@@ -153,7 +188,9 @@ const videos = links.filter((link) => link.youtube);
           </div>
         </div>
       </section>
-      <SupportCard />
+      <div id="support">
+        <SupportCard />
+      </div>
     </main>
   </div>
 </div>
@@ -176,6 +213,7 @@ const videos = links.filter((link) => link.youtube);
     }
     .pocket-hub_copies-title,
     .pocket-hub_articles-title,
+    .pocket-hub :global(#reading-title.section-title),
     .pocket-hub :global(.reading-links > .section-title) {
       font-family: var(--font-serif);
       font-size: var(--text-2xl);
@@ -185,7 +223,7 @@ const videos = links.filter((link) => link.youtube);
     /* Item titles sit one step below their section heading. */
     .pocket-hub :global(.article-list_heading),
     .pocket-hub :global(.learning-videos_h3),
-    .pocket-hub :global(.reading-book h3) {
+    .pocket-hub :global(.reading-edition-title) {
       font-size: var(--text-xl);
       line-height: var(--leading-tight);
     }
@@ -233,6 +271,21 @@ const videos = links.filter((link) => link.youtube);
       max-width: 60ch;
       margin-top: var(--space-3);
       color: var(--muted-foreground);
+    }
+    .home-welcome {
+      padding-block: var(--space-4) var(--space-2);
+    }
+    .home-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+    .home-welcome .control,
+    .home-quick-links .control {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
     .live-session-nav {
       display: grid;

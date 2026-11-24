@@ -1,6 +1,6 @@
 # Homepage mission and resource paths
 
-Status: ready-for-agent
+Status: claimed
 Blocked by: none
 
 ## Outcome
