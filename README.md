@@ -11,7 +11,7 @@ This project is a static site built using a modern web development stack:
 - **[Tailwind CSS](https://tailwindcss.com/)** (v4) - For utility-first styling.
 - **Vite** - For fast bundling and development.
 
-The site features a beautiful dynamic design with an authentic Islamic geometric background (12-pointed star/dodecagram pattern), smooth theme toggling (Light/Dark mode), and beautifully styled interactive cards for links, FAQs, and YouTube embeds.
+The site features a beautiful dynamic design with an authentic Islamic geometric background (12-pointed star/dodecagram pattern), smooth theme toggling (Light/Dark mode), and beautifully styled interactive cards for links and YouTube embeds.
 
 ## 🔗 Live URL
 
@@ -78,8 +78,8 @@ npm run preview
 ## 📂 Project Structure
 
 - `src/pages/index.astro`: The main landing page.
-- `src/components/`: Contains React components (`BioBlurb`, `LinkCard`, `FAQ`, `ThemeToggle`).
-- `src/content/`: Contains the markdown/json files that power the content of the site (like FAQs, Links, and Bio).
+- `src/components/`: Astro components and React islands, grouped into `layout/`, `sections/`, `article/`, `quotes/`, `ui/`, `lumos/` and `start/`.
+- `src/content/`: Contains the markdown/json files that power the content of the site (articles and links).
 - `src/styles/global.css`: Global styles and Tailwind imports.
 - `public/`: Static assets like favicons.
 

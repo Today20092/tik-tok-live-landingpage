@@ -2,16 +2,16 @@
 import '../../styles/global.css';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
-import QuoteStylePreview from '@/components/QuoteStylePreview.astro';
-import AmazonBookCard from '@/components/AmazonBookCard.astro';
-import SupportCard from '@/components/SupportCard.astro';
-import ReadingResources from '@/components/ReadingResources.astro';
-import LearningVideos from '@/components/LearningVideos.astro';
+import QuoteStylePreview from '@/components/quotes/QuoteStylePreview.astro';
+import AmazonBookCard from '@/components/article/AmazonBookCard.astro';
+import SupportCard from '@/components/ui/SupportCard.astro';
+import ReadingResources from '@/components/sections/ReadingResources.astro';
+import LearningVideos from '@/components/ui/LearningVideos.astro';
 import { getCollection } from 'astro:content';
-import ArticleList from '@/components/ArticleList.astro';
-import LinkPreviews from '@/components/LinkPreviews.astro';
-import ArticleLink from '@/components/ArticleLink.astro';
-import ArticleImageViewer from '@/components/ArticleImageViewer';
+import ArticleList from '@/components/article/ArticleList.astro';
+import LinkPreviews from '@/components/layout/LinkPreviews.astro';
+import ArticleLink from '@/components/article/ArticleLink.astro';
+import ArticleImageViewer from '@/components/ui/ArticleImageViewer';
 import { IconCopy } from '@tabler/icons-react';
 import chartImage from '../../assets/80000-hours-income-life-satisfaction.png';
 const articles = (await getCollection('articles', ({ data }) => !data.draft))
@@ -258,22 +258,15 @@ export function getStaticPaths() {
           starts one spacing step below the header. The homepage uses the
           cover-and-text reading layout with one title, a primary PDF action and
           a secondary print action. Free-copy eligibility and other editions
-          expand into native swipeable shelves on request. Compare the reading
-          note, cover-and-text, and text-first variants below. The welcome
-          section uses a grid gap to keep heading and paragraph spacing
-          consistent without collapsed margins.
+          expand into native swipeable shelves on request. The welcome section
+          uses a grid gap to keep heading and paragraph spacing consistent
+          without collapsed margins.
         </p>
         <a
           class="control control-outline"
           href={`${import.meta.env.BASE_URL}#books`}
         >
           View book shelf
-        </a>
-        <a
-          class="control control-ghost"
-          href={`${import.meta.env.BASE_URL}reading-preview/note/`}
-        >
-          Compare shelf layouts
         </a>
       </section>
     </Section>

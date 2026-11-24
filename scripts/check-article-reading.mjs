@@ -5,7 +5,7 @@ import { URL } from 'node:url';
 import console from 'node:console';
 
 // Exercise the shipped script with scroll, resize, and expanding-content events.
-const source = readFileSync(new URL('../src/components/ArticleReadingTools.astro', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../src/components/article/ArticleReadingTools.astro', import.meta.url), 'utf8');
 const script = source.match(/<script>([\s\S]*?)<\/script>/)[1];
 let height = 4000;
 let reducedMotion = false;

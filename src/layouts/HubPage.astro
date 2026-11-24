@@ -1,11 +1,10 @@
 ---
 import '../styles/global.css';
-import PocketHub from '@/components/PocketHub.astro';
-import SiteHeader from '@/components/SiteHeader.astro';
-import SiteFooter from '@/components/SiteFooter.astro';
-import SharePage from '@/components/SharePage.astro';
-import SupportCard from '@/components/SupportCard.astro';
-import LinkPreviews from '@/components/LinkPreviews.astro';
+import SiteHeader from '@/components/layout/SiteHeader.astro';
+import SiteFooter from '@/components/layout/SiteFooter.astro';
+import SharePage from '@/components/layout/SharePage.astro';
+import SupportCard from '@/components/ui/SupportCard.astro';
+import LinkPreviews from '@/components/layout/LinkPreviews.astro';
 interface Props {
   title?: string;
   description?: string;
@@ -157,11 +156,7 @@ const structuredData = {
       </a>
       <SiteHeader />
       <div id="main-content" tabindex="-1" class="site-main">
-        {Astro.slots.has('default') ? (
-          <slot />
-        ) : (
-          <PocketHub />
-        )}
+        <slot />
       </div>
       {isArticle && (
         <div class="page-width">

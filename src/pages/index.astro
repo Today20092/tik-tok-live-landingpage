@@ -1,6 +1,13 @@
 ---
-import PocketHub from '../components/PocketHub.astro';
-import HubPage from '../layouts/HubPage.astro';
+import HubPage from '@/layouts/HubPage.astro';
+import Welcome from '@/components/sections/Welcome.astro';
+import ReadingResources from '@/components/sections/ReadingResources.astro';
+import Basics from '@/components/sections/Basics.astro';
+import LatestArticles from '@/components/sections/LatestArticles.astro';
+import MoreLearning from '@/components/sections/MoreLearning.astro';
+import PrintablesTeaser from '@/components/sections/PrintablesTeaser.astro';
+import SupportCard from '@/components/ui/SupportCard.astro';
+import '@/styles/home.css';
 ---
 
 <HubPage
@@ -8,5 +15,21 @@ import HubPage from '../layouts/HubPage.astro';
   description="Get to know Islam, explore its guidance for everyday life, and find resources to share. Read the Quran, find the books Ayoub reads live, and browse articles and free printables."
   inlineSupport
 >
-  <PocketHub welcome />
+  <div data-pocket-hub class="pocket-hub">
+    <div class="pocket-hub_content">
+      <main class="pocket-hub_main" data-pagefind-body>
+        <Welcome />
+        <div id="read" class="hub-section">
+          <ReadingResources nested />
+        </div>
+        <Basics />
+        <LatestArticles />
+        <MoreLearning />
+        <PrintablesTeaser />
+        <div id="support">
+          <SupportCard />
+        </div>
+      </main>
+    </div>
+  </div>
 </HubPage>

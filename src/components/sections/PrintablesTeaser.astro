@@ -1,0 +1,22 @@
+---
+import HubSection from './HubSection.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<HubSection
+  headingId="printables-title"
+  headingClass="section-title pocket-hub_articles-title"
+  title="Free Islamic printables"
+>
+  <div class="live-help">
+    <p>
+      Free dawah tabling materials: the Getting to Know Islam pamphlet,
+      postcards, and a Quran bookmark to print and share.
+    </p>
+    <div>
+      <a href={`${base}printables/`} class="control control-outline">
+        Browse printables
+      </a>
+    </div>
+  </div>
+</HubSection>

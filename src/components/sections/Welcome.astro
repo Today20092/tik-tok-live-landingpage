@@ -1,0 +1,55 @@
+---
+import { IconArrowRight } from '@tabler/icons-react';
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="home-welcome">
+  <h1 class="live-intro_title">Discover Islam with Ayoub</h1>
+  <p class="live-intro_description">
+    Explore what Islam teaches, put its guidance into practice in everyday life,
+    and share what you learn. Whatever brings you here, you're welcome to start
+    with the basics.
+  </p>
+  <a href={`${base}start/`} class="control control-primary">
+    Getting to know Islam{' '}
+    <IconArrowRight size={16} aria-hidden="true" />
+  </a>
+</header>
+<nav class="home-quick-links" aria-label="Quick access">
+  <a href="#books" class="control control-outline">Books from the live</a>
+  <a href={`${base}articles/`} class="control control-outline">Articles</a>
+  <a href={`${base}printables/`} class="control control-outline">Printables</a>
+  <a href="#support" class="control control-outline">Support the work</a>
+</nav>
+
+<style>
+  @layer components {
+    .live-intro_title {
+      margin-top: 0;
+      font-family: var(--font-serif);
+      font-size: var(--text-4xl);
+      line-height: var(--leading-tight);
+      text-wrap: balance;
+    }
+    .live-intro_description {
+      max-width: 60ch;
+      margin-top: var(--space-3);
+      color: var(--muted-foreground);
+    }
+    .home-welcome {
+      padding-block: var(--space-4) var(--space-2);
+    }
+    .home-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+    .home-welcome .control,
+    .home-quick-links .control {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+  }
+</style>

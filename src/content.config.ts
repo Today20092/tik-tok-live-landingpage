@@ -17,11 +17,6 @@ const linkIcons = [
   'Youtube',
 ] as const;
 
-const siteCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/site' }),
-  schema: z.object({}).optional(),
-});
-
 const linksCollection = defineCollection({
   loader: async () => {
     const fs = await import('node:fs/promises');
@@ -45,23 +40,6 @@ const linksCollection = defineCollection({
   }),
 });
 
-const drawingsCollection = defineCollection({
-  loader: async () => {
-    const fs = await import('node:fs/promises');
-    const path = await import('node:path');
-    const filePath = path.resolve('src/content/drawings/drawings.json');
-    const text = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(text);
-    return data;
-  },
-  schema: z.object({
-    id: z.string(),
-    title: z.string(),
-    description: z.string(),
-    svgPath: z.string(),
-  }),
-});
-
 export const collections = {
   articles: defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
@@ -80,7 +58,5 @@ export const collections = {
         .optional(),
     }),
   }),
-  site: siteCollection,
   links: linksCollection,
-  drawings: drawingsCollection,
 };

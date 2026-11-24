@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import kofiCup from '../assets/kofi-cup.png';
+import kofiCup from '@/assets/kofi-cup.png';
 interface Props { compact?: boolean; floating?: boolean }
 const { compact = false, floating = false } = Astro.props;
 const support = (await getCollection('links')).find(({ data }) => data.variant === 'support');

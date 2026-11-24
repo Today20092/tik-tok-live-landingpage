@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import HubSection from './HubSection.astro';
+import ResourceCard from '@/components/ui/ResourceCard.astro';
+
+const introduction = (await getCollection('links')).find(
+  ({ data }) => data.icon === 'PencilLine'
+);
+if (!introduction)
+  throw new Error('The beginner introduction resource is required.');
+---
+
+<HubSection headingId="start-title" title="Explore the basics">
+  <ResourceCard
+    href={introduction.data.url}
+    title="Start here: why Islam isn't a new religion"
+    description="The diagram I share on live, introducing how Islam connects with earlier prophets."
+    action="Open the diagram"
+  />
+</HubSection>

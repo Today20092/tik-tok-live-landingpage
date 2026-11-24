@@ -1,0 +1,78 @@
+---
+import {
+  IconBrandTiktok,
+  IconBrandTwitch,
+  IconBrandYoutube,
+} from '@tabler/icons-react';
+import { getCollection } from 'astro:content';
+import HubSection from './HubSection.astro';
+import LearningVideos from '@/components/ui/LearningVideos.astro';
+
+const youtube = 'https://go.alphabravomedia.co/islam-youtube';
+const videos = (await getCollection('links'))
+  .map((entry) => entry.data)
+  .filter((link) => link.youtube);
+---
+
+<HubSection headingId="more-learning-title" title="More ways to learn">
+  <section id="join" class="learning-group" aria-labelledby="join-title">
+    <h3 id="join-title" class="learning-group-title">
+      Live sessions & recordings
+    </h3>
+    <div class="live-help">
+      <p>Catch up on past lives on YouTube, or follow for future ones.</p>
+      <nav aria-label="Ayoub's social profiles" class="live-session-nav">
+        <a href={youtube} class="control control-primary">
+          <IconBrandYoutube size={18} aria-hidden="true" /> Watch recordings on
+          YouTube
+        </a>
+        <a
+          href="https://go.alphabravomedia.co/islam-tiktok"
+          class="control control-outline"
+        >
+          <IconBrandTiktok size={18} aria-hidden="true" /> Follow on TikTok
+        </a>
+        <a
+          href="https://go.alphabravomedia.co/islam-twitch"
+          class="control control-outline"
+        >
+          <IconBrandTwitch size={18} aria-hidden="true" /> Follow on Twitch
+        </a>
+      </nav>
+    </div>
+  </section>
+  <section id="watch" class="learning-group" aria-labelledby="watch-title">
+    <h3 id="watch-title" class="learning-group-title">Learning videos</h3>
+    <div class="live-help">
+      <LearningVideos videos={videos} />
+    </div>
+  </section>
+</HubSection>
+
+<style>
+  @layer components {
+    .learning-group {
+      margin-top: var(--space-8);
+      scroll-margin-top: var(--space-5);
+    }
+    .learning-group-title {
+      margin: 0 0 var(--space-4);
+      font: 600 var(--text-lg)/var(--leading-snug) var(--font-sans);
+    }
+    .live-session-nav {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2);
+      margin: 0;
+    }
+    .live-session-nav a {
+      min-width: 0;
+      white-space: normal;
+    }
+    @media (width >= 40rem) {
+      .live-session-nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+</style>

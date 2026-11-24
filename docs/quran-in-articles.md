@@ -5,7 +5,7 @@ Use `.mdx` for articles with reusable components. Plain `.md` articles still wor
 Import the verse component below the frontmatter, then insert it wherever the passage belongs:
 
 ```mdx
-import QuranVerse from '@/components/QuranVerse.astro';
+import QuranVerse from '@/components/quotes/QuranVerse.astro';
 
 <QuranVerse verse="61:2" />
 ```

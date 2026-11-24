@@ -1,12 +1,12 @@
 ---
 import { statSync } from 'node:fs';
 import { IconMaximize, IconRotate360 } from '@tabler/icons-react';
-import ArticleImageViewer from '@/components/ArticleImageViewer';
+import ArticleImageViewer from '@/components/ui/ArticleImageViewer';
 import HubPage from '@/layouts/HubPage.astro';
 import Section from '@/components/lumos/Section.astro';
 import Heading from '@/components/lumos/Heading.astro';
-import PrintItem from '@/components/PrintItem.astro';
-import SupportCard from '@/components/SupportCard.astro';
+import PrintItem from '@/components/sections/PrintItem.astro';
+import SupportCard from '@/components/ui/SupportCard.astro';
 import { postcardAnswers } from '@/content/printable-postcard-answers';
 
 const base = import.meta.env.BASE_URL;

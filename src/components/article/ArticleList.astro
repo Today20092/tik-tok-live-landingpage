@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { readingTime } from '@/lib/reading-time';
-import LumosHeading from './lumos/Heading.astro';
+import LumosHeading from '@/components/lumos/Heading.astro';
 interface Props {
   articles: CollectionEntry<'articles'>[];
   heading?: 'h2' | 'h3';

@@ -5,7 +5,7 @@ import { gzipSync } from 'node:zlib';
 
 const { build } = createRequire(import.meta.resolve('astro/package.json'))('esbuild');
 const result = await build({
-  entryPoints: ['src/components/IncomeWellbeingCharts.tsx'],
+  entryPoints: ['src/components/article/IncomeWellbeingCharts.tsx'],
   bundle: true, write: false, minify: true, metafile: true,
   platform: 'browser', format: 'esm',
   external: ['react', 'react-dom', 'react/jsx-runtime'],
