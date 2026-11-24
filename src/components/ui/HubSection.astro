@@ -1,0 +1,19 @@
+---
+interface Props {
+  /** Id of the heading, which also names the section. */
+  headingId: string;
+  title: string;
+  headingClass?: string;
+}
+
+const {
+  headingId,
+  title,
+  headingClass = 'pocket-hub_copies-title',
+} = Astro.props;
+---
+
+<section class="hub-section" aria-labelledby={headingId}>
+  <h2 id={headingId} class={headingClass}>{title}</h2>
+  <slot />
+</section>

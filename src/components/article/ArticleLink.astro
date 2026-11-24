@@ -2,6 +2,7 @@
 import { getEntry } from 'astro:content';
 import { IconArrowRight, IconBook2 } from '@tabler/icons-react';
 import { readingTime } from '@/lib/reading-time';
+import ResourceCard from '@/components/ui/ResourceCard.astro';
 
 interface Props {
   article: string;
@@ -17,22 +18,23 @@ const visible = import.meta.env.DEV || !article.data.draft;
 
 {visible && (
   <aside data-not-typeset class="u-mt-6 u-mb-6" aria-label="Related article">
-    <a
+    <ResourceCard
       href={`${import.meta.env.BASE_URL}articles/${article.id}/`}
-      class="resource-card"
+      title={article.data.title}
     >
-      <IconBook2 size={24} strokeWidth={1.5} aria-hidden="true" />
-      <span class="resource-card_content">
-        <span class="resource-card_title">{article.data.title}</span>
-        <span class="resource-card_description">
-          {article.data.description}
-        </span>
-        <span class="resource-card_description">
-          {article.data.draft ? 'Draft preview' : 'Read article'} · About{' '}
-          {readingTime(article.body)} min read
-        </span>
+      <Fragment slot="start">
+        <IconBook2 size={24} strokeWidth={1.5} aria-hidden="true" />
+      </Fragment>
+      <span class="resource-card_description">
+        {article.data.description}
       </span>
-      <IconArrowRight size={20} aria-hidden="true" />
-    </a>
+      <span class="resource-card_description">
+        {article.data.draft ? 'Draft preview' : 'Read article'} · About{' '}
+        {readingTime(article.body)} min read
+      </span>
+      <Fragment slot="end">
+        <IconArrowRight size={20} aria-hidden="true" />
+      </Fragment>
+    </ResourceCard>
   </aside>
 )}

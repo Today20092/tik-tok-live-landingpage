@@ -31,10 +31,12 @@ Public assets referenced in code should use `import.meta.env.BASE_URL` or absolu
 
 ## Key Files
 
-- `src/pages/index.astro` is the main landing page and owns page metadata, structured data, section layout, hero content, social links, footer, and site-info copy.
+- `src/pages/index.astro` is the main landing page. It owns the title, description and section order; each section lives in `src/components/sections/`.
+- `src/layouts/HubPage.astro` owns the document head, metadata, structured data (including social profiles), header, share block, footer and link previews. Pages supply its content.
+- Follow [Site structure](docs/site-structure.md) for folder rules, import direction and when to extract a component.
 - `src/content/links/links.json` is the main list of cards/links shown on the page.
 - `src/content.config.ts` defines Content Layer collections and validates link content.
-- `src/components/PocketHub.astro` and `src/components/ui/LearningVideos.astro` compose resource cards and learning content.
+- `src/components/ui/ResourceCard.astro` and `LearningVideos.astro` render resource cards and learning content; `src/styles/home.css` holds the styles the homepage sections share.
 - `src/components/layout/ThemeControl.astro` controls light/dark mode.
 - `src/styles/global.css` imports the Lumos foundation and component styles; shared tokens and patterns live in `src/styles/lumos/`. Keep article prose in `src/styles/typeset.css`.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.

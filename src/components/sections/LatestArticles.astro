@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import { IconArrowRight } from '@tabler/icons-react';
+import ArticleList from '@/components/article/ArticleList.astro';
+
+const articles = (
+  await getCollection('articles', ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const base = import.meta.env.BASE_URL;
+---
+
+{articles.length > 0 && (
+  <section
+    id="articles"
+    aria-labelledby="articles-title"
+    class="hub-section"
+    data-pagefind-ignore
+  >
+    <div class="pocket-hub_div-5">
+      <h2 id="articles-title" class="pocket-hub_articles-title">
+        Articles for everyday life
+      </h2>
+      <a href={`${base}articles/`} class="pocket-hub_a-3">
+        View all <IconArrowRight size={14} aria-hidden="true" />
+      </a>
+    </div>
+    <ArticleList articles={articles.slice(0, 3)} heading="h3" />
+  </section>
+)}
+
+<style>
+  @layer components {
+    .pocket-hub_div-5 {
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+  }
+</style>

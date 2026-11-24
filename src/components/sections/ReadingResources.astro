@@ -2,15 +2,15 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { IconChevronDown } from '@tabler/icons-react';
+import ResourceCard from '@/components/ui/ResourceCard.astro';
 import cover from '@/assets/books/riyad-as-salihin.webp';
 import clearLiveCover from '@/assets/books/clear-quran-arabic-english.png';
 import haleemCover from '@/assets/books/abdel-haleem-paperback-generated.png';
 import parallelCover from '@/assets/books/abdel-haleem-hardcover-generated.png';
 interface Props {
   nested?: boolean;
-  layout?: 'note' | 'split' | 'minimal';
 }
-const { layout = 'split', nested = false } = Astro.props;
+const { nested = false } = Astro.props;
 const ReadingHeading = nested ? 'h2' : 'h1';
 const ResourceHeading = nested ? 'h3' : 'h2';
 const EditionHeading = nested ? 'h4' : 'h3';
@@ -54,7 +54,7 @@ const paidEditions = [
 
 <section
   id="books"
-  class:list={['reading-resources', `reading-resources--${layout}`]}
+  class="reading-resources reading-resources--split"
   aria-labelledby="reading-title"
 >
   <ReadingHeading
@@ -136,32 +136,25 @@ const paidEditions = [
     <ResourceHeading id="quran-resources-title" class="section-title">
       Quran resources
     </ResourceHeading>
-    <a class="resource-card resource-card-primary" href={resource('BookOpen')}>
-      <span class="resource-card_content">
-        <span class="resource-card_title">Read the Quran online</span>{' '}
-        <span class="resource-card_description">
-          Free English translation and audio on Quran.com.
-        </span>{' '}
-        <span class="resource-card_action">
-          Start reading <span aria-hidden="true">↗</span>
-        </span>
-      </span>
-    </a>
+    <ResourceCard
+      href={resource('BookOpen')}
+      class="resource-card-primary"
+      title="Read the Quran online"
+      description="Free English translation and audio on Quran.com."
+      action="Start reading"
+    />
     <section class="reading-free-copies" aria-labelledby="free-copies-title">
       <EditionHeading id="free-copies-title">
         Free printed copies
       </EditionHeading>
       <div class="resource-grid">
         {freeCopies.map((book) => (
-          <a class="resource-card" href={book.url}>
-            <span class="resource-card_content">
-              <span class="resource-card_title">{book.title}</span>{' '}
-              <span class="resource-card_description">{book.note}</span>{' '}
-              <span class="resource-card_action">
-                {book.label} <span aria-hidden="true">↗</span>
-              </span>
-            </span>
-          </a>
+          <ResourceCard
+            href={book.url}
+            title={book.title}
+            description={book.note}
+            action={book.label}
+          />
         ))}
       </div>
     </section>
@@ -450,23 +443,6 @@ const paidEditions = [
     .reading-resources--split .reading-cover img {
       height: 11rem;
     }
-    .reading-resources--minimal .reading-feature {
-      border: 0;
-      border-block: 1px solid var(--border);
-      background: transparent;
-      border-radius: 0;
-      padding-inline: 0;
-    }
-    .reading-resources--minimal .reading-cover {
-      display: none;
-    }
-    .reading-resources--minimal .reading-actions .control {
-      background: transparent;
-      color: var(--primary);
-      padding-inline: 0;
-      text-decoration: underline;
-      text-underline-offset: 0.2em;
-    }
     @media (width < 40rem) {
       .reading-live-books {
         grid-template-columns: minmax(0, 1fr);
@@ -512,15 +488,6 @@ const paidEditions = [
       .reading-live-books .live-book-cover {
         height: 6rem;
         max-width: 100%;
-      }
-      .reading-resources--minimal .reading-live-books .reading-feature {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .reading-resources--minimal .reading-live-books .reading-copy {
-        grid-column: 1;
-      }
-      .reading-resources--minimal .reading-live-books .reading-actions {
-        grid-column: 1;
       }
       .reading-editions-grid {
         grid-template-columns: minmax(0, 1fr);

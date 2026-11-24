@@ -1,0 +1,56 @@
+/* Styles shared by the homepage sections. The repeated `.pocket-hub` ancestors
+   set specificity so these win over component defaults. */
+@layer components {
+  .pocket-hub .pocket-hub_content {
+    padding-top: var(--space-4);
+  }
+  .pocket-hub .hub-section {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .pocket-hub .pocket-hub_content .hub-section > h2 {
+    margin: 0 0 var(--space-4);
+  }
+  .pocket-hub .pocket-hub_copies-title,
+  .pocket-hub .pocket-hub_articles-title,
+  .pocket-hub .pocket-hub_content #reading-title.section-title,
+  .pocket-hub .pocket-hub_content .reading-links > .section-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+    padding-inline: 0;
+  }
+  /* Item titles sit one step below their section heading. */
+  .pocket-hub .pocket-hub_content .article-list_heading,
+  .pocket-hub .pocket-hub_content .learning-videos_h3,
+  .pocket-hub .pocket-hub_content .reading-edition-title {
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+  }
+  .site-main:has([data-pocket-hub]) + .share-page {
+    margin-top: var(--space-4);
+  }
+  .site-main:has([data-pocket-hub]) + .share-page .share-page_share-title {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-tight);
+  }
+  .pocket-hub .pocket-hub_content h2,
+  .pocket-hub .pocket-hub_content h3,
+  .pocket-hub .pocket-hub_content h4 {
+    overflow-wrap: anywhere;
+  }
+  .pocket-hub .live-help {
+    display: grid;
+    gap: var(--space-4);
+    margin-block: 0;
+    scroll-margin-top: var(--space-5);
+  }
+  .pocket-hub .pocket-hub_content .live-help > p {
+    max-width: 65ch;
+    margin-block: 0;
+  }
+  .hub-section > .resource-card {
+    overflow-wrap: anywhere;
+  }
+}

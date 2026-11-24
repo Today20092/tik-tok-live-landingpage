@@ -7,7 +7,7 @@ import process from 'node:process';
 import console from 'node:console';
 const { chromium } = createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:4335';
-const routes = process.env.BUILT_SITE ? ['/', '/pocket/'] : ['/', '/reading-preview/note/', '/reading-preview/split/', '/reading-preview/minimal/'];
+const routes = ['/'];
 mkdirSync(new URL('../.scratch/', import.meta.url), { recursive: true });
 const browser = await chromium.launch();
 try {
@@ -56,13 +56,11 @@ try {
           const gap = await page.locator('#start-title').evaluate(el => el.nextElementSibling.getBoundingClientRect().top - el.getBoundingClientRect().bottom);
           assert.equal(await page.locator('.live-help_details summary').evaluate(el => getComputedStyle(el).justifyContent), 'space-between');
           assert.ok(gap >= 15, `Welcome heading gap: ${gap}`);
-          if (!route.includes('minimal')) {
-            const inset = await page.locator('.reading-cover img').evaluate(el => {
-              const image = el.getBoundingClientRect(), box = el.parentElement.getBoundingClientRect();
-              return Math.min(image.left - box.left, box.right - image.right);
-            });
-            assert.ok(inset >= 12, `Cover inset: ${inset}`);
-          }
+          const inset = await page.locator('.reading-cover img').evaluate(el => {
+            const image = el.getBoundingClientRect(), box = el.parentElement.getBoundingClientRect();
+            return Math.min(image.left - box.left, box.right - image.right);
+          });
+          assert.ok(inset >= 12, `Cover inset: ${inset}`);
           if ([390, 1280].includes(width) && size === '100%') {
             await page.evaluate(() => { document.querySelectorAll('details').forEach(el => el.open = false); document.activeElement.blur(); window.scrollTo(0, 0); });
             const name = route.split('/').filter(Boolean).at(-1) || 'home';

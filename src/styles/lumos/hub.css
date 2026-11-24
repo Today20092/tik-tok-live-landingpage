@@ -391,20 +391,3 @@
 .u-col-span-full {
   grid-column: 1 / -1;
 }
-.recommendation_collapsible {
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  line-height: var(--leading-relaxed);
-  color: var(--muted-foreground);
-}
-.recommendation_div {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 3);
-  padding-top: calc(var(--spacing) * 3);
-}
-.recommendation_button {
-  margin-top: var(--spacing);
-  min-height: calc(var(--spacing) * 11);
-  padding-inline: 0px;
-}
