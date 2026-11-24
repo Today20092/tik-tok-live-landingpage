@@ -250,6 +250,16 @@ const entries = Object.fromEntries([
       display: none;
     }
 
+    sup:has(> .link-preview-trigger) {
+      white-space: nowrap;
+    }
+
+    sup > .link-preview-trigger {
+      justify-items: start;
+      padding: 0;
+      line-height: 1;
+    }
+
     .link-preview-trigger {
       position: relative;
       z-index: 1;
