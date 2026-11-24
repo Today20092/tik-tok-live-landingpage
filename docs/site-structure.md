@@ -9,7 +9,7 @@ How this site applies the [Astro site structure research](astro-site-structure-r
 | `src/pages/` | Routes: metadata, route data, layout and section order |
 | `src/layouts/` | `HubPage`: `<html>`, head, structured data, header, share block, footer |
 | `src/components/layout/` | Parts of the page frame: header, footer, theme control, sharing, link previews |
-| `src/components/sections/` | Page bands. `PrintItem` is one printable inside the printables page |
+| `src/components/sections/` | Page bands. `HubSection` is the homepage band wrapper and relies on `home.css`; `PrintItem` is one printable inside the printables page |
 | `src/components/article/` | Article-only components |
 | `src/components/quotes/` | Quran and hadith quotations and their preview |
 | `src/components/ui/` | Generic components, and components used by more than one kind of place |
@@ -25,12 +25,14 @@ How this site applies the [Astro site structure research](astro-site-structure-r
 | `pages` | anything below |
 | `layouts` | `layout`, `ui`, `lumos`, `lib`, `styles` (never `sections`) |
 | `layout` | `ui`, `lumos`, `data`, `lib`, `assets` |
-| `sections` | `article`, `quotes`, `ui`, `lumos`, `data`, `lib`, `assets` |
+| `sections` | own folder, `article`, `quotes`, `ui`, `lumos`, `data`, `lib`, `assets` |
 | `article`, `quotes`, `start` | own folder, `ui`, `lumos`, `data`, `lib`, `assets` |
 | `ui`, `lumos` | each other, `lib`, `assets` |
 | `lib` | `data`; never a component or page |
 
-Nothing imports from `pages/`. MDX in `content/` may import components. Use `@/` across folders and `./` for siblings.
+Nothing imports from `pages/`. MDX in `content/` may import components. Use `@/` across folders in new code (a few older files still use `../`) and `./` for siblings.
+
+In a page, import the layout before any styled component, so `global.css` declares the cascade layer order first.
 
 ## When to extract
 
@@ -46,7 +48,7 @@ Nothing imports from `pages/`. MDX in `content/` may import components. Use `@/`
 - No `features/`. Site settings and social links stay in the components that use them.
 - `ui/SupportCard` reads the `links` collection itself, so its callers pass no data.
 - `quotes/QuoteStylePreview` imports `layout/ThemeControl` for the preview page.
-- `printables`, `search`, `start`, `kofi-preview` and the article routes exceed 80 lines or hold their own styles and scripts. Split one when you next change it substantially.
+- `404`, `printables`, `search`, `start`, `kofi-preview`, `podcast-preview` and the article routes exceed 80 lines or hold their own styles and scripts. Split one when you next change it substantially.
 - `src/lib/` uses `kebab-case` file names.
 - `ui/ResourceCard` covers link cards. The "Other Quran editions" summary in `ReadingResources` and the CSS examples on `lumos-preview` keep their own markup.
-- The homepage "Articles" band writes its own wrapper: its heading shares a row with a link, so `ui/HubSection` does not fit.
+- The homepage "Articles" band writes its own wrapper: its heading shares a row with a link, so `HubSection` does not fit.

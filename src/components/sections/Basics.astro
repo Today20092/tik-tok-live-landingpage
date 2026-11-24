@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import HubSection from '@/components/ui/HubSection.astro';
+import HubSection from './HubSection.astro';
 import ResourceCard from '@/components/ui/ResourceCard.astro';
 
 const introduction = (await getCollection('links')).find(

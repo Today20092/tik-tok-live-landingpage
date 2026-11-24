@@ -32,26 +32,7 @@ The page is designed for easy maintenance — users edit plain markdown and JSON
 
 ## Project Structure
 
-```
-src/
-├── content.config.ts            ← Astro content collection schemas (links + site)
-├── pages/
-│   └── index.astro              ← Main page (reads content files at build time)
-├── components/
-│   ├── BioBlurb.tsx             ← Collapsible bio section
-│   ├── FAQ.tsx                  ← Expandable FAQ accordion
-│   ├── LinkCard.tsx             ← Link card with YouTube embed support
-│   └── ThemeToggle.tsx          ← Light/dark theme switcher
-└── styles/
-    └── global.css               ← Tailwind + custom CSS variables + fonts
-
-src/content/                     ← USER-EDITABLE CONTENT (no code here!)
-├── links/
-│   └── links.json               ← Add/remove/reorder resource links
-└── site/
-    ├── bio.md                   ← Bio text in markdown
-    └── faq.md                   ← FAQ questions/answers (## heading = Q, content = A)
-```
+See [docs/site-structure.md](docs/site-structure.md). Resource links live in `src/content/links/links.json`.
 
 ---
 
@@ -76,30 +57,6 @@ Each entry requires `id`, `icon`, `title`, `description`, `url`. The `youtube` f
 
 > If `youtube` is set, the card shows an expandable inline player instead of an external link.
 
-### **src/content/site/bio.md**
-
-Plain markdown. The first paragraph shows as a preview; the rest expands on click.
-
-```markdown
-Welcome to Islamic Education.
-
-This is the expanded content that shows when clicked.
-```
-
-### **src/content/site/faq.md**
-
-`##` headings = questions, paragraph content = answers.
-
-```markdown
-## What is the Quran?
-
-The Quran is...
-
-## Who was Prophet Muhammad?
-
-Muhammad was...
-```
-
 ---
 
 ## Development Workflow
@@ -109,16 +66,6 @@ Muhammad was...
 1. Edit `src/content/links/links.json`
 2. Add object with `id`, `icon`, `title`, `description`, `url`
 3. `npm run dev` → appears instantly
-
-### Updating Bio Text
-
-1. Edit `src/content/site/bio.md`
-2. Add/remove paragraphs — saves rebuild automatically
-
-### Adding FAQ Questions
-
-1. Edit `src/content/site/faq.md`
-2. Add `##` heading + answer text — auto-expands in accordion
 
 ### Embedding YouTube Videos
 
