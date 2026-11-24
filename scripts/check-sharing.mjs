@@ -29,7 +29,7 @@ for (const path of [
     assert.ok(html.includes('property="article:published_time"'));
   }
 }
-const source = read('src/components/SharePage.astro').match(
+const source = read('src/components/layout/SharePage.astro').match(
   /<script>([\s\S]*?)<\/script>/
 )[1];
 const script = ts.transpileModule(source, {

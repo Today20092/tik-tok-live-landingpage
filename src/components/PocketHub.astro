@@ -6,10 +6,10 @@ import {
   IconBrandYoutube,
 } from '@tabler/icons-react';
 import { getCollection } from 'astro:content';
-import ArticleList from './ArticleList.astro';
-import LearningVideos from './LearningVideos.astro';
-import ReadingResources from './ReadingResources.astro';
-import SupportCard from './SupportCard.astro';
+import ArticleList from '@/components/article/ArticleList.astro';
+import LearningVideos from '@/components/ui/LearningVideos.astro';
+import ReadingResources from '@/components/sections/ReadingResources.astro';
+import SupportCard from '@/components/ui/SupportCard.astro';
 interface Props {
   welcome?: boolean;
   readingLayout?: 'note' | 'split' | 'minimal';

@@ -3,7 +3,7 @@
 Use the hadith component in an `.mdx` article:
 
 ```mdx
-import HadithQuote from '@/components/HadithQuote.astro';
+import HadithQuote from '@/components/quotes/HadithQuote.astro';
 
 <HadithQuote hadith="muslim-55a" />
 ```

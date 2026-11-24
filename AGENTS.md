@@ -34,8 +34,8 @@ Public assets referenced in code should use `import.meta.env.BASE_URL` or absolu
 - `src/pages/index.astro` is the main landing page and owns page metadata, structured data, section layout, hero content, social links, footer, and site-info copy.
 - `src/content/links/links.json` is the main list of cards/links shown on the page.
 - `src/content.config.ts` defines Content Layer collections and validates link content.
-- `src/components/PocketHub.astro` and `LearningVideos.astro` compose resource cards and learning content.
-- `src/components/ThemeControl.astro` controls light/dark mode.
+- `src/components/PocketHub.astro` and `src/components/ui/LearningVideos.astro` compose resource cards and learning content.
+- `src/components/layout/ThemeControl.astro` controls light/dark mode.
 - `src/styles/global.css` imports the Lumos foundation and component styles; shared tokens and patterns live in `src/styles/lumos/`. Keep article prose in `src/styles/typeset.css`.
 - `public/robots.txt` and `public/sitemap.xml` support crawlability for audits.
 - `astro.config.mjs` defines the production site URL, Vite plugins, and integrations.

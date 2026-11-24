@@ -78,7 +78,7 @@ npm run preview
 ## 📂 Project Structure
 
 - `src/pages/index.astro`: The main landing page.
-- `src/components/`: Contains React components (`BioBlurb`, `LinkCard`, `FAQ`, `ThemeToggle`).
+- `src/components/`: Astro components and React islands, grouped into `layout/`, `sections/`, `article/`, `quotes/`, `ui/`, `lumos/` and `start/`.
 - `src/content/`: Contains the markdown/json files that power the content of the site (like FAQs, Links, and Bio).
 - `src/styles/global.css`: Global styles and Tailwind imports.
 - `public/`: Static assets like favicons.

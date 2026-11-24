@@ -28,7 +28,7 @@ Use paths relative to `public/`, with no leading slash. Keep images wide, ideall
 
 ## Reusable article components and references
 
-For a recommended YouTube video, import `ArticleVideo` from `@/components/ArticleVideo.astro` and use `<ArticleVideo videoId="2GxlL5-0m_g" title="Wealth Inequality in America (Updated 2026)" channel="politizane" />`. It reuses the site's thumbnail/play-button styling and links to YouTube without loading a player. Keep the recommendation in the author's prose and cite substantive claims in footnotes.
+For a recommended YouTube video, import `ArticleVideo` from `@/components/article/ArticleVideo.astro` and use `<ArticleVideo videoId="2GxlL5-0m_g" title="Wealth Inequality in America (Updated 2026)" channel="politizane" />`. It reuses the site's thumbnail/play-button styling and links to YouTube without loading a player. Keep the recommendation in the author's prose and cite substantive claims in footnotes.
 
 Use `.mdx` when an article needs components. Import them from `@/components/`; keep ordinary paragraphs and headings in Markdown. This inventory is the entry point for `voice-to-blog` and other article editing workflows. Update it when adding a component or changing how authors use one; component implementations and linked guides remain authoritative for props and validation.
 
@@ -42,10 +42,10 @@ Use `.mdx` when an article needs components. Import them from `@/components/`; k
 | Recommended book with an Amazon affiliate link | `AmazonBookCard.astro` | Supply the author's link, title, author and a unique page-local `id`. The component includes the adjacent disclosure and shared resource-card styling. |
 
 ```mdx
-import QuranVerse from '@/components/QuranVerse.astro';
-import HadithQuote from '@/components/HadithQuote.astro';
-import Reflection from '@/components/Reflection.astro';
-import AmazonBookCard from '@/components/AmazonBookCard.astro';
+import QuranVerse from '@/components/quotes/QuranVerse.astro';
+import HadithQuote from '@/components/quotes/HadithQuote.astro';
+import Reflection from '@/components/article/Reflection.astro';
+import AmazonBookCard from '@/components/article/AmazonBookCard.astro';
 
 <QuranVerse verse="28:24" />
 {/* Use an edition-specific key when preserving another existing translation. */}
@@ -83,7 +83,7 @@ Keep card disclosure text inside its component, outside prose styling with `data
 Use a related-article card when a paragraph refers readers to another one of Ayoub's articles. Keep brief references as ordinary links when a card would interrupt the reading.
 
 ```mdx
-import ArticleLink from '@/components/ArticleLink.astro';
+import ArticleLink from '@/components/article/ArticleLink.astro';
 
 <ArticleLink article="preparing-for-marriage" />
 ```
