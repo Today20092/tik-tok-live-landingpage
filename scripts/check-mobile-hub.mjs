@@ -31,7 +31,9 @@ assert.ok(
   html.includes('For non-Muslims in the USA. One free copy per order.')
 );
 assert.ok(html.includes('Free PDF'));
-assert.ok(html.includes('Free for non-Muslims'));
+assert.ok(
+  html.includes('One free copy for non-Muslims. Check delivery eligibility and postage.')
+);
 assert.ok(html.includes('rel="canonical" href="https://islam.ayoubabed.xyz/"'));
 assert.ok(html.includes('application/ld+json'));
 for (const retired of ['pocket', 'journal', 'focus']) {
