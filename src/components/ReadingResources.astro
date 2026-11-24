@@ -7,9 +7,13 @@ import clearLiveCover from '../assets/books/clear-quran-arabic-english.png';
 import haleemCover from '../assets/books/abdel-haleem-paperback-generated.png';
 import parallelCover from '../assets/books/abdel-haleem-hardcover-generated.png';
 interface Props {
+  nested?: boolean;
   layout?: 'note' | 'split' | 'minimal';
 }
-const { layout = 'split' } = Astro.props;
+const { layout = 'split', nested = false } = Astro.props;
+const ReadingHeading = nested ? 'h2' : 'h1';
+const ResourceHeading = nested ? 'h3' : 'h2';
+const EditionHeading = nested ? 'h4' : 'h3';
 const links = (await getCollection('links')).map(({ data }) => data);
 function resource(icon: string) {
   const link = links.find((item) => item.icon === icon);
@@ -25,7 +29,7 @@ const freeCopies = [
   },
   {
     title: 'The Quran Project',
-    note: 'Free for non-Muslims. Check delivery eligibility and postage.',
+    note: 'One free copy for non-Muslims. Check delivery eligibility and postage.',
     label: 'Check eligibility',
     url: resource('PackageOpen'),
   },
@@ -53,9 +57,12 @@ const paidEditions = [
   class:list={['reading-resources', `reading-resources--${layout}`]}
   aria-labelledby="reading-title"
 >
-  <h1 id="reading-title" class="page-title">
+  <ReadingHeading
+    id="reading-title"
+    class={nested ? 'section-title' : 'page-title'}
+  >
     Books I read on live
-  </h1>
+  </ReadingHeading>
   <p class="page-intro">
     Find your book below. No purchase or prior knowledge needed to join.
   </p>
@@ -67,13 +74,15 @@ const paidEditions = [
             src={cover}
             alt="Red cover of Riyad as-Salihin"
             width={400}
-            loading="eager"
-            fetchpriority="high"
+            loading={nested ? 'lazy' : 'eager'}
+            fetchpriority={nested ? undefined : 'high'}
           />
         </span>
       </div>
       <div class="reading-copy">
-        <h2>Meadows of the Righteous</h2>
+        <ResourceHeading class="reading-book-title">
+          Meadows of the Righteous
+        </ResourceHeading>
         <p class="reading-label">Hadith collection</p>
         <p class="reading-subtitle">Riyad as-Salihin · Imam an-Nawawi</p>
         <p>
@@ -99,13 +108,15 @@ const paidEditions = [
             src={clearLiveCover}
             alt="Burgundy and gold cover of The Clear Quran with Arabic Text"
             width={832}
-            loading="eager"
-            fetchpriority="high"
+            loading={nested ? 'lazy' : 'eager'}
+            fetchpriority={nested ? undefined : 'high'}
           />
         </span>
       </div>
       <div class="reading-copy">
-        <h2>The Clear Quran</h2>
+        <ResourceHeading class="reading-book-title">
+          The Clear Quran
+        </ResourceHeading>
         <p class="reading-label">Quran · Arabic + English</p>
         <p>Spiral binding added locally; not included with this edition.</p>
       </div>
@@ -122,9 +133,9 @@ const paidEditions = [
     class="reading-links"
     aria-labelledby="quran-resources-title"
   >
-    <h2 id="quran-resources-title" class="section-title">
+    <ResourceHeading id="quran-resources-title" class="section-title">
       Quran resources
-    </h2>
+    </ResourceHeading>
     <a class="resource-card resource-card-primary" href={resource('BookOpen')}>
       <span class="resource-card_content">
         <span class="resource-card_title">Read the Quran online</span>{' '}
@@ -137,7 +148,9 @@ const paidEditions = [
       </span>
     </a>
     <section class="reading-free-copies" aria-labelledby="free-copies-title">
-      <h3 id="free-copies-title">Free printed copies</h3>
+      <EditionHeading id="free-copies-title">
+        Free printed copies
+      </EditionHeading>
       <div class="resource-grid">
         {freeCopies.map((book) => (
           <a class="resource-card" href={book.url}>
@@ -174,7 +187,9 @@ const paidEditions = [
                   loading="lazy"
                 />
               </div>
-              <h3>{book.title}</h3>
+              <EditionHeading class="reading-edition-title">
+                {book.title}
+              </EditionHeading>
               <p>{book.note}</p>
               <a
                 class="control control-outline"
@@ -293,7 +308,7 @@ const paidEditions = [
     .reading-links p {
       margin: 0;
     }
-    .reading-copy h2 {
+    .reading-book-title {
       font-family: var(--font-serif);
       font-size: var(--text-2xl);
       line-height: var(--leading-tight);
@@ -335,7 +350,7 @@ const paidEditions = [
       padding-top: var(--space-6);
       border-top: 1px solid var(--border);
     }
-    .reading-links > h2 {
+    .reading-links > .section-title {
       margin: 0 0 var(--space-4);
     }
     .reading-links details {
@@ -346,7 +361,7 @@ const paidEditions = [
       gap: var(--space-3);
       margin-block: var(--space-6);
     }
-    .reading-free-copies h3 {
+    #free-copies-title {
       margin: 0;
       font: 600 var(--text-lg)/var(--leading-tight) var(--font-sans);
     }
@@ -405,7 +420,7 @@ const paidEditions = [
       min-height: 0;
       object-fit: contain;
     }
-    .reading-book h3 {
+    .reading-edition-title {
       font-size: var(--text-lg);
       line-height: var(--leading-tight);
     }
@@ -488,7 +503,7 @@ const paidEditions = [
       .reading-live-books .reading-actions .control {
         font-size: var(--text-small);
       }
-      .reading-live-books .reading-copy h2 {
+      .reading-live-books .reading-book-title {
         font-size: var(--text-xl);
       }
       .reading-resources .reading-live-books .reading-cover > img {

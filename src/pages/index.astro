@@ -1,8 +1,12 @@
 ---
+import PocketHub from '../components/PocketHub.astro';
 import HubPage from '../layouts/HubPage.astro';
 ---
 
 <HubPage
-  title="Islam with Ayoub | Books from the live"
-  description="Find the books Ayoub reads on live: Meadows of the Righteous and The Clear Quran with parallel Arabic and English text. Open the free PDF, find the print editions, and request a free English Quran where eligible."
-/>
+  title="Islam with Ayoub | Discover, practice, and share Islam"
+  description="Get to know Islam, explore its guidance for everyday life, and find resources to share. Read the Quran, find the books Ayoub reads live, and browse articles and free printables."
+  inlineSupport
+>
+  <PocketHub welcome />
+</HubPage>
